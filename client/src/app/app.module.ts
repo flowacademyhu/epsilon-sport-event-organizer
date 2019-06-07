@@ -9,6 +9,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/header.component';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { LoggedInComponent } from './logged-in/logged-in.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -19,7 +20,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [
     AppComponent,
     LoginComponent,
-    HeaderComponent
+    HeaderComponent,
+    LoggedInComponent
   ],
   imports: [
     BrowserModule,
