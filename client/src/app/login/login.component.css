@@ -9,4 +9,5 @@
 .btn-round { border-radius: 30px; }
 .bg-indigo { background: indigo; }
 .text-cyan { color: #35bdff; }
-.bg-green { background: green }
+
+.button-size { width: 200px; }
