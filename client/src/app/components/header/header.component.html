@@ -14,13 +14,28 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive" [ngbCollapse]="toggleNavbar">
+      
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
+          
+        <li class="nav-item active" id="myCustomNavbar">
           <a class="nav-link" href=""
-            >Home
+            >{{ 'Home' | translate:user }}
             <span class="sr-only">(current)</span>
           </a>
         </li>
+        <li class="nav-item active" id="myCustomNavbar">
+          <a class="nav-link" href=""
+            >{{ 'Teams' | translate:user }}
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item active" id="myCustomNavbar">
+          <a class="nav-link" href=""
+            >{{ 'Cups' | translate:user }}
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+      
         <li class="nav-item">
           <img
             class="languageFlag nav-link"
@@ -37,7 +52,15 @@
             (click)="switchLanguage('hu')"
           />
         </li>
+        <li class="nav-item">
+          <button type="button" class="btn btn-outline-primary button-size">
+            <a href="http://localhost:8080/oauth2/authorize/google?redirect_uri=http://localhost:4200/oauth2/redirect">
+            {{ 'Login' | translate:user }}
+            </a>
+          </button>
+        </li>
       </ul>
+      
     </div>
   </div>
 </nav>

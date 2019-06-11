@@ -1,4 +1,9 @@
 {
+  "Home": "Home",
+  "Teams": "Teams",
+  "Cups": "Cups",
+  "Login": "Login",
+  
   "LoginGoogle": "Login with Google",
   "LoginGuest": "Login as guest"
 }
