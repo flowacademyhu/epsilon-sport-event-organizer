@@ -4,6 +4,7 @@
     <button
       class="navbar-toggler"
       type="button"
+      (click)="toggleNavbar = !toggleNavbar"
       data-toggle="collapse"
       data-target="#navbarResponsive"
       aria-controls="navbarResponsive"
@@ -12,7 +13,7 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
+    <div class="collapse navbar-collapse" id="navbarResponsive" [ngbCollapse]="toggleNavbar">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
           <a class="nav-link" href=""

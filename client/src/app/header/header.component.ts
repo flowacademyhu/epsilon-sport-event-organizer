@@ -8,6 +8,9 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class HeaderComponent implements OnInit {
 
+
+  toggleNavbar = true;
+
   title = 'sport-event-organizer';
   constructor(private translate: TranslateService) {
     translate.setDefaultLang('en');
