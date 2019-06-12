@@ -9,6 +9,7 @@ import hu.flowacademy.epsilon.sport_event_organizer.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,5 +36,11 @@ public class UserController {
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<List<User>> listUsers() {
         return ResponseEntity.ok(userService.listUsers());
+    }
+
+    @GetMapping("auth/get-user")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<User> getUserById() {
+        return ResponseEntity.ok(userService.findUserByID(((UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId()));
     }
 }
