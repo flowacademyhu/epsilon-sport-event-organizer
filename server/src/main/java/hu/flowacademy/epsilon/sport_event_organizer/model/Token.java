@@ -11,16 +11,16 @@ import java.time.Instant;
 public class Token {
     @Id
     @Column
-    private String userid;
+    private String userId;
 
-    @Column(columnDefinition="TEXT")
-    private String accesToken;
-
-    @Column
-    private Instant createdat;
+    @Column(columnDefinition = "TEXT")
+    private String accessToken;
 
     @Column
-    private Instant expiradat;
+    private Instant createdAt;
+
+    @Column
+    private Instant expiredAt;
 
     @Column
     private boolean isDeleted;
@@ -28,36 +28,36 @@ public class Token {
     public Token() {
     }
 
-    public String getUserid() {
-        return userid;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUserid(String userid) {
-        this.userid = userid;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getAccesToken() {
-        return accesToken;
+    public String getAccessToken() {
+        return accessToken;
     }
 
-    public void setAccesToken(String accesToken) {
-        this.accesToken = accesToken;
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 
-    public Instant getCreatedat() {
-        return createdat;
+    public Instant getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreatedat(Instant createdat) {
-        this.createdat = createdat;
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public Instant getExpiradat() {
-        return expiradat;
+    public Instant getExpiredAt() {
+        return expiredAt;
     }
 
-    public void setExpiradat(Instant expiradat) {
-        this.expiradat = expiradat;
+    public void setExpiredAt(Instant expiredAt) {
+        this.expiredAt = expiredAt;
     }
 
     public boolean getIsDeleted() {
