@@ -1,0 +1,30 @@
+<div class="d-md-flex h-md-100 align-items-center">
+  <!-- First Half -->
+
+  <div class="col-md-6 p-0 bg-indigo h-md-100">
+    <div
+      class="text-white d-md-flex align-items-center h-md-100 p-5 text-center justify-content-center"
+    >
+      <div class="loginarea pt-5 pb-5">
+        <button type="button" class="btn btn-outline-primary button-size">
+          <a href="http://localhost:8080/oauth2/authorize/google?redirect_uri=http://localhost:4200/oauth2/redirect">
+          {{ 'LoginGoogle' | translate:user }}
+          </a>
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- Second Half -->
+
+  <div class="col-md-6 p-0 bg-white h-md-100">
+    <div
+      class="text-white d-md-flex align-items-center h-md-100 p-5 text-center justify-content-center"
+    >
+      <div class="loginarea pt-5 pb-5">
+        <button type="button" class="btn btn-outline-primary button-size">
+        {{ 'LoginGuest' | translate:user }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

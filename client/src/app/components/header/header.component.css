@@ -1,0 +1,28 @@
+.masthead {
+  height: 100vh;
+  min-height: 500px;
+/*   background-image: url('src/assets/image/background3.jpg'); */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: 'Luckiest Guy', cursive;
+  color: #fff;
+  font-weight: bold;
+  text-shadow: 2px 2px black
+  }
+
+  .navbar{
+  font-family: 'Luckiest Guy', cursive;
+  font-weight: bold;
+  background-color: #fff
+  }
+
+  .font-weight-light{
+  font-size: 60px;
+  font-weight: bold
+  }
+
+  .languageFlag {
+    max-height: 50px;
+    max-width: 50px;
+  }
