@@ -1,4 +1,9 @@
 {
+  "Home": "Főoldal",
+  "Teams": "Csapatok",
+  "Cups": "Kupák",
+  "Login": "Belépés",
+
   "LoginGoogle": "Belépés Google fiókkal",
   "LoginGuest": "Belépés vendégként"
 }
