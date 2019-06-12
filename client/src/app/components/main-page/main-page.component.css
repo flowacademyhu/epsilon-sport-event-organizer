@@ -1,7 +1,20 @@
 body {
   padding: 65px;
+  background-repeat: no-repeat;
+  background-attachment: fixed
 }
 
 #title {
   font-style: italic
+}
+
+#cup-size {
+  color: gold;
+  height: 30%;
+  width: 30%
+}
+
+#welcome-size {
+  height: 1000%;
+  width: 100%;
 }
