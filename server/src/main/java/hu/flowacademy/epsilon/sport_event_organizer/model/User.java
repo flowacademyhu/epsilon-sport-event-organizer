@@ -1,9 +1,7 @@
 package hu.flowacademy.epsilon.sport_event_organizer.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
-import java.time.Instant;
 import java.util.UUID;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -14,13 +12,14 @@ import javax.validation.constraints.NotNull;
         @UniqueConstraint(columnNames = "email")
 })
 public class User {
+
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
 
     @Column(nullable = false)
-    private String name;
+    private String googleName;
 
     @Email
     @Column(nullable = false)
@@ -32,20 +31,24 @@ public class User {
     @Column(nullable = false)
     private Boolean emailVerified = false;
 
-//    @JsonIgnore
-//    private String password;
+    @Column
+    private String providerId;
 
     @NotNull
     @Enumerated(EnumType.STRING)
     private AuthProvider provider;
 
-//    @Column(columnDefinition = "TEXT")
+    @Column(name = "company_name")
+    private String companyName;
+
+
+    //    private Instant expiresAt;
+//    @Column
 //    private String accessToken;
 
-    //    @Column
-//    private Instant expiresAt;
-    @Column
-    private String providerId;
+//    @Column(columnDefinition = "TEXT")
+//    @JsonIgnore
+//    private String password;
 
     public UUID getId() {
         return id;
@@ -55,12 +58,12 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getGoogleName() {
+        return googleName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setGoogleName(String googleName) {
+        this.googleName = googleName;
     }
 
     public String getEmail() {
