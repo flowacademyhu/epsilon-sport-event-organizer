@@ -10,6 +10,7 @@ import { LoginComponent } from './components/login/login.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoggedInComponent } from './components/logged-in/logged-in.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -21,7 +22,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppComponent,
     LoginComponent,
     HeaderComponent,
-    LoggedInComponent
+    LoggedInComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
