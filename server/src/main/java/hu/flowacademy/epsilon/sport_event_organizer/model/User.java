@@ -2,6 +2,8 @@ package hu.flowacademy.epsilon.sport_event_organizer.model;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -41,6 +43,29 @@ public class User {
     @Column(name = "company_name")
     private String companyName;
 
+    @ManyToMany
+    @JoinTable(
+            name = "users_teams",
+            joinColumns = @JoinColumn(name = "users_id"),
+            inverseJoinColumns = @JoinColumn(name = "teams_name"))
+    private Set<Team> teams;
+
+
+    public Set<Team> getTeams() {
+        return teams;
+    }
+
+    public void setTeams(Set<Team> teams) {
+        this.teams = teams;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
 
     //    private Instant expiresAt;
 //    @Column

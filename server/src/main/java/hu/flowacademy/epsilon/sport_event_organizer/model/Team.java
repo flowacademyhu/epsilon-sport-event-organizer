@@ -3,18 +3,15 @@ package hu.flowacademy.epsilon.sport_event_organizer.model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name = "team")
+@Table(name = "teams")
 public class Team {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "id", unique = true, updatable = false, nullable = false)
-    private UUID id;
-
     @Column(unique = true, nullable = false)
     private String name;
 
@@ -24,7 +21,8 @@ public class Team {
     @Column
     private String imageUrl;
 
-    //TODO insert connection w/ user table
+    @ManyToMany(mappedBy = "teams")
+    private Set<User> users;
 
     public Team(String name, String company, String imageUrl) {
         this.name = name;
@@ -58,7 +56,4 @@ public class Team {
         this.imageUrl = imageUrl;
     }
 
-    public UUID getId() {
-        return id;
-    }
 }

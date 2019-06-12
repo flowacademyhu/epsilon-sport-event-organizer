@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
@@ -86,6 +87,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 //                OAuth2AccessToken::getExpiresAt).orElse(null));
 
         Token token = new Token();
+        // SecurityContextHolder.getContext().getAuthentication();
         token.setUserId(oAuth2UserInfo.getId());
         token.setCreatedAt(Instant.now());
         token.setExpiredAt((Optional.ofNullable(oAuth2UserRequest.getAccessToken()).map(
