@@ -1,15 +1,14 @@
 body {
-  padding: 65px;
+  padding: 120px;
   background-repeat: no-repeat;
   background-attachment: fixed
 }
 
-#title {
-  font-style: italic
+#title-size {
+  font-size: 200%
 }
 
 #cup-size {
-  color: gold;
   height: 30%;
   width: 30%
 }
@@ -18,3 +17,24 @@ body {
   height: 1000%;
   width: 100%;
 }
+
+#space-between {
+  margin: 20%
+}
+
+.texts {
+  display: flex;
+  justify-content: space-around;
+  background-color: aqua
+}
+
+/* for pictures */
+.saturate { filter: saturate(3); }
+.grayscale { filter: grayscale(100%); }
+.contrast { filter: contrast(160%); }
+.brightness { filter: brightness(0.25); }
+.blur { filter: blur(3px); }
+.invert { filter: invert(100%); }
+.sepia { filter: sepia(100%); }
+.huerotate { filter: hue-rotate(180deg); }
+.rss.opacity { filter: opacity(50%); }

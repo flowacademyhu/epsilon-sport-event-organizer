@@ -11,6 +11,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoggedInComponent } from './components/logged-in/logged-in.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -23,7 +24,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoginComponent,
     HeaderComponent,
     LoggedInComponent,
-    MainPageComponent
+    MainPageComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
