@@ -15,14 +15,16 @@ public class Team {
     @Column(name = "id", unique = true, updatable = false, nullable = false)
     private UUID id;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String name;
 
-    @Column
+    @Column(nullable = false)
     private String company;
 
     @Column
     private String imageUrl;
+
+    //TODO insert connection w/ user table
 
     public Team(String name, String company, String imageUrl) {
         this.name = name;
@@ -54,5 +56,9 @@ public class Team {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public UUID getId() {
+        return id;
     }
 }
