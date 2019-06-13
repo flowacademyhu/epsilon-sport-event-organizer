@@ -6,10 +6,10 @@ import { AppComponent } from './app.component';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { LoginComponent } from './compponents/login/login.component';
-import { HeaderComponent } from './compponents/header/header.component';
+import { LoginComponent } from './components/login/login.component';
+import { HeaderComponent } from './components/header/header.component';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import { LoggedInComponent } from './compponents/logged-in/logged-in.component';
+import { LoggedInComponent } from './components/logged-in/logged-in.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { FooterComponent } from './components/footer/footer.component';
 
