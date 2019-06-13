@@ -10,12 +10,16 @@ import { LoginComponent } from './components/login/login.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoggedInComponent } from './components/logged-in/logged-in.component';
+import { MainPageComponent } from './components/main-page/main-page.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { FooterComponent } from './components/footer/footer.component';
+<<<<<<< HEAD
 import { MainPageComponent } from './components/main-page/main-page.component';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from 'src/app/shared/interceptor/token.interceptor';
+=======
+>>>>>>> feature/sandbox
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
