@@ -4,6 +4,16 @@ body {
   background-attachment: fixed
 }
 
+.titles-font{
+  font-size: 200%;
+  font-family: 'Times New Roman', Times, serif
+}
+
+.texts-font{
+  font-size: 200%;
+  font-family: 'Times New Roman', Times, serif
+}
+
 #title-size {
   font-size: 200%
 }
@@ -23,8 +33,7 @@ body {
 }
 
 .texts {
-  display: flex;
-  justify-content: space-around;
+  margin-top: 10%;
   background-color: aqua
 }
 
