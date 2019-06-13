@@ -13,6 +13,7 @@ import { LoggedInComponent } from './components/logged-in/logged-in.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { FooterComponent } from './components/footer/footer.component';
 
+import { MainPageComponent } from './components/main-page/main-page.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -25,6 +26,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     HeaderComponent,
     LoggedInComponent,
     ProfileComponent,
+    MainPageComponent,
     FooterComponent
   ],
   imports: [
