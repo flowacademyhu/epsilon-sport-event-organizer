@@ -1,8 +1,10 @@
 package hu.flowacademy.epsilon.sport_event_organizer.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.GenericGenerator;
 
-import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -12,51 +14,81 @@ import javax.validation.constraints.NotNull;
         @UniqueConstraint(columnNames = "email")
 })
 public class User {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    private UUID id;
 
     @Column(nullable = false)
-    private String name;
+    private String googleName;
 
     @Email
     @Column(nullable = false)
     private String email;
 
+    @Column(nullable = false)
     private String imageUrl;
 
     @Column(nullable = false)
     private Boolean emailVerified = false;
 
-    @JsonIgnore
-    private String password;
+    @Column
+    private String providerId;
 
     @NotNull
     @Enumerated(EnumType.STRING)
     private AuthProvider provider;
 
-    @Column(columnDefinition="TEXT")
-    private String accessToken;
+    @Column(name = "company_name")
+    private String companyName;
 
-    @Column
-    private Instant expiresAt;
+    @ManyToMany
+    @JoinTable(
+            name = "users_teams",
+            joinColumns = @JoinColumn(name = "users_id"),
+            inverseJoinColumns = @JoinColumn(name = "teams_name"))
+    private Set<Team> teams;
 
-    private String providerId;
 
-    public Long getId() {
+    public Set<Team> getTeams() {
+        return teams;
+    }
+
+    public void setTeams(Set<Team> teams) {
+        this.teams = teams;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    //    private Instant expiresAt;
+//    @Column
+//    private String accessToken;
+
+//    @Column(columnDefinition = "TEXT")
+//    @JsonIgnore
+//    private String password;
+
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getGoogleName() {
+        return googleName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setGoogleName(String googleName) {
+        this.googleName = googleName;
     }
 
     public String getEmail() {
@@ -83,13 +115,13 @@ public class User {
         this.emailVerified = emailVerified;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+//    public String getPassword() {
+//        return password;
+//    }
+//
+//    public void setPassword(String password) {
+//        this.password = password;
+//    }
 
     public AuthProvider getProvider() {
         return provider;
@@ -107,19 +139,19 @@ public class User {
         this.providerId = providerId;
     }
 
-    public void setAccessToken(String tokenValue) {
-        this.accessToken = tokenValue;
-    }
+//    public void setAccessToken(String tokenValue) {
+//        this.accessToken = tokenValue;
+//    }
 
-    public void setExpiresAt(Instant expiresAt) {
-        this.expiresAt = expiresAt;
-    }
+//    public void setExpiresAt(Instant expiresAt) {
+//        this.expiresAt = expiresAt;
+//    }
 
-    public String getAccessToken() {
-        return accessToken;
-    }
+//    public String getAccessToken() {
+//        return accessToken;
+//    }
 
-    public Instant getExpiresAt() {
-        return expiresAt;
-    }
+//    public Instant getExpiresAt() {
+//        return expiresAt;
+//    }
 }

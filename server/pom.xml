@@ -11,7 +11,7 @@
 	<groupId>hu.flowacademy.epsilon</groupId>
 	<artifactId>my-favorite-expert</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>my-favorite-expert</name>
+	<googleName>my-favorite-expert</googleName>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
