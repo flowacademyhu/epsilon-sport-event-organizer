@@ -1,4 +1,12 @@
 {
+  "Home": "Home",
+  "Teams": "Teams",
+  "Cups": "Cups",
+  "Login": "Login",
+  "Contact": "Contact",
+  "ContactEmail": "Email: ",
+  "ContactTelephone": "Telephone: ",
+  
   "LoginGoogle": "Login with Google",
   "LoginGuest": "Login as guest"
 }

@@ -26,3 +26,10 @@
     max-height: 50px;
     max-width: 50px;
   }
+
+  .button-size { width: 100px; }
+
+  #myCustomNavbar
+  {
+    width: 100px !important;
+  }
