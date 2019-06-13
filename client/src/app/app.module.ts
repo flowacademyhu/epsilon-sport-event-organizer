@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { LoginComponent } from './components/login/login.component';
@@ -13,13 +13,7 @@ import { LoggedInComponent } from './components/logged-in/logged-in.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { FooterComponent } from './components/footer/footer.component';
-<<<<<<< HEAD
-import { MainPageComponent } from './components/main-page/main-page.component';
-
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptor } from 'src/app/shared/interceptor/token.interceptor';
-=======
->>>>>>> feature/sandbox
+import { TokenInterceptor } from './shared/interceptor/token.interceptor';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
