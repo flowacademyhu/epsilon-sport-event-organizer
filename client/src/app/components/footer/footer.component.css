@@ -1,7 +1,19 @@
 .bgColor {
-  background-color: aqua
+  background-color: #FFEB7F
 }
 
 ul {
   line-height:20%
+}
+
+.contact-size{
+  font-size: 100%
+}
+
+.contact-text-size{
+  font-size: 100%
+}
+
+.copyright-size{
+  font-size: 70%
 }
