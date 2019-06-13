@@ -36,6 +36,15 @@ public class TeamService {
         return teamRepository.findByCompany(company);
     }
 
-    //TODO create query for getting team(s) by user
+    public List<Team> getAllTeams() {
+        return teamRepository.findAll();
+    }
+
+    public void deleteTeam(String name) {
+        teamRepository.deleteById(name);
+    }
+
+    //TODO create query for getting team(s) by user (?)
+
 
 }
