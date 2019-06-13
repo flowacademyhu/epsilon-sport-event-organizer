@@ -3,6 +3,9 @@
   "Teams": "Csapatok",
   "Cups": "Kupák",
   "Login": "Belépés",
+  "Contact": "Kapcsolat",
+  "ContactEmail": "Email: ",
+  "ContactTelephone": "Telefon: ",
 
   "LoginGoogle": "Belépés Google fiókkal",
   "LoginGuest": "Belépés vendégként"
