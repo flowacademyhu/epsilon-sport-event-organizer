@@ -10,7 +10,6 @@ export class AppComponent {
 
   constructor(private userService: UserService) {
    // userService.findAll().subscribe(console.log);
-   //write the auth here
   }
 
 }
