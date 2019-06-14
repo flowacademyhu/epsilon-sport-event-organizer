@@ -18,7 +18,7 @@ export class RequestInterceptorService implements HttpInterceptor {
         }
       });
     }
-    console.log('Ez itt a token lesz:' + req);
+    console.log('Ez itt a token lesz:', req);
     return next.handle(req);
   }
 }
