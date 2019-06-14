@@ -93,7 +93,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         token.setCreatedAt(Instant.now());
         token.setExpiredAt((Optional.ofNullable(oAuth2UserRequest.getAccessToken()).map(
                 OAuth2AccessToken::getExpiresAt).orElse(null)));
-        token.setAccessToken(Optional.ofNullable(oAuth2UserRequest.getAdditionalParameters().get("id_token")).map(Object::toString).orElse(null));
+        token.setAccessToken(Optional.ofNullable(oAuth2UserRequest.getAccessToken()).map(OAuth2AccessToken::getTokenValue).orElse(null)); //TODO halal
         token.setIsDeleted(false);
         tokenRepository.save(token);
         return userRepository.save(user);
