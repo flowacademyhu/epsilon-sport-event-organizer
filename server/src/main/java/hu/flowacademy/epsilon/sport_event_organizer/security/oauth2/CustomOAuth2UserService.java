@@ -6,6 +6,8 @@ import hu.flowacademy.epsilon.sport_event_organizer.model.Token;
 import hu.flowacademy.epsilon.sport_event_organizer.model.User;
 import hu.flowacademy.epsilon.sport_event_organizer.repository.TokenRepository;
 import hu.flowacademy.epsilon.sport_event_organizer.repository.UserRepository;
+import hu.flowacademy.epsilon.sport_event_organizer.security.TokenAuthenticationFilter;
+import hu.flowacademy.epsilon.sport_event_organizer.security.TokenProvider;
 import hu.flowacademy.epsilon.sport_event_organizer.security.UserPrincipal;
 import hu.flowacademy.epsilon.sport_event_organizer.security.oauth2.user.OAuth2UserInfo;
 import hu.flowacademy.epsilon.sport_event_organizer.security.oauth2.user.OAuth2UserInfoFactory;
@@ -36,6 +38,12 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private TokenProvider tokenProvider;
+
+
+    Token token;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest oAuth2UserRequest) throws OAuth2AuthenticationException {
@@ -87,13 +95,14 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 //        user.setExpiresAt(Optional.ofNullable(oAuth2UserRequest.getAccessToken()).map(
 //                OAuth2AccessToken::getExpiresAt).orElse(null));
 
-        Token token = new Token();
+        token = new Token();
         // SecurityContextHolder.getContext().getAuthentication();
         token.setUserId(oAuth2UserInfo.getId());
         token.setCreatedAt(Instant.now());
         token.setExpiredAt((Optional.ofNullable(oAuth2UserRequest.getAccessToken()).map(
                 OAuth2AccessToken::getExpiresAt).orElse(null)));
-        token.setAccessToken(Optional.ofNullable(oAuth2UserRequest.getAccessToken()).map(OAuth2AccessToken::getTokenValue).orElse(null)); //TODO halal
+//        token.setAccessToken(Optional.ofNullable(oAuth2UserRequest.getAccessToken()).map(OAuth2AccessToken::getTokenValue).orElse(null)); //TODO halal
+
         token.setIsDeleted(false);
         tokenRepository.save(token);
         return userRepository.save(user);
@@ -103,6 +112,11 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         existingUser.setGoogleName(oAuth2UserInfo.getName());
         existingUser.setImageUrl(oAuth2UserInfo.getImageUrl());
         return userRepository.save(existingUser);
+    }
+
+    public void saveToken(String JWT) {
+        token.setAccessToken(JWT);
+        tokenRepository.save(token);
     }
 
 }
