@@ -14,7 +14,11 @@
   .navbar{
   font-family: 'Luckiest Guy', cursive;
   font-weight: bold;
+<<<<<<< HEAD
   background-color:#FFEB7F
+=======
+  background-color: #FFEB7F
+>>>>>>> feature/T9-footer
   }
 
   .font-weight-light{
