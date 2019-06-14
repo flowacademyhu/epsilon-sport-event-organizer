@@ -11,9 +11,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class UserController {
@@ -40,7 +42,8 @@ public class UserController {
 
     @GetMapping("auth/get-user")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<User> getUserById() {
+    public ResponseEntity<User> getUserById(@RequestHeader(name = "Authorization") String Authorization) {
+        System.err.println(Authorization);
         return ResponseEntity.ok(userService.findUserByID(((UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId()));
     }
 }
