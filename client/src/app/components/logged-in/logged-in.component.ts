@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/auth.service';
 
 @Component({
   selector: 'app-logged-in',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoggedInComponent implements OnInit {
 
-  constructor() { }
+  constructor(private auth: AuthService) { }
+
+  alma: any;
 
   ngOnInit() {
+        this.auth.user().subscribe(result => {
+      this.alma = result;
+        }
+    );
+    console.log(this.alma);
   }
 
 }
