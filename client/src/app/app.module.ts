@@ -13,7 +13,7 @@ import { LoggedInComponent } from './components/logged-in/logged-in.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
-import { RequestInterceptorService } from './services/request-interceptor.service';
+import { RequestInterceptorService } from './shared/interceptor/request-interceptor.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -48,7 +48,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       useClass: RequestInterceptorService,
       multi: true
     }
-  ],
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

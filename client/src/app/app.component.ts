@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UserService } from './services/user.service';
+import { UserService } from './shared/service/user.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +9,7 @@ import { UserService } from './services/user.service';
 export class AppComponent {
 
   constructor(private userService: UserService) {
-    userService.findAll().subscribe(console.log);
+   // userService.findAll().subscribe(console.log);
   }
 
 }
