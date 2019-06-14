@@ -10,6 +10,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AppComponent implements OnInit{
 
+  tokenParam: String;
+
   constructor(
     private activateRoute: ActivatedRoute,
     private authService: AuthService,
@@ -19,13 +21,15 @@ export class AppComponent implements OnInit{
 
   ngOnInit() {
   this.activateRoute.queryParams.subscribe(params => {
-   //I think an if is needed
+    this.tokenParam = params['token'];
+    if (this.tokenParam != null) {
     localStorage.setItem('token', params['token']);
     this.authService.getLoggedInUser().subscribe(
       user => {
        this.appStateService.user = user;
       }
     );
+    }
   });
 }
 }
