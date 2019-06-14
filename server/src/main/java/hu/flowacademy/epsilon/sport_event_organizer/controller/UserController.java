@@ -39,9 +39,9 @@ public class UserController {
         return ResponseEntity.ok(userService.listUsers());
     }
 
-    @CrossOrigin(origins = "*")
+
     @GetMapping("/auth/get-user")
-    //@PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<User> getUserById() {
 //        System.err.println((UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         return ResponseEntity.ok(userService.findUserByID(((UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId()));

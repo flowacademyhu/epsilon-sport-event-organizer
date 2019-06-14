@@ -18,8 +18,12 @@ export class LoggedInComponent implements OnInit {
     this.activateRoute.queryParams.subscribe(params => {
       localStorage.setItem('token', params['token']);
     });
-    console.log(localStorage.getItem('token'));
-    this.user.getUser();
+
+    this.user.getUser().subscribe(
+      result => {
+        console.log(result);
+      }
+    );
   }
 
 }
