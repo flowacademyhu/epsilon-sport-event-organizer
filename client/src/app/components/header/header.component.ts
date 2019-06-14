@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { AppStateService } from 'src/app/shared/service/app-state.service';
 
 @Component({
   selector: 'app-header',
@@ -8,17 +9,28 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class HeaderComponent implements OnInit {
 
-
-  toggleNavbar = true;
-
   title = 'sport-event-organizer';
-  constructor(private translate: TranslateService) {
+  constructor(
+    private translate: TranslateService,
+    private appState: AppStateService
+    ) {
     translate.setDefaultLang('en');
   }
+
+  state: any = this.appState;
+  toggleNavbar = true;
 
   switchLanguage(language: string) {
     this.translate.use(language);
 }
+
+  klikk() {
+    if (this.appState.user) {
+    this.appState.user = null;
+    } else {
+    this.appState.user = { id: 1, name: 'Jozsi'};
+    }
+  }
 
   ngOnInit() {
   }

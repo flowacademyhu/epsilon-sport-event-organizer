@@ -9,8 +9,6 @@ export class RequestInterceptorService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    console.log('micsik' + localStorage.getItem('token'));
-
      if (localStorage.getItem('token')) {
       req = req.clone({
         setHeaders: {
@@ -18,7 +16,7 @@ export class RequestInterceptorService implements HttpInterceptor {
         }
       });
     }
-    console.log('Ez itt a token lesz:' + req);
+
     return next.handle(req);
   }
 }
