@@ -20,17 +20,17 @@ public class User {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
 
-    @Column(nullable = false)
+    @Column
     private String googleName;
 
     @Email
-    @Column(nullable = false)
+    @Column
     private String email;
 
-    @Column(nullable = false)
+    @Column
     private String imageUrl;
 
-    @Column(nullable = false)
+    @Column
     private Boolean emailVerified = false;
 
     @Column
@@ -50,6 +50,13 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "teams_name"))
     private Set<Team> teams;
 
+    @ManyToMany
+    @JoinTable(
+            name = "users_teamscsk",
+            joinColumns = @JoinColumn(name = "users_id"),
+            inverseJoinColumns = @JoinColumn(name = "teams_name"))
+    private Set<Team> teamscsk;
+
 
     public Set<Team> getTeams() {
         return teams;
@@ -57,6 +64,14 @@ public class User {
 
     public void setTeams(Set<Team> teams) {
         this.teams = teams;
+    }
+
+    public Set<Team> getTeamscsk() {
+        return teamscsk;
+    }
+
+    public void setTeamscsk(Set<Team> teamscsk) {
+        this.teamscsk = teamscsk;
     }
 
     public String getCompanyName() {

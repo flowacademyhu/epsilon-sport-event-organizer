@@ -12,10 +12,10 @@ import java.util.UUID;
 public class Team {
 
     @Id
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     private String name;
 
-    @Column(nullable = false)
+    @Column
     private String company;
 
     @Column
@@ -24,13 +24,18 @@ public class Team {
     @ManyToMany(mappedBy = "teams")
     private Set<User> users;
 
+    @ManyToMany(mappedBy = "teams")
+    private Set<User> csk;
+
+
     public Team(String name, String company, String imageUrl) {
         this.name = name;
         this.company = company;
         this.imageUrl = imageUrl;
     }
 
-    public Team() {}
+    public Team() {
+    }
 
     public String getName() {
         return name;
