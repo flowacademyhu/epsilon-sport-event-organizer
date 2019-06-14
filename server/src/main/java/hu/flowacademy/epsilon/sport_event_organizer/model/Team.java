@@ -24,8 +24,8 @@ public class Team {
     @ManyToMany(mappedBy = "teams")
     private Set<User> users;
 
-    @ManyToMany(mappedBy = "teams")
-    private Set<User> csk;
+    @ManyToMany(mappedBy = "teamLeaders")
+    private Set<User> leaders;
 
 
     public Team(String name, String company, String imageUrl) {

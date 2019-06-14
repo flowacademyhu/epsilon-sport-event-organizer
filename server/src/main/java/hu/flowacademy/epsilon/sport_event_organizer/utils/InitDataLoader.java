@@ -7,13 +7,10 @@ import hu.flowacademy.epsilon.sport_event_organizer.repository.TeamRepository;
 import hu.flowacademy.epsilon.sport_event_organizer.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
-import java.util.UUID;
 
 @Component
 public class InitDataLoader implements CommandLineRunner {
@@ -50,7 +47,7 @@ public class InitDataLoader implements CommandLineRunner {
         user.setTeams(set);
         user1.setTeams(set);
         user2.setTeams(set);
-        user.setTeamscsk(set);
+        user.setTeamLeaders(set);
         teamRepository.save(team1);
         teamRepository.save(team2);
         userRepository.save(user);
