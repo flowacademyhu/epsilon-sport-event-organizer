@@ -20,8 +20,13 @@ public class TeamController {
     private UserService userService;
 
     @GetMapping("/getTemp")
-    public String getTemp() {
-        return "Some temp value";
+    public List<String> getTemp() {
+        return List.of("Some temp value");
+    }
+
+    @GetMapping("/getSecure")
+    public List<String> getSecure() {
+        return List.of("It's a secret!!!");
     }
 
     @PostMapping("/team-create")

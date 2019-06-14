@@ -26,6 +26,6 @@ private RequestInterceptor requestInterceptor;
 
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
-    registry.addInterceptor(requestInterceptor).addPathPatterns("/auth/**");
+//    registry.addInterceptor(requestInterceptor).addPathPatterns("/auth/**");
   }
 }
