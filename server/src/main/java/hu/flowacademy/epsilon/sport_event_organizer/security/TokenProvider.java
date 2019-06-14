@@ -27,12 +27,14 @@ public class TokenProvider {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + appProperties.getAuth().getTokenExpirationMsec());
 
-        return Jwts.builder()
-                .setSubject(userPrincipal.getId().toString())
-                .setIssuedAt(new Date())
-                .setExpiration(expiryDate)
-                .signWith(SignatureAlgorithm.HS512, appProperties.getAuth().getTokenSecret())
-                .compact();
+        String compact = Jwts.builder()
+            .setSubject(userPrincipal.getId().toString())
+            .setIssuedAt(new Date())
+            .setExpiration(expiryDate)
+            .signWith(SignatureAlgorithm.HS512, appProperties.getAuth().getTokenSecret())
+            .compact();
+        logger.info("Token is: {}", compact);
+        return compact;
     }
 
     public UUID getUserIdFromToken(String token) {
