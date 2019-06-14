@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,10 +41,13 @@ public class UserController {
         return ResponseEntity.ok(userService.listUsers());
     }
 
-    @GetMapping("auth/get-user")
+
+    @GetMapping("/auth/get-user")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<User> getUserById(@RequestHeader(name = "Authorization") String Authorization) {
         System.err.println(Authorization);
         return ResponseEntity.ok(userService.findUserByID(((UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId()));
     }
+
+
 }
