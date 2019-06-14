@@ -2,11 +2,8 @@ package hu.flowacademy.epsilon.sport_event_organizer.security.oauth2;
 
 import hu.flowacademy.epsilon.sport_event_organizer.exception.OAuth2AuthenticationProcessingException;
 import hu.flowacademy.epsilon.sport_event_organizer.model.AuthProvider;
-import hu.flowacademy.epsilon.sport_event_organizer.model.Token;
 import hu.flowacademy.epsilon.sport_event_organizer.model.User;
-import hu.flowacademy.epsilon.sport_event_organizer.repository.TokenRepository;
 import hu.flowacademy.epsilon.sport_event_organizer.repository.UserRepository;
-import hu.flowacademy.epsilon.sport_event_organizer.security.TokenAuthenticationFilter;
 import hu.flowacademy.epsilon.sport_event_organizer.security.TokenProvider;
 import hu.flowacademy.epsilon.sport_event_organizer.security.UserPrincipal;
 import hu.flowacademy.epsilon.sport_event_organizer.security.oauth2.user.OAuth2UserInfo;
@@ -16,17 +13,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
-import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.time.Instant;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
@@ -34,16 +29,11 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     Logger logger = LoggerFactory.getLogger(CustomOAuth2UserService.class);
 
     @Autowired
-    private TokenRepository tokenRepository;
-
-    @Autowired
     private UserRepository userRepository;
 
     @Autowired
     private TokenProvider tokenProvider;
 
-
-    Token token;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest oAuth2UserRequest) throws OAuth2AuthenticationException {
@@ -91,20 +81,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         user.setGoogleName(oAuth2UserInfo.getName());
         user.setEmail(oAuth2UserInfo.getEmail());
         user.setImageUrl(oAuth2UserInfo.getImageUrl());
-//        user.setAccessToken(Optional.ofNullable(oAuth2UserRequest.getAdditionalParameters().get("id_token")).map(Object::toString).orElse(null));
-//        user.setExpiresAt(Optional.ofNullable(oAuth2UserRequest.getAccessToken()).map(
-//                OAuth2AccessToken::getExpiresAt).orElse(null));
-
-        token = new Token();
-        // SecurityContextHolder.getContext().getAuthentication();
-        token.setUserId(oAuth2UserInfo.getId());
-        token.setCreatedAt(Instant.now());
-        token.setExpiredAt((Optional.ofNullable(oAuth2UserRequest.getAccessToken()).map(
-                OAuth2AccessToken::getExpiresAt).orElse(null)));
-//        token.setAccessToken(Optional.ofNullable(oAuth2UserRequest.getAccessToken()).map(OAuth2AccessToken::getTokenValue).orElse(null)); //TODO halal
-
-        token.setIsDeleted(false);
-        tokenRepository.save(token);
         return userRepository.save(user);
     }
 
@@ -112,11 +88,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         existingUser.setGoogleName(oAuth2UserInfo.getName());
         existingUser.setImageUrl(oAuth2UserInfo.getImageUrl());
         return userRepository.save(existingUser);
-    }
-
-    public void saveToken(String JWT) {
-        token.setAccessToken(JWT);
-        tokenRepository.save(token);
     }
 
 }

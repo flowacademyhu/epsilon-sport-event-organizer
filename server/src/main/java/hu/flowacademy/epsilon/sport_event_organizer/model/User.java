@@ -2,7 +2,6 @@ package hu.flowacademy.epsilon.sport_event_organizer.model;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 import javax.persistence.*;
@@ -20,17 +19,17 @@ public class User {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
 
-    @Column(nullable = false)
+    @Column
     private String googleName;
 
     @Email
-    @Column(nullable = false)
+    @Column
     private String email;
 
-    @Column(nullable = false)
+    @Column
     private String imageUrl;
 
-    @Column(nullable = false)
+    @Column
     private Boolean emailVerified = false;
 
     @Column
@@ -43,12 +42,22 @@ public class User {
     @Column(name = "company_name")
     private String companyName;
 
+    @Column(columnDefinition = "TEXT")
+    private String accessToken;
+
     @ManyToMany
     @JoinTable(
-            name = "users_teams",
+            name = "users_team_member",
             joinColumns = @JoinColumn(name = "users_id"),
             inverseJoinColumns = @JoinColumn(name = "teams_name"))
     private Set<Team> teams;
+
+    @ManyToMany
+    @JoinTable(
+            name = "users_team_leader",
+            joinColumns = @JoinColumn(name = "users_id"),
+            inverseJoinColumns = @JoinColumn(name = "teams_name"))
+    private Set<Team> teamLeaders;
 
 
     public Set<Team> getTeams() {
@@ -59,6 +68,14 @@ public class User {
         this.teams = teams;
     }
 
+    public Set<Team> getTeamLeaders() {
+        return teamLeaders;
+    }
+
+    public void setTeamLeaders(Set<Team> teamLeaders) {
+        this.teamLeaders = teamLeaders;
+    }
+
     public String getCompanyName() {
         return companyName;
     }
@@ -66,14 +83,6 @@ public class User {
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
     }
-
-    //    private Instant expiresAt;
-//    @Column
-//    private String accessToken;
-
-//    @Column(columnDefinition = "TEXT")
-//    @JsonIgnore
-//    private String password;
 
     public UUID getId() {
         return id;
@@ -115,14 +124,6 @@ public class User {
         this.emailVerified = emailVerified;
     }
 
-//    public String getPassword() {
-//        return password;
-//    }
-//
-//    public void setPassword(String password) {
-//        this.password = password;
-//    }
-
     public AuthProvider getProvider() {
         return provider;
     }
@@ -139,19 +140,11 @@ public class User {
         this.providerId = providerId;
     }
 
-//    public void setAccessToken(String tokenValue) {
-//        this.accessToken = tokenValue;
-//    }
+    public String getAccessToken() {
+        return accessToken;
+    }
 
-//    public void setExpiresAt(Instant expiresAt) {
-//        this.expiresAt = expiresAt;
-//    }
-
-//    public String getAccessToken() {
-//        return accessToken;
-//    }
-
-//    public Instant getExpiresAt() {
-//        return expiresAt;
-//    }
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
 }

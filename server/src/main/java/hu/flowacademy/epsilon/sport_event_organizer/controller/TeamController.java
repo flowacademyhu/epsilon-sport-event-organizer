@@ -19,16 +19,6 @@ public class TeamController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/getTemp")
-    public List<String> getTemp() {
-        return List.of("Some temp value");
-    }
-
-    @GetMapping("/getSecure")
-    public List<String> getSecure() {
-        return List.of("It's a secret!!!");
-    }
-
     @PostMapping("/team-create")
     public ResponseEntity<Team> createTeam(@RequestBody Team team) {
         return ResponseEntity.ok(teamService.save(team));

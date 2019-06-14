@@ -45,8 +45,7 @@ public class UserController {
     @GetMapping("/auth/get-user")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<User> getUserById(@RequestHeader(name = "Authorization") String Authorization) {
-        System.err.println(Authorization);
-        return ResponseEntity.ok(userService.findUserByID(((UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId()));
+        return ResponseEntity.ok(userService.getCurrentUser().orElse(null));
     }
 
 
