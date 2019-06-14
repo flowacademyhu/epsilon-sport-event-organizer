@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { UserService } from 'src/app/shared/service/user.service';
 
 @Component({
   selector: 'app-logged-in',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoggedInComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private activateRoute: ActivatedRoute,
+    private user: UserService
+  ) { }
 
   ngOnInit() {
+    this.activateRoute.queryParams.subscribe(params => {
+      localStorage.setItem('token', params['token']);
+    });
+    console.log(localStorage.getItem('token'));
+    this.user.getUser();
   }
 
 }

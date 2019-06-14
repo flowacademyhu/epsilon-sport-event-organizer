@@ -19,6 +19,11 @@ public class TeamController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/getTemp")
+    public String getTemp() {
+        return "Some temp value";
+    }
+
     @PostMapping("/team-create")
     public ResponseEntity<Team> createTeam(@RequestBody Team team) {
         return ResponseEntity.ok(teamService.save(team));
