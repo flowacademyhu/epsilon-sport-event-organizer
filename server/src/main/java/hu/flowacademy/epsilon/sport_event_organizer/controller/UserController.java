@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequestMapping(path = "/user")
 public class UserController {
 
     @Autowired
@@ -29,7 +30,7 @@ public class UserController {
     private TeamService teamService;
 
 
-    @GetMapping("/user/me")
+    @GetMapping("/me")
     @PreAuthorize("hasRole('USER')")
     public User getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
         return userRepository.findById(userPrincipal.getId())
@@ -37,7 +38,7 @@ public class UserController {
     }
 
 
-    @GetMapping("/get-user")
+    @GetMapping("/get")
     public ResponseEntity<User> getUserById() {
         return ResponseEntity.ok(userService.getCurrentUser().orElse(null));
     }
@@ -45,11 +46,6 @@ public class UserController {
     @PutMapping("/update")
     public ResponseEntity<User> updateUser(@RequestBody User user) {
         return ResponseEntity.ok(userService.save(user));
-    }
-
-    @GetMapping("/auth/get-user-email")
-    public ResponseEntity<User> getUserByemail(@RequestBody User user) {
-        return ResponseEntity.ok(userService.findUserByEmail(user.getEmail()).get());
     }
 
 

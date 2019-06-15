@@ -8,12 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.Set;
-import java.util.UUID;
 
 @RestController
+@RequestMapping(path = "/auth")
 public class TeamController {
 
     @Autowired
@@ -22,11 +20,7 @@ public class TeamController {
     @Autowired
     private UserService userService;
 
-//
-//    @PutMapping("/team-modify")
-//    public ResponseEntity<Team> modifyTeam(@RequestBody Team team) {
-//        return ResponseEntity.ok(teamService.update(team));
-//    }
+    //
 //
 //    @GetMapping("/team/{name}")
 //    public ResponseEntity<Optional<Team>> getTeam(@PathVariable String name) {
@@ -43,20 +37,44 @@ public class TeamController {
 //        teamService.deleteTeam(name);
 //        return ResponseEntity.noContent().build();
 //    }
-
-    @PostMapping("/auth/team-create")
+    @PostMapping("/create")
     public ResponseEntity<Team> createTeam(@RequestBody Team team) {
         return ResponseEntity.ok(teamService.save(team));
     }
 
-    @GetMapping("/auth/get-team-member")
-    public ResponseEntity<Team> getTeamMember() {
+    @PutMapping("/team-modify")
+    public ResponseEntity<Team> modifyTeam(@RequestBody Team team) {
+        return ResponseEntity.ok(teamService.update(team));
+    }
+
+    @GetMapping("/get-by-member")
+    public ResponseEntity<Team> getTeamByMember() {
         return ResponseEntity.ok(teamService.getByMember());
     }
 
-    @PutMapping("/auth/put-team-member/{teamName}")
-    public ResponseEntity<Set<User>> putTeamMember(@PathVariable String teamName, @RequestBody User user) {
-        return ResponseEntity.ok(teamService.putTeamMember(teamName, user.getEmail()));
+    @PutMapping("/put-member/{googleName}/{teamName}")
+    public ResponseEntity<Set<User>> putMember(@PathVariable String teamName, @PathVariable String googleName) {
+        return ResponseEntity.ok(teamService.putMember(teamName, googleName));
+    }
+
+    @DeleteMapping("/delete-member/{googleName}/{teamName}")
+    public ResponseEntity<Set<User>> deleteMember(@PathVariable String teamName, @PathVariable String googleName) {
+        return ResponseEntity.ok(teamService.deleteMember(teamName, googleName));
+    }
+
+    @GetMapping("/get-by-leader")
+    public ResponseEntity<Team> getTeamByLeader() {
+        return ResponseEntity.ok(teamService.getByMember());
+    }
+
+    @PutMapping("/put-leader/{googleName}/{teamName}")
+    public ResponseEntity<Set<User>> putLeader(@PathVariable String teamName, @PathVariable String googleName) {
+        return ResponseEntity.ok(teamService.putLeader(teamName, googleName));
+    }
+
+    @DeleteMapping("/delete-leader/{googleName}/{teamName}")
+    public ResponseEntity<Set<User>> deleteLeader(@PathVariable String teamName, @PathVariable String googleName) {
+        return ResponseEntity.ok(teamService.deleteLeader(teamName, googleName));
     }
 
 

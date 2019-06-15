@@ -28,6 +28,9 @@ public class Team {
     @ManyToMany(mappedBy = "teamLeaders")
     private Set<User> leaders = new HashSet<>();
 
+    @ManyToMany(mappedBy = "teams")
+    private Set<User> cups = new HashSet<>();
+
 
     public Team(String name, String company, String imageUrl) {
         this.name = name;
@@ -36,6 +39,15 @@ public class Team {
     }
 
     public Team() {
+    }
+
+
+    public Set<User> getCups() {
+        return cups;
+    }
+
+    public void setCups(Set<User> cups) {
+        this.cups = cups;
     }
 
     public String getName() {
@@ -63,19 +75,29 @@ public class Team {
     }
 
 
-    public void setUsers(User user) {
+    public void setUser(User user) {
         users.add(user);
     }
+
+    public void deleteUser(User user) {
+        users.remove(user);
+    }
+
 
     public Set<User> getUsers() {
         return users;
     }
 
-    public Set<User> getLeaders() {
+
+    public Set<User> getLeader() {
         return leaders;
     }
 
-    public void setLeaders(User leader) {
+    public void setLeader(User leader) {
         leaders.add(leader);
+    }
+
+    public void removeLeader(User leader) {
+        leaders.remove(leader);
     }
 }

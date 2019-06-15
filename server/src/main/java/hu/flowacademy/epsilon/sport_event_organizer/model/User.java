@@ -59,6 +59,13 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "teams_name"))
     private Set<Team> teamLeaders;
 
+    @ManyToMany
+    @JoinTable(
+            name = "users_cups",
+            joinColumns = @JoinColumn(name = "users_id"),
+            inverseJoinColumns = @JoinColumn(name = "cups_name"))
+    private Set<Team> cups;
+
 
     public Set<Team> getTeams() {
         return teams;

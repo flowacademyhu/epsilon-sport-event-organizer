@@ -7,11 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigInteger;
-import java.util.List;
-import java.util.Optional;
 import java.util.Set;
-import java.util.UUID;
 
 @Service
 @Transactional
@@ -30,28 +26,56 @@ public class TeamService {
 
 
     public Team save(Team team) {
-//        User currentUser = userService.getCurrentUser().orElse(null);
-//        team.setLeaders(currentUser);
+        User currentUser = userService.getCurrentUser().orElse(null);
+        team.setLeader(currentUser);
         return teamRepository.save(team);
     }
 
-    public Set<User> putTeamMember(String teamName, String email) {
+    public Set<User> putMember(String teamName, String googleName) {
 
-        User user = userService.findUserByEmail(email).orElse(null);
-        System.err.println(user);
+        User user = userService.findUserByGoogleName(googleName).orElse(null);
         Team team = teamRepository.findByName(teamName).orElse(null);
-        team.setUsers(user);
+        team.setUser(user);
         teamRepository.save(team);
         return team.getUsers();
     }
-//
-//    public Team update(Team team) {
-//        if (teamRepository.findByName(team.getName()).isPresent()) {
-//            return teamRepository.save(team);
-//        }
-//        throw new NullPointerException();
-//        //TODO create custom exception for non existant team
-//    }
+
+    public Set<User> deleteMember(String teamName, String googleName) {
+        User user = userService.findUserByGoogleName(googleName).orElse(null);
+        Team team = teamRepository.findByName(teamName).orElse(null);
+        team.deleteUser(user);
+        teamRepository.save(team);
+        return team.getUsers();
+    }
+
+    public Set<User> putLeader(String teamName, String googleName) {
+        User user = userService.findUserByGoogleName(googleName).orElse(null);
+        Team team = teamRepository.findByName(teamName).orElse(null);
+        team.setLeader(user);
+        teamRepository.save(team);
+        return team.getUsers();
+    }
+
+    public Set<User> deleteLeader(String teamName, String googleName) {
+        User user = userService.findUserByGoogleName(googleName).orElse(null);
+        Team team = teamRepository.findByName(teamName).orElse(null);
+        team.deleteUser(user);
+        teamRepository.save(team);
+        return team.getUsers();
+    }
+
+    public Team update(Team team) {
+        if (teamRepository.findByName(team.getName()).isPresent()) {
+            Team previousTeam = teamRepository.findByName(team.getName()).get();
+            previousTeam.setName(team.getName());
+            previousTeam.setCompany(team.getCompany());
+            previousTeam.setImageUrl(team.getImageUrl());
+
+            return teamRepository.save(previousTeam);
+        }
+        throw new NullPointerException();
+        //TODO create custom exception for non existant team
+    }
 //
 //    public Optional<Team> getTeamByName(String name) {
 //        return teamRepository.findByName(name);
