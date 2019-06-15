@@ -69,7 +69,7 @@
             </a>
         </li>
         <li class="nav-item" *ngIf="state.user$ | async">
-          <a type="button" class="btn btn-outline-primary button-size" href="http://localhost:8080/oauth2/authorize/google?redirect_uri=http://localhost:4200/oauth2/redirect">
+          <a type="button" class="btn btn-outline-primary button-size" (click)="logOut()" routerLink="">
           {{ 'LoginOut' | translate:user }}
           </a>
       </li>

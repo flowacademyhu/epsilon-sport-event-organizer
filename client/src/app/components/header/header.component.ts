@@ -22,15 +22,20 @@ export class HeaderComponent implements OnInit {
 
   switchLanguage(language: string) {
     this.translate.use(language);
-}
+  }
 
-  klikk() {
+  logOut() {
+    this.appState.user = null;
+    localStorage.removeItem('token');
+  }
+
+ /*  klikk() {
     if (this.appState.user) {
     this.appState.user = null;
     } else {
     this.appState.user = { id: 1, name: 'Jozsi'};
     }
-  }
+  } */
 
   ngOnInit() {
   }
