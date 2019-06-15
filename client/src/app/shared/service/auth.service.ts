@@ -10,7 +10,7 @@ export class AuthService {
 
   constructor(
     private user: UserService
-    ) {}
+  ) {}
 
   getLoggedInUser(): any {
     return this.user.getUser();
