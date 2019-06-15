@@ -2,10 +2,9 @@ package hu.flowacademy.epsilon.sport_event_organizer.security.oauth2;
 
 import hu.flowacademy.epsilon.sport_event_organizer.exception.OAuth2AuthenticationProcessingException;
 import hu.flowacademy.epsilon.sport_event_organizer.model.AuthProvider;
-import hu.flowacademy.epsilon.sport_event_organizer.model.Token;
 import hu.flowacademy.epsilon.sport_event_organizer.model.User;
-import hu.flowacademy.epsilon.sport_event_organizer.repository.TokenRepository;
 import hu.flowacademy.epsilon.sport_event_organizer.repository.UserRepository;
+import hu.flowacademy.epsilon.sport_event_organizer.security.TokenProvider;
 import hu.flowacademy.epsilon.sport_event_organizer.security.UserPrincipal;
 import hu.flowacademy.epsilon.sport_event_organizer.security.oauth2.user.OAuth2UserInfo;
 import hu.flowacademy.epsilon.sport_event_organizer.security.oauth2.user.OAuth2UserInfoFactory;
@@ -16,14 +15,13 @@ import org.springframework.security.authentication.InternalAuthenticationService
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
-import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.time.Instant;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
@@ -31,10 +29,11 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     Logger logger = LoggerFactory.getLogger(CustomOAuth2UserService.class);
 
     @Autowired
-    private TokenRepository tokenRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private TokenProvider tokenProvider;
+
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest oAuth2UserRequest) throws OAuth2AuthenticationException {
@@ -52,15 +51,15 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     private OAuth2User processOAuth2User(OAuth2UserRequest oAuth2UserRequest, OAuth2User oAuth2User) {
         OAuth2UserInfo oAuth2UserInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(oAuth2UserRequest.getClientRegistration().getRegistrationId(), oAuth2User.getAttributes());
-        if(StringUtils.isEmpty(oAuth2UserInfo.getEmail())) {
+        if (StringUtils.isEmpty(oAuth2UserInfo.getEmail())) {
             throw new OAuth2AuthenticationProcessingException("Email not found from OAuth2 provider");
         }
 
         Optional<User> userOptional = userRepository.findByEmail(oAuth2UserInfo.getEmail());
         User user;
-        if(userOptional.isPresent()) {
+        if (userOptional.isPresent()) {
             user = userOptional.get();
-            if(!user.getProvider().equals(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()))) {
+            if (!user.getProvider().equals(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()))) {
                 throw new OAuth2AuthenticationProcessingException("Looks like you're signed up with " +
                         user.getProvider() + " account. Please use your " + user.getProvider() +
                         " account to login.");
@@ -74,30 +73,19 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     }
 
     private User registerNewUser(OAuth2UserRequest oAuth2UserRequest, OAuth2UserInfo oAuth2UserInfo) {
+
         User user = new User();
 
         user.setProvider(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()));
         user.setProviderId(oAuth2UserInfo.getId());
-        user.setName(oAuth2UserInfo.getName());
+        user.setGoogleName(oAuth2UserInfo.getName());
         user.setEmail(oAuth2UserInfo.getEmail());
         user.setImageUrl(oAuth2UserInfo.getImageUrl());
-        user.setAccessToken(Optional.ofNullable(oAuth2UserRequest.getAdditionalParameters().get("id_token")).map(Object::toString).orElse(null));
-        user.setExpiresAt(Optional.ofNullable(oAuth2UserRequest.getAccessToken()).map(
-                OAuth2AccessToken::getExpiresAt).orElse(null));
-
-        Token token = new Token();
-        token.setUserid(oAuth2UserInfo.getId());
-        token.setCreatedat(Instant.now());
-        token.setExpiradat((Optional.ofNullable(oAuth2UserRequest.getAccessToken()).map(
-                OAuth2AccessToken::getExpiresAt).orElse(null)));
-        token.setAccesToken(Optional.ofNullable(oAuth2UserRequest.getAdditionalParameters().get("id_token")).map(Object::toString).orElse(null));
-        token.setIsDeleted(false);
-        tokenRepository.save(token);
         return userRepository.save(user);
     }
 
     private User updateExistingUser(User existingUser, OAuth2UserInfo oAuth2UserInfo) {
-        existingUser.setName(oAuth2UserInfo.getName());
+        existingUser.setGoogleName(oAuth2UserInfo.getName());
         existingUser.setImageUrl(oAuth2UserInfo.getImageUrl());
         return userRepository.save(existingUser);
     }

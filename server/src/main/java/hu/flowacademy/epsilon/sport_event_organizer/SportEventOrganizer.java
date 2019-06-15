@@ -7,10 +7,10 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 
 @SpringBootApplication
 @EnableConfigurationProperties(AppProperties.class)
-public class MyFavoriteExpertApplication {
+public class SportEventOrganizer {
 
-	public static void main(String[] args) {
-		SpringApplication.run(MyFavoriteExpertApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(SportEventOrganizer.class, args);
+    }
 
 }
