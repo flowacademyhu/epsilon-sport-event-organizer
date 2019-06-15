@@ -22,10 +22,11 @@ public class Team {
     private String imageUrl;
 
     @ManyToMany(mappedBy = "teams")
-    private Set<User> users;
+    private Set<User> users = new HashSet<>();
+
 
     @ManyToMany(mappedBy = "teamLeaders")
-    private Set<User> leaders;
+    private Set<User> leaders = new HashSet<>();
 
 
     public Team(String name, String company, String imageUrl) {
@@ -61,4 +62,20 @@ public class Team {
         this.imageUrl = imageUrl;
     }
 
+
+    public void setUsers(User user) {
+        users.add(user);
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public Set<User> getLeaders() {
+        return leaders;
+    }
+
+    public void setLeaders(User leader) {
+        leaders.add(leader);
+    }
 }

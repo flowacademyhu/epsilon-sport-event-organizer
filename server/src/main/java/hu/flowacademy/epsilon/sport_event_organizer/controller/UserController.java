@@ -5,15 +5,13 @@ import hu.flowacademy.epsilon.sport_event_organizer.model.User;
 import hu.flowacademy.epsilon.sport_event_organizer.repository.UserRepository;
 import hu.flowacademy.epsilon.sport_event_organizer.security.CurrentUser;
 import hu.flowacademy.epsilon.sport_event_organizer.security.UserPrincipal;
+import hu.flowacademy.epsilon.sport_event_organizer.service.TeamService;
 import hu.flowacademy.epsilon.sport_event_organizer.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -27,6 +25,10 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private TeamService teamService;
+
+
     @GetMapping("/user/me")
     @PreAuthorize("hasRole('USER')")
     public User getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
@@ -35,17 +37,19 @@ public class UserController {
     }
 
 
-    @GetMapping("auth/list-users")
-    @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<List<User>> listUsers() {
-        return ResponseEntity.ok(userService.listUsers());
+    @GetMapping("/get-user")
+    public ResponseEntity<User> getUserById() {
+        return ResponseEntity.ok(userService.getCurrentUser().orElse(null));
     }
 
+    @PutMapping("/update")
+    public ResponseEntity<User> updateUser(@RequestBody User user) {
+        return ResponseEntity.ok(userService.save(user));
+    }
 
-    @GetMapping("/auth/get-user")
-    @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<User> getUserById(@RequestHeader(name = "Authorization") String Authorization) {
-        return ResponseEntity.ok(userService.getCurrentUser().orElse(null));
+    @GetMapping("/auth/get-user-email")
+    public ResponseEntity<User> getUserByemail(@RequestBody User user) {
+        return ResponseEntity.ok(userService.findUserByEmail(user.getEmail()).get());
     }
 
 
