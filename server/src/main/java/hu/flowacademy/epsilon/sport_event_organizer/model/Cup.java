@@ -66,11 +66,15 @@ public class Cup {
         this.teams = teams;
     }
 
-    public void setOrganizers(User user) {
+    public void setOrganizer(User user) {
         organizers.add(user);
     }
 
     public Set<User> getOrganizers() {
         return organizers;
+    }
+
+    public void deleteOrganizer(User user) {
+        organizers.remove(user);
     }
 }

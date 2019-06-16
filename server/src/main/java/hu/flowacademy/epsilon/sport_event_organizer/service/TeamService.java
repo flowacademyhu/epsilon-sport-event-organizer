@@ -27,7 +27,7 @@ public class TeamService {
 
     public Team save(Team team) {
         User currentUser = userService.getCurrentUser().orElse(null);
-//        team.setLeader(currentUser);
+        team.setLeader(currentUser);
         return teamRepository.save(team);
     }
 
@@ -51,7 +51,7 @@ public class TeamService {
     public Set<User> putLeader(String teamName, String googleName) {
         User user = userService.findUserByGoogleName(googleName).orElse(null);
         Team team = teamRepository.findByName(teamName).orElse(null);
-//        team.setLeader(user);
+        team.setLeader(user);
         teamRepository.save(team);
         return team.getUsers();
     }
@@ -66,7 +66,7 @@ public class TeamService {
 
     public Team update(Team team) {
         if (teamRepository.findByName(team.getName()).isPresent()) {
-            Team previousTeam = teamRepository.findByName(team.getName()).get();
+            Team previousTeam = teamRepository.findByName(team.getName()).orElse(null);
             previousTeam.setName(team.getName());
             previousTeam.setCompany(team.getCompany());
             previousTeam.setImageUrl(team.getImageUrl());
@@ -74,7 +74,7 @@ public class TeamService {
             return teamRepository.save(previousTeam);
         }
         throw new NullPointerException();
-        //TODO create custom exception for non existant team
+        //TODO create custom exception for non existent team
     }
 
     public Team getTeamByName(String name) {

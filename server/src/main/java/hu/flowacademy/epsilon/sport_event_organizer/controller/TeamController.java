@@ -17,9 +17,6 @@ public class TeamController {
     @Autowired
     private TeamService teamService;
 
-    @Autowired
-    private UserService userService;
-
     //
 //
 //
@@ -44,7 +41,7 @@ public class TeamController {
         return ResponseEntity.ok(teamService.save(team));
     }
 
-    @PutMapping("/team-modify")
+    @PutMapping("/update")
     public ResponseEntity<Team> modifyTeam(@RequestBody Team team) {
         return ResponseEntity.ok(teamService.update(team));
     }
