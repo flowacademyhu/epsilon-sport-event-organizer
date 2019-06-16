@@ -1,5 +1,7 @@
 package hu.flowacademy.epsilon.sport_event_organizer.model;
 
+import net.minidev.json.annotate.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -7,6 +9,7 @@ import java.util.Set;
 @Entity
 @Table(name = "cups")
 public class Cup {
+
     @Id
     @Column(unique = true)
     private String name;
@@ -17,6 +20,7 @@ public class Cup {
     @Column
     private String imageUrl;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "cups_teams",
@@ -24,19 +28,10 @@ public class Cup {
             inverseJoinColumns = @JoinColumn(name = "teams_name"))
     private Set<Team> teams;
 
-    @ManyToMany(mappedBy = "teams")
-    private Set<User> users = new HashSet<>();
+    @ManyToMany(mappedBy = "cups")
+    private Set<User> organizers = new HashSet<>();
 
     public Cup() {
-    }
-
-
-    public Set<Team> getTeams() {
-        return teams;
-    }
-
-    public void setTeams(Set<Team> teams) {
-        this.teams = teams;
     }
 
     public String getName() {
@@ -61,5 +56,21 @@ public class Cup {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public Set<Team> getTeams() {
+        return teams;
+    }
+
+    public void setTeams(Set<Team> teams) {
+        this.teams = teams;
+    }
+
+    public void setOrganizers(User user) {
+        organizers.add(user);
+    }
+
+    public Set<User> getOrganizers() {
+        return organizers;
     }
 }

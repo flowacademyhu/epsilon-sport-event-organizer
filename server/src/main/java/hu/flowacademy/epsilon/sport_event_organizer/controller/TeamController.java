@@ -22,12 +22,8 @@ public class TeamController {
 
     //
 //
-//    @GetMapping("/team/{name}")
-//    public ResponseEntity<Optional<Team>> getTeam(@PathVariable String name) {
-//        return ResponseEntity.ok(teamService.getTeamByName(name));
-//    }
 //
-//    @GetMapping("/team-list")
+    //    @GetMapping("/team-list")
 //    public ResponseEntity<List<Team>> teamsList() {
 //        return ResponseEntity.ok(teamService.getAllTeams());
 //    }
@@ -37,6 +33,12 @@ public class TeamController {
 //        teamService.deleteTeam(name);
 //        return ResponseEntity.noContent().build();
 //    }
+    @GetMapping("/team/{name}")
+    public ResponseEntity<Team> getTeam(@PathVariable String name) {
+        return ResponseEntity.ok(teamService.getTeamByName(name));
+    }
+
+
     @PostMapping("/create")
     public ResponseEntity<Team> createTeam(@RequestBody Team team) {
         return ResponseEntity.ok(teamService.save(team));
@@ -76,10 +78,4 @@ public class TeamController {
     public ResponseEntity<Set<User>> deleteLeader(@PathVariable String teamName, @PathVariable String googleName) {
         return ResponseEntity.ok(teamService.deleteLeader(teamName, googleName));
     }
-
-
-//    @GetMapping("/get-team-leader")
-//    public ResponseEntity<Team> getTeamByLeader() {
-//        return ResponseEntity.ok(teamService.getTeamByLeader());
-//    }
 }

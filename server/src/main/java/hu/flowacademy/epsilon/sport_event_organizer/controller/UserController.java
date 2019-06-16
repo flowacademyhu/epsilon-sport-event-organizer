@@ -38,9 +38,14 @@ public class UserController {
     }
 
 
-    @GetMapping("/get")
+    @GetMapping("/get-current")
     public ResponseEntity<User> getUserById() {
         return ResponseEntity.ok(userService.getCurrentUser().orElse(null));
+    }
+
+    @GetMapping("/get/{googleName}")
+    public ResponseEntity<User> getUserByGoogleName(@PathVariable String googleName) {
+        return ResponseEntity.ok(userService.findUserByGoogleName(googleName).orElse(null));
     }
 
     @PutMapping("/update")

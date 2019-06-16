@@ -1,11 +1,10 @@
 package hu.flowacademy.epsilon.sport_event_organizer.model;
 
-import org.hibernate.annotations.GenericGenerator;
+import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 @Entity
 @Table(name = "teams")
@@ -21,32 +20,23 @@ public class Team {
     @Column
     private String imageUrl;
 
-    @ManyToMany(mappedBy = "teams")
+    @ManyToMany(mappedBy = "teamMembers")
     private Set<User> users = new HashSet<>();
 
 
     @ManyToMany(mappedBy = "teamLeaders")
     private Set<User> leaders = new HashSet<>();
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "teams")
-    private Set<User> cups = new HashSet<>();
+    private Set<Cup> cups = new HashSet<>();
 
-
-    public Team(String name, String company, String imageUrl) {
-        this.name = name;
-        this.company = company;
-        this.imageUrl = imageUrl;
-    }
 
     public Team() {
     }
 
 
-    public Set<User> getCups() {
-        return cups;
-    }
-
-    public void setCups(Set<User> cups) {
+    public void setCups(Set<Cup> cups) {
         this.cups = cups;
     }
 
