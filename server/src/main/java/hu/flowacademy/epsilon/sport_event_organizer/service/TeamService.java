@@ -62,8 +62,8 @@ public class TeamService {
         Team team = teamRepository.findByName(teamName).orElse(null);
         user.addTeamMember(team);
         userRepository.save(user);
-        team.setUser(user);
-        return team.getUsers();
+        team.addMember(user);
+        return team.getMembers();
     }
 
 
@@ -72,8 +72,8 @@ public class TeamService {
         Team team = teamRepository.findByName(teamName).orElse(null);
         user.deleteTeamMember(team);
         userRepository.save(user);
-        team.deleteUser(user);
-        return team.getUsers();
+        team.deleteMember(user);
+        return team.getMembers();
     }
 
     public List<Team> getByCurrentLeader() {
@@ -88,16 +88,16 @@ public class TeamService {
         user.addTeamLeader(team);
         userRepository.save(user);
         team.setLeader(user);
-        return team.getUsers();
+        return team.getLeaders();
     }
 
     public Set<User> deleteLeader(String teamName, String googleName) {
         User user = userService.findUserByGoogleName(googleName).orElse(null);
         Team team = teamRepository.findByName(teamName).orElse(null);
         user.deleteTeamLeader(team);
-        team.deleteLeader(user);
         userRepository.save(user);
-        return team.getUsers();
+        team.deleteLeader(user);
+        return team.getLeaders();
     }
 
 }

@@ -72,7 +72,7 @@ public class InitDataLoader implements CommandLineRunner {
         user.setTeamLeader(teamSet2);
 
         user.addCup(cup);
-        team1.setCups(cupSet);
+        team1.addCup(cup);
 
         cupRepository.save(cup);
         teamRepository.save(team1);

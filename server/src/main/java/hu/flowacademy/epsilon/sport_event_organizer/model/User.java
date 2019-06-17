@@ -73,6 +73,18 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "cup_name"))
     private Set<Cup> cups;
 
+    public Set<Team> getTeamMembers() {
+        return teamMembers;
+    }
+
+    public Set<Team> getTeamLeaders() {
+        return teamLeaders;
+    }
+
+    public Set<Cup> getCups() {
+        return cups;
+    }
+
 
     public void addTeamMember(Team team) {
         if (teamMembers == null) {

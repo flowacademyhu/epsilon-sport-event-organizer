@@ -28,6 +28,7 @@ public class Cup {
 
     public Cup() {
     }
+    
 
     public String getName() {
         return name;
