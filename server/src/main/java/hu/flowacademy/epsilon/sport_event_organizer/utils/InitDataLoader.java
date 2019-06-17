@@ -32,47 +32,53 @@ public class InitDataLoader implements CommandLineRunner {
         User user = new User();
         User user1 = new User();
         User user2 = new User();
-        user.setGoogleName("feri");
-        user1.setGoogleName("kati");
-        user2.setGoogleName("béla");
+        user.setGoogleName("Flow Feri");
+        user1.setGoogleName("Flow Eszter");
+        user2.setGoogleName("Flow Béla");
         user.setProviderId("1");
         user1.setProviderId("2");
         user2.setProviderId("3");
-
         user.setProvider(AuthProvider.google);
         user1.setProvider(AuthProvider.google);
         user2.setProvider(AuthProvider.google);
+        user.setCompanyName("Flow Academy");
+        user1.setCompanyName("Flow Academy");
+        user2.setCompanyName("Flow Academy");
 
         Team team1 = new Team();
         Team team2 = new Team();
-        team1.setName("fiuk");
-        team2.setName("lanyok");
+        team1.setName("Hipsters");
+        team2.setName("The Crew");
+        team1.setCompany("Flow Academy");
+        team2.setCompany("Flow Academy");
 
         Cup cup = new Cup();
-        cup.setName("Megye2");
+        cup.setName("Flow Cup");
+        cup.setCompany("Flow Academy");
 
-        Set<Team> teamSet = new HashSet();
+        Set<Team> teamSet1 = new HashSet();
+        Set<Team> teamSet2 = new HashSet();
         Set<Cup> cupSet = new HashSet();
 
 
-        teamSet.add(team1);
+        teamSet1.add(team1);
+        teamSet2.add(team1);
+        teamSet2.add(team2);
         cupSet.add(cup);
 
-        user.setTeamMembers(teamSet);
-        user1.setTeamMembers(teamSet);
-        user2.setTeamMembers(teamSet);
-        user.setTeamLeaders(teamSet);
+        user.setTeamMember(teamSet1);
+        user1.setTeamMember(teamSet1);
+        user2.setTeamMember(teamSet1);
+        user.setTeamLeader(teamSet2);
 
-        user.setCups(cupSet);
-        cup.setTeams(teamSet);
+        user.addCup(cup);
+        team1.setCups(cupSet);
 
-
+        cupRepository.save(cup);
         teamRepository.save(team1);
         teamRepository.save(team2);
-        cupRepository.save(cup);
         userRepository.save(user);
         userRepository.save(user1);
         userRepository.save(user2);
-
     }
 }
