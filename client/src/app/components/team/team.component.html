@@ -1,7 +1,13 @@
 <body>
-  {{ 'SearchTeam' | translate:user }} <br>
+<!--   {{ 'SearchTeam' | translate:user }} <br>
   {{ 'TeamName' | translate:user }}<input type="text" name="teamName" [(ngModel)]="teamName">
   {{ 'CompanyName' | translate:user }}<input type="text" name="companyName" [(ngModel)]="companyName">
-   <button> {{ 'Search' | translate:user }}</button>
+   <button> {{ 'Search' | translate:user }}</button> -->
   <br>
+  <form>
+    Name<input type="text" [(ngModel)] = "teamName">
+    Company<input type="text" [(ngModel)] = "companyName">
+    Image<input type="file" name="pic" accept="image/*">
+    <input type="submit" (click)="feri()">
+  </form>
   </body>

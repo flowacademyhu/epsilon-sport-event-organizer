@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TeamService } from 'src/app/shared/service/team.service';
 
 @Component({
   selector: 'app-team',
@@ -10,9 +11,21 @@ export class TeamComponent implements OnInit {
   teamName: String = '';
   companyName: String = '';
 
-  constructor() { }
+  team: Team;
+
+  constructor(private teamService: TeamService) { }
 
   ngOnInit() {
+  }
+
+  feri() {
+    this.team.name = this.teamName;
+    this.team.company = this.companyName;
+    this.teamService.update(this.team).subscribe(
+      (team: Team) => {
+        console.log(team);
+      }
+    );
   }
 
 }
