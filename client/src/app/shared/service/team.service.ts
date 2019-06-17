@@ -9,26 +9,41 @@ export class TeamService {
 
   constructor(
     private httpclient: HttpClient,
-    private team: Team //not this, we have to save a team in app-state.service
   ) { }
 
-  findAll(): Observable<any> {
-    return this.httpclient.get('http://localhost:8080/auth/team-list');
+  getByTeamName(name: String): Observable<any> {
+    return this.httpclient.get('http://localhost:8080/team/' + name);
   }
 
-  getTeam(): Observable<any> {
-    return this.httpclient.get('http://localhost:8080/auth/team/' + this.team.name);
+  create(team: Team): Observable<any> {
+    return this.httpclient.post('http://localhost:8080/create', team);
   }
 
-  deleteTeam(): Observable<any> {
-    return this.httpclient.delete('http://localhost:8080/auth/team-delete/' + this.team.name);
+  update(team: Team): Observable<any> {
+    return this.httpclient.put('http://localhost:8080/update', team);
   }
 
-  putTeam(team: Team): Observable<any> {
-    return this.httpclient.put('http://localhost:8080/auth/team-modify', team);
+  getByMember(): Observable<any> {
+    return this.httpclient.get('http://localhost:8080/get-by-member');
   }
 
-  postTeam(team: Team): Observable<any> {
-    return this.httpclient.post('http://localhost:8080/auth/team-create', team);
+  putMemberInTeam(userName: String, teamName: String, team: Team): Observable<any> {
+    return this.httpclient.put('http://localhost:8080/put-member/' + userName + '/' + teamName, team);
+  }
+
+  deleteMemberFromTeam(userName: String, team: String): Observable<any> {
+    return this.httpclient.delete('http://localhost:8080/delete-member/' + userName + '/' + team);
+  }
+
+  getByLeader(): Observable<any> {
+    return this.httpclient.get('http://localhost:8080/get-by-leader');
+  }
+
+  putLeaderInTeam(leaderName: String, teamName: String, team: Team): Observable<any> {
+    return this.httpclient.put('http://localhost:8080/put-leader/' + leaderName + '/' + teamName, team);
+  }
+
+  deleteLeaderFromTeam(leaderName: String, team: String): Observable<any> {
+    return this.httpclient.delete('http://localhost:8080/delete-leader/' + leaderName + '/' + team);
   }
 }
