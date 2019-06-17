@@ -10,7 +10,7 @@ export class TeamComponent implements OnInit {
 
   teamName: String = '';
   companyName: String = '';
-  teams: any;
+  teams: any = '';
   creatTeam: Team;
   creatTeamName: String = '';
   creatCompanyName: String = '';
@@ -19,19 +19,28 @@ export class TeamComponent implements OnInit {
   addMember: String = '';
   teamNametoAdd: String = '';
   teamtoAddMember: Team;
+  deleteMember: String = '';
+  teamNametoDelete: String = '';
 
   constructor(private teamService: TeamService) { }
 
   ngOnInit() {
   }
 
+  deleteMemberFromTeam() {
+    this.teamService.deleteMemberFromTeam(this.deleteMember, this.teamNametoDelete);
+    this.deleteMember = '';
+    this.teamNametoDelete = '';
+  }
+
   putMemberInTeam() {
     this.teamtoAddMember = {name: this.teamNametoAdd, company: '', imageUrl: ''};
     this.teamService.putMemberInTeam(this.addMember, this.teamNametoAdd, this.teamtoAddMember).subscribe(
       (data: any) => {
-        console.log('a', data);
+        this.addMember = '';
+        this.teamNametoAdd = '';
       }
-    )
+    );
   }
 
   create() {
@@ -39,9 +48,10 @@ export class TeamComponent implements OnInit {
 
     this.teamService.create(this.creatTeam).subscribe(
       (data: any) => {
-        console.log(data);
         this.data = data;
         this.dataLeader = data.leader;
+        this.creatTeamName = '';
+        this.creatCompanyName = '';
       }
     );
   }
@@ -50,7 +60,7 @@ export class TeamComponent implements OnInit {
     this.teamService.getByTeamName(this.teamName).subscribe(
       (data: Team) => {
         this.teams = data;
-        console.log(data);
+        this.teamName = '';
       }
     );
   }

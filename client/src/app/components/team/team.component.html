@@ -1,10 +1,13 @@
 <body>
-  {{ 'SearchTeam' | translate:user }} <br>
-  {{ 'TeamName' | translate:user }}<input type="text" name="teamName" [(ngModel)]="teamName">
-   <button (click)="getByTeamName()"> {{ 'Search' | translate:user }}</button> <br>
+    {{ 'SearchTeam' | translate:user }} <br>
+    {{ 'TeamName' | translate:user }}<input type="text" name="teamName" [(ngModel)]="teamName">
+    <button (click)="getByTeamName()"> {{ 'Search' | translate:user }}</button> <br>
+    {{ teams.name }}
+    <div *ngFor="let i of teams.leader">{{ i.googleName }}<div *ngIf=""></div><img src="../../../assets/pictures/deleteX.png"></div>
+    <div *ngFor="let i of teams.users">{{ i.googleName }}</div>
  
    <br>
-   Create: <br>
+   {{ 'CreatTeam' | translate:user }}Create: <br>
    {{ 'TeamName' | translate:user }}
    <input type="text" name="creatTeamName" [(ngModel)]="creatTeamName">
    {{ 'CompanyName' | translate:user }}
@@ -12,12 +15,31 @@
    <button (click)="create()"> {{ 'Submit' | translate:user }}</button>
 
    <br>
-   Add member: <br>
+   {{ 'AddMember' | translate:user }} <br>
    {{ 'MemberName' | translate:user }}
    <input type="text" name="addMember" [(ngModel)]="addMember">
    {{ 'TeamName' | translate:user }}
    <input type="text" name="teamName" [(ngModel)]="teamNametoAdd">
-   <button (click)="putMemberInTeam()"> {{ 'Add' | translate:user }}</button>
+   <button (click)="putMemberInTeam()"> {{ 'Add' | translate:user }}</button> <br>
+
+   {{ 'DeleteMember' | translate:user }} <br>
+   {{ 'MemberName' | translate:user }}
+   <input type="text" name="addMember" [(ngModel)]="deleteMember">
+   {{ 'TeamName' | translate:user }}
+   <input type="text" name="teamName" [(ngModel)]="teamNametoDelete">
+   <button (click)="deleteMemberFromTeam()"> {{ 'Delete' | translate:user }}</button><br>
+
+
+   {{ 'AddLeader' | translate:user }} <br>
+   {{ 'LeaderName' | translate:user }}
+   <input type="text" name="addMember" [(ngModel)]="addMember">
+   {{ 'TeamName' | translate:user }}
+   <input type="text" name="teamName" [(ngModel)]="teamNametoAdd">
+   <button (click)="putMemberInTeam()"> {{ 'Add' | translate:user }}</button> <br>
+
+
+
+
 
    
   </body>

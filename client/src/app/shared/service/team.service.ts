@@ -24,7 +24,7 @@ export class TeamService {
   }
 
   getByMember(): Observable<any> {
-    return this.httpclient.get('http://localhost:8080/team/get-by-member');
+    return this.httpclient.get('http://localhost:8080/team/get-by-current-member');
   }
 
   putMemberInTeam(userName: String, teamName: String, team: Team): Observable<any> {
@@ -36,7 +36,7 @@ export class TeamService {
   }
 
   getByLeader(): Observable<any> {
-    return this.httpclient.get('http://localhost:8080/team/get-by-leader');
+    return this.httpclient.get('http://localhost:8080/team/get-by-current-leader');
   }
 
   putLeaderInTeam(leaderName: String, teamName: String, team: Team): Observable<any> {

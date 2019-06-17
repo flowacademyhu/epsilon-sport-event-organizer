@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { UserService } from 'src/app/shared/service/user.service';
+import { AppStateService } from 'src/app/shared/service/app-state.service';
+import { TeamService } from 'src/app/shared/service/team.service';
 
 @Component({
   selector: 'app-profile',
@@ -9,19 +9,28 @@ import { UserService } from 'src/app/shared/service/user.service';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(private activateRoute: ActivatedRoute, private user: UserService) { }
+  constructor(private state: AppStateService, private teamService: TeamService) { }
 
-  userDatas: any = {};
+  userDatas: User;
+
+  teamsIAmLeaderIn: any[];
+  teamsIAmMemberIn: any[];
 
   ngOnInit() {
 
-    this.user.getUser().subscribe(
-      result => {
-        console.log('Profile result:', result);
-        this.userDatas = result;
+    this.userDatas = this.state.user;
+
+    this.teamService.getByLeader().subscribe(
+      teams => {
+        this.teamsIAmLeaderIn = teams;
       }
     );
 
+    this.teamService.getByMember().subscribe(
+      teams => {
+        this.teamsIAmMemberIn = teams;
+      }
+    );
   }
 
 }
