@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -66,9 +67,10 @@ public class TeamService {
         return team.getUsers();
     }
 
-    public Team getByCurrentLeader() {
-        User currentUser = userService.getCurrentUser().orElse(null);
-        return teamRepository.findByLeaders(currentUser).orElse(null);
+    public List<Team> getByCurrentLeader() {
+//        User currentUser = userService.getCurrentUser().orElse(null);
+        User currentUser = userService.findUserByGoogleName("Feri").orElse(null);
+        return teamRepository.findByLeaders(currentUser);
     }
 
     public Set<User> putLeader(String teamName, String googleName) {

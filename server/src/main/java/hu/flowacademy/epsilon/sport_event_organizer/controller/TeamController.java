@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -16,9 +17,6 @@ public class TeamController {
     @Autowired
     private TeamService teamService;
 
-    //
-//
-//
     //    @GetMapping("/team-list")
 //    public ResponseEntity<List<Team>> teamsList() {
 //        return ResponseEntity.ok(teamService.getAllTeams());
@@ -41,7 +39,7 @@ public class TeamController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Team> modifyTeam(@RequestBody Team team) {
+    public ResponseEntity<Team> updateTeam(@RequestBody Team team) {
         return ResponseEntity.ok(teamService.update(team));
     }
 
@@ -60,8 +58,8 @@ public class TeamController {
         return ResponseEntity.ok(teamService.deleteMember(teamName, googleName));
     }
 
-    @GetMapping("/get-by-leader")
-    public ResponseEntity<Team> getTeamByLeader() {
+    @GetMapping("/get-by-current-leader")
+    public ResponseEntity<List<Team>> getTeamsByLeader() {
         return ResponseEntity.ok(teamService.getByCurrentLeader());
     }
 

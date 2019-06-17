@@ -32,36 +32,45 @@ public class InitDataLoader implements CommandLineRunner {
         User user = new User();
         User user1 = new User();
         User user2 = new User();
-        user.setGoogleName("feri");
-        user1.setGoogleName("kati");
-        user2.setGoogleName("béla");
+        user.setGoogleName("Feri");
+        user1.setGoogleName("Matyi");
+        user2.setGoogleName("Béla");
         user.setProviderId("1");
         user1.setProviderId("2");
         user2.setProviderId("3");
-
         user.setProvider(AuthProvider.google);
         user1.setProvider(AuthProvider.google);
         user2.setProvider(AuthProvider.google);
+        user.setCompanyName("Flow Academy");
+        user1.setCompanyName("Flow Academy");
+        user2.setCompanyName("Flow Academy");
 
         Team team1 = new Team();
         Team team2 = new Team();
         team1.setName("fiuk");
         team2.setName("lanyok");
+        team1.setCompany("Flow Academy");
+        team2.setCompany("Flow Academy");
+
 
         Cup cup = new Cup();
         cup.setName("Megye2");
 
-        Set<Team> teamSet = new HashSet();
+        Set<Team> teamSet1 = new HashSet();
+        Set<Team> teamSet2 = new HashSet();
         Set<Cup> cupSet = new HashSet();
 
 
-        teamSet.add(team1);
+        teamSet1.add(team1);
+        teamSet2.add(team1);
+        teamSet2.add(team2);
         cupSet.add(cup);
 
-        user.setTeamMembers(teamSet);
-        user1.setTeamMembers(teamSet);
-        user2.setTeamMembers(teamSet);
-        user.setTeamLeaders(teamSet);
+        user.setTeamMembers(teamSet1);
+        user1.setTeamMembers(teamSet1);
+        user2.setTeamMembers(teamSet1);
+
+        user.setTeamLeaders(teamSet2);
 
         user.setCups(cupSet);
         team1.setCups(cupSet);

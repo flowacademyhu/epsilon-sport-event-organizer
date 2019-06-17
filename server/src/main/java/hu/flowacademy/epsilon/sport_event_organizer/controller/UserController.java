@@ -44,7 +44,7 @@ public class UserController {
     }
 
     @GetMapping("/get/{googleName}")
-    public ResponseEntity<User> getUserByGoogleName(@PathVariable String googleName) {
+    public ResponseEntity<User> getByGoogleName(@PathVariable String googleName) {
         return ResponseEntity.ok(userService.findUserByGoogleName(googleName).orElse(null));
     }
 

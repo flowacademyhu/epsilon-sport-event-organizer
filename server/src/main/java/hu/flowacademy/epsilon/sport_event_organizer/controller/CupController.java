@@ -26,6 +26,11 @@ public class CupController {
         return ResponseEntity.ok(cupService.update(cup));
     }
 
+    @GetMapping("/get/{cupName}")
+    public ResponseEntity<Cup> getByCupName(@PathVariable String cupName) {
+        return ResponseEntity.ok(cupService.getByCupName(cupName));
+    }
+
     @GetMapping("/get-by-current-organizer")
     public ResponseEntity<Cup> getCupByOrganizer() {
         return ResponseEntity.ok(cupService.getByCurrentOrganizer());
