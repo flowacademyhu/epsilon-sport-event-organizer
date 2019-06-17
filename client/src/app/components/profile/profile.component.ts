@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppStateService } from 'src/app/shared/service/app-state.service';
+import { TeamService } from 'src/app/shared/service/team.service';
 
 @Component({
   selector: 'app-profile',
@@ -8,13 +9,28 @@ import { AppStateService } from 'src/app/shared/service/app-state.service';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(private state: AppStateService) { }
+  constructor(private state: AppStateService, private teamService: TeamService) { }
 
   userDatas: User;
+
+  teamsIAmLeaderIn: any[];
+  teamsIAmMemberIn: any[];
 
   ngOnInit() {
 
     this.userDatas = this.state.user;
+
+    this.teamService.getByLeader().subscribe(
+      teams => {
+        this.teamsIAmLeaderIn = teams;
+      }
+    );
+
+    this.teamService.getByMember().subscribe(
+      teams => {
+        this.teamsIAmMemberIn = teams;
+      }
+    );
   }
 
 }
