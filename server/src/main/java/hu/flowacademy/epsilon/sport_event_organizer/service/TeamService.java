@@ -44,9 +44,9 @@ public class TeamService {
         //TODO create custom exception for non existent team
     }
 
-    public Team getByCurrentMember() {
+    public List<Team> getByCurrentMember() {
         User currentUser = userService.getCurrentUser().orElse(null);
-        return teamRepository.findByUsers(currentUser).orElse(null);
+        return teamRepository.findByUsers(currentUser);
     }
 
     public Set<User> putMember(String teamName, String googleName) {
@@ -68,8 +68,8 @@ public class TeamService {
     }
 
     public List<Team> getByCurrentLeader() {
-//        User currentUser = userService.getCurrentUser().orElse(null);
-        User currentUser = userService.findUserByGoogleName("Feri").orElse(null);
+        User currentUser = userService.getCurrentUser().orElse(null);
+//        User currentUser = userService.findUserByGoogleName("Feri").orElse(null);
         return teamRepository.findByLeaders(currentUser);
     }
 

@@ -44,7 +44,7 @@ public class TeamController {
     }
 
     @GetMapping("/get-by-current-member")
-    public ResponseEntity<Team> getTeamByMember() {
+    public ResponseEntity<List<Team>> getTeamByMember() {
         return ResponseEntity.ok(teamService.getByCurrentMember());
     }
 

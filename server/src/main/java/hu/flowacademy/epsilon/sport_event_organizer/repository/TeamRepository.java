@@ -14,7 +14,7 @@ public interface TeamRepository extends JpaRepository<Team, String> {
 
     Optional<Team> findByCompany(String company);
 
-    Optional<Team> findByUsers(User currentUser);
+    List<Team> findByUsers(User currentUser);
 
     List<Team> findByLeaders(User currentUser);
 

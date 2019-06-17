@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -34,12 +34,12 @@ public class CupService {
         return cupRepository.findByName(name).orElse(null);
     }
 
-    public Cup getByCurrentOrganizer() {
+    public List<Cup> getByCurrentOrganizer() {
         User currentUser = userService.getCurrentUser().orElse(null);
-        return cupRepository.findByOrganizers(currentUser).orElse(null);
+        return cupRepository.findByOrganizers(currentUser);
     }
 
-    public Set<User> putOrganizer(String cupName, String googleName) {
+    public Set<User> putOrganizer(String googleName, String cupName) {
         User user = userService.findUserByGoogleName(googleName).orElse(null);
         Cup cup = cupRepository.findByName(cupName).orElse(null);
         cup.setOrganizer(user);
@@ -47,7 +47,7 @@ public class CupService {
         return cup.getOrganizers();
     }
 
-    public Set<User> deleteOrganizer(String cupName, String googleName) {
+    public Set<User> deleteOrganizer(String googleName, String cupName) {
         User user = userService.findUserByGoogleName(googleName).orElse(null);
         Cup cup = cupRepository.findByName(cupName).orElse(null);
         cup.deleteOrganizer(user);
@@ -55,7 +55,7 @@ public class CupService {
         return cup.getOrganizers();
     }
 
-    public Set<Team> putTeam(String cupName, String teamName) {
+    public Set<Team> putTeam(String teamName, String cupName) {
         Team team = teamService.getTeamByName(teamName);
         Cup cup = cupRepository.findByName(cupName).orElse(null);
         cup.setTeam(team);
@@ -63,7 +63,7 @@ public class CupService {
         return cup.getTeams();
     }
 
-    public Set<Team> deleteTeam(String cupName, String teamName) {
+    public Set<Team> deleteTeam(String teamName, String cupName) {
         Team team = teamService.getTeamByName(teamName);
         Cup cup = cupRepository.findByName(cupName).orElse(null);
         cup.deleteTeam(team);
@@ -85,7 +85,7 @@ public class CupService {
         //TODO create custom exception for non existent team
     }
 
-    public Cup getByCupName(String cupName) {
+    public Cup getByName(String cupName) {
         return cupRepository.findByName(cupName).orElse(null);
     }
 }
