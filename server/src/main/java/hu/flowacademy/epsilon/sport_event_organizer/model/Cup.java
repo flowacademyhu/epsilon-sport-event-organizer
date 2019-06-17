@@ -7,8 +7,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "teams")
-public class Team {
+@Table(name = "cups")
+public class Cup {
 
     @Id
     @Column(unique = true)
@@ -20,24 +20,18 @@ public class Team {
     @Column
     private String imageUrl;
 
-    @ManyToMany(mappedBy = "teamMembers")
-    private Set<User> users = new HashSet<>();
-
-
-    @ManyToMany(mappedBy = "teamLeaders")
-    private Set<User> leaders = new HashSet<>();
-
     @JsonIgnore
-    @ManyToMany(mappedBy = "teams")
-    private Set<Cup> cups = new HashSet<>();
+    @ManyToMany
+    @JoinTable(
+            name = "cups_teams",
+            joinColumns = @JoinColumn(name = "cups_name"),
+            inverseJoinColumns = @JoinColumn(name = "teams_name"))
+    private Set<Team> teams;
 
+    @ManyToMany(mappedBy = "cups")
+    private Set<User> organizers = new HashSet<>();
 
-    public Team() {
-    }
-
-
-    public void setCups(Set<Cup> cups) {
-        this.cups = cups;
+    public Cup() {
     }
 
     public String getName() {
@@ -64,30 +58,23 @@ public class Team {
         this.imageUrl = imageUrl;
     }
 
-
-    public void setUser(User user) {
-        users.add(user);
+    public Set<Team> getTeams() {
+        return teams;
     }
 
-    public void deleteUser(User user) {
-        users.remove(user);
+    public void setTeams(Set<Team> teams) {
+        this.teams = teams;
     }
 
-
-    public Set<User> getUsers() {
-        return users;
+    public void setOrganizer(User user) {
+        organizers.add(user);
     }
 
-
-    public Set<User> getLeader() {
-        return leaders;
+    public Set<User> getOrganizers() {
+        return organizers;
     }
 
-    public void setLeader(User leader) {
-        leaders.add(leader);
-    }
-
-    public void removeLeader(User leader) {
-        leaders.remove(leader);
+    public void deleteOrganizer(User user) {
+        organizers.remove(user);
     }
 }
