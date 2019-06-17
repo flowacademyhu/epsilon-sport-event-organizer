@@ -1,6 +1,7 @@
 package hu.flowacademy.epsilon.sport_event_organizer.service;
 
 import hu.flowacademy.epsilon.sport_event_organizer.model.Cup;
+import hu.flowacademy.epsilon.sport_event_organizer.model.Team;
 import hu.flowacademy.epsilon.sport_event_organizer.model.User;
 import hu.flowacademy.epsilon.sport_event_organizer.repository.CupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,10 @@ public class CupService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private TeamService teamService;
+
+
     public Cup save(Cup cup) {
         User currentUser = userService.getCurrentUser().orElse(null);
         cup.setOrganizer(currentUser);
@@ -26,6 +31,11 @@ public class CupService {
 
     public Cup getCupByName(String name) {
         return cupRepository.findByName(name).orElse(null);
+    }
+
+    public Cup getByCurrentOrganizer() {
+        User currentUser = userService.getCurrentUser().orElse(null);
+        return cupRepository.findByOrganizers(currentUser).orElse(null);
     }
 
     public Set<User> putOrganizer(String cupName, String googleName) {
@@ -42,6 +52,22 @@ public class CupService {
         cup.deleteOrganizer(user);
         cupRepository.save(cup);
         return cup.getOrganizers();
+    }
+
+    public Set<Team> putTeam(String cupName, String teamName) {
+        Team team = teamService.getTeamByName(teamName);
+        Cup cup = cupRepository.findByName(cupName).orElse(null);
+        cup.setTeam(team);
+        cupRepository.save(cup);
+        return cup.getTeams();
+    }
+
+    public Set<Team> deleteTeam(String cupName, String teamName) {
+        Team team = teamService.getTeamByName(teamName);
+        Cup cup = cupRepository.findByName(cupName).orElse(null);
+        cup.deleteTeam(team);
+        cupRepository.save(cup);
+        return cup.getTeams();
     }
 
 

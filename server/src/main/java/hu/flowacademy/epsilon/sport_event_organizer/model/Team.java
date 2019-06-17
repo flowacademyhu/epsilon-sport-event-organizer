@@ -28,8 +28,12 @@ public class Team {
     private Set<User> leaders = new HashSet<>();
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "teams")
-    private Set<Cup> cups = new HashSet<>();
+    @ManyToMany
+    @JoinTable(
+            name = "cups_teams",
+            joinColumns = @JoinColumn(name = "teams_name"),
+            inverseJoinColumns = @JoinColumn(name = "cups_name"))
+    private Set<Cup> cups;
 
 
     public Team() {

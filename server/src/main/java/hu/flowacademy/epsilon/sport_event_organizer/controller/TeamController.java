@@ -3,7 +3,6 @@ package hu.flowacademy.epsilon.sport_event_organizer.controller;
 import hu.flowacademy.epsilon.sport_event_organizer.model.Team;
 import hu.flowacademy.epsilon.sport_event_organizer.model.User;
 import hu.flowacademy.epsilon.sport_event_organizer.service.TeamService;
-import hu.flowacademy.epsilon.sport_event_organizer.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -46,9 +45,9 @@ public class TeamController {
         return ResponseEntity.ok(teamService.update(team));
     }
 
-    @GetMapping("/get-by-member")
+    @GetMapping("/get-by-current-member")
     public ResponseEntity<Team> getTeamByMember() {
-        return ResponseEntity.ok(teamService.getByMember());
+        return ResponseEntity.ok(teamService.getByCurrentMember());
     }
 
     @PutMapping("/put-member/{googleName}/{teamName}")
@@ -63,7 +62,7 @@ public class TeamController {
 
     @GetMapping("/get-by-leader")
     public ResponseEntity<Team> getTeamByLeader() {
-        return ResponseEntity.ok(teamService.getByMember());
+        return ResponseEntity.ok(teamService.getByCurrentLeader());
     }
 
     @PutMapping("/put-leader/{googleName}/{teamName}")
