@@ -11,12 +11,12 @@ export class TeamService {
     private httpclient: HttpClient,
   ) { }
 
-  getByTeamName(name: String): Observable<any> {
-    return this.httpclient.get('http://localhost:8080/team/' + name);
+  getByTeamName(name: String) {
+    return this.httpclient.get('http://localhost:8080/auth/team/' + name);
   }
 
   create(team: Team): Observable<any> {
-    return this.httpclient.post('http://localhost:8080/create', team);
+    return this.httpclient.post('http://localhost:8080/auth/create', team);
   }
 
   update(team: Team): Observable<any> {

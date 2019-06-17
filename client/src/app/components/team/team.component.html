@@ -2,6 +2,14 @@
   {{ 'SearchTeam' | translate:user }} <br>
   {{ 'TeamName' | translate:user }}<input type="text" name="teamName" [(ngModel)]="teamName">
   {{ 'CompanyName' | translate:user }}<input type="text" name="companyName" [(ngModel)]="companyName">
-   <button> {{ 'Search' | translate:user }}</button>
-  <br>
+   <button (click)="getByTeamName()"> {{ 'Search' | translate:user }}</button> <br>
+ 
+   <br>
+   Create: <br>
+   {{ 'TeamName' | translate:user }}
+   <input type="text" name="creatTeamName" [(ngModel)]="creatTeamName">
+   {{ 'CompanyName' | translate:user }}
+   <input type="text" name="creatCompanyName" [(ngModel)]="creatCompanyName">
+   <button (click)="create()"> {{ 'Submit' | translate:user }}</button>
+   
   </body>
