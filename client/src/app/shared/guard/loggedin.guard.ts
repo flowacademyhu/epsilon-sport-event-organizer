@@ -6,7 +6,7 @@ import { AppStateService } from '../service/app-state.service';
 @Injectable({
   providedIn: 'root'
 })
-export class RoleGuard implements CanActivate {
+export class LoggedinGuard implements CanActivate {
 
   constructor(
     private appState: AppStateService
