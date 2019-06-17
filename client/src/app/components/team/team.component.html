@@ -1,7 +1,6 @@
 <body>
   {{ 'SearchTeam' | translate:user }} <br>
   {{ 'TeamName' | translate:user }}<input type="text" name="teamName" [(ngModel)]="teamName">
-  {{ 'CompanyName' | translate:user }}<input type="text" name="companyName" [(ngModel)]="companyName">
    <button (click)="getByTeamName()"> {{ 'Search' | translate:user }}</button> <br>
  
    <br>
