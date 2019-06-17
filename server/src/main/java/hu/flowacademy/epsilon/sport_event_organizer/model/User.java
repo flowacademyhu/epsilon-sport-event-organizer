@@ -1,6 +1,9 @@
 package hu.flowacademy.epsilon.sport_event_organizer.model;
 
+import net.minidev.json.annotate.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import java.util.Set;
 import java.util.UUID;
@@ -45,31 +48,37 @@ public class User {
     @Column(columnDefinition = "TEXT")
     private String accessToken;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
-            name = "users_team_member",
-            joinColumns = @JoinColumn(name = "users_id"),
-            inverseJoinColumns = @JoinColumn(name = "teams_name"))
-    private Set<Team> teams;
+            name = "teams_members",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "team_name"))
+    private Set<Team> teamMembers;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
-            name = "users_team_leader",
-            joinColumns = @JoinColumn(name = "users_id"),
-            inverseJoinColumns = @JoinColumn(name = "teams_name"))
+            name = "teams_leaders",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "team_name"))
     private Set<Team> teamLeaders;
 
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(
+            name = "cups_organizers",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "cup_name"))
+    private Set<Cup> cups;
 
-    public Set<Team> getTeams() {
-        return teams;
+
+    public void setCups(Set<Cup> cups) {
+        this.cups = cups;
     }
 
-    public void setTeams(Set<Team> teams) {
-        this.teams = teams;
-    }
-
-    public Set<Team> getTeamLeaders() {
-        return teamLeaders;
+    public void setTeamMembers(Set<Team> teamMembers) {
+        this.teamMembers = teamMembers;
     }
 
     public void setTeamLeaders(Set<Team> teamLeaders) {

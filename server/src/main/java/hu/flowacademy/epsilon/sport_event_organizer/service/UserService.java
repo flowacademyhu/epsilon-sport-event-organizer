@@ -40,4 +40,10 @@ public class UserService {
                 .map(UserPrincipal::getId)
                 .flatMap(userRepository::findById);
     }
+
+    public Optional<User> findUserByGoogleName(String googleName) {
+        return userRepository.findUserByGoogleName(googleName);
+    }
+
+
 }

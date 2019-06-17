@@ -8,6 +8,4 @@ interface User {
   provider: String;
   companyName: String;
   accessToken: String;
-  teams: Team[];
-  teamLeaders: Team[];
 }
