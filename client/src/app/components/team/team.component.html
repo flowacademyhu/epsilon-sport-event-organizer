@@ -1,26 +1,8 @@
 <body>
-<!-- {{ 'SearchTeam' | translate:user }} <br>
+  {{ 'SearchTeam' | translate:user }} <br>
   {{ 'TeamName' | translate:user }}<input type="text" name="teamName" [(ngModel)]="teamName">
-  {{ 'CompanyName' | translate:user }}<input type="text" name="companyName" [(ngModel)]="companyName">
-<<<<<<< HEAD
-   <button (click)="getByTeamName()"> {{ 'Search' | translate:user }}</button>
-  <br> -->
-  <br>
-  {{ 'TeamName' | translate:user }}
-  <input type="text" name="creatTeamName" [(ngModel)]="teamName">
-  {{ 'CompanyName' | translate:user }}
-  <input type="text" name="creatCompanyName" [(ngModel)]="companyName">
-  <button (click)="create()"> {{ 'Submit' | translate:user }}</button>
-  <br>
-  
-  <!-- <form>
-    Name<input type="text" [(ngModel)] = "teamName">
-    Company<input type="text" [(ngModel)] = "companyName">
-    Image<input type="file" name="pic" accept="image/*">
-    <input type="submit" (click)="feri()">
-  </form> -->
-=======
-   <button (click)="getByTeamName()"> {{ 'Search' | translate:user }}</button> <br>
+  <button (click)="getByTeamName()"> {{ 'Search' | translate:user }}</button> <br>
+  {{ teams.name }}: {{ teams.members }}
  
    <br>
    Create: <br>
@@ -39,5 +21,4 @@
    <button (click)="putMemberInTeam()"> {{ 'Add' | translate:user }}</button>
 
    
->>>>>>> 3e796cb182a11adad9b823b2a14bb12d0030ed19
   </body>
