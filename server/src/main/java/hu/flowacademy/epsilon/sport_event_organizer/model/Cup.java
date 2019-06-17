@@ -57,7 +57,7 @@ public class Cup {
         return teams;
     }
 
-    public void setTeam(Team team) {
+    public void addTeam(Team team) {
         teams.add(team);
     }
 
@@ -65,13 +65,14 @@ public class Cup {
         teams.remove(team);
     }
 
-    public void setOrganizer(User user) {
-        organizers.add(user);
-    }
-
     public Set<User> getOrganizers() {
         return organizers;
     }
+
+    public void addOrganizer(User user) {
+        organizers.add(user);
+    }
+
 
     public void deleteOrganizer(User user) {
         organizers.remove(user);

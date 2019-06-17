@@ -11,27 +11,16 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
-@RequestMapping(path = "/auth")
+@RequestMapping(path = "/team")
 public class TeamController {
 
     @Autowired
     private TeamService teamService;
 
-    //    @GetMapping("/team-list")
-//    public ResponseEntity<List<Team>> teamsList() {
-//        return ResponseEntity.ok(teamService.getAllTeams());
-//    }
-//
-//    @DeleteMapping("/team-delete/{name}")
-//    public ResponseEntity<Void> deleteTeam(@PathVariable String name) {
-//        teamService.deleteTeam(name);
-//        return ResponseEntity.noContent().build();
-//    }
     @GetMapping("/team/{name}")
     public ResponseEntity<Team> getTeam(@PathVariable String name) {
         return ResponseEntity.ok(teamService.getTeamByName(name));
     }
-
 
     @PostMapping("/create")
     public ResponseEntity<Team> createTeam(@RequestBody Team team) {

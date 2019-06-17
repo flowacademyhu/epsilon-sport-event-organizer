@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
-@RequestMapping(path = "/cups")
+@RequestMapping(path = "/cup")
 public class CupController {
 
     @Autowired
@@ -38,22 +38,22 @@ public class CupController {
         return ResponseEntity.ok(cupService.getByCurrentOrganizer());
     }
 
-    @PutMapping("/put-member/{googleName}/{cupName}")
+    @PutMapping("/put-organizer/{googleName}/{cupName}")
     public ResponseEntity<Set<User>> putOrganizer(@PathVariable String googleName, @PathVariable String cupName) {
         return ResponseEntity.ok(cupService.putOrganizer(googleName, cupName));
     }
 
-    @DeleteMapping("/delete-member/{googleName}/{cupName}")
+    @DeleteMapping("/delete-organizer/{googleName}/{cupName}")
     public ResponseEntity<Set<User>> deleteOrganizer(@PathVariable String googleName, @PathVariable String cupName) {
         return ResponseEntity.ok(cupService.deleteOrganizer(googleName, cupName));
     }
 
-    @PutMapping("/put-member/{teamName}/{cupName}")
+    @PutMapping("/put-team/{teamName}/{cupName}")
     public ResponseEntity<Set<Team>> putTeam(@PathVariable String teamName, @PathVariable String cupName) {
         return ResponseEntity.ok(cupService.putTeam(teamName, cupName));
     }
 
-    @DeleteMapping("/delete-member/{teamName}/{cupName}")
+    @DeleteMapping("/delete-team/{teamName}/{cupName}")
     public ResponseEntity<Set<Team>> deleteTeam(@PathVariable String teamName, @PathVariable String cupName) {
         return ResponseEntity.ok(cupService.deleteTeam(teamName, cupName));
     }

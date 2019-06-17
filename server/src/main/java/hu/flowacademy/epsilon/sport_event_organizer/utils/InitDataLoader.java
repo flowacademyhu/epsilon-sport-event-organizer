@@ -32,9 +32,9 @@ public class InitDataLoader implements CommandLineRunner {
         User user = new User();
         User user1 = new User();
         User user2 = new User();
-        user.setGoogleName("Feri");
-        user1.setGoogleName("Matyi");
-        user2.setGoogleName("Béla");
+        user.setGoogleName("Flow Feri");
+        user1.setGoogleName("Flow Eszter");
+        user2.setGoogleName("Flow Béla");
         user.setProviderId("1");
         user1.setProviderId("2");
         user2.setProviderId("3");
@@ -47,14 +47,14 @@ public class InitDataLoader implements CommandLineRunner {
 
         Team team1 = new Team();
         Team team2 = new Team();
-        team1.setName("fiuk");
-        team2.setName("lanyok");
+        team1.setName("Hipsters");
+        team2.setName("The Crew");
         team1.setCompany("Flow Academy");
         team2.setCompany("Flow Academy");
 
-
         Cup cup = new Cup();
-        cup.setName("Megye2");
+        cup.setName("Flow Cup");
+        cup.setCompany("Flow Academy");
 
         Set<Team> teamSet1 = new HashSet();
         Set<Team> teamSet2 = new HashSet();
@@ -66,13 +66,12 @@ public class InitDataLoader implements CommandLineRunner {
         teamSet2.add(team2);
         cupSet.add(cup);
 
-        user.setTeamMembers(teamSet1);
-        user1.setTeamMembers(teamSet1);
-        user2.setTeamMembers(teamSet1);
+        user.setTeamMember(teamSet1);
+        user1.setTeamMember(teamSet1);
+        user2.setTeamMember(teamSet1);
+        user.setTeamLeader(teamSet2);
 
-        user.setTeamLeaders(teamSet2);
-
-        user.setCups(cupSet);
+        user.addCup(cup);
         team1.setCups(cupSet);
 
         cupRepository.save(cup);
@@ -81,6 +80,5 @@ public class InitDataLoader implements CommandLineRunner {
         userRepository.save(user);
         userRepository.save(user1);
         userRepository.save(user2);
-
     }
 }

@@ -4,6 +4,8 @@ import hu.flowacademy.epsilon.sport_event_organizer.model.Cup;
 import hu.flowacademy.epsilon.sport_event_organizer.model.Team;
 import hu.flowacademy.epsilon.sport_event_organizer.model.User;
 import hu.flowacademy.epsilon.sport_event_organizer.repository.CupRepository;
+import hu.flowacademy.epsilon.sport_event_organizer.repository.TeamRepository;
+import hu.flowacademy.epsilon.sport_event_organizer.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +20,12 @@ public class CupService {
     private CupRepository cupRepository;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private TeamRepository teamRepository;
+
+    @Autowired
     private UserService userService;
 
     @Autowired
@@ -26,8 +34,12 @@ public class CupService {
 
     public Cup save(Cup cup) {
         User currentUser = userService.getCurrentUser().orElse(null);
-        cup.setOrganizer(currentUser);
-        return cupRepository.save(cup);
+//        cup.addOrganizer(currentUser);
+        cupRepository.save(cup);
+        currentUser.addCup(cup);
+        User user = userRepository.save(currentUser);
+        cup.addOrganizer(user);
+        return cup;
     }
 
     public Cup getCupByName(String name) {
@@ -42,32 +54,32 @@ public class CupService {
     public Set<User> putOrganizer(String googleName, String cupName) {
         User user = userService.findUserByGoogleName(googleName).orElse(null);
         Cup cup = cupRepository.findByName(cupName).orElse(null);
-        cup.setOrganizer(user);
-        cupRepository.save(cup);
+        user.addCup(cup);
+        userRepository.save(user);
         return cup.getOrganizers();
     }
 
     public Set<User> deleteOrganizer(String googleName, String cupName) {
         User user = userService.findUserByGoogleName(googleName).orElse(null);
         Cup cup = cupRepository.findByName(cupName).orElse(null);
-        cup.deleteOrganizer(user);
-        cupRepository.save(cup);
+        user.deleteCup(cup);
+        userRepository.save(user);
         return cup.getOrganizers();
     }
 
     public Set<Team> putTeam(String teamName, String cupName) {
         Team team = teamService.getTeamByName(teamName);
         Cup cup = cupRepository.findByName(cupName).orElse(null);
-        cup.setTeam(team);
-        cupRepository.save(cup);
+        team.addCup(cup);
+        teamRepository.save(team);
         return cup.getTeams();
     }
 
     public Set<Team> deleteTeam(String teamName, String cupName) {
         Team team = teamService.getTeamByName(teamName);
         Cup cup = cupRepository.findByName(cupName).orElse(null);
-        cup.deleteTeam(team);
-        cupRepository.save(cup);
+        team.deleteCup(cup);
+        teamRepository.save(team);
         return cup.getTeams();
     }
 

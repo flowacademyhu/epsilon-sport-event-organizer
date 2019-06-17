@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 import javax.persistence.*;
@@ -73,15 +74,54 @@ public class User {
     private Set<Cup> cups;
 
 
-    public void setCups(Set<Cup> cups) {
-        this.cups = cups;
+    public void addTeamMember(Team team) {
+        if (teamMembers == null) {
+            this.teamMembers = new HashSet<>();
+        }
+        teamMembers.add(team);
     }
 
-    public void setTeamMembers(Set<Team> teamMembers) {
+    public void deleteTeamMember(Team team) {
+        if (teamMembers == null) {
+            this.teamMembers = new HashSet<>();
+        }
+        teamMembers.remove(team);
+    }
+
+    public void addTeamLeader(Team team) {
+        if (teamLeaders == null) {
+            this.teamLeaders = new HashSet<>();
+        }
+        teamLeaders.add(team);
+    }
+
+    public void deleteTeamLeader(Team team) {
+        if (teamLeaders == null) {
+            this.teamLeaders = new HashSet<>();
+        }
+        teamLeaders.remove(team);
+    }
+
+    public void addCup(Cup cup) {
+        if (cups == null) {
+            this.cups = new HashSet<>();
+        }
+        cups.add(cup);
+    }
+
+    public void deleteCup(Cup cup) {
+        if (cups == null) {
+            this.cups = new HashSet<>();
+        }
+        cups.remove(cup);
+    }
+
+
+    public void setTeamMember(Set<Team> teamMembers) {
         this.teamMembers = teamMembers;
     }
 
-    public void setTeamLeaders(Set<Team> teamLeaders) {
+    public void setTeamLeader(Set<Team> teamLeaders) {
         this.teamLeaders = teamLeaders;
     }
 
