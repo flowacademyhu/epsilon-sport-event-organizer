@@ -18,6 +18,11 @@ public class CupController {
     @Autowired
     private CupService cupService;
 
+//    @DeleteMapping("/delete-team/{cupName}")
+//    public ResponseEntity<Void> deleteCup(@PathVariable String cupName) {
+//        return ResponseEntity.ok(cupService.deleteCup(cupName));
+//    }
+
     @PostMapping("/create")
     public ResponseEntity<Cup> createCup(@RequestBody Cup team) {
         return ResponseEntity.ok(cupService.save(team));
@@ -27,6 +32,7 @@ public class CupController {
     public ResponseEntity<Cup> updateCup(@RequestBody Cup cup) {
         return ResponseEntity.ok(cupService.update(cup));
     }
+
 
     @GetMapping("/get/{cupName}")
     public ResponseEntity<Cup> getByCupName(@PathVariable String cupName) {

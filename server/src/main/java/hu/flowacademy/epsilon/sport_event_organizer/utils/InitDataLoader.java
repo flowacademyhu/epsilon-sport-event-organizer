@@ -34,7 +34,7 @@ public class InitDataLoader implements CommandLineRunner {
         User user2 = new User();
         user.setGoogleName("Flow Feri");
         user1.setGoogleName("Flow Eszter");
-        user2.setGoogleName("Flow Béla");
+        user2.setGoogleName("Flow Bela");
         user.setProviderId("1");
         user1.setProviderId("2");
         user2.setProviderId("3");
@@ -72,7 +72,7 @@ public class InitDataLoader implements CommandLineRunner {
         user.setTeamLeader(teamSet2);
 
         user.addCup(cup);
-        team1.setCups(cupSet);
+        team1.addCup(cup);
 
         cupRepository.save(cup);
         teamRepository.save(team1);

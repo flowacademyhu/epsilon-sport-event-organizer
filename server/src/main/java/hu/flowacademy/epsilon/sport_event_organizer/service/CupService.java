@@ -34,7 +34,7 @@ public class CupService {
 
     public Cup save(Cup cup) {
         User currentUser = userService.getCurrentUser().orElse(null);
-//        cup.addOrganizer(currentUser);
+        cup.setDeleted(false);
         cupRepository.save(cup);
         currentUser.addCup(cup);
         User user = userRepository.save(currentUser);
@@ -44,6 +44,23 @@ public class CupService {
 
     public Cup getCupByName(String name) {
         return cupRepository.findByName(name).orElse(null);
+    }
+
+    public Cup update(Cup cup) {
+        if (cupRepository.findByName(cup.getName()).isPresent()) {
+            Cup previousCup = cupRepository.findByName(cup.getName()).orElse(null);
+            previousCup.setName(cup.getName());
+            previousCup.setCompany(cup.getCompany());
+            previousCup.setImageUrl(cup.getImageUrl());
+
+            return cupRepository.save(previousCup);
+        }
+        throw new NullPointerException();
+        //TODO create custom exception for non existent team
+    }
+
+    public Cup getByName(String cupName) {
+        return cupRepository.findByName(cupName).orElse(null);
     }
 
     public List<Cup> getByCurrentOrganizer() {
@@ -83,21 +100,9 @@ public class CupService {
         return cup.getTeams();
     }
 
-
-    public Cup update(Cup cup) {
-        if (cupRepository.findByName(cup.getName()).isPresent()) {
-            Cup previousCup = cupRepository.findByName(cup.getName()).orElse(null);
-            previousCup.setName(cup.getName());
-            previousCup.setCompany(cup.getCompany());
-            previousCup.setImageUrl(cup.getImageUrl());
-
-            return cupRepository.save(previousCup);
-        }
-        throw new NullPointerException();
-        //TODO create custom exception for non existent team
-    }
-
-    public Cup getByName(String cupName) {
-        return cupRepository.findByName(cupName).orElse(null);
+    public void deleteCup(String cupName) {
+        Cup cup = cupRepository.findByName(cupName).orElse(null);
+        cup.setDeleted(true);
+        cupRepository.save(cup);
     }
 }
