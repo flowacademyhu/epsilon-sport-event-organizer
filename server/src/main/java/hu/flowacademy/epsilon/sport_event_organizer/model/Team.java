@@ -1,6 +1,6 @@
 package hu.flowacademy.epsilon.sport_event_organizer.model;
 
-import net.minidev.json.annotate.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -19,6 +19,9 @@ public class Team {
 
     @Column
     private String imageUrl;
+
+    @Column
+    private boolean isDeleted;
 
     @ManyToMany(mappedBy = "teamMembers")
     private Set<User> users = new HashSet<>();
@@ -39,7 +42,6 @@ public class Team {
     public Team() {
     }
 
-
     public void addCup(Cup cup) {
         if (cups == null) {
             this.cups = new HashSet<>();
@@ -53,11 +55,7 @@ public class Team {
         }
         cups.remove(cup);
     }
-
-    public Set<User> getUsers() {
-        return users;
-    }
-
+    
     public Set<Cup> getCups() {
         return cups;
     }
@@ -112,5 +110,13 @@ public class Team {
 
     public void deleteLeader(User leader) {
         leaders.remove(leader);
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 }

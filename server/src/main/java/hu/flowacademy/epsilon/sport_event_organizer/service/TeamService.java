@@ -78,7 +78,6 @@ public class TeamService {
 
     public List<Team> getByCurrentLeader() {
         User currentUser = userService.getCurrentUser().orElse(null);
-//        User currentUser = userService.findUserByGoogleName("Feri").orElse(null);
         return teamRepository.findByLeaders(currentUser);
     }
 

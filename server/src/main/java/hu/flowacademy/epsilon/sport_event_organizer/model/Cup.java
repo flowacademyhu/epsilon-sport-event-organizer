@@ -1,8 +1,8 @@
 package hu.flowacademy.epsilon.sport_event_organizer.model;
 
-import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,6 +20,21 @@ public class Cup {
     @Column
     private String imageUrl;
 
+    @Column
+    private LocalDateTime startDateTime;
+
+    @Column
+    private LocalDateTime endDateTime;
+
+    @Column
+    private String place;
+
+    @Column(columnDefinition = "TEXT")
+    private String description;
+
+    @Column
+    private boolean isDeleted;
+
     @ManyToMany(mappedBy = "cups")
     private Set<Team> teams = new HashSet<>();
 
@@ -28,7 +43,6 @@ public class Cup {
 
     public Cup() {
     }
-    
 
     public String getName() {
         return name;
@@ -74,8 +88,15 @@ public class Cup {
         organizers.add(user);
     }
 
-
     public void deleteOrganizer(User user) {
         organizers.remove(user);
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 }
