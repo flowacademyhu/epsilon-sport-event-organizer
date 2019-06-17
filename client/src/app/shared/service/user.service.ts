@@ -16,6 +16,6 @@ export class UserService {
   }
 
   getUser(): Observable<any> {
-    return this.httpclient.get('http://localhost:8080/auth/get-user');
+    return this.httpclient.get('http://localhost:8080/user/get-current');
   }
 }
