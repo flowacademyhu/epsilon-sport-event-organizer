@@ -16,10 +16,22 @@ export class TeamComponent implements OnInit {
   creatCompanyName: String = '';
   data: any;
   dataLeader: any;
+  addMember: String = '';
+  teamNametoAdd: String = '';
+  teamtoAddMember: Team;
 
   constructor(private teamService: TeamService) { }
 
   ngOnInit() {
+  }
+
+  putMemberInTeam() {
+    this.teamtoAddMember = {name: this.teamNametoAdd, company: '', imageUrl: ''};
+    this.teamService.putMemberInTeam(this.addMember, this.teamNametoAdd, this.teamtoAddMember).subscribe(
+      (data: any) => {
+        console.log('a', data);
+      }
+    )
   }
 
   create() {

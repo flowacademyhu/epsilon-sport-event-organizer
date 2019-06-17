@@ -12,7 +12,7 @@ import { TeamComponent } from './components/team/team.component';
 const routes: Routes = [
   {path: '', component: MainPageComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'oauth2/redirect', component: LoggedInComponent},
+  {path: 'oauth2/redirect', component: ProfileComponent},
   {path: 'profile', component: ProfileComponent, canActivate: [RoleGuard]},
   {path: 'team', component: TeamComponent}
 ];

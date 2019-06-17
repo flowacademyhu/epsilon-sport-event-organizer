@@ -11,5 +11,14 @@
    {{ 'CompanyName' | translate:user }}
    <input type="text" name="creatCompanyName" [(ngModel)]="creatCompanyName">
    <button (click)="create()"> {{ 'Submit' | translate:user }}</button>
+
+   <br>
+   Add member: <br>
+   {{ 'MemberName' | translate:user }}
+   <input type="text" name="addMember" [(ngModel)]="addMember">
+   {{ 'TeamName' | translate:user }}
+   <input type="text" name="teamName" [(ngModel)]="teamNametoAdd">
+   <button (click)="putMemberInTeam()"> {{ 'Add' | translate:user }}</button>
+
    
   </body>
