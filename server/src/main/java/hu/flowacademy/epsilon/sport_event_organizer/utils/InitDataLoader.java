@@ -8,11 +8,13 @@ import hu.flowacademy.epsilon.sport_event_organizer.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Component
+@Transactional
 public class InitDataLoader implements CommandLineRunner {
 
     @Autowired

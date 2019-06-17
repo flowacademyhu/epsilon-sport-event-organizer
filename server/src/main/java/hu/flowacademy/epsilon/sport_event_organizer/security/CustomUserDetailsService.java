@@ -17,6 +17,7 @@ import java.util.UUID;
  */
 
 @Service
+@Transactional
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
