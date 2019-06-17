@@ -7,7 +7,7 @@ interface User {
   providerId: String;
   provider: String;
   companyName: String;
-  accesToken: String;
+  accessToken: String;
   teams: Team[];
   teamLeaders: Team[];
 }
