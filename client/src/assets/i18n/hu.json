@@ -15,5 +15,8 @@
   "TeamName": "Csapat neve:",
   "CompanyName": "Cég neve:",
   "SearchTeam": "Csapat keresése:",
-  "Search": "Keresés"
+  "Search": "Keresés",
+  "Submit": "Létrehoz",
+  "Add": "Hozzáad",
+  "MemberName": "Csapattíg"
 }

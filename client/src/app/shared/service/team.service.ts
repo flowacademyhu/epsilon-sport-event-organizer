@@ -11,7 +11,11 @@ export class TeamService {
     private httpclient: HttpClient,
   ) { }
 
+<<<<<<< HEAD
   getByTeamName(name: String): Observable<any> {
+=======
+  getByTeamName(name: String) {
+>>>>>>> 3e796cb182a11adad9b823b2a14bb12d0030ed19
     return this.httpclient.get('http://localhost:8080/team/team/' + name);
   }
 
@@ -24,7 +28,11 @@ export class TeamService {
   }
 
   getByMember(): Observable<any> {
+<<<<<<< HEAD
     return this.httpclient.get('http://localhost:8080/team/get-by-current-member');
+=======
+    return this.httpclient.get('http://localhost:8080/team/get-by-member');
+>>>>>>> 3e796cb182a11adad9b823b2a14bb12d0030ed19
   }
 
   putMemberInTeam(userName: String, teamName: String, team: Team): Observable<any> {
@@ -36,7 +44,11 @@ export class TeamService {
   }
 
   getByLeader(): Observable<any> {
+<<<<<<< HEAD
     return this.httpclient.get('http://localhost:8080/team/get-by-current-leader');
+=======
+    return this.httpclient.get('http://localhost:8080/team/get-by-leader');
+>>>>>>> 3e796cb182a11adad9b823b2a14bb12d0030ed19
   }
 
   putLeaderInTeam(leaderName: String, teamName: String, team: Team): Observable<any> {
