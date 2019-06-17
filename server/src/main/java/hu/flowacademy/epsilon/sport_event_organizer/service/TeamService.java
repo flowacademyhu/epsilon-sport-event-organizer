@@ -32,7 +32,7 @@ public class TeamService {
         return teamRepository.findByName(name);
     }
 
-    public Optional<Team> getTeamByCompany(String company) {
+    public Optional<List<Team>> getTeamsByCompany(String company) {
         return teamRepository.findByCompany(company);
     }
 
