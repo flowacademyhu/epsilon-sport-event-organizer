@@ -42,7 +42,7 @@ public class UserService {
     }
 
     public Optional<User> findUserByGoogleName(String googleName) {
-        return userRepository.findUserByGoogleName(googleName);
+        return userRepository.findByGoogleName(googleName);
     }
 
 

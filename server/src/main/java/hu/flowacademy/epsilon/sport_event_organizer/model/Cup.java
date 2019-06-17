@@ -20,13 +20,8 @@ public class Cup {
     @Column
     private String imageUrl;
 
-    @JsonIgnore
-    @ManyToMany
-    @JoinTable(
-            name = "cups_teams",
-            joinColumns = @JoinColumn(name = "cups_name"),
-            inverseJoinColumns = @JoinColumn(name = "teams_name"))
-    private Set<Team> teams;
+    @ManyToMany(mappedBy = "cups")
+    private Set<Team> teams = new HashSet<>();
 
     @ManyToMany(mappedBy = "cups")
     private Set<User> organizers = new HashSet<>();
@@ -62,17 +57,22 @@ public class Cup {
         return teams;
     }
 
-    public void setTeams(Set<Team> teams) {
-        this.teams = teams;
+    public void addTeam(Team team) {
+        teams.add(team);
     }
 
-    public void setOrganizer(User user) {
-        organizers.add(user);
+    public void deleteTeam(Team team) {
+        teams.remove(team);
     }
 
     public Set<User> getOrganizers() {
         return organizers;
     }
+
+    public void addOrganizer(User user) {
+        organizers.add(user);
+    }
+
 
     public void deleteOrganizer(User user) {
         organizers.remove(user);

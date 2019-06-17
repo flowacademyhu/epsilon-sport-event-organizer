@@ -28,11 +28,30 @@ public class Team {
     private Set<User> leaders = new HashSet<>();
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "teams")
-    private Set<Cup> cups = new HashSet<>();
+    @ManyToMany
+    @JoinTable(
+            name = "cups_teams",
+            joinColumns = @JoinColumn(name = "teams_name"),
+            inverseJoinColumns = @JoinColumn(name = "cups_name"))
+    private Set<Cup> cups;
 
 
     public Team() {
+    }
+
+
+    public void addCup(Cup cup) {
+        if (cups == null) {
+            this.cups = new HashSet<>();
+        }
+        cups.add(cup);
+    }
+
+    public void deleteCup(Cup cup) {
+        if (cups == null) {
+            this.cups = new HashSet<>();
+        }
+        cups.remove(cup);
     }
 
 
@@ -64,6 +83,9 @@ public class Team {
         this.imageUrl = imageUrl;
     }
 
+    public Set<User> getUsers() {
+        return users;
+    }
 
     public void setUser(User user) {
         users.add(user);
@@ -73,12 +95,6 @@ public class Team {
         users.remove(user);
     }
 
-
-    public Set<User> getUsers() {
-        return users;
-    }
-
-
     public Set<User> getLeader() {
         return leaders;
     }
@@ -87,7 +103,7 @@ public class Team {
         leaders.add(leader);
     }
 
-    public void removeLeader(User leader) {
+    public void deleteLeader(User leader) {
         leaders.remove(leader);
     }
 }
