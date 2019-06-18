@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TeamService } from 'src/app/shared/service/team.service';
+import { AppStateService } from 'src/app/shared/service/app-state.service';
 
 @Component({
   selector: 'app-team',
@@ -20,9 +21,13 @@ export class TeamComponent implements OnInit {
   teamNametoAdd: String = '';
   teamtoAddMember: Team;
 
-  constructor(private teamService: TeamService) { }
+  isLeader: boolean = false;
+  leadersArray: any[];
+
+  constructor(private teamService: TeamService, private state: AppStateService) { }
 
   ngOnInit() {
+
   }
 
   putMemberInTeam() {
@@ -50,9 +55,20 @@ export class TeamComponent implements OnInit {
 
   getByTeamName() {
     this.teamService.getByTeamName(this.teamName).subscribe(
-      (data: Team) => {
+      (data: any) => {
         this.teams = data;
         this.teamName = '';
+        console.log(this.isLeader);
+        console.log(this.teams);
+        console.log(this.state.user.id);
+        console.log('asdasd');
+        console.log(data.leader[0]);
+        for (let i = 0; i < data.leader.length; i++) {
+            if (this.data.leader[i].includes(this.state.user.googleName)) {
+              console.log('hello');
+              this.isLeader = true;
+            }
+        }
       }
     );
   }

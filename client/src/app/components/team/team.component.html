@@ -2,7 +2,9 @@
   {{ 'SearchTeam' | translate:user }} <br>
   {{ 'TeamName' | translate:user }}<input type="text" name="teamName" [(ngModel)]="teamName">
   <button (click)="getByTeamName()"> {{ 'Search' | translate:user }}</button> <br>
-  {{ teams.name }}: {{ teams.members }}
+  <h3>{{ teams.name }}</h3>
+  <div *ngFor="let i of teams.leader">{{ i.googleName }}<p *ngIf="isLeader">SZIA LEADER VAGY</p></div> 
+  <div *ngFor="let i of teams.users">{{ i.googleName }}</div>
  
    <br>
    Create: <br>
