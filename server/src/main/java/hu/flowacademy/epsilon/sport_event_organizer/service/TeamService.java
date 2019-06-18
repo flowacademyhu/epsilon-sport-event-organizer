@@ -57,6 +57,10 @@ public class TeamService {
     public Set<User> putMember(String teamName, String googleName) {
         User userToAdd = userService.findUserByGoogleName(googleName);
         Team team = teamRepository.findByName(teamName).orElseThrow(() -> new TeamNotFoundException(teamName));
+        if (team.getLeaders().contains(userToAdd)) {
+            throw new RuntimeException();
+            //TODO create normal exception
+        }
         userToAdd.addTeamMember(team);
         userRepository.save(userToAdd);
         team.addMember(userToAdd);
@@ -86,6 +90,10 @@ public class TeamService {
     public Set<User> putLeader(String teamName, String googleName) {
         User userToAdd = userService.findUserByGoogleName(googleName);
         Team team = teamRepository.findByName(teamName).orElseThrow(() -> new TeamNotFoundException(teamName));
+        if (team.getLeaders().contains(userToAdd)) {
+            throw new RuntimeException();
+            //TODO create normal exception
+        }
         userToAdd.addTeamLeader(team);
         userRepository.save(userToAdd);
         team.addLeader(userToAdd);
