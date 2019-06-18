@@ -12,7 +12,7 @@ export class TeamService {
   ) { }
 
   getByTeamName(name: String) {
-    return this.httpclient.get('http://localhost:8080/team/team/' + name);
+    return this.httpclient.get('http://localhost:8080/team/get/' + name);
   }
 
   create(team: Team): Observable<any> {
@@ -47,7 +47,7 @@ export class TeamService {
     return this.httpclient.delete('http://localhost:8080/team/delete-leader/' + leaderName + '/' + team);
   }
 
-  deleteTeam(teamName: String): Observable<any> {
+  deleteTeam(teamName: String) {
     return this.httpclient.delete('http://localhost:8080/team/delete/' + teamName);
   }
 }
