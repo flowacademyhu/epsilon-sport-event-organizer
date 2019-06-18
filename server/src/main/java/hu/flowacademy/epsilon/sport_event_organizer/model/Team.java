@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -118,5 +119,15 @@ public class Team {
 
     public void setDeleted(boolean deleted) {
         isDeleted = deleted;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof Team)) return false;
+        Team team = (Team)obj;
+        return Objects.equals(name, team.name) &&
+                Objects.equals(company, team.company) &&
+                Objects.equals(imageUrl, team.imageUrl);
     }
 }
