@@ -43,14 +43,14 @@ public class UserController {
         return ResponseEntity.ok(userService.getCurrentUser().orElse(null));
     }
 
-    @GetMapping("/get/{googleName}")
-    public ResponseEntity<User> getByGoogleName(@PathVariable String googleName) {
-        return ResponseEntity.ok(userService.findUserByGoogleName(googleName).orElse(null));
-    }
-
     @PutMapping("/update")
     public ResponseEntity<User> updateUser(@RequestBody User user) {
         return ResponseEntity.ok(userService.save(user));
+    }
+
+    @GetMapping("/get/{googleName}")
+    public ResponseEntity<User> getByGoogleName(@PathVariable String googleName) {
+        return ResponseEntity.ok(userService.findUserByGoogleName(googleName).orElse(null));
     }
 
 

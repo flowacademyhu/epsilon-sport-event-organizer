@@ -1,11 +1,12 @@
 package hu.flowacademy.epsilon.sport_event_organizer.model;
 
-import net.minidev.json.annotate.JsonIgnore;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
+
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 import javax.persistence.*;
@@ -43,11 +44,14 @@ public class User {
     @Enumerated(EnumType.STRING)
     private AuthProvider provider;
 
-    @Column(name = "company_name")
+    @Column
     private String companyName;
 
     @Column(columnDefinition = "TEXT")
     private String accessToken;
+
+    @Column
+    private boolean isDeleted;
 
     @JsonIgnore
     @ManyToMany
@@ -72,6 +76,21 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "cup_name"))
     private Set<Cup> cups;
+
+
+    public Set<Team> getTeamMembers() {
+        return teamMembers;
+    }
+
+
+    public Set<Team> getTeamLeaders() {
+        return teamLeaders;
+    }
+
+
+    public Set<Cup> getCups() {
+        return cups;
+    }
 
 
     public void addTeamMember(Team team) {
