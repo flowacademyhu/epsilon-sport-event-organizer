@@ -20,6 +20,8 @@ export class TeamComponent implements OnInit {
   addMember: String = '';
   teamNametoAdd: String = '';
   teamtoAddMember: Team;
+  deleteMember: String = '';
+  teamNametoDelete: String = '';
 
   isLeader: boolean = false;
   leadersArray: any[];
@@ -28,6 +30,12 @@ export class TeamComponent implements OnInit {
 
   ngOnInit() {
 
+  }
+
+  deleteMemberFromTeam() {
+    this.teamService.deleteMemberFromTeam(this.deleteMember, this.teamNametoDelete);
+    this.deleteMember = '';
+    this.teamNametoDelete = '';
   }
 
   putMemberInTeam() {

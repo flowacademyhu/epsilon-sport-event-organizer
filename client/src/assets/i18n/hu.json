@@ -18,5 +18,11 @@
   "Search": "Keresés",
   "Submit": "Létrehoz",
   "Add": "Hozzáad",
-  "MemberName": "Csapattíg"
+  "MemberName": "Csapattíg",
+  "CreatTeam": "Csapat létrehozása:",
+  "AddMember": "Csapattag hozáadása",
+  "DeleteMember": "Csapattag törlése",
+  "Delete": "Törlés",
+  "AddLeader": "Add Leader:",
+  "LeaderName": "Leader Name"
 }
