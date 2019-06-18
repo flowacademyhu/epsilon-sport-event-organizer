@@ -24,7 +24,6 @@ export class TeamComponent implements OnInit {
   teamNametoDelete: String = '';
 
   isLeader: boolean = false;
-  leadersArray: any[];
 
   constructor(private teamService: TeamService, private state: AppStateService) { }
 
