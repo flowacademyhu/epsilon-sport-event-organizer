@@ -2,9 +2,9 @@
   {{ 'SearchTeam' | translate:user }} <br>
   {{ 'TeamName' | translate:user }}<input type="text" name="teamName" [(ngModel)]="teamName">
   <button (click)="getByTeamName()"> {{ 'Search' | translate:user }}</button> <br>
-  <h3>{{ teams.name }}</h3>
+  <h3>{{ teams.name }}</h3>Leaders:
   <div *ngFor="let i of teams.leaders">{{ i.googleName }}<div *ngIf="isLeader && state.user.googleName != i.googleName"><img src="../../../assets/pictures/deleteX.png" alt="delete"></div></div> 
-  <div *ngFor="let i of teams.members">{{ i.googleName }}<div *ngIf="isLeader && state.user.googleName != i.googleName"><img src="../../../assets/pictures/deleteX.png" alt="delete" class="buttons"></div></div>
+  Members: <div *ngFor="let i of teams.members">{{ i.googleName }}<div *ngIf="isLeader && state.user.googleName != i.googleName"><img src="../../../assets/pictures/deleteX.png" alt="delete" class="buttons"></div></div>
  
    <br>
    {{ 'CreatTeam' | translate:user }}Create: <br>
@@ -39,12 +39,12 @@
 
    {{ 'DeleteLeader' | translate:user }} <br>
    {{ 'LeaderName' | translate:user }}
-   <input type="text" name="addLeader" [(ngModel)]="addLeader">
+   <input type="text" name="deleteLeader" [(ngModel)]="deleteLeader">
    {{ 'TeamName' | translate:user }}
-   <input type="text" name="teamNametoLeader" [(ngModel)]="teamNametoLeader">
-   <button (click)="putLeaderInTeam()"> {{ 'Add' | translate:user }}</button> <br>
+   <input type="text" name="teamNametoDeleteLeader" [(ngModel)]="teamNametoDeleteLeader">
+   <button (click)="deleteLeaderFromTeam()"> {{ 'Delete' | translate:user }}</button> <br>
 
-
+{{deleteLeader}} {{teamNametoDeleteLeader}}
 
    
   </body>
