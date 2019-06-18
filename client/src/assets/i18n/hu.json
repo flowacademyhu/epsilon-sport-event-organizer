@@ -23,6 +23,7 @@
   "AddMember": "Csapattag hozáadása",
   "DeleteMember": "Csapattag törlése",
   "Delete": "Törlés",
-  "AddLeader": "Add Leader:",
-  "LeaderName": "Leader Name"
+  "AddLeader": "Csapatvezető hozzáadása:",
+  "LeaderName": "Csapatvezető neve",
+  "DeleteLeader": "Csapatvezető törlése"
 }
