@@ -46,7 +46,7 @@ public class UserService {
         return userRepository.findByGoogleName(googleName).orElseThrow(() -> new UserNotFoundException(googleName));
     }
 
-    public void deleteCup(String googleName) {
+    public void deleteUserByGoogleName(String googleName) {
         User user = userRepository.findByGoogleName(googleName).orElseThrow(() -> new UserNotFoundException(googleName));
         user.setDeleted(true);
         userRepository.save(user);

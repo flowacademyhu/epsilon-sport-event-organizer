@@ -116,7 +116,7 @@ public class CupService {
         return teams;
     }
 
-    public void deleteCup(String cupName) {
+    public void deleteCupByName(String cupName) {
         Cup cup = cupRepository.findByName(cupName).orElseThrow(() -> new CupNotFoundException(cupName));
         cup.setDeleted(true);
         cupRepository.save(cup);

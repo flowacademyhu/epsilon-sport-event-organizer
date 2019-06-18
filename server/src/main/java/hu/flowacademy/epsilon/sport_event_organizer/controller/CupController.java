@@ -31,7 +31,7 @@ public class CupController {
 
     @DeleteMapping("/delete/{cupName}")
     public ResponseEntity<Void> deleteCup(@PathVariable String cupName) {
-        cupService.deleteCup(cupName);
+        cupService.deleteCupByName(cupName);
         return ResponseEntity.noContent().build();
     }
 
