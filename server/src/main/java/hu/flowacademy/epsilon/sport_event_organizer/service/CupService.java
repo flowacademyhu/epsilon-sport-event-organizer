@@ -69,7 +69,6 @@ public class CupService {
 
     public List<Cup> getByCurrentOrganizer() {
         User currentUser = userService.getCurrentUser().orElse(null);
-
         List<Cup> cups = cupRepository.findByOrganizers(currentUser);
         cups.removeIf(cup -> cup.isDeleted());
         return cups;
@@ -78,7 +77,6 @@ public class CupService {
     public Set<User> putOrganizer(String googleName, String cupName) {
         User userToAdd = userService.findUserByGoogleName(googleName);
         Cup cup = cupRepository.findByName(cupName).orElseThrow(() -> new CupNotFoundException(cupName));
-
         userToAdd.addCup(cup);
         userRepository.save(userToAdd);
         Set<User> users = cup.getOrganizers();
@@ -93,6 +91,10 @@ public class CupService {
         userRepository.save(userToRemove);
         Set<User> users = cups.getOrganizers();
         users.removeIf(user -> user.isDeleted());
+        if (users.size() == 1) {
+            throw new RuntimeException();
+            //TODO write a normal exception
+        }
         return users;
     }
 

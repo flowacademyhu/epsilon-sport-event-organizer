@@ -103,7 +103,6 @@ public class TeamService {
         return users;
     }
 
-
     public void deleteTeamByName(String teamName) {
         Team team = teamRepository.findByName(teamName).orElseThrow(() -> new TeamNotFoundException(teamName));
         team.setDeleted(true);

@@ -18,7 +18,7 @@ public class Sport {
     private Integer breakDurationInMinutes;
 
     @OneToMany(mappedBy = "sports")
-    private Set<Cup> reservations;
+    private Set<Cup> cups;
 
 
 }

@@ -33,12 +33,11 @@ public class UserController {
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
     }
 
-    @DeleteMapping("/delete-team/{cupName}")
-    public ResponseEntity<Void> deleteCup(@PathVariable String cupName) {
-        userService.deleteUserByGoogleName(cupName);
+    @DeleteMapping("/delete/{googleName}")
+    public ResponseEntity<Void> deleteUser(@PathVariable String googleName) {
+        userService.deleteUserByGoogleName(googleName);
         return ResponseEntity.noContent().build();
     }
-
 
     @GetMapping("/get-current")
     public ResponseEntity<User> getUserById() {
@@ -54,6 +53,5 @@ public class UserController {
     public ResponseEntity<User> getByGoogleName(@PathVariable String googleName) {
         return ResponseEntity.ok(userService.findUserByGoogleName(googleName));
     }
-
 
 }

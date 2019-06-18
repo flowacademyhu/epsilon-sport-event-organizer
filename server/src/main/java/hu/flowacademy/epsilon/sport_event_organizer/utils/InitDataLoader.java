@@ -56,20 +56,10 @@ public class InitDataLoader implements CommandLineRunner {
         cup.setName("Flow Cup");
         cup.setCompany("Flow Academy");
 
-        Set<Team> teamSet1 = new HashSet();
-        Set<Team> teamSet2 = new HashSet();
-        Set<Cup> cupSet = new HashSet();
-
-
-        teamSet1.add(team1);
-        teamSet2.add(team1);
-        teamSet2.add(team2);
-        cupSet.add(cup);
-
-        user.setTeamMember(teamSet1);
-        user1.setTeamMember(teamSet1);
-        user2.setTeamMember(teamSet1);
-        user.setTeamLeader(teamSet2);
+        user.addTeamMember(team1);
+        user1.addTeamMember(team1);
+        user2.addTeamMember(team1);
+        user.addTeamLeader(team2);
 
         user.addCup(cup);
         team1.addCup(cup);
