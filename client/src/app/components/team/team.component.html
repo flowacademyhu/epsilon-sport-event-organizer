@@ -1,10 +1,10 @@
 <body>
-    {{ 'SearchTeam' | translate:user }} <br>
-    {{ 'TeamName' | translate:user }}<input type="text" name="teamName" [(ngModel)]="teamName">
-    <button (click)="getByTeamName()"> {{ 'Search' | translate:user }}</button> <br>
-    {{ teams.name }}
-    <div *ngFor="let i of teams.leader">{{ i.googleName }}<div *ngIf=""></div><img src="../../../assets/pictures/deleteX.png"></div>
-    <div *ngFor="let i of teams.users">{{ i.googleName }}</div>
+  {{ 'SearchTeam' | translate:user }} <br>
+  {{ 'TeamName' | translate:user }}<input type="text" name="teamName" [(ngModel)]="teamName">
+  <button (click)="getByTeamName()"> {{ 'Search' | translate:user }}</button> <br>
+  <h3>{{ teams.name }}</h3>
+  <div *ngFor="let i of teams.leader">{{ i.googleName }}<p *ngIf="isLeader">SZIA LEADER VAGY</p></div> 
+  <div *ngFor="let i of teams.users">{{ i.googleName }}</div>
  
    <br>
    {{ 'CreatTeam' | translate:user }}Create: <br>
