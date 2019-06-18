@@ -22,13 +22,6 @@
    <input type="text" name="teamName" [(ngModel)]="teamNametoAdd">
    <button (click)="putMemberInTeam()"> {{ 'Add' | translate:user }}</button> <br>
 
-   {{ 'DeleteMember' | translate:user }} <br>
-   {{ 'MemberName' | translate:user }}
-   <input type="text" name="addMember" [(ngModel)]="deleteMember">
-   {{ 'TeamName' | translate:user }}
-   <input type="text" name="teamName" [(ngModel)]="teamNametoDelete">
-   <button (click)="deleteMemberFromTeam()"> {{ 'Delete' | translate:user }}</button><br>
-
 
    {{ 'AddLeader' | translate:user }} <br>
    {{ 'LeaderName' | translate:user }}

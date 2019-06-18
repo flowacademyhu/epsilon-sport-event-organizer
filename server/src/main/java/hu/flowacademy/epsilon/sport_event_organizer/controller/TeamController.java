@@ -33,9 +33,9 @@ public class TeamController {
     }
 
     @DeleteMapping("/delete/{teamName}")
-    public ResponseEntity<Void> deleteCup(@PathVariable String teamName) {
+    public ResponseEntity<Boolean> deleteCup(@PathVariable String teamName) {
         teamService.deleteTeamByName(teamName);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(true);
     }
 
     @GetMapping("/get-by-current-member")
