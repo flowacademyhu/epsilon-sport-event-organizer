@@ -104,7 +104,7 @@ public class TeamService {
     }
 
 
-    public void deleteCup(String teamName) {
+    public void deleteTeamByName(String teamName) {
         Team team = teamRepository.findByName(teamName).orElseThrow(() -> new TeamNotFoundException(teamName));
         team.setDeleted(true);
         teamRepository.save(team);

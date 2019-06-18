@@ -35,7 +35,7 @@ public class UserController {
 
     @DeleteMapping("/delete-team/{cupName}")
     public ResponseEntity<Void> deleteCup(@PathVariable String cupName) {
-        userService.deleteCup(cupName);
+        userService.deleteUserByGoogleName(cupName);
         return ResponseEntity.noContent().build();
     }
 

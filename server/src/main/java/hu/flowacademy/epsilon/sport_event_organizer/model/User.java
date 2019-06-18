@@ -215,4 +215,12 @@ public class User {
     public void setAccessToken(String accessToken) {
         this.accessToken = accessToken;
     }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
 }
