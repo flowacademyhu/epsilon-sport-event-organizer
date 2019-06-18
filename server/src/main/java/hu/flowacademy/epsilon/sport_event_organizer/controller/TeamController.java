@@ -17,7 +17,7 @@ public class TeamController {
     @Autowired
     private TeamService teamService;
 
-    @GetMapping("/team/{name}")
+    @GetMapping("/get/{name}")
     public ResponseEntity<Team> getTeam(@PathVariable String name) {
         return ResponseEntity.ok(teamService.getTeamByName(name));
     }

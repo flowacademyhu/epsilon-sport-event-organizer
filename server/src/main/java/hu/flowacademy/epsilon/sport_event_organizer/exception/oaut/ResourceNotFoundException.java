@@ -1,4 +1,4 @@
-package hu.flowacademy.epsilon.sport_event_organizer.exception;
+package hu.flowacademy.epsilon.sport_event_organizer.exception.oaut;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

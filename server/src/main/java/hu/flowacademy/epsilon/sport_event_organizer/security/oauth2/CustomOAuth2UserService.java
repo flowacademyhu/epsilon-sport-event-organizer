@@ -1,6 +1,6 @@
 package hu.flowacademy.epsilon.sport_event_organizer.security.oauth2;
 
-import hu.flowacademy.epsilon.sport_event_organizer.exception.OAuth2AuthenticationProcessingException;
+import hu.flowacademy.epsilon.sport_event_organizer.exception.oaut.OAuth2AuthenticationProcessingException;
 import hu.flowacademy.epsilon.sport_event_organizer.model.AuthProvider;
 import hu.flowacademy.epsilon.sport_event_organizer.model.User;
 import hu.flowacademy.epsilon.sport_event_organizer.repository.UserRepository;
@@ -21,7 +21,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
@@ -78,6 +77,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
         user.setProvider(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()));
         user.setProviderId(oAuth2UserInfo.getId());
+        user.setDeleted(false);
         user.setGoogleName(oAuth2UserInfo.getName());
         user.setEmail(oAuth2UserInfo.getEmail());
         user.setImageUrl(oAuth2UserInfo.getImageUrl());
