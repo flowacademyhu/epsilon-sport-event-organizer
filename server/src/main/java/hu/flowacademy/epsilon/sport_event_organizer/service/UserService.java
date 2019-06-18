@@ -34,12 +34,12 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public Optional<User> getCurrentUser() {
+    public User getCurrentUser() {
         return Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
                 .map(Authentication::getPrincipal)
                 .map(principal -> (UserPrincipal) principal)
                 .map(UserPrincipal::getId)
-                .flatMap(userRepository::findById);
+                .flatMap(userRepository::findById).orElse(null);
     }
 
     public User findUserByGoogleName(String googleName) {

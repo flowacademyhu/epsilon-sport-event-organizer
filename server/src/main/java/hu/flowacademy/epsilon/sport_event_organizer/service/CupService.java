@@ -5,8 +5,6 @@ import hu.flowacademy.epsilon.sport_event_organizer.model.Cup;
 import hu.flowacademy.epsilon.sport_event_organizer.model.Team;
 import hu.flowacademy.epsilon.sport_event_organizer.model.User;
 import hu.flowacademy.epsilon.sport_event_organizer.repository.CupRepository;
-import hu.flowacademy.epsilon.sport_event_organizer.repository.TeamRepository;
-import hu.flowacademy.epsilon.sport_event_organizer.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,23 +19,17 @@ public class CupService {
     private CupRepository cupRepository;
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private TeamRepository teamRepository;
-
-    @Autowired
     private UserService userService;
 
     @Autowired
     private TeamService teamService;
 
     public Cup save(Cup cup) {
-        User currentUser = userService.getCurrentUser().orElse(null);
+        User currentUser = userService.getCurrentUser();
         cup.setDeleted(false);
         cupRepository.save(cup);
         currentUser.addCup(cup);
-        User user = userRepository.save(currentUser);
+        User user = userService.save(currentUser);
         cup.addOrganizer(user);
         return cup;
     }
@@ -51,12 +43,11 @@ public class CupService {
     }
 
     public Cup update(Cup cup) {
-        Cup previousCup = cupRepository.findByName(cup.getName()).orElse(null);
+        Cup previousCup = cupRepository.findByName(cup.getName()).orElseThrow(() -> new CupNotFoundException(cup.getName()));
         previousCup.setName(cup.getName());
         previousCup.setCompany(cup.getCompany());
         previousCup.setImageUrl(cup.getImageUrl());
         return cupRepository.save(previousCup);
-
     }
 
     public Cup getByName(String cupName) {
@@ -68,9 +59,9 @@ public class CupService {
     }
 
     public List<Cup> getByCurrentOrganizer() {
-        User currentUser = userService.getCurrentUser().orElse(null);
+        User currentUser = userService.getCurrentUser();
         List<Cup> cups = cupRepository.findByOrganizers(currentUser);
-        cups.removeIf(cup -> cup.isDeleted());
+        cups.removeIf(Cup::isDeleted);
         return cups;
     }
 
@@ -78,9 +69,9 @@ public class CupService {
         User userToAdd = userService.findUserByGoogleName(googleName);
         Cup cup = cupRepository.findByName(cupName).orElseThrow(() -> new CupNotFoundException(cupName));
         userToAdd.addCup(cup);
-        userRepository.save(userToAdd);
+        userService.save(userToAdd);
         Set<User> users = cup.getOrganizers();
-        users.removeIf(user -> user.isDeleted());
+        users.removeIf(User::isDeleted);
         return users;
     }
 
@@ -88,9 +79,9 @@ public class CupService {
         User userToRemove = userService.findUserByGoogleName(googleName);
         Cup cups = cupRepository.findByName(cupName).orElseThrow(() -> new CupNotFoundException(cupName));
         userToRemove.deleteCup(cups);
-        userRepository.save(userToRemove);
+        userService.save(userToRemove);
         Set<User> users = cups.getOrganizers();
-        users.removeIf(user -> user.isDeleted());
+        users.removeIf(User::isDeleted);
         if (users.size() == 1) {
             throw new RuntimeException();
             //TODO write a normal exception
@@ -102,9 +93,9 @@ public class CupService {
         Team teamToAdd = teamService.getTeamByName(teamName);
         Cup cup = cupRepository.findByName(cupName).orElseThrow(() -> new CupNotFoundException(cupName));
         teamToAdd.addCup(cup);
-        teamRepository.save(teamToAdd);
+        teamService.save(teamToAdd);
         Set<Team> teams = cup.getTeams();
-        teams.removeIf(team -> team.isDeleted());
+        teams.removeIf(Team::isDeleted);
         return teams;
     }
 
@@ -112,9 +103,9 @@ public class CupService {
         Team teamToRemove = teamService.getTeamByName(teamName);
         Cup cup = cupRepository.findByName(cupName).orElseThrow(() -> new CupNotFoundException(cupName));
         teamToRemove.deleteCup(cup);
-        teamRepository.save(teamToRemove);
+        teamService.save(teamToRemove);
         Set<Team> teams = cup.getTeams();
-        teams.removeIf(team -> team.isDeleted());
+        teams.removeIf(Team::isDeleted);
         return teams;
     }
 

@@ -39,32 +39,32 @@ public class TeamController {
     }
 
     @GetMapping("/get-by-current-member")
-    public ResponseEntity<List<Team>> getTeamByMember() {
-        return ResponseEntity.ok(teamService.getByCurrentMember());
+    public List<Team> getTeamByMember() {
+        return teamService.getByCurrentMember();
     }
 
     @PutMapping("/put-member/{googleName}/{teamName}")
-    public ResponseEntity<Set<User>> putMember(@PathVariable String teamName, @PathVariable String googleName) {
-        return ResponseEntity.ok(teamService.putMember(teamName, googleName));
+    public Set<User> putMember(@PathVariable String teamName, @PathVariable String googleName) {
+        return teamService.putMember(teamName, googleName);
     }
 
     @DeleteMapping("/delete-member/{googleName}/{teamName}")
-    public ResponseEntity<Set<User>> deleteMember(@PathVariable String teamName, @PathVariable String googleName) {
-        return ResponseEntity.ok(teamService.deleteMember(teamName, googleName));
+    public Set<User> deleteMember(@PathVariable String teamName, @PathVariable String googleName) {
+        return teamService.deleteMember(teamName, googleName);
     }
 
     @GetMapping("/get-by-current-leader")
-    public ResponseEntity<List<Team>> getTeamsByLeader() {
-        return ResponseEntity.ok(teamService.getByCurrentLeader());
+    public List<Team> getTeamsByLeader() {
+        return teamService.getByCurrentLeader();
     }
 
     @PutMapping("/put-leader/{googleName}/{teamName}")
-    public ResponseEntity<Set<User>> putLeader(@PathVariable String teamName, @PathVariable String googleName) {
-        return ResponseEntity.ok(teamService.putLeader(teamName, googleName));
+    public Set<User> putLeader(@PathVariable String teamName, @PathVariable String googleName) {
+        return teamService.putLeader(teamName, googleName);
     }
 
     @DeleteMapping("/delete-leader/{googleName}/{teamName}")
-    public ResponseEntity<Set<User>> deleteLeader(@PathVariable String teamName, @PathVariable String googleName) {
-        return ResponseEntity.ok(teamService.deleteLeader(teamName, googleName));
+    public Set<User> deleteLeader(@PathVariable String teamName, @PathVariable String googleName) {
+        return teamService.deleteLeader(teamName, googleName);
     }
 }

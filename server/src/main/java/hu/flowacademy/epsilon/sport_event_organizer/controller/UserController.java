@@ -1,6 +1,6 @@
 package hu.flowacademy.epsilon.sport_event_organizer.controller;
 
-import hu.flowacademy.epsilon.sport_event_organizer.exception.oaut.ResourceNotFoundException;
+import hu.flowacademy.epsilon.sport_event_organizer.exception.oauth.ResourceNotFoundException;
 import hu.flowacademy.epsilon.sport_event_organizer.model.User;
 import hu.flowacademy.epsilon.sport_event_organizer.repository.UserRepository;
 import hu.flowacademy.epsilon.sport_event_organizer.security.CurrentUser;
@@ -41,7 +41,7 @@ public class UserController {
 
     @GetMapping("/get-current")
     public ResponseEntity<User> getUserById() {
-        return ResponseEntity.ok(userService.getCurrentUser().orElse(null));
+        return ResponseEntity.ok(userService.getCurrentUser());
     }
 
     @PutMapping("/update")
