@@ -1,6 +1,6 @@
 package hu.flowacademy.epsilon.sport_event_organizer.controller;
 
-import hu.flowacademy.epsilon.sport_event_organizer.exception.BadRequestException;
+import hu.flowacademy.epsilon.sport_event_organizer.exception.oaut.BadRequestException;
 import hu.flowacademy.epsilon.sport_event_organizer.model.AuthProvider;
 import hu.flowacademy.epsilon.sport_event_organizer.model.User;
 import hu.flowacademy.epsilon.sport_event_organizer.payload.ApiResponse;
@@ -66,7 +66,6 @@ public class AuthController {
         user.setEmail(signUpRequest.getEmail());
 //        user.setPassword(signUpRequest.getPassword());
         user.setProvider(AuthProvider.local);
-
 //        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         User result = userRepository.save(user);
