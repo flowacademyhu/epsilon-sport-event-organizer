@@ -47,9 +47,9 @@ public class UserService {
     }
 
     public void deleteUserByGoogleName(String googleName) {
-        User user = userRepository.findByGoogleName(googleName).orElseThrow(() -> new UserNotFoundException(googleName));
-        user.setDeleted(true);
-        userRepository.save(user);
+//        User user = userRepository.findByGoogleName(googleName).orElseThrow(() -> new UserNotFoundException(googleName));
+//        user.setDeleted(true);
+        userRepository.updateDelete(googleName, true);
     }
 
 }

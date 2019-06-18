@@ -113,9 +113,9 @@ public class TeamService {
     }
 
     public void deleteTeamByName(String teamName) {
-        Team team = teamRepository.findByName(teamName).orElseThrow(() -> new TeamNotFoundException(teamName));
-        team.setDeleted(true);
-        teamRepository.save(team);
+//        Team team = teamRepository.findByName(teamName).orElseThrow(() -> new TeamNotFoundException(teamName));
+//        team.setDeleted(true);
+        teamRepository.updateDelete(teamName, true);
     }
 
 }

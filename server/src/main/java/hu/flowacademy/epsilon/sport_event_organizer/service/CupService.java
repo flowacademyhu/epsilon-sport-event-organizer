@@ -110,8 +110,8 @@ public class CupService {
     }
 
     public void deleteCupByName(String cupName) {
-        Cup cup = cupRepository.findByName(cupName).orElseThrow(() -> new CupNotFoundException(cupName));
-        cup.setDeleted(true);
-        cupRepository.save(cup);
+//        Cup cup = cupRepository.findByName(cupName).orElseThrow(() -> new CupNotFoundException(cupName));
+//        cup.setDeleted(true);
+        cupRepository.updateDelete(cupName, true);
     }
 }
