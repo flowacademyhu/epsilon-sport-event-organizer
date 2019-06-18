@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { TokenManagerService } from './token-manager.service';
+import { AppStateService } from './app-state.service';
 
-describe('TokenManagerService', () => {
+describe('AppStateService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: TokenManagerService = TestBed.get(TokenManagerService);
+    const service: AppStateService = TestBed.get(AppStateService);
     expect(service).toBeTruthy();
   });
 });
