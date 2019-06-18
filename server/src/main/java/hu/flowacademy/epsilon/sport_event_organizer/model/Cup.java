@@ -46,7 +46,7 @@ public class Cup {
 
     @ManyToOne
     @JoinColumn(name = "sports_name", foreignKey = @ForeignKey(name = "fk_cups_sports"))
-    private Sport sports;
+    private Sport sport;
 
     public Cup() {
     }

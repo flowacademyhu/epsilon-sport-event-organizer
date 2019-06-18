@@ -42,27 +42,27 @@ public class CupController {
     }
 
     @GetMapping("/get-by-current-organizer")
-    public ResponseEntity<List<Cup>> getCupByOrganizer() {
-        return ResponseEntity.ok(cupService.getByCurrentOrganizer());
+    public List<Cup> getCupByOrganizer() {
+        return cupService.getByCurrentOrganizer();
     }
 
     @PutMapping("/put-organizer/{googleName}/{cupName}")
-    public ResponseEntity<Set<User>> putOrganizer(@PathVariable String googleName, @PathVariable String cupName) {
-        return ResponseEntity.ok(cupService.putOrganizer(googleName, cupName));
+    public Set<User> putOrganizer(@PathVariable String googleName, @PathVariable String cupName) {
+        return cupService.putOrganizer(googleName, cupName);
     }
 
     @DeleteMapping("/delete-organizer/{googleName}/{cupName}")
-    public ResponseEntity<Set<User>> deleteOrganizer(@PathVariable String googleName, @PathVariable String cupName) {
-        return ResponseEntity.ok(cupService.deleteOrganizer(googleName, cupName));
+    public Set<User> deleteOrganizer(@PathVariable String googleName, @PathVariable String cupName) {
+        return cupService.deleteOrganizer(googleName, cupName);
     }
 
     @PutMapping("/put-team/{teamName}/{cupName}")
-    public ResponseEntity<Set<Team>> putTeam(@PathVariable String teamName, @PathVariable String cupName) {
-        return ResponseEntity.ok(cupService.putTeam(teamName, cupName));
+    public Set<Team> putTeam(@PathVariable String teamName, @PathVariable String cupName) {
+        return cupService.putTeam(teamName, cupName);
     }
 
     @DeleteMapping("/delete-team/{teamName}/{cupName}")
-    public ResponseEntity<Set<Team>> deleteTeam(@PathVariable String teamName, @PathVariable String cupName) {
-        return ResponseEntity.ok(cupService.deleteTeam(teamName, cupName));
+    public Set<Team> deleteTeam(@PathVariable String teamName, @PathVariable String cupName) {
+        return cupService.deleteTeam(teamName, cupName);
     }
 }

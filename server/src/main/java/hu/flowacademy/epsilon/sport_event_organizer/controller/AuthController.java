@@ -1,6 +1,6 @@
 package hu.flowacademy.epsilon.sport_event_organizer.controller;
 
-import hu.flowacademy.epsilon.sport_event_organizer.exception.oaut.BadRequestException;
+import hu.flowacademy.epsilon.sport_event_organizer.exception.oauth.BadRequestException;
 import hu.flowacademy.epsilon.sport_event_organizer.model.AuthProvider;
 import hu.flowacademy.epsilon.sport_event_organizer.model.User;
 import hu.flowacademy.epsilon.sport_event_organizer.payload.ApiResponse;
