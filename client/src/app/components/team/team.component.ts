@@ -20,7 +20,7 @@ export class TeamComponent implements OnInit {
   addMember: String = '';
   teamNametoAdd: String = '';
   teamtoAddMember: Team;
-  deleteMember: String = '';
+  //deleteMember: String = '';
   teamNametoDelete: String = '';
   addLeader: String = '';
   teamNametoLeader: String = '';
@@ -36,11 +36,11 @@ export class TeamComponent implements OnInit {
 
 
 
-  deleteMemberFromTeam() {
+ /*  deleteMemberFromTeam() {
     this.teamService.deleteMemberFromTeam(this.deleteMember, this.teamNametoDelete);
     this.deleteMember = '';
     this.teamNametoDelete = '';
-  }
+  } */
 
   putLeaderInTeam() {
     this.teamtoAddLeader = {name: this.teamNametoLeader, company: '', imageUrl: ''};
@@ -82,11 +82,22 @@ export class TeamComponent implements OnInit {
         this.teams = data;
         this.teamName = '';
         console.log(data);
-        for (let i = 0; i < data.leader.length; i++) {
-            if (data.leader[i].googleName == this.state.user.googleName) {
+        for (let i = 0; i < data.leaders.length; i++) {
+            if (data.leaders[i].googleName == this.state.user.googleName) {
               this.isLeader = true;
             }
         }
+      }
+    );
+  }
+
+  deleteMember(name: string, team: any) {
+    console.log('ITT');
+    console.log(name);
+    console.log(team);
+    this.teamService.deleteMemberFromTeam(name, team).subscribe(
+      (data: any) => {
+        console.log(data);
       }
     );
   }

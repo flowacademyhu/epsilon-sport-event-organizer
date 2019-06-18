@@ -3,8 +3,8 @@
   {{ 'TeamName' | translate:user }}<input type="text" name="teamName" [(ngModel)]="teamName">
   <button (click)="getByTeamName()"> {{ 'Search' | translate:user }}</button> <br>
   <h3>{{ teams.name }}</h3>
-  <div *ngFor="let i of teams.leaders">{{ i.googleName }}<div *ngIf="isLeader && state.user.googleName != i.googleName"><img src="../../../assets/pictures/deleteX.png" alt="delete" class="buttons"></div></div> 
-  <div *ngFor="let i of teams.members">{{ i.googleName }}<div *ngIf="isLeader && state.user.googleName != i.googleName"><img src="../../../assets/pictures/deleteX.png" alt="delete" class="buttons"></div></div>
+  <div *ngFor="let i of teams.leaders">{{ i.googleName }}<div *ngIf="isLeader && state.user.googleName != i.googleName"><img src="../../../assets/pictures/deleteX.png" alt="delete" class="buttons" (click)="deleteLeader(i.googleName, teams)" style="cursor: pointer;"></div></div> 
+  <div *ngFor="let i of teams.members">{{ i.googleName }}<div *ngIf="isLeader && state.user.googleName != i.googleName"><img src="../../../assets/pictures/deleteX.png" alt="delete" class="buttons" (click)="deleteMember(i.googleName, teams)" style="cursor: pointer;"></div></div>
  
    <br>
    {{ 'CreatTeam' | translate:user }}Create: <br>
