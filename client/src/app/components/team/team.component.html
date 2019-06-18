@@ -44,7 +44,10 @@
    <input type="text" name="teamNametoDeleteLeader" [(ngModel)]="teamNametoDeleteLeader">
    <button (click)="deleteLeaderFromTeam()"> {{ 'Delete' | translate:user }}</button> <br>
 
-{{deleteLeader}} {{teamNametoDeleteLeader}}
+   {{ 'DeleteTeam' | translate:user }} <br>
+   {{ 'TeamName' | translate:user }}
+   <input type="text" name="teamNametoDeleteTeam" [(ngModel)]="teamNametoDeleteTeam">
+   <button (click)="deleteTeam()"> {{ 'Delete' | translate:user }}</button> <br>
 
    
   </body>

@@ -46,4 +46,8 @@ export class TeamService {
   deleteLeaderFromTeam(leaderName: String, team: String): Observable<any> {
     return this.httpclient.delete('http://localhost:8080/team/delete-leader/' + leaderName + '/' + team);
   }
+
+  deleteTeam(teamName: String): Observable<any> {
+    return this.httpclient.delete('http://localhost:8080/team/delete/' + teamName);
+  }
 }

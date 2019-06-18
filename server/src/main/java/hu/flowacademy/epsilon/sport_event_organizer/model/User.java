@@ -215,4 +215,22 @@ public class User {
     public void setAccessToken(String accessToken) {
         this.accessToken = accessToken;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof User)) return false;
+        User user = (User)obj;
+        return Objects.equals(id, user.id) &&
+                Objects.equals(googleName, user.googleName) &&
+                Objects.equals(email, user.email);
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
 }

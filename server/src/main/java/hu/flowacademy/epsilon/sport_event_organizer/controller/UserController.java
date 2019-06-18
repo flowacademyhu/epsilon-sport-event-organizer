@@ -1,6 +1,6 @@
 package hu.flowacademy.epsilon.sport_event_organizer.controller;
 
-import hu.flowacademy.epsilon.sport_event_organizer.exception.ResourceNotFoundException;
+import hu.flowacademy.epsilon.sport_event_organizer.exception.oaut.ResourceNotFoundException;
 import hu.flowacademy.epsilon.sport_event_organizer.model.User;
 import hu.flowacademy.epsilon.sport_event_organizer.repository.UserRepository;
 import hu.flowacademy.epsilon.sport_event_organizer.security.CurrentUser;
@@ -10,11 +10,7 @@ import hu.flowacademy.epsilon.sport_event_organizer.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping(path = "/user")
@@ -37,6 +33,11 @@ public class UserController {
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
     }
 
+    @DeleteMapping("/delete/{googleName}")
+    public ResponseEntity<Void> deleteUser(@PathVariable String googleName) {
+        userService.deleteUserByGoogleName(googleName);
+        return ResponseEntity.noContent().build();
+    }
 
     @GetMapping("/get-current")
     public ResponseEntity<User> getUserById() {
@@ -50,8 +51,7 @@ public class UserController {
 
     @GetMapping("/get/{googleName}")
     public ResponseEntity<User> getByGoogleName(@PathVariable String googleName) {
-        return ResponseEntity.ok(userService.findUserByGoogleName(googleName).orElse(null));
+        return ResponseEntity.ok(userService.findUserByGoogleName(googleName));
     }
-
 
 }

@@ -55,7 +55,7 @@ public class Team {
         }
         cups.remove(cup);
     }
-    
+
     public Set<Cup> getCups() {
         return cups;
     }
@@ -104,7 +104,7 @@ public class Team {
         return leaders;
     }
 
-    public void setLeader(User leader) {
+    public void addLeader(User leader) {
         leaders.add(leader);
     }
 

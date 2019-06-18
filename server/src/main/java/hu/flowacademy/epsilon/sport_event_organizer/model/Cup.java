@@ -29,6 +29,9 @@ public class Cup {
     @Column
     private String place;
 
+    @Column
+    private Integer courtCounter;
+
     @Column(columnDefinition = "TEXT")
     private String description;
 
@@ -40,6 +43,10 @@ public class Cup {
 
     @ManyToMany(mappedBy = "cups")
     private Set<User> organizers = new HashSet<>();
+
+    @ManyToOne
+    @JoinColumn(name = "sports_name", foreignKey = @ForeignKey(name = "fk_cups_sports"))
+    private Sport sports;
 
     public Cup() {
     }

@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>hu.flowacademy.epsilon</groupId>
-	<artifactId>my-favorite-expert</artifactId>
+	<artifactId>sport-event-organizer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>sport-event-organizer</name>
 	<description>Demo project for Spring Boot</description>

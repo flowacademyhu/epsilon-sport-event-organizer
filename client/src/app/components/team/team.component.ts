@@ -27,6 +27,7 @@ export class TeamComponent implements OnInit {
   teamtoAddLeader: Team;
   deleteLeader: String = '';
   teamNametoDeleteLeader: String = '';
+  teamNametoDeleteTeam: String = ''; 
 
   isLeader: boolean = false;
 
@@ -36,18 +37,34 @@ export class TeamComponent implements OnInit {
 
   }
 
+  deleteTeam() {
+    this.teamService.deleteTeam(this.teamNametoDeleteTeam).subscribe(
+      (data: any) => {
+        this.teamNametoDeleteTeam = '';
+      }
+    );
+  }
+
   deleteLeaderFromTeam() {
-    this.teamService.deleteLeaderFromTeam(this.deleteLeader, this.teamNametoDeleteLeader);
+    this.teamService.deleteLeaderFromTeam(this.deleteLeader, this.teamNametoDeleteLeader).subscribe(
+      (data: any) => {
     console.log('Alma');
+    console.log(this.deleteLeader, this.teamNametoDeleteLeader);
     this.deleteLeader = '';
     this.teamNametoDeleteLeader = '';
+      }
+    );
   }
 
   deleteMemberFromTeam() {
-    this.teamService.deleteMemberFromTeam(this.deleteMember, this.teamNametoDelete);
+    this.teamService.deleteMemberFromTeam(this.deleteMember, this.teamNametoDelete).subscribe(
+      (data: any) => {
+ 
     this.deleteMember = '';
     this.teamNametoDelete = '';
-  }
+      }
+    );
+}
 
   putLeaderInTeam() {
     this.teamtoAddLeader = {name: this.teamNametoLeader, company: '', imageUrl: ''};

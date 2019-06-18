@@ -1,9 +1,7 @@
 package hu.flowacademy.epsilon.sport_event_organizer.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "sports")
@@ -18,4 +16,9 @@ public class Sport {
 
     @Column
     private Integer breakDurationInMinutes;
+
+    @OneToMany(mappedBy = "sports")
+    private Set<Cup> cups;
+
+
 }
