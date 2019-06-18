@@ -81,10 +81,9 @@ export class TeamComponent implements OnInit {
       (data: any) => {
         this.teams = data;
         this.teamName = '';
-        console.log('MI a f....sz?');
-        console.log(data.leaders[0]);
-        for (let i = 0; i < data.leaders.length; i++) {
-            if (data.leaders[i].googleName == this.state.user.googleName) {
+        console.log(data);
+        for (let i = 0; i < data.leader.length; i++) {
+            if (data.leader[i].googleName == this.state.user.googleName) {
               this.isLeader = true;
             }
         }
