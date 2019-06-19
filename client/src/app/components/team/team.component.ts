@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TeamService } from 'src/app/shared/service/team.service';
 import { AppStateService } from 'src/app/shared/service/app-state.service';
 import { MatDialog, MatDialogConfig } from '@angular/material';
+import { CreateComponent } from '../create/create.component';
 
 @Component({
   selector: 'app-team',
@@ -36,7 +37,11 @@ export class TeamComponent implements OnInit {
   }
 
   onCreate() {
-    this.dialog.open(TeamComponent);
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '60%';
+    this.dialog.open(CreateComponent, dialogConfig);
   }
 
   deleteTeam(teamName: String) {
