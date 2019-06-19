@@ -14,11 +14,27 @@
               <table>
                   <tbody>        
                     <tr>
-                      <td>{{ 'TeamName' | translate }}</td>
+                      <td>{{ 'TeamName' | translate }}
+                      </td>
                       <td>{{ 'CompanyName' | translate }}</td>
                     </tr>
                     <tr *ngFor="let item of teamsIAmLeaderIn"> 
-                      <td >{{ item.name }}</td>
+                      <td><a routerLink="../team">{{ item.name }}
+                      </a></td>
+                      <td> {{ item.company }}</td>
+                      
+                    </tr>
+                  </tbody>
+                </table>
+                {{ 'Member' | translate }}
+              <table>
+                  <tbody>        
+                    <tr>
+                      <td>{{ 'TeamName' | translate }}</td>
+                      <td>{{ 'CompanyName' | translate }}</td>
+                    </tr>
+                    <tr *ngFor="let item of teamsIAmMemberIn"> 
+                      <td ><a routerLink="../team">{{ item.name }}</a></td>
                       <td> {{ item.company }}</td>
                       
                     </tr>
