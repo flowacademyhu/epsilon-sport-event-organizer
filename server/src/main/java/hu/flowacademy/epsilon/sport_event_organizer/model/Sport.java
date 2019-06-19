@@ -20,6 +20,9 @@ public class Sport {
     @Column
     private Integer breakDurationInMinutes;
 
+    @Column
+    private Integer matchDurationInMinutes;
+
     @OneToMany(mappedBy = "sport")
     private Set<Cup> cups;
 

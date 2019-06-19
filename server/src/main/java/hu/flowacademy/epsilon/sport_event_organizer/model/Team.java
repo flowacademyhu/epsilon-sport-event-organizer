@@ -70,6 +70,6 @@ public class Team {
     public void deleteLeader(User leader) {
         leaders.remove(leader);
     }
-    
+
 
 }
