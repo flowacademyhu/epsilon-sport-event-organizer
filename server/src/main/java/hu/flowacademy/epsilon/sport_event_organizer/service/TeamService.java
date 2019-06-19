@@ -61,7 +61,7 @@ public class TeamService {
         userToAdd.addTeamMember(team);
         userService.save(userToAdd);
         team.addMember(userToAdd);
-        Set<User> users = team.getMembers();
+        Set<User> users = team.getUsers();
         users.removeIf(User::isDeleted);
         return users;
     }
@@ -73,7 +73,7 @@ public class TeamService {
         userToRemove.deleteTeamMember(team);
         userService.save(userToRemove);
         team.deleteMember(userToRemove);
-        Set<User> users = team.getMembers();
+        Set<User> users = team.getUsers();
         users.removeIf(User::isDeleted);
         return users;
 
