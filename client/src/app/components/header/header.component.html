@@ -22,25 +22,25 @@
           
         <li class="nav-item active" id="myCustomNavbar">
           <a class="nav-link" routerLink=""
-            >{{ 'Home' | translate:user }}
+            >{{ 'Home' | translate }}
             <span class="sr-only">(current)</span>
           </a>
         </li>
         <li class="nav-item active" id="myCustomNavbar">
           <a class="nav-link" routerLink=""
-            >{{ 'Teams' | translate:user }}
+            >{{ 'Teams' | translate }}
             <span class="sr-only">(current)</span>
           </a>
         </li>
         <li class="nav-item active" id="myCustomNavbar">
           <a class="nav-link" routerLink=''
-            >{{ 'Cups' | translate:user }}
+            >{{ 'Cups' | translate }}
             <span class="sr-only">(current)</span>
           </a>
         </li>
         <li class="nav-item active" id="myCustomNavbar">
           <a class="nav-link" routerLink="profile"
-            >{{ 'Profile' | translate:user }}
+            >{{ 'Profile' | translate }}
             <span class="sr-only">(current)</span>
           </a>
         </li>
@@ -65,15 +65,14 @@
         </li>
         <li class="nav-item" *ngIf="!(state.user$ | async)">
             <a type="button" class="btn btn-outline-primary button-size" href="http://localhost:8080/oauth2/authorize/google?redirect_uri=http://localhost:4200/oauth2/redirect">
-            {{ 'Login' | translate:user }}
+            {{ 'Login' | translate }}
             </a>
         </li>
         <li class="nav-item" *ngIf="state.user$ | async">
           <a type="button" class="btn btn-outline-primary button-size" (click)="logOut()" routerLink="">
-          {{ 'LoginOut' | translate:user }}
+          {{ 'LoginOut' | translate }}
           </a>
       </li>
-      <button (click)="klikk()"></button>
       </ul>
       
     </div>
