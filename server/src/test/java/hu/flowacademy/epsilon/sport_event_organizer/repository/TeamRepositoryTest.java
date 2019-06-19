@@ -50,7 +50,7 @@ public class TeamRepositoryTest {
         Set<Team> teamSet = new HashSet<>();
         teamSet.add(team1);
         teamSet.add(team2);
-        user.setTeamMember(teamSet);
+        user.setTeamMembers(teamSet);
         testEntityManager.persist(user);
         testEntityManager.persist(team1);
         testEntityManager.persist(team2);
@@ -71,7 +71,7 @@ public class TeamRepositoryTest {
         Set<Team> teamSet = new HashSet<>();
         teamSet.add(team1);
         teamSet.add(team2);
-        user.setTeamLeader(teamSet);
+        user.setTeamLeaders(teamSet);
         testEntityManager.persist(user);
         testEntityManager.persist(team1);
         testEntityManager.persist(team2);
