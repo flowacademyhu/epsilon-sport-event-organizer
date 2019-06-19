@@ -18,6 +18,28 @@ public class CupController {
     @Autowired
     private CupService cupService;
 
+    @GetMapping("/{name}")
+    public ResponseEntity<Cup> getByCupName(@PathVariable String name) {
+        return ResponseEntity.ok(cupService.getByName(name));
+    }
+
+    // returning all NON-DELETED cups!
+    @GetMapping()
+    public ResponseEntity<List<Cup>> getAllNonDeletedCups() {
+        return ResponseEntity.ok(cupService.getAllNonDeletedCups());
+    }
+
+    @GetMapping("/with-deleted")
+    public ResponseEntity<List<Cup>> getAllCups() {
+        return ResponseEntity.ok(cupService.getAllCups());
+    }
+
+    @GetMapping("/{company}")
+    public ResponseEntity<List<Cup>> getCupsByCompany(@PathVariable String company) {
+        return ResponseEntity.ok(cupService.getCupsByCompany(company));
+    }
+
+
 
     @PostMapping
     public ResponseEntity<Cup> createCup(@RequestBody Cup team) {
@@ -35,11 +57,6 @@ public class CupController {
         return ResponseEntity.noContent().build();
     }
 
-
-    @GetMapping("/{cupName}")
-    public ResponseEntity<Cup> getByCupName(@PathVariable String cupName) {
-        return ResponseEntity.ok(cupService.getByName(cupName));
-    }
 
     @GetMapping("/organizer")
     public List<Cup> getCupByOrganizer() {

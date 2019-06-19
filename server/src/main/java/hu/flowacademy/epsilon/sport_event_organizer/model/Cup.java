@@ -24,12 +24,6 @@ public class Cup {
     private String imageUrl;
 
     @Column
-    private LocalDateTime startDateTime;
-
-    @Column
-    private LocalDateTime endDateTime;
-
-    @Column
     private String place;
 
     @Column
@@ -40,6 +34,15 @@ public class Cup {
 
     @Column
     private boolean isDeleted;
+
+    @Column
+    private LocalDateTime startDateTime;
+
+    @Column
+    private LocalDateTime endDateTime;
+
+    @Column
+    private LocalDateTime registrationEndTime;
 
     @ManyToMany(mappedBy = "cups")
     private Set<Team> teams = new HashSet<>();
