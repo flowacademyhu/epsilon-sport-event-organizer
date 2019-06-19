@@ -12,10 +12,10 @@ export class UserService {
   ) { }
 
   findAll(): Observable<any> {
-    return this.httpclient.get('http://localhost:8080/getSecure');
+    return this.httpclient.get('http://localhost:8080/auth/list-users');
   }
 
   getUser(): Observable<any> {
-    return this.httpclient.get('http://localhost:8080/auth/get-user');
+    return this.httpclient.get('http://localhost:8080/user/get-current');
   }
 }
