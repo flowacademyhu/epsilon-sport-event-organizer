@@ -16,7 +16,6 @@ matrix:
       node_js: "8.15"
       script:
       - "cd ./client"
-      - "npm i"
-      - "npm install -g @angular/cli"
-      - "ng build"
-      
+      - "npm install -g @angular/cli && npm install"
+      - "ng build --aot"
+
