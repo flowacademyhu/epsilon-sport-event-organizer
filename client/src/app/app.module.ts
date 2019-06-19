@@ -16,6 +16,7 @@ import { MainPageComponent } from './components/main-page/main-page.component';
 import { RequestInterceptorService } from './shared/interceptor/request-interceptor.service';
 import { TeamComponent } from './components/team/team.component';
 import { FormsModule } from '@angular/forms';
+import { CupComponent } from './components/cup/cup.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -30,7 +31,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ProfileComponent,
     MainPageComponent,
     FooterComponent,
-    TeamComponent
+    TeamComponent,
+    CupComponent
   ],
   imports: [
     BrowserModule,
