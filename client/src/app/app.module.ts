@@ -14,6 +14,8 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { RequestInterceptorService } from './shared/interceptor/request-interceptor.service';
+import { TeamComponent } from './components/team/team.component';
+import { FormsModule } from '@angular/forms';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -27,13 +29,15 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoggedInComponent,
     ProfileComponent,
     MainPageComponent,
-    FooterComponent
+    FooterComponent,
+    TeamComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbCollapseModule,
     HttpClientModule,
+    FormsModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
