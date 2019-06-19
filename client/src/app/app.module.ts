@@ -16,6 +16,7 @@ import { MainPageComponent } from './components/main-page/main-page.component';
 import { RequestInterceptorService } from './shared/interceptor/request-interceptor.service';
 import { TeamComponent } from './components/team/team.component';
 import { FormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -38,6 +39,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     NgbCollapseModule,
     HttpClientModule,
     FormsModule,
+    MatDialogModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -53,6 +55,10 @@ export function HttpLoaderFactory(http: HttpClient) {
       multi: true
     }
 ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [
+    MatDialogModule
+  ],
+  entryComponents: [ProfileComponent]
 })
 export class AppModule { }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TeamService } from 'src/app/shared/service/team.service';
 import { AppStateService } from 'src/app/shared/service/app-state.service';
+import { MatDialog, MatDialogConfig } from '@angular/material';
 
 @Component({
   selector: 'app-team',
@@ -24,10 +25,18 @@ export class TeamComponent implements OnInit {
   isLeader: boolean = false;
   isSearchPressed: boolean = false;
 
-  constructor(private teamService: TeamService, private state: AppStateService) { }
+  constructor(
+    private teamService: TeamService,
+    private state: AppStateService,
+    private dialog: MatDialog
+    ) { }
 
   ngOnInit() {
 
+  }
+
+  onCreate() {
+    this.dialog.open(TeamComponent);
   }
 
   deleteTeam(teamName: String) {
@@ -89,7 +98,7 @@ export class TeamComponent implements OnInit {
   deleteMember(name: string, teamName: String) {
     this.teamService.deleteMemberFromTeam(name, teamName).subscribe(
       (data: any) => {
-        this.team.members = data.members;
+        this.team = data;
       }
     );
   }

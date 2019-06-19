@@ -7,7 +7,6 @@ import { MainPageComponent } from './components/main-page/main-page.component';
 import { LoggedinGuard } from './shared/guard/loggedin.guard';
 import { TeamComponent } from './components/team/team.component';
 
-
 const routes: Routes = [
   {path: '', component: MainPageComponent},
   {path: 'login', component: LoginComponent},
