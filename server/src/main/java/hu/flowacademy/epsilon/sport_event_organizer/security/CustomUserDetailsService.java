@@ -1,6 +1,6 @@
 package hu.flowacademy.epsilon.sport_event_organizer.security;
 
-import hu.flowacademy.epsilon.sport_event_organizer.exception.ResourceNotFoundException;
+import hu.flowacademy.epsilon.sport_event_organizer.exception.oauth.ResourceNotFoundException;
 import hu.flowacademy.epsilon.sport_event_organizer.model.User;
 import hu.flowacademy.epsilon.sport_event_organizer.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

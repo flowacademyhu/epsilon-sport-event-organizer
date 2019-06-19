@@ -10,9 +10,10 @@
   <div class="split right">
       <div class="splite top">
           <div class="centered">
-            <h2>TEAM</h2>
-           
-            <p>Jobb felső</p>
+            <h5>Leadership:</h5>
+            <p *ngFor="let i of teamsIAmLeaderIn">{{i.name}} {{i.company}}</p>
+            <h5>Membership:</h5>
+            <p *ngFor="let i of teamsIAmMemberIn">{{i.name}} {{i.company}}</p>
           </div>
         </div>
         
