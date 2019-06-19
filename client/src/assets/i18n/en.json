@@ -25,5 +25,6 @@
   "Delete": "Delete",
   "AddLeader": "Add Leader:",
   "LeaderName": "Leader Name",
-  "DeleteLeader": "Delete Leader"
+  "DeleteLeader": "Delete Leader",
+  "Leadership": "Leadership"
 }

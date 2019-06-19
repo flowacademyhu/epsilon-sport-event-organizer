@@ -16,6 +16,8 @@ export class ProfileComponent implements OnInit {
   teamsIAmLeaderIn: any[];
   teamsIAmMemberIn: any[];
 
+  
+
   ngOnInit() {
 
     this.userDatas = this.state.user;
@@ -23,12 +25,14 @@ export class ProfileComponent implements OnInit {
     this.teamService.getByLeader().subscribe(
       teams => {
         this.teamsIAmLeaderIn = teams;
+        console.log(this.teamsIAmLeaderIn);
       }
     );
 
     this.teamService.getByMember().subscribe(
       teams => {
         this.teamsIAmMemberIn = teams;
+        console.log(this.teamsIAmMemberIn);
       }
     );
   }

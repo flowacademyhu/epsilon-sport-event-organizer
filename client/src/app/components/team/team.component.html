@@ -19,7 +19,7 @@
   <div class="col-sm-6 rounded background margin-top">
     <div class="col-sm-6 rounded background margin-top">
       <h5 *ngIf="isSearchPressed">leaders:</h5>
-      <div *ngFor="let i of team.leaders">
+      <div *ngFor="let i of teams.leaders">
         {{ i.googleName }}
         <div *ngIf="isLeader && team.leaders.length > 1">
           <img
@@ -39,7 +39,7 @@
           Here are no members in this team
         </h6>
       </div>
-      <div *ngFor="let i of team.members">
+      <div *ngFor="let i of teams.members">
         {{ i.googleName }}
         <div *ngIf="isLeader && state.user.googleName != i.googleName">
           <img
@@ -60,10 +60,10 @@
       </div>
     </div>
     <div *ngIf="isLeader">
-        <a type="button" class="btn btn-primary createButton" (click)="deleteTeam(team.name)">
+        <a type="button" class="btn btn-primary createButton" (click)="deleteTeam(teams.name)">
             {{ "Delete" | translate }}
         </a>
-        <a type="button" class="btn btn-primary createButton" (click)="deleteTeam(team.name)">
+        <a type="button" class="btn btn-primary createButton" (click)="deleteTeam(teams.name)">
             {{ "Add" | translate }}
         </a>
     </div>
@@ -72,15 +72,15 @@
   <br />
   {{ "CreatTeam" | translate }}Create: <br />
   {{ "TeamName" | translate }}
-  <input type="text" name="createdTeamName" [(ngModel)]="teamNameToCreate" />
+  <input type="text" name="creatTeamName" [(ngModel)]="creatTeamName" />
   {{ "CompanyName" | translate }}
-  <input type="text" name="createdCompanyName" [(ngModel)]="companyNameToCreate" />
+  <input type="text" name="creatCompanyName" [(ngModel)]="creatCompanyName" />
   <button (click)="create()">{{ "Submit" | translate }}</button>
 
   <br />
   {{ "AddMember" | translate }} <br />
   {{ "MemberName" | translate }}
-  <input type="text" name="memberToAdd" [(ngModel)]="memberToAdd" />
+  <input type="text" name="addMember" [(ngModel)]="addMember" />
   {{ "TeamName" | translate }}
   <input type="text" name="teamName" [(ngModel)]="teamNametoAdd" />
   <button (click)="putMemberInTeam()">{{ "Add" | translate }}</button>
