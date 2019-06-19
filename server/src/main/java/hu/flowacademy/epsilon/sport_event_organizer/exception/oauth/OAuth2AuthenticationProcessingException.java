@@ -1,4 +1,4 @@
-package hu.flowacademy.epsilon.sport_event_organizer.exception;
+package hu.flowacademy.epsilon.sport_event_organizer.exception.oauth;
 
 import org.springframework.security.core.AuthenticationException;
 
