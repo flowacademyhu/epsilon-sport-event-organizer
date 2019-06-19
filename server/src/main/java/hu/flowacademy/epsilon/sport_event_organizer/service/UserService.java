@@ -34,12 +34,12 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public Optional<User> getCurrentUser() {
+    public User getCurrentUser() {
         return Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
                 .map(Authentication::getPrincipal)
                 .map(principal -> (UserPrincipal) principal)
                 .map(UserPrincipal::getId)
-                .flatMap(userRepository::findById);
+                .flatMap(userRepository::findById).orElse(null);
     }
 
     public User findUserByGoogleName(String googleName) {
@@ -47,9 +47,7 @@ public class UserService {
     }
 
     public void deleteUserByGoogleName(String googleName) {
-        User user = userRepository.findByGoogleName(googleName).orElseThrow(() -> new UserNotFoundException(googleName));
-        user.setDeleted(true);
-        userRepository.save(user);
+        userRepository.updateDelete(googleName, true);
     }
 
 }

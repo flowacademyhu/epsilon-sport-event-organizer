@@ -1,6 +1,6 @@
 package hu.flowacademy.epsilon.sport_event_organizer.security.oauth2.user;
 
-import hu.flowacademy.epsilon.sport_event_organizer.exception.oaut.OAuth2AuthenticationProcessingException;
+import hu.flowacademy.epsilon.sport_event_organizer.exception.oauth.OAuth2AuthenticationProcessingException;
 import hu.flowacademy.epsilon.sport_event_organizer.model.AuthProvider;
 
 import java.util.Map;

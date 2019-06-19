@@ -95,9 +95,19 @@ export class TeamComponent implements OnInit {
   }
 
   deleteLeader(name: string, teamName: string) {
-    this.isLeader = false;
     this.teamService.deleteLeaderFromTeam(name, teamName).subscribe(
       (data: any) => {
+        for (let i = 0; i < data.leaders.length; i++) {
+          if (data.leaders[i].googleName == this.state.user.googleName) {
+            console.log('leader true');
+            this.isLeader = true;
+          } else {
+            console.log('leader false');
+            this.isLeader = false;
+          }
+        }
+        this.team = data;
+        console.log(this.team);
       }
     );
   }

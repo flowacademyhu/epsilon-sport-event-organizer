@@ -20,9 +20,6 @@ public class TeamService {
     private TeamRepository teamRepository;
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private UserService userService;
 
     public Team getTeamByName(String teamName) {
@@ -31,11 +28,11 @@ public class TeamService {
 
 
     public Team save(Team team) {
-        User currentUser = userService.getCurrentUser().orElse(null);
+        User currentUser = userService.getCurrentUser();
         team.setDeleted(false);
         teamRepository.save(team);
         currentUser.addTeamLeader(team);
-        User user = userRepository.save(currentUser);
+        User user = userService.save(currentUser);
         team.addLeader(user);
         return team;
     }
@@ -50,74 +47,69 @@ public class TeamService {
     }
 
     public List<Team> getByCurrentMember() {
-        User currentUser = userService.getCurrentUser().orElse(null);
+        User currentUser = userService.getCurrentUser();
         return teamRepository.findByUsers(currentUser);
     }
 
-    public Set<User> putMember(String teamName, String googleName) {
+    public Team putMember(String teamName, String googleName) {
         User userToAdd = userService.findUserByGoogleName(googleName);
         Team team = teamRepository.findByName(teamName).orElseThrow(() -> new TeamNotFoundException(teamName));
-        if (team.getLeaders().contains(userToAdd)) {
-            throw new RuntimeException();
-            //TODO create normal exception
-        }
         userToAdd.addTeamMember(team);
-        userRepository.save(userToAdd);
+        userService.save(userToAdd);
         team.addMember(userToAdd);
-        Set<User> users = team.getMembers();
-        users.removeIf(user -> user.isDeleted());
-        return users;
+//        Set<User> users = team.getMembers();
+//        users.removeIf(User::isDeleted);
+//        return users;
+        return team;
     }
 
 
-    public Set<User> deleteMember(String teamName, String googleName) {
+    public Team deleteMember(String teamName, String googleName) {
         User userToRemove = userService.findUserByGoogleName(googleName);
         Team team = teamRepository.findByName(teamName).orElseThrow(() -> new TeamNotFoundException(teamName));
         userToRemove.deleteTeamMember(team);
-        userRepository.save(userToRemove);
+        userService.save(userToRemove);
         team.deleteMember(userToRemove);
-        Set<User> users = team.getMembers();
-        users.removeIf(user -> user.isDeleted());
-        return users;
-
+//        Set<User> users = team.getMembers();
+//        users.removeIf(User::isDeleted);
+//        return users;
+        return team;
     }
 
     public List<Team> getByCurrentLeader() {
-        User currentUser = userService.getCurrentUser().orElse(null);
+        User currentUser = userService.getCurrentUser();
         return teamRepository.findByLeaders(currentUser);
     }
 
-    public Set<User> putLeader(String teamName, String googleName) {
+    public Team putLeader(String teamName, String googleName) {
         User userToAdd = userService.findUserByGoogleName(googleName);
         Team team = teamRepository.findByName(teamName).orElseThrow(() -> new TeamNotFoundException(teamName));
-        if (team.getLeaders().contains(userToAdd)) {
-            throw new RuntimeException();
-            //TODO create normal exception
+        if (team.getMembers().contains(userToAdd)) {
+            team.getMembers().remove(userToAdd);
         }
         userToAdd.addTeamLeader(team);
-        userRepository.save(userToAdd);
+        userService.save(userToAdd);
         team.addLeader(userToAdd);
-        Set<User> users = team.getLeaders();
-        users.removeIf(user -> user.isDeleted());
-        return users;
+//        Set<User> users = team.getLeaders();
+//        users.removeIf(User::isDeleted);
+//        return users;
+        return team;
     }
 
     public Team deleteLeader(String teamName, String googleName) {
         User userToAdd = userService.findUserByGoogleName(googleName);
         Team team = teamRepository.findByName(teamName).orElseThrow(() -> new TeamNotFoundException(teamName));
         userToAdd.deleteTeamLeader(team);
-        userRepository.save(userToAdd);
+        userService.save(userToAdd);
         team.deleteLeader(userToAdd);
 //        Set<User> users = team.getLeaders();
 //        users.removeIf(user -> user.isDeleted());
+//        users.removeIf(User::isDeleted);
 //        return users;
         return team;
     }
 
     public void deleteTeamByName(String teamName) {
-        Team team = teamRepository.findByName(teamName).orElseThrow(() -> new TeamNotFoundException(teamName));
-        team.setDeleted(true);
-        teamRepository.save(team);
+        teamRepository.updateDelete(teamName, true);
     }
-
 }
