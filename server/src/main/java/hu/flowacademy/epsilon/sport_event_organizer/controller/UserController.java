@@ -1,6 +1,6 @@
 package hu.flowacademy.epsilon.sport_event_organizer.controller;
 
-import hu.flowacademy.epsilon.sport_event_organizer.exception.oaut.ResourceNotFoundException;
+import hu.flowacademy.epsilon.sport_event_organizer.exception.oauth.ResourceNotFoundException;
 import hu.flowacademy.epsilon.sport_event_organizer.model.User;
 import hu.flowacademy.epsilon.sport_event_organizer.repository.UserRepository;
 import hu.flowacademy.epsilon.sport_event_organizer.security.CurrentUser;
@@ -33,16 +33,15 @@ public class UserController {
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
     }
 
-    @DeleteMapping("/delete-team/{cupName}")
-    public ResponseEntity<Void> deleteCup(@PathVariable String cupName) {
-        userService.deleteUserByGoogleName(cupName);
+    @DeleteMapping("/delete/{googleName}")
+    public ResponseEntity<Void> deleteUser(@PathVariable String googleName) {
+        userService.deleteUserByGoogleName(googleName);
         return ResponseEntity.noContent().build();
     }
 
-
     @GetMapping("/get-current")
     public ResponseEntity<User> getUserById() {
-        return ResponseEntity.ok(userService.getCurrentUser().orElse(null));
+        return ResponseEntity.ok(userService.getCurrentUser());
     }
 
     @PutMapping("/update")
@@ -54,6 +53,5 @@ public class UserController {
     public ResponseEntity<User> getByGoogleName(@PathVariable String googleName) {
         return ResponseEntity.ok(userService.findUserByGoogleName(googleName));
     }
-
 
 }

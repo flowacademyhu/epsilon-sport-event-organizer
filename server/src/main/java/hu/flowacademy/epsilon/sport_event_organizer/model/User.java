@@ -24,7 +24,7 @@ public class User {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
 
-    @Column
+    @Column(unique = true)
     private String googleName;
 
     @Email
@@ -220,7 +220,7 @@ public class User {
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (!(obj instanceof User)) return false;
-        User user = (User)obj;
+        User user = (User) obj;
         return Objects.equals(id, user.id) &&
                 Objects.equals(googleName, user.googleName) &&
                 Objects.equals(email, user.email);

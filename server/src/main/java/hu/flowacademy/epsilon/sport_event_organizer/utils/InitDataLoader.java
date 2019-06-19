@@ -1,20 +1,20 @@
 package hu.flowacademy.epsilon.sport_event_organizer.utils;
 
-import hu.flowacademy.epsilon.sport_event_organizer.model.AuthProvider;
-import hu.flowacademy.epsilon.sport_event_organizer.model.Cup;
-import hu.flowacademy.epsilon.sport_event_organizer.model.Team;
-import hu.flowacademy.epsilon.sport_event_organizer.model.User;
+import hu.flowacademy.epsilon.sport_event_organizer.model.*;
 import hu.flowacademy.epsilon.sport_event_organizer.repository.CupRepository;
+import hu.flowacademy.epsilon.sport_event_organizer.repository.SportRepository;
 import hu.flowacademy.epsilon.sport_event_organizer.repository.TeamRepository;
 import hu.flowacademy.epsilon.sport_event_organizer.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Component
+@Transactional
 public class InitDataLoader implements CommandLineRunner {
 
     @Autowired
@@ -25,6 +25,9 @@ public class InitDataLoader implements CommandLineRunner {
 
     @Autowired
     private CupRepository cupRepository;
+
+    @Autowired
+    private SportRepository sportRepository;
 
 
     @Override
@@ -56,24 +59,25 @@ public class InitDataLoader implements CommandLineRunner {
         cup.setName("Flow Cup");
         cup.setCompany("Flow Academy");
 
-        Set<Team> teamSet1 = new HashSet();
-        Set<Team> teamSet2 = new HashSet();
-        Set<Cup> cupSet = new HashSet();
+        Sport sport = new Sport();
+        Sport sport1 = new Sport();
+        Sport sport2 = new Sport();
+        sport.setName("football");
+        sport1.setName("basketball");
+        sport2.setName("handball");
 
-
-        teamSet1.add(team1);
-        teamSet2.add(team1);
-        teamSet2.add(team2);
-        cupSet.add(cup);
-
-        user.setTeamMember(teamSet1);
-        user1.setTeamMember(teamSet1);
-        user2.setTeamMember(teamSet1);
-        user.setTeamLeader(teamSet2);
+        user.addTeamMember(team1);
+        user1.addTeamMember(team1);
+        user2.addTeamMember(team1);
+        user.addTeamLeader(team1);
+        user.addTeamLeader(team2);
 
         user.addCup(cup);
         team1.addCup(cup);
 
+        sportRepository.save(sport);
+        sportRepository.save(sport1);
+        sportRepository.save(sport2);
         cupRepository.save(cup);
         teamRepository.save(team1);
         teamRepository.save(team2);

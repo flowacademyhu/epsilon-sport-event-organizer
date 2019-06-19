@@ -29,14 +29,6 @@ export class HeaderComponent implements OnInit {
     localStorage.removeItem('token');
   }
 
- /*  klikk() {
-    if (this.appState.user) {
-    this.appState.user = null;
-    } else {
-    this.appState.user = { id: 1, name: 'Jozsi'};
-    }
-  } */
-
   ngOnInit() {
   }
 
