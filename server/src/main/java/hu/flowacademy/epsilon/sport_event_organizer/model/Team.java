@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -69,5 +70,6 @@ public class Team {
     public void deleteLeader(User leader) {
         leaders.remove(leader);
     }
+    
 
 }
