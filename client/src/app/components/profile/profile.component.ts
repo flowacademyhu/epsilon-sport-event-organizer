@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/shared/service/user.service';
 import { AppStateService } from 'src/app/shared/service/app-state.service';
 
