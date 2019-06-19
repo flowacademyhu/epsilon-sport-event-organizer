@@ -19,14 +19,14 @@
   <div class="col-sm-6 rounded background margin-top">
     <div class="col-sm-6 rounded background margin-top">
       <h5 *ngIf="isSearchPressed">leaders:</h5>
-      <div *ngFor="let i of teams.leaders">
+      <div *ngFor="let i of team.leaders">
         {{ i.googleName }}
-        <div *ngIf="isLeader && teams.leaders.length > 1">
+        <div *ngIf="isLeader && team.leaders.length > 1">
           <img
             src="../../../assets/pictures/deleteX.png"
             alt="delete"
             class="xbuttons"
-            (click)="deleteLeader(i.googleName, teams.name)"
+            (click)="deleteLeader(i.googleName, team.name)"
             style="cursor: pointer;"
           />
         </div>
@@ -35,35 +35,35 @@
     <div class="col-sm-6 rounded background margin-top">
       <h5 *ngIf="isSearchPressed">members:</h5>
       <div *ngIf="isSearchPressed">
-        <h6 *ngIf="teams.members.length == 0">
+        <h6 *ngIf="team.members.length == 0">
           Here are no members in this team
         </h6>
       </div>
-      <div *ngFor="let i of teams.members">
+      <div *ngFor="let i of team.members">
         {{ i.googleName }}
         <div *ngIf="isLeader && state.user.googleName != i.googleName">
           <img
             src="../../../assets/pictures/promoteMember.png"
             alt="promote"
             class="xbuttons"
-            (click)="promoteMember(i.googleName, teams.name, teams)"
+            (click)="promoteMember(i.googleName, team.name, team)"
             style="cursor: pointer;"
           />
           <img
             src="../../../assets/pictures/deleteX.png"
             alt="delete"
             class="xbuttons"
-            (click)="deleteMember(i.googleName, teams.name)"
+            (click)="deleteMember(i.googleName, team.name)"
             style="cursor: pointer;"
           />
         </div>
       </div>
     </div>
     <div *ngIf="isLeader">
-        <a type="button" class="btn btn-primary createButton" (click)="deleteTeam(teams.name)">
+        <a type="button" class="btn btn-primary createButton" (click)="deleteTeam(team.name)">
             {{ "Delete" | translate: user }}
         </a>
-        <a type="button" class="btn btn-primary createButton" (click)="deleteTeam(teams.name)">
+        <a type="button" class="btn btn-primary createButton" (click)="deleteTeam(team.name)">
             {{ "Add" | translate: user }}
         </a>
     </div>
