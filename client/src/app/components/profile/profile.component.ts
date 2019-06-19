@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { UserService } from 'src/app/shared/service/user.service';
+import { AppStateService } from 'src/app/shared/service/app-state.service';
 
 @Component({
   selector: 'app-profile',
@@ -7,9 +10,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor() { }
+  constructor(private state: AppStateService, private user: UserService) { }
+
+  userDatas: User;
 
   ngOnInit() {
+
+    this.userDatas = this.state.user;
   }
 
 }

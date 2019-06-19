@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -9,18 +10,10 @@ import { HttpClient } from '@angular/common/http';
 })
 export class MainPageComponent implements OnInit {
 
-  constructor(public http: HttpClient) {}
-
-  public ping() {
-    this.http.get('https://example.com/api/things')
-      .subscribe(
-        data => console.log(data),
-        err => console.log(err)
-      );
-  }
+  constructor(public http: HttpClient, private activateRoute: ActivatedRoute) {}
 
   ngOnInit() {
-    this.ping();
+
   }
 
 }
