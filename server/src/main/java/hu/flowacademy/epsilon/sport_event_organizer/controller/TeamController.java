@@ -64,7 +64,7 @@ public class TeamController {
     }
 
     @DeleteMapping("/delete-leader/{googleName}/{teamName}")
-    public ResponseEntity<Set<User>> deleteLeader(@PathVariable String teamName, @PathVariable String googleName) {
+    public ResponseEntity<Team> deleteLeader(@PathVariable String teamName, @PathVariable String googleName) {
         return ResponseEntity.ok(teamService.deleteLeader(teamName, googleName));
     }
 }

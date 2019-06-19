@@ -102,15 +102,16 @@ public class TeamService {
         return users;
     }
 
-    public Set<User> deleteLeader(String teamName, String googleName) {
+    public Team deleteLeader(String teamName, String googleName) {
         User userToAdd = userService.findUserByGoogleName(googleName);
         Team team = teamRepository.findByName(teamName).orElseThrow(() -> new TeamNotFoundException(teamName));
         userToAdd.deleteTeamLeader(team);
         userRepository.save(userToAdd);
         team.deleteLeader(userToAdd);
-        Set<User> users = team.getLeaders();
-        users.removeIf(user -> user.isDeleted());
-        return users;
+//        Set<User> users = team.getLeaders();
+//        users.removeIf(user -> user.isDeleted());
+//        return users;
+        return team;
     }
 
     public void deleteTeamByName(String teamName) {
