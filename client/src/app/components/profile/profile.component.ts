@@ -16,6 +16,8 @@ export class ProfileComponent implements OnInit {
   teamsIAmLeaderIn: any[];
   teamsIAmMemberIn: any[];
 
+  
+
   ngOnInit() {
 
     this.userDatas = this.state.user;

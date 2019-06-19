@@ -20,15 +20,9 @@ export class TeamComponent implements OnInit {
   addMember: String = '';
   teamNametoAdd: String = '';
   teamtoAddMember: Team;
-  teamNametoDelete: String = '';
-  addLeader: String = '';
-  teamNametoLeader: String = '';
-  teamtoAddLeader: Team;
-  deleteLeader: String = '';
-  teamNametoDeleteLeader: String = '';
-  teamNametoDeleteTeam: String = ''; 
 
   isLeader: boolean = false;
+  isSearchPressed: boolean = false;
 
   constructor(private teamService: TeamService, private state: AppStateService) { }
 
@@ -36,31 +30,12 @@ export class TeamComponent implements OnInit {
 
   }
 
-  deleteTeam() {
-    this.teamService.deleteTeam(this.teamNametoDeleteTeam);
-    this.teamNametoDeleteTeam = '';
-  }
-
-  deleteLeaderFromTeam() {
-    this.teamService.deleteLeaderFromTeam(this.deleteLeader, this.teamNametoDeleteLeader).subscribe(
+  deleteTeam(teamName: String) {
+    console.log(teamName);
+    this.teamService.deleteTeam(teamName).subscribe(
       (data: any) => {
-    console.log('Alma');
-    console.log(this.deleteLeader, this.teamNametoDeleteLeader);
-    this.deleteLeader = '';
-    this.teamNametoDeleteLeader = '';
       }
     );
-  }
-
-  putLeaderInTeam() {
-    this.teamtoAddLeader = {name: this.teamNametoLeader, company: '', imageUrl: ''};
-    this.teamService.putLeaderInTeam(this.addLeader, this.teamNametoLeader, this.teamtoAddLeader).subscribe(
-      (data: any) => {
-        console.log(data);
-        this.addLeader = '';
-        this.teamNametoLeader = '';
-      }
-    )
   }
 
   putMemberInTeam() {
@@ -91,6 +66,7 @@ export class TeamComponent implements OnInit {
       (data: any) => {
         this.teams = data;
         this.teamName = '';
+        this.isSearchPressed = true;
         for (let i = 0; i < data.leaders.length; i++) {
             if (data.leaders[i].googleName == this.state.user.googleName) {
               this.isLeader = true;
@@ -100,10 +76,23 @@ export class TeamComponent implements OnInit {
     );
   }
 
-  deleteMember(name: string, team: any) {
-    this.teamService.deleteMemberFromTeam(name, team).subscribe(
+  promoteMember(name: String, teamName: String, team: Team) {
+    this.teamService.putLeaderInTeam(name, teamName, team).subscribe(
       (data: any) => {
-        
+      }
+    );
+  }
+
+  deleteMember(name: string, teamName: String) {
+    this.teamService.deleteMemberFromTeam(name, teamName).subscribe(
+      (data: any) => {
+      }
+    );
+  }
+
+  deleteLeader(name: string, teamName: string) {
+    this.teamService.deleteLeaderFromTeam(name, teamName).subscribe(
+      (data: any) => {
       }
     );
   }
