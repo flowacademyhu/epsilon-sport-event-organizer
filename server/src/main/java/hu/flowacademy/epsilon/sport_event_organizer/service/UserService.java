@@ -1,5 +1,6 @@
 package hu.flowacademy.epsilon.sport_event_organizer.service;
 
+import hu.flowacademy.epsilon.sport_event_organizer.exception.UserNotFoundException;
 import hu.flowacademy.epsilon.sport_event_organizer.model.User;
 import hu.flowacademy.epsilon.sport_event_organizer.repository.UserRepository;
 import hu.flowacademy.epsilon.sport_event_organizer.security.UserPrincipal;
@@ -33,11 +34,22 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public Optional<User> getCurrentUser() {
+    public User getCurrentUser() {
         return Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
                 .map(Authentication::getPrincipal)
                 .map(principal -> (UserPrincipal) principal)
                 .map(UserPrincipal::getId)
-                .flatMap(userRepository::findById);
+                .flatMap(userRepository::findById).orElse(null);
     }
+
+    public User findUserByGoogleName(String googleName) {
+        return userRepository.findByGoogleName(googleName).orElseThrow(() -> new UserNotFoundException(googleName));
+    }
+
+    public void deleteUserByGoogleName(String googleName) {
+//        User user = userRepository.findByGoogleName(googleName).orElseThrow(() -> new UserNotFoundException(googleName));
+//        user.setDeleted(true);
+        userRepository.updateDelete(googleName, true);
+    }
+
 }
