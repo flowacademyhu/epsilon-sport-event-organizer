@@ -1,74 +1,74 @@
 <body background="./assets/pictures/baseballgb.jpg">
   <div>
-    <a type="button" class="btn btn-primary createButton">
-      {{ "CreateTeam" | translate }}
-    </a>
+  <a type="button" class="btn btn-primary createButton">
+  {{ "CreateTeam" | translate }}
+  </a>
   </div>
   <div class="col-sm-6 rounded background margin-top">
-    <h3>{{ "SearchTeam" | translate }}</h3>
-    <h4>{{ "TeamName" | translate }}</h4>
-    <input type="text" name="teamName" [(ngModel)]="teamName" />
-    <a
-      type="button"
-      class="btn btn-outline-primary createButton"
-      (click)="getByTeamName()"
-    >
-      {{ "Search" | translate }}
-    </a>
+  <h3>{{ "SearchTeam" | translate }}</h3>
+  <h4>{{ "TeamName" | translate }}</h4>
+  <input type="text" name="teamName" [(ngModel)]="teamName" />
+  <a
+  type="button"
+  class="btn btn-outline-primary createButton"
+  (click)="getByTeamName()"
+  >
+  {{ "Search" | translate }}
+  </a>
   </div>
   <div class="col-sm-6 rounded background margin-top">
-    <div class="col-sm-6 rounded background margin-top">
-      <h5 *ngIf="isSearchPressed">leaders:</h5>
-      <div *ngFor="let i of teams.leaders">
-        {{ i.googleName }}
-        <div *ngIf="isLeader && team.leaders.length > 1">
-          <img
-            src="../../../assets/pictures/deleteX.png"
-            alt="delete"
-            class="xbuttons"
-            (click)="deleteLeader(i.googleName, team.name)"
-            style="cursor: pointer;"
-          />
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-6 rounded background margin-top">
-      <h5 *ngIf="isSearchPressed">members:</h5>
-      <div *ngIf="isSearchPressed">
-        <h6 *ngIf="team.members.length == 0">
-          Here are no members in this team
-        </h6>
-      </div>
-      <div *ngFor="let i of teams.members">
-        {{ i.googleName }}
-        <div *ngIf="isLeader && state.user.googleName != i.googleName">
-          <img
-            src="../../../assets/pictures/promoteMember.png"
-            alt="promote"
-            class="xbuttons"
-            (click)="promoteMember(i.googleName, team.name, team)"
-            style="cursor: pointer;"
-          />
-          <img
-            src="../../../assets/pictures/deleteX.png"
-            alt="delete"
-            class="xbuttons"
-            (click)="deleteMember(i.googleName, team.name)"
-            style="cursor: pointer;"
-          />
-        </div>
-      </div>
-    </div>
-    <div *ngIf="isLeader">
-        <a type="button" class="btn btn-primary createButton" (click)="deleteTeam(teams.name)">
-            {{ "Delete" | translate }}
-        </a>
-        <a type="button" class="btn btn-primary createButton" (click)="deleteTeam(teams.name)">
-            {{ "Add" | translate }}
-        </a>
-    </div>
+  <div class="col-sm-6 rounded background margin-top">
+  <h5 *ngIf="isSearchPressed">leaders:</h5>
+  <div *ngFor="let i of teams.leaders">
+  {{ i.googleName }}
+  <div *ngIf="isLeader && teams.leaders.length > 1">
+  <img
+  src="../../../assets/pictures/deleteX.png"
+  alt="delete"
+  class="xbuttons"
+  (click)="deleteLeader(i.googleName, teams.name)"
+  style="cursor: pointer;"
+  />
   </div>
-
+  </div>
+  </div>
+  <div class="col-sm-6 rounded background margin-top">
+  <h5 *ngIf="isSearchPressed">members:</h5>
+  <div *ngIf="isSearchPressed">
+  <h6 *ngIf="teams.members.length == 0">
+  Here are no members in this team
+  </h6>
+  </div>
+  <div *ngFor="let i of teams.members">
+  {{ i.googleName }}
+  <div *ngIf="isLeader && state.user.googleName != i.googleName">
+  <img
+  src="../../../assets/pictures/promoteMember.png"
+  alt="promote"
+  class="xbuttons"
+  (click)="promoteMember(i.googleName, teams.name, teams)"
+  style="cursor: pointer;"
+  />
+  <img
+  src="../../../assets/pictures/deleteX.png"
+  alt="delete"
+  class="xbuttons"
+  (click)="deleteMember(i.googleName, teams.name)"
+  style="cursor: pointer;"
+  />
+  </div>
+  </div>
+  </div>
+  <div *ngIf="isLeader">
+  <a type="button" class="btn btn-primary createButton" (click)="deleteTeam(teams.name)">
+  {{ "Delete" | translate }}
+  </a>
+  <a type="button" class="btn btn-primary createButton" (click)="deleteTeam(teams.name)">
+  {{ "Add" | translate }}
+  </a>
+  </div>
+  </div>
+  
   <br />
   {{ "CreatTeam" | translate }}Create: <br />
   {{ "TeamName" | translate }}
@@ -76,7 +76,7 @@
   {{ "CompanyName" | translate }}
   <input type="text" name="creatCompanyName" [(ngModel)]="creatCompanyName" />
   <button (click)="create()">{{ "Submit" | translate }}</button>
-
+  
   <br />
   {{ "AddMember" | translate }} <br />
   {{ "MemberName" | translate }}

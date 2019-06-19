@@ -11,13 +11,13 @@ export class TeamComponent implements OnInit {
 
   teamName: String = '';
   companyName: String = '';
-  team: any = '';
-  createdTeam: Team;
-  teamNameToCreate: String = '';
-  companyNameToCreate: String = '';
+  teams: any = '';
+  creatTeam: Team;
+  creatTeamName: String = '';
+  creatCompanyName: String = '';
   data: any;
   dataLeader: any;
-  memberToAdd: String = '';
+  addMember: String = '';
   teamNametoAdd: String = '';
   teamtoAddMember: Team;
 
@@ -31,7 +31,7 @@ export class TeamComponent implements OnInit {
   }
 
   deleteTeam(teamName: String) {
-    this.isLeader = false;
+    console.log(teamName);
     this.teamService.deleteTeam(teamName).subscribe(
       (data: any) => {
       }
@@ -40,25 +40,23 @@ export class TeamComponent implements OnInit {
 
   putMemberInTeam() {
     this.teamtoAddMember = {name: this.teamNametoAdd, company: '', imageUrl: ''};
-    this.teamService.putMemberInTeam(this.memberToAdd, this.teamNametoAdd, this.teamtoAddMember).subscribe(
+    this.teamService.putMemberInTeam(this.addMember, this.teamNametoAdd, this.teamtoAddMember).subscribe(
       (data: any) => {
-        this.memberToAdd = '';
+        this.addMember = '';
         this.teamNametoAdd = '';
       }
     );
   }
 
   create() {
-    this.createdTeam = {name: this.teamNameToCreate, company: this.companyNameToCreate, imageUrl: ''};
+    this.creatTeam = {name: this.creatTeamName, company: this.creatCompanyName, imageUrl: ''};
 
-    this.isLeader = false;
-
-    this.teamService.create(this.createdTeam).subscribe(
+    this.teamService.create(this.creatTeam).subscribe(
       (data: any) => {
         this.data = data;
         this.dataLeader = data.leader;
-        this.teamNameToCreate = '';
-        this.companyNameToCreate = '';
+        this.creatTeamName = '';
+        this.creatCompanyName = '';
       }
     );
   }
@@ -66,10 +64,9 @@ export class TeamComponent implements OnInit {
   getByTeamName() {
     this.teamService.getByTeamName(this.teamName).subscribe(
       (data: any) => {
-        this.team = data;
+        this.teams = data;
         this.teamName = '';
         this.isSearchPressed = true;
-        this.isLeader = false;
         for (let i = 0; i < data.leaders.length; i++) {
             if (data.leaders[i].googleName == this.state.user.googleName) {
               this.isLeader = true;
@@ -89,13 +86,11 @@ export class TeamComponent implements OnInit {
   deleteMember(name: string, teamName: String) {
     this.teamService.deleteMemberFromTeam(name, teamName).subscribe(
       (data: any) => {
-        this.team.members = data.members;
       }
     );
   }
 
   deleteLeader(name: string, teamName: string) {
-    this.isLeader = false;
     this.teamService.deleteLeaderFromTeam(name, teamName).subscribe(
       (data: any) => {
       }
@@ -103,3 +98,4 @@ export class TeamComponent implements OnInit {
   }
 
 }
+
