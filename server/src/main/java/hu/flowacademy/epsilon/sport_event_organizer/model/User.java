@@ -1,7 +1,12 @@
 package hu.flowacademy.epsilon.sport_event_organizer.model;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
+
+import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 import javax.persistence.*;
@@ -39,40 +44,103 @@ public class User {
     @Enumerated(EnumType.STRING)
     private AuthProvider provider;
 
-    @Column(name = "company_name")
+    @Column
     private String companyName;
 
     @Column(columnDefinition = "TEXT")
     private String accessToken;
 
-    @ManyToMany
-    @JoinTable(
-            name = "users_team_member",
-            joinColumns = @JoinColumn(name = "users_id"),
-            inverseJoinColumns = @JoinColumn(name = "teams_name"))
-    private Set<Team> teams;
+    @Column
+    private boolean isDeleted;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
-            name = "users_team_leader",
-            joinColumns = @JoinColumn(name = "users_id"),
-            inverseJoinColumns = @JoinColumn(name = "teams_name"))
+            name = "teams_members",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "team_name"))
+    private Set<Team> teamMembers;
+
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(
+            name = "teams_leaders",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "team_name"))
     private Set<Team> teamLeaders;
 
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(
+            name = "cups_organizers",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "cup_name"))
+    private Set<Cup> cups;
 
-    public Set<Team> getTeams() {
-        return teams;
+
+    public Set<Team> getTeamMembers() {
+        return teamMembers;
     }
 
-    public void setTeams(Set<Team> teams) {
-        this.teams = teams;
-    }
 
     public Set<Team> getTeamLeaders() {
         return teamLeaders;
     }
 
-    public void setTeamLeaders(Set<Team> teamLeaders) {
+
+    public Set<Cup> getCups() {
+        return cups;
+    }
+
+
+    public void addTeamMember(Team team) {
+        if (teamMembers == null) {
+            this.teamMembers = new HashSet<>();
+        }
+        teamMembers.add(team);
+    }
+
+    public void deleteTeamMember(Team team) {
+        if (teamMembers == null) {
+            this.teamMembers = new HashSet<>();
+        }
+        teamMembers.remove(team);
+    }
+
+    public void addTeamLeader(Team team) {
+        if (teamLeaders == null) {
+            this.teamLeaders = new HashSet<>();
+        }
+        teamLeaders.add(team);
+    }
+
+    public void deleteTeamLeader(Team team) {
+        if (teamLeaders == null) {
+            this.teamLeaders = new HashSet<>();
+        }
+        teamLeaders.remove(team);
+    }
+
+    public void addCup(Cup cup) {
+        if (cups == null) {
+            this.cups = new HashSet<>();
+        }
+        cups.add(cup);
+    }
+
+    public void deleteCup(Cup cup) {
+        if (cups == null) {
+            this.cups = new HashSet<>();
+        }
+        cups.remove(cup);
+    }
+
+
+    public void setTeamMember(Set<Team> teamMembers) {
+        this.teamMembers = teamMembers;
+    }
+
+    public void setTeamLeader(Set<Team> teamLeaders) {
         this.teamLeaders = teamLeaders;
     }
 
@@ -146,5 +214,23 @@ public class User {
 
     public void setAccessToken(String accessToken) {
         this.accessToken = accessToken;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof User)) return false;
+        User user = (User)obj;
+        return Objects.equals(id, user.id) &&
+                Objects.equals(googleName, user.googleName) &&
+                Objects.equals(email, user.email);
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 }

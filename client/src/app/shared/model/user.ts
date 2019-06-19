@@ -1,13 +1,11 @@
 interface User {
-  accessToken: String;
-  companyName: String;
-  email: String;
-  emailVerified: boolean;
-  googleName: String;
   id: String;
+  googleName: String;
+  email: String;
   imageUrl: String;
-  provider: String;
+  emailVerified: boolean;
   providerId: String;
-  teamLeaders: String[];
-  teams: String[];
+  provider: String;
+  companyName: String;
+  accessToken: String;
 }

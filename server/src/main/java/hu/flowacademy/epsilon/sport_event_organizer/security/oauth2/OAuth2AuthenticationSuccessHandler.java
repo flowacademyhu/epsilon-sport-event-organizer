@@ -1,7 +1,7 @@
 package hu.flowacademy.epsilon.sport_event_organizer.security.oauth2;
 
 import hu.flowacademy.epsilon.sport_event_organizer.config.AppProperties;
-import hu.flowacademy.epsilon.sport_event_organizer.exception.BadRequestException;
+import hu.flowacademy.epsilon.sport_event_organizer.exception.oaut.BadRequestException;
 import hu.flowacademy.epsilon.sport_event_organizer.security.TokenProvider;
 import hu.flowacademy.epsilon.sport_event_organizer.utils.CookieUtils;
 import org.springframework.beans.factory.annotation.Autowired;

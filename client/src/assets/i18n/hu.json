@@ -10,7 +10,20 @@
   "CupsText": "Szervezz vagy csatlakozz kupákhoz és hozd el az aranyérmet!",
   "TeamsText": "Hívd meg a barátaidat, kollégáidat és nyerjétek meg a versenyt!",
   "Profile" : "Profil",
-
   "LoginGoogle": "Belépés Google fiókkal",
-  "LoginGuest": "Belépés vendégként"
+  "LoginGuest": "Belépés vendégként",
+  "TeamName": "Csapat neve:",
+  "CompanyName": "Cég neve:",
+  "SearchTeam": "Csapat keresése:",
+  "Search": "Keresés",
+  "Submit": "Létrehoz",
+  "Add": "Hozzáad",
+  "MemberName": "Csapattíg",
+  "CreateTeam": "Csapat létrehozása",
+  "AddMember": "Csapattag hozáadása",
+  "DeleteMember": "Csapattag törlése",
+  "Delete": "Törlés",
+  "AddLeader": "Csapatvezető hozzáadása:",
+  "LeaderName": "Csapatvezető neve",
+  "DeleteLeader": "Csapatvezető törlése"
 }
