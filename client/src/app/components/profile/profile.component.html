@@ -11,15 +11,15 @@
       <div class="splite top">
           <div class="centered">
               {{ 'Leadership' | translate }}
-              <table>
+              <table width="250">
                   <tbody>        
                     <tr>
-                      <td>{{ 'TeamName' | translate }}
+                      <td width="125">{{ 'TeamName' | translate }}
                       </td>
-                      <td>{{ 'CompanyName' | translate }}</td>
+                      <td width="125">{{ 'CompanyName' | translate }}</td>
                     </tr>
                     <tr *ngFor="let item of teamsIAmLeaderIn"> 
-                      <td><a routerLink="../team">{{ item.name }}
+                      <td width="125"><a routerLink="../team">{{ item.name }}
                       </a></td>
                       <td> {{ item.company }}</td>
                       
@@ -27,10 +27,10 @@
                   </tbody>
                 </table>
                 {{ 'Member' | translate }}
-              <table>
+              <table width="250">
                   <tbody>        
                     <tr>
-                      <td>{{ 'TeamName' | translate }}</td>
+                      <td width="125">{{ 'TeamName' | translate }}</td>
                       <td>{{ 'CompanyName' | translate }}</td>
                     </tr>
                     <tr *ngFor="let item of teamsIAmMemberIn"> 
