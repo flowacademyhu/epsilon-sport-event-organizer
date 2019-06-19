@@ -1,19 +1,19 @@
 <body background="./assets/pictures/baseballgb.jpg">
   <div>
     <a type="button" class="btn btn-primary createButton">
-      {{ "CreateTeam" | translate: user }}
+      {{ "CreateTeam" | translate }}
     </a>
   </div>
   <div class="col-sm-6 rounded background margin-top">
-    <h3>{{ "SearchTeam" | translate: user }}</h3>
-    <h4>{{ "TeamName" | translate: user }}</h4>
+    <h3>{{ "SearchTeam" | translate }}</h3>
+    <h4>{{ "TeamName" | translate }}</h4>
     <input type="text" name="teamName" [(ngModel)]="teamName" />
     <a
       type="button"
       class="btn btn-outline-primary createButton"
       (click)="getByTeamName()"
     >
-      {{ "Search" | translate: user }}
+      {{ "Search" | translate }}
     </a>
   </div>
   <div class="col-sm-6 rounded background margin-top">
@@ -61,27 +61,27 @@
     </div>
     <div *ngIf="isLeader">
         <a type="button" class="btn btn-primary createButton" (click)="deleteTeam(team.name)">
-            {{ "Delete" | translate: user }}
+            {{ "Delete" | translate }}
         </a>
         <a type="button" class="btn btn-primary createButton" (click)="deleteTeam(team.name)">
-            {{ "Add" | translate: user }}
+            {{ "Add" | translate }}
         </a>
     </div>
   </div>
 
   <br />
-  {{ "CreatTeam" | translate: user }}Create: <br />
-  {{ "TeamName" | translate: user }}
-  <input type="text" name="creatTeamName" [(ngModel)]="creatTeamName" />
-  {{ "CompanyName" | translate: user }}
-  <input type="text" name="creatCompanyName" [(ngModel)]="creatCompanyName" />
-  <button (click)="create()">{{ "Submit" | translate: user }}</button>
+  {{ "CreatTeam" | translate }}Create: <br />
+  {{ "TeamName" | translate }}
+  <input type="text" name="createdTeamName" [(ngModel)]="teamNameToCreate" />
+  {{ "CompanyName" | translate }}
+  <input type="text" name="createdCompanyName" [(ngModel)]="companyNameToCreate" />
+  <button (click)="create()">{{ "Submit" | translate }}</button>
 
   <br />
-  {{ "AddMember" | translate: user }} <br />
-  {{ "MemberName" | translate: user }}
-  <input type="text" name="addMember" [(ngModel)]="addMember" />
-  {{ "TeamName" | translate: user }}
+  {{ "AddMember" | translate }} <br />
+  {{ "MemberName" | translate }}
+  <input type="text" name="memberToAdd" [(ngModel)]="memberToAdd" />
+  {{ "TeamName" | translate }}
   <input type="text" name="teamName" [(ngModel)]="teamNametoAdd" />
-  <button (click)="putMemberInTeam()">{{ "Add" | translate: user }}</button>
+  <button (click)="putMemberInTeam()">{{ "Add" | translate }}</button>
   <br />

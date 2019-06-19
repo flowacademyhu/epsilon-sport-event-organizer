@@ -12,12 +12,12 @@ export class TeamComponent implements OnInit {
   teamName: String = '';
   companyName: String = '';
   team: any = '';
-  creatTeam: Team;
-  creatTeamName: String = '';
-  creatCompanyName: String = '';
+  createdTeam: Team;
+  teamNameToCreate: String = '';
+  companyNameToCreate: String = '';
   data: any;
   dataLeader: any;
-  addMember: String = '';
+  memberToAdd: String = '';
   teamNametoAdd: String = '';
   teamtoAddMember: Team;
 
@@ -40,25 +40,25 @@ export class TeamComponent implements OnInit {
 
   putMemberInTeam() {
     this.teamtoAddMember = {name: this.teamNametoAdd, company: '', imageUrl: ''};
-    this.teamService.putMemberInTeam(this.addMember, this.teamNametoAdd, this.teamtoAddMember).subscribe(
+    this.teamService.putMemberInTeam(this.memberToAdd, this.teamNametoAdd, this.teamtoAddMember).subscribe(
       (data: any) => {
-        this.addMember = '';
+        this.memberToAdd = '';
         this.teamNametoAdd = '';
       }
     );
   }
 
   create() {
-    this.creatTeam = {name: this.creatTeamName, company: this.creatCompanyName, imageUrl: ''};
+    this.createdTeam = {name: this.teamNameToCreate, company: this.companyNameToCreate, imageUrl: ''};
 
     this.isLeader = false;
 
-    this.teamService.create(this.creatTeam).subscribe(
+    this.teamService.create(this.createdTeam).subscribe(
       (data: any) => {
         this.data = data;
         this.dataLeader = data.leader;
-        this.creatTeamName = '';
-        this.creatCompanyName = '';
+        this.teamNameToCreate = '';
+        this.companyNameToCreate = '';
       }
     );
   }
