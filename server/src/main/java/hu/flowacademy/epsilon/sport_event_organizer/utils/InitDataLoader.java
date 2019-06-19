@@ -10,6 +10,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -55,16 +57,25 @@ public class InitDataLoader implements CommandLineRunner {
         team1.setCompany("Flow Academy");
         team2.setCompany("Flow Academy");
 
-        Cup cup = new Cup();
-        cup.setName("Flow Cup");
-        cup.setCompany("Flow Academy");
-
         Sport sport = new Sport();
         Sport sport1 = new Sport();
         Sport sport2 = new Sport();
         sport.setName("football");
         sport1.setName("basketball");
         sport2.setName("handball");
+        sport.setBreakCounter(1);
+        sport.setBreakDurationInMinutes(15);
+
+        Cup cup = new Cup();
+        cup.setName("Flow Cup");
+        cup.setCompany("Flow Academy");
+        cup.setPlace("Szeged, Hattyas u. 10, 6725");
+        cup.setCourtCounter(3);
+        cup.setDescription("This is the best sport event in Szeged.");
+        cup.setStartDateTime(LocalDateTime.of(2019, Month.JULY, 29, 8, 0, 0));
+        cup.setEndDateTime(LocalDateTime.of(2019, Month.JULY, 29, 16, 0, 0));
+
+        cup.setSport(sport);
 
         user.addTeamMember(team1);
         user1.addTeamMember(team1);
