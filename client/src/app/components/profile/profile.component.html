@@ -10,12 +10,20 @@
   <div class="split right">
       <div class="splite top">
           <div class="centered">
-            <h5>Leadership:</h5>
-            <p>Team name Team Company</p>
-            <p *ngFor="let i of teamsIAmLeaderIn">{{i.name}} {{i.company}}</p>
-            <h5>Membership:</h5>
-            <p *ngFor="let i of teamsIAmMemberIn">{{i.name}} {{i.company}}</p>
-            
+              {{ 'Leadership' | translate }}
+              <table>
+                  <tbody>        
+                    <tr>
+                      <td>{{ 'TeamName' | translate }}</td>
+                      <td>{{ 'CompanyName' | translate }}</td>
+                    </tr>
+                    <tr *ngFor="let item of teamsIAmLeaderIn"> 
+                      <td >{{ item.name }}</td>
+                      <td> {{ item.company }}</td>
+                      
+                    </tr>
+                  </tbody>
+                </table>
           </div>
         </div>
         
