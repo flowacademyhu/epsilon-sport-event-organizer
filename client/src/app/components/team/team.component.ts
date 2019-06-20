@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TeamService } from 'src/app/shared/service/team.service';
 import { AppStateService } from 'src/app/shared/service/app-state.service';
+import { TeamControllerService, Team } from 'src/app/api';
 
 @Component({
   selector: 'app-team',
@@ -9,30 +9,30 @@ import { AppStateService } from 'src/app/shared/service/app-state.service';
 })
 export class TeamComponent implements OnInit {
 
-  teamName: String = '';
-  companyName: String = '';
+  teamName: string = '';
+  companyName: string = '';
   team: any = '';
   createdTeam: Team;
-  teamNameToCreate: String = '';
-  companyNameToCreate: String = '';
+  teamNameToCreate: string = '';
+  companyNameToCreate: string = '';
   data: any;
   dataLeader: any;
-  memberToAdd: String = '';
-  teamNametoAdd: String = '';
+  memberToAdd: string = '';
+  teamNametoAdd: string = '';
   teamtoAddMember: Team;
 
   isLeader: boolean = false;
   isSearchPressed: boolean = false;
 
-  constructor(private teamService: TeamService, private state: AppStateService) { }
+  constructor(private teamService: TeamControllerService, private state: AppStateService) { }
 
   ngOnInit() {
 
   }
 
-  deleteTeam(teamName: String) {
+  deleteTeam(teamName: string) {
     this.isLeader = false;
-    this.teamService.deleteTeam(teamName).subscribe(
+    this.teamService.deleteCupUsingDELETE1(teamName).subscribe(
       (data: any) => {
       }
     );
@@ -40,7 +40,7 @@ export class TeamComponent implements OnInit {
 
   putMemberInTeam() {
     this.teamtoAddMember = {name: this.teamNametoAdd, company: '', imageUrl: ''};
-    this.teamService.putMemberInTeam(this.memberToAdd, this.teamNametoAdd, this.teamtoAddMember).subscribe(
+    this.teamService.putMemberUsingPUT(this.memberToAdd, this.teamNametoAdd).subscribe(
       (data: any) => {
         this.memberToAdd = '';
         this.teamNametoAdd = '';
@@ -53,7 +53,7 @@ export class TeamComponent implements OnInit {
 
     this.isLeader = false;
 
-    this.teamService.create(this.createdTeam).subscribe(
+    this.teamService.createTeamUsingPOST(this.createdTeam).subscribe(
       (data: any) => {
         this.data = data;
         this.dataLeader = data.leader;
@@ -64,7 +64,7 @@ export class TeamComponent implements OnInit {
   }
 
   getByTeamName() {
-    this.teamService.getByTeamName(this.teamName).subscribe(
+    this.teamService.getTeamUsingGET(this.teamName).subscribe(
       (data: any) => {
         this.team = data;
         this.teamName = '';
@@ -79,15 +79,15 @@ export class TeamComponent implements OnInit {
     );
   }
 
-  promoteMember(name: String, teamName: String, team: Team) {
-    this.teamService.putLeaderInTeam(name, teamName, team).subscribe(
+  promoteMember(name: string, teamName: string) {
+    this.teamService.putMemberUsingPUT(name, teamName).subscribe(
       (data: any) => {
       }
     );
   }
 
-  deleteMember(name: string, teamName: String) {
-    this.teamService.deleteMemberFromTeam(name, teamName).subscribe(
+  deleteMember(name: string, teamName: string) {
+    this.teamService.deleteMemberUsingDELETE(name, teamName).subscribe(
       (data: any) => {
         this.team.members = data.members;
       }
@@ -96,7 +96,7 @@ export class TeamComponent implements OnInit {
 
   deleteLeader(name: string, teamName: string) {
     this.isLeader = false;
-    this.teamService.deleteLeaderFromTeam(name, teamName).subscribe(
+    this.teamService.deleteLeaderUsingDELETE(name, teamName).subscribe(
       (data: any) => {
       }
     );
