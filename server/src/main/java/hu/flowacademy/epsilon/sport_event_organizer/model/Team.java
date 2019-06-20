@@ -28,11 +28,8 @@ public class Team {
     @Column
     private boolean isDeleted;
 
-
     @ManyToMany(mappedBy = "teamMembers")
     private Set<User> users = new HashSet<>();
-
-
 
     @ManyToMany(mappedBy = "teamLeaders")
     private Set<User> leaders = new HashSet<>();
