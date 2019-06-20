@@ -2,6 +2,7 @@ package hu.flowacademy.epsilon.sport_event_organizer.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -11,6 +12,7 @@ import java.util.Set;
 @Entity
 @Table(name = "teams")
 @Data
+@EqualsAndHashCode(exclude = {"users", "leaders", "cups", "isDeleted"})
 public class Team {
 
     @Id
@@ -26,10 +28,12 @@ public class Team {
     @Column
     private boolean isDeleted;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "teamMembers")
     private Set<User> users = new HashSet<>();
 
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "teamLeaders")
     private Set<User> leaders = new HashSet<>();
 

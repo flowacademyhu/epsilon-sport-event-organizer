@@ -39,8 +39,8 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/current")
-    public ResponseEntity<User> getUserById() {
+    @GetMapping
+    public ResponseEntity<User> getCurrentUser() {
         return ResponseEntity.ok(userService.getCurrentUser());
     }
 
