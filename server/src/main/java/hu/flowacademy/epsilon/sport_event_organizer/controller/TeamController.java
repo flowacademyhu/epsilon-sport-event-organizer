@@ -23,23 +23,23 @@ public class TeamController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Team>> getAllTeams() {
-        return ResponseEntity.ok(teamService.getAllNonDeletedTeams());
+    public List<Team> getAllTeams() {
+        return teamService.getAllNonDeletedTeams();
     }
 
     @GetMapping("/company/{companies}")
-    public ResponseEntity<List<Team>> getAllTeamsByCompany(@PathVariable String companies) {
-        return ResponseEntity.ok(teamService.getAllTeamsByCompany(companies));
+    public List<Team> getAllTeamsByCompany(@PathVariable String companies) {
+        return teamService.getAllTeamsByCompany(companies);
     }
 
     @GetMapping("/member")
-    public ResponseEntity<List<Team>> getAllTeamsByMember() {
-        return ResponseEntity.ok(teamService.getByCurrentUser());
+    public List<Team> getAllTeamsByMember() {
+        return teamService.getByCurrentUser();
     }
 
     @GetMapping("/leader")
-    public ResponseEntity<List<Team>> getAllTeamsByLeader() {
-        return ResponseEntity.ok(teamService.getByCurrentLeader());
+    public List<Team> getAllTeamsByLeader() {
+        return teamService.getByCurrentLeader();
     }
 
     @PostMapping

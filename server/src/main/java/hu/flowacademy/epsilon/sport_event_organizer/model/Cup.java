@@ -47,11 +47,9 @@ public class Cup {
     @Column
     private LocalDateTime registrationEndTime;
 
-    @JsonIgnore
     @ManyToMany(mappedBy = "cups")
     private Set<Team> teams = new HashSet<>();
 
-    @JsonIgnore
     @ManyToMany(mappedBy = "cups")
     private Set<User> organizers = new HashSet<>();
 

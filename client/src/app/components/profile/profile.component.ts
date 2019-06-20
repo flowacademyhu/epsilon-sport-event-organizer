@@ -23,14 +23,14 @@ export class ProfileComponent implements OnInit {
 
     this.userDatas = this.state.user;
 
-    this.teamService.getTeamsByLeaderUsingGET().subscribe(
+    this.teamService.getAllTeamsByLeaderUsingGET().subscribe(
       teams => {
         this.teamsIAmLeaderIn = teams;
         console.log(this.teamsIAmLeaderIn);
       }
     );
 
-    this.teamService.getTeamByMemberUsingGET().subscribe(
+    this.teamService.getAllTeamsByMemberUsingGET().subscribe(
       teams => {
         this.teamsIAmMemberIn = teams;
         console.log(this.teamsIAmMemberIn);
