@@ -39,8 +39,6 @@ public class CupController {
         return ResponseEntity.ok(cupService.getCupsByCompany(company));
     }
 
-
-
     @PostMapping
     public ResponseEntity<Cup> createCup(@RequestBody Cup team) {
         return ResponseEntity.ok(cupService.save(team));
