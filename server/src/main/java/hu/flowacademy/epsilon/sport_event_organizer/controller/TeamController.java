@@ -17,9 +17,29 @@ public class TeamController {
     @Autowired
     private TeamService teamService;
 
-    @GetMapping("/{name}")
-    public ResponseEntity<Team> getTeam(@PathVariable String name) {
-        return ResponseEntity.ok(teamService.getTeamByName(name));
+    @GetMapping("/{names}")
+    public ResponseEntity<Team> getTeamByName(@PathVariable String names) {
+        return ResponseEntity.ok(teamService.getTeamByName(names));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Team>> getAllTeams() {
+        return ResponseEntity.ok(teamService.getAllNonDeletedTeams());
+    }
+
+    @GetMapping("/company/{companies}")
+    public ResponseEntity<List<Team>> getAllTeamsByCompany(@PathVariable String companies) {
+        return ResponseEntity.ok(teamService.getAllTeamsByCompany(companies));
+    }
+
+    @GetMapping("/member")
+    public ResponseEntity<List<Team>> getAllTeamsByMember() {
+        return ResponseEntity.ok(teamService.getByCurrentUser());
+    }
+
+    @GetMapping("/leader")
+    public ResponseEntity<List<Team>> getAllTeamsByLeader() {
+        return ResponseEntity.ok(teamService.getByCurrentLeader());
     }
 
     @PostMapping
@@ -32,39 +52,28 @@ public class TeamController {
         return ResponseEntity.ok(teamService.update(team));
     }
 
-
-    @DeleteMapping("/{teamName}")
-    public ResponseEntity<Void> deleteCup(@PathVariable String teamName) {
-        teamService.deleteTeamByName(teamName);
+    @DeleteMapping("/{name}")
+    public ResponseEntity<Void> deleteTeam(@PathVariable String name) {
+        teamService.deleteTeamByName(name);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/member")
-    public List<Team> getTeamByMember() {
-        return teamService.getByCurrentMember();
-    }
-
-    @PutMapping("/member/{googleName}/{teamName}")
+    @PutMapping("/member/{teamName}/{googleName}")
     public ResponseEntity<Team> putMember(@PathVariable String teamName, @PathVariable String googleName) {
         return ResponseEntity.ok(teamService.putMember(teamName, googleName));
     }
 
-    @DeleteMapping("/member/{googleName}/{teamName}")
+    @DeleteMapping("/member/{teamName}/{googleName}")
     public ResponseEntity<Team> deleteMember(@PathVariable String teamName, @PathVariable String googleName) {
         return ResponseEntity.ok(teamService.deleteMember(teamName, googleName));
     }
 
-    @GetMapping("/leader")
-    public List<Team> getTeamsByLeader() {
-        return teamService.getByCurrentLeader();
-    }
-
-    @PutMapping("/leader/{googleName}/{teamName}")
+    @PutMapping("/leader/{teamName}/{googleName}")
     public ResponseEntity<Team> putLeader(@PathVariable String teamName, @PathVariable String googleName) {
         return ResponseEntity.ok(teamService.putLeader(teamName, googleName));
     }
 
-    @DeleteMapping("/leader/{googleName}/{teamName}")
+    @DeleteMapping("/leader/{teamName}/{googleName}")
     public ResponseEntity<Team> deleteLeader(@PathVariable String teamName, @PathVariable String googleName) {
         return ResponseEntity.ok(teamService.deleteLeader(teamName, googleName));
     }
