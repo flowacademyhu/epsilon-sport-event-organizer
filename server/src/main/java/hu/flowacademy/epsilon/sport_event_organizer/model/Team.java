@@ -1,13 +1,16 @@
 package hu.flowacademy.epsilon.sport_event_organizer.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name = "teams")
+@Data
 public class Team {
 
     @Id
@@ -38,10 +41,6 @@ public class Team {
             inverseJoinColumns = @JoinColumn(name = "cups_name"))
     private Set<Cup> cups;
 
-
-    public Team() {
-    }
-
     public void addCup(Cup cup) {
         if (cups == null) {
             this.cups = new HashSet<>();
@@ -56,52 +55,12 @@ public class Team {
         cups.remove(cup);
     }
 
-    public Set<Cup> getCups() {
-        return cups;
-    }
-
-    public void setCups(Set<Cup> cups) {
-        this.cups = cups;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCompany() {
-        return company;
-    }
-
-    public void setCompany(String company) {
-        this.company = company;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public Set<User> getMembers() {
-        return users;
-    }
-
     public void addMember(User user) {
         users.add(user);
     }
 
     public void deleteMember(User user) {
         users.remove(user);
-    }
-
-    public Set<User> getLeaders() {
-        return leaders;
     }
 
     public void addLeader(User leader) {
@@ -112,11 +71,5 @@ public class Team {
         leaders.remove(leader);
     }
 
-    public boolean isDeleted() {
-        return isDeleted;
-    }
 
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
-    }
 }
