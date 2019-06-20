@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
+import { TeamControllerService, Team } from 'src/app/api';
 
 @Component({
   selector: 'app-create-team-modal',
@@ -8,16 +9,25 @@ import { MatDialogRef } from '@angular/material';
 })
 export class CreateTeamModalComponent implements OnInit {
 
-  teamNameToCreate: String = '';
-  companyNameToCreate: String = '';
+  teamNameToCreate: string = '';
+  companyNameToCreate: string = '';
+  team: Team;
 
-  constructor(public dialogRef: MatDialogRef<CreateTeamModalComponent>) { }
+  constructor(
+    public dialogRef: MatDialogRef<CreateTeamModalComponent>,
+    private teamService: TeamControllerService
+    ) { }
 
   ngOnInit() {
   }
 
   create() {
-    //swagger
+    this.team = {name: this.teamNameToCreate, company: this.companyNameToCreate};
+    this.teamService.createTeamUsingPOST(this.team).subscribe(
+      data => {
+        this.dialogRef.close(CreateTeamModalComponent);
+      }
+    );
   }
 
   exit() {

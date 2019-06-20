@@ -22,10 +22,10 @@
       <!-- table -->
     </div>
   <div class="col-sm-4">
-    <div class="background rounded">
+    <div class="background rounded" style="padding-left: 10px ">
     <h3 class="paddig-text-top">{{ "SearchTeam" | translate }}</h3>
     <h4>{{ "TeamName" | translate }}</h4>
-    <div>
+    <div style="padding-bottom: 10px">
     <input type="text" name="teamName" [(ngModel)]="teamName"/>
     <a
       type="button"
@@ -55,11 +55,11 @@
       <div>
         <h5 *ngIf="isSearchPressed">members:</h5>
         <div *ngIf="isSearchPressed">
-          <h6 *ngIf="team.members.length == 0">
+          <h6 *ngIf="team.users.length == 0">
             Here are no members in this team
           </h6>
         </div>
-        <div *ngFor="let i of team.members">
+        <div *ngFor="let i of team.users">
           {{ i.googleName }}
           <div *ngIf="isLeader && state.user.googleName != i.googleName">
             <img

@@ -3,6 +3,7 @@ import { AppStateService } from 'src/app/shared/service/app-state.service';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { CreateTeamModalComponent } from 'src/app/shared/component/create-team-modal/create-team-modal.component';
 import { AddMemberModalComponent } from 'src/app/shared/component/add-member-modal/add-member-modal.component';
+import { TeamControllerService, Team } from 'src/app/api';
 
 @Component({
   selector: 'app-team',
@@ -11,14 +12,14 @@ import { AddMemberModalComponent } from 'src/app/shared/component/add-member-mod
 })
 export class TeamComponent implements OnInit {
 
-  teamName: String = '';
-  companyName: String = '';
+  teamName: string = '';
+  companyName: string = '';
   team: any = '';
   createdTeam: Team;
   data: any;
   dataLeader: any;
-  memberToAdd: String = '';
-  teamNametoAdd: String = '';
+  memberToAdd: string = '';
+  teamNametoAdd: string = '';
   teamtoAddMember: Team;
 
   isLeader: boolean = false;
@@ -74,9 +75,9 @@ export class TeamComponent implements OnInit {
 displayedColumns: string[] = ['name'];
 
   constructor(
+    private teamService: TeamControllerService,
     private state: AppStateService,
-    private dialog: MatDialog
-    ) { }
+    private dialog: MatDialog) { }
 
   ngOnInit() {
 
@@ -98,9 +99,9 @@ displayedColumns: string[] = ['name'];
     this.dialog.open(CreateTeamModalComponent, dialogConfig);
   }
 
-  deleteTeam(teamName: String) {
+  deleteTeam(teamName: string) {
     this.isLeader = false;
-    this.teamService.deleteTeam(teamName).subscribe(
+    this.teamService.deleteCupUsingDELETE1(teamName).subscribe(
       (data: any) => {
       }
     );
@@ -108,7 +109,7 @@ displayedColumns: string[] = ['name'];
 
   putMemberInTeam() {
     this.teamtoAddMember = {name: this.teamNametoAdd, company: '', imageUrl: ''};
-    this.teamService.putMemberInTeam(this.memberToAdd, this.teamNametoAdd, this.teamtoAddMember).subscribe(
+    this.teamService.putMemberUsingPUT(this.memberToAdd, this.teamNametoAdd).subscribe(
       (data: any) => {
         this.memberToAdd = '';
         this.teamNametoAdd = '';
@@ -117,7 +118,7 @@ displayedColumns: string[] = ['name'];
   }
 
   getByTeamName() {
-    this.teamService.getByTeamName(this.teamName).subscribe(
+    this.teamService.getTeamUsingGET(this.teamName).subscribe(
       (data: any) => {
         console.log(data);
         this.team = data;
@@ -133,15 +134,15 @@ displayedColumns: string[] = ['name'];
     );
   }
 
-  promoteMember(name: String, teamName: String, team: Team) {
-    this.teamService.putLeaderInTeam(name, teamName, team).subscribe(
+  promoteMember(name: string, teamName: string) {
+    this.teamService.putMemberUsingPUT(name, teamName).subscribe(
       (data: any) => {
       }
     );
   }
 
-  deleteMember(name: string, teamName: String) {
-    this.teamService.deleteMemberFromTeam(name, teamName).subscribe(
+  deleteMember(name: string, teamName: string) {
+    this.teamService.deleteMemberUsingDELETE(name, teamName).subscribe(
       (data: any) => {
         this.team = data;
       }
@@ -149,7 +150,8 @@ displayedColumns: string[] = ['name'];
   }
 
   deleteLeader(name: string, teamName: string) {
-    this.teamService.deleteLeaderFromTeam(name, teamName).subscribe(
+    this.isLeader = false;
+    this.teamService.deleteLeaderUsingDELETE(name, teamName).subscribe(
       (data: any) => {
         for (let i = 0; i < data.leaders.length; i++) {
           if (data.leaders[i].googleName == this.state.user.googleName) {
