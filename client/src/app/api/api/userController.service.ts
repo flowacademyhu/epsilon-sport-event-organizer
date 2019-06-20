@@ -251,15 +251,15 @@ export class UserControllerService {
     }
 
     /**
-     * getUserById
+     * getCurrentUser
      * 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getUserByIdUsingGET(observe?: 'body', reportProgress?: boolean): Observable<User>;
-    public getUserByIdUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<User>>;
-    public getUserByIdUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<User>>;
-    public getUserByIdUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getCurrentUserUsingGET1(observe?: 'body', reportProgress?: boolean): Observable<User>;
+    public getCurrentUserUsingGET1(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<User>>;
+    public getCurrentUserUsingGET1(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<User>>;
+    public getCurrentUserUsingGET1(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -282,7 +282,7 @@ export class UserControllerService {
             'application/json'
         ];
 
-        return this.httpClient.get<User>(`${this.basePath}/user/current`,
+        return this.httpClient.get<User>(`${this.basePath}/user`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

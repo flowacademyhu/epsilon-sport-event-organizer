@@ -25,5 +25,4 @@ public interface TeamRepository extends JpaRepository<Team, String> {
     @Modifying
     @Query("UPDATE Team t SET t.isDeleted = :isDeleted WHERE t.name = :name")
     void updateDelete(@Param("name") String name, @Param("isDeleted") boolean isDeleted);
-
 }

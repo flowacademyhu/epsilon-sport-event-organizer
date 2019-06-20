@@ -1,7 +1,9 @@
 package hu.flowacademy.epsilon.sport_event_organizer.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,6 +13,7 @@ import java.util.Set;
 @Entity
 @Table(name = "cups")
 @Data
+@EqualsAndHashCode(exclude = {"isDeleted", "teams", "organizers", "sport"})
 public class Cup {
 
     @Id
@@ -50,6 +53,7 @@ public class Cup {
     @ManyToMany(mappedBy = "cups")
     private Set<User> organizers = new HashSet<>();
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "sports_name", foreignKey = @ForeignKey(name = "fk_cups_sports"))
     private Sport sport;

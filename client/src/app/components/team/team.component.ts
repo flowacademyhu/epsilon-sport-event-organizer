@@ -101,7 +101,7 @@ displayedColumns: string[] = ['name'];
 
   deleteTeam(teamName: string) {
     this.isLeader = false;
-    this.teamService.deleteCupUsingDELETE1(teamName).subscribe(
+    this.teamService.deleteTeamUsingDELETE(teamName).subscribe(
       (data: any) => {
       }
     );
@@ -118,7 +118,7 @@ displayedColumns: string[] = ['name'];
   }
 
   getByTeamName() {
-    this.teamService.getTeamUsingGET(this.teamName).subscribe(
+    this.teamService.getTeamByNameUsingGET(this.teamName).subscribe(
       (data: any) => {
         console.log(data);
         this.team = data;
@@ -134,15 +134,16 @@ displayedColumns: string[] = ['name'];
     );
   }
 
-  promoteMember(name: string, teamName: string) {
-    this.teamService.putMemberUsingPUT(name, teamName).subscribe(
+  promoteMember(googleName: string, teamName: string) {
+    this.teamService.putLeaderUsingPUT(googleName, teamName).subscribe(
       (data: any) => {
+        this.team.leaders = data.leaders;
       }
     );
   }
 
-  deleteMember(name: string, teamName: string) {
-    this.teamService.deleteMemberUsingDELETE(name, teamName).subscribe(
+  deleteMember(googleName: string, teamName: string) {
+    this.teamService.deleteMemberUsingDELETE(googleName, teamName).subscribe(
       (data: any) => {
         this.team = data;
       }

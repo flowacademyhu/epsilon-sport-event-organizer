@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
     this.tokenParam = params['token'];
     if (this.tokenParam != null) {
       localStorage.setItem('token', params['token']);
-      this.userService.getUserByIdUsingGET().subscribe(
+      this.userService.getCurrentUserUsingGET().subscribe(
         user => {
         this.appStateService.user = user;
         }

@@ -3,8 +3,8 @@ package hu.flowacademy.epsilon.sport_event_organizer.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
-
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -19,6 +19,7 @@ import javax.validation.constraints.NotNull;
         @UniqueConstraint(columnNames = "email")
 })
 @Data
+@EqualsAndHashCode(exclude = {"teamMembers", "teamLeaders", "cups", "emailVerified", "providerId", "provider", "accessToken", "isDeleted"})
 public class User {
 
     @Id

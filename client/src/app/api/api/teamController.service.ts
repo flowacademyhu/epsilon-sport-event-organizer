@@ -109,53 +109,6 @@ export class TeamControllerService {
     }
 
     /**
-     * deleteCup
-     * 
-     * @param teamName teamName
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public deleteCupUsingDELETE1(teamName: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public deleteCupUsingDELETE1(teamName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public deleteCupUsingDELETE1(teamName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public deleteCupUsingDELETE1(teamName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (teamName === null || teamName === undefined) {
-            throw new Error('Required parameter teamName was null or undefined when calling deleteCupUsingDELETE1.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (JWT) required
-        if (this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-
-        return this.httpClient.delete<any>(`${this.basePath}/team/${encodeURIComponent(String(teamName))}`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
      * deleteLeader
      * 
      * @param googleName googleName
@@ -197,7 +150,7 @@ export class TeamControllerService {
             'application/json'
         ];
 
-        return this.httpClient.delete<Team>(`${this.basePath}/team/leader/${encodeURIComponent(String(googleName))}/${encodeURIComponent(String(teamName))}`,
+        return this.httpClient.delete<Team>(`${this.basePath}/team/leader/${encodeURIComponent(String(teamName))}/${encodeURIComponent(String(googleName))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -249,7 +202,7 @@ export class TeamControllerService {
             'application/json'
         ];
 
-        return this.httpClient.delete<Team>(`${this.basePath}/team/member/${encodeURIComponent(String(googleName))}/${encodeURIComponent(String(teamName))}`,
+        return this.httpClient.delete<Team>(`${this.basePath}/team/member/${encodeURIComponent(String(teamName))}/${encodeURIComponent(String(googleName))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -260,15 +213,151 @@ export class TeamControllerService {
     }
 
     /**
-     * getTeamByMember
+     * deleteTeam
+     * 
+     * @param name name
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public deleteTeamUsingDELETE(name: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public deleteTeamUsingDELETE(name: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public deleteTeamUsingDELETE(name: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public deleteTeamUsingDELETE(name: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (name === null || name === undefined) {
+            throw new Error('Required parameter name was null or undefined when calling deleteTeamUsingDELETE.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+
+        return this.httpClient.delete<any>(`${this.basePath}/team/${encodeURIComponent(String(name))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * getAllTeamsByCompany
+     * 
+     * @param companies companies
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getAllTeamsByCompanyUsingGET(companies: string, observe?: 'body', reportProgress?: boolean): Observable<Array<Team>>;
+    public getAllTeamsByCompanyUsingGET(companies: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Team>>>;
+    public getAllTeamsByCompanyUsingGET(companies: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Team>>>;
+    public getAllTeamsByCompanyUsingGET(companies: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (companies === null || companies === undefined) {
+            throw new Error('Required parameter companies was null or undefined when calling getAllTeamsByCompanyUsingGET.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+
+        return this.httpClient.get<Array<Team>>(`${this.basePath}/team/company/${encodeURIComponent(String(companies))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * getAllTeamsByLeader
      * 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getTeamByMemberUsingGET(observe?: 'body', reportProgress?: boolean): Observable<Array<Team>>;
-    public getTeamByMemberUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Team>>>;
-    public getTeamByMemberUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Team>>>;
-    public getTeamByMemberUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAllTeamsByLeaderUsingGET(observe?: 'body', reportProgress?: boolean): Observable<Array<Team>>;
+    public getAllTeamsByLeaderUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Team>>>;
+    public getAllTeamsByLeaderUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Team>>>;
+    public getAllTeamsByLeaderUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+
+        return this.httpClient.get<Array<Team>>(`${this.basePath}/team/leader`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * getAllTeamsByMember
+     * 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getAllTeamsByMemberUsingGET(observe?: 'body', reportProgress?: boolean): Observable<Array<Team>>;
+    public getAllTeamsByMemberUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Team>>>;
+    public getAllTeamsByMemberUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Team>>>;
+    public getAllTeamsByMemberUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -302,20 +391,15 @@ export class TeamControllerService {
     }
 
     /**
-     * getTeam
+     * getAllTeams
      * 
-     * @param name name
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getTeamUsingGET(name: string, observe?: 'body', reportProgress?: boolean): Observable<Team>;
-    public getTeamUsingGET(name: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Team>>;
-    public getTeamUsingGET(name: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Team>>;
-    public getTeamUsingGET(name: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (name === null || name === undefined) {
-            throw new Error('Required parameter name was null or undefined when calling getTeamUsingGET.');
-        }
+    public getAllTeamsUsingGET(observe?: 'body', reportProgress?: boolean): Observable<Array<Team>>;
+    public getAllTeamsUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Team>>>;
+    public getAllTeamsUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Team>>>;
+    public getAllTeamsUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -338,7 +422,7 @@ export class TeamControllerService {
             'application/json'
         ];
 
-        return this.httpClient.get<Team>(`${this.basePath}/team/${encodeURIComponent(String(name))}`,
+        return this.httpClient.get<Array<Team>>(`${this.basePath}/team`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -349,15 +433,20 @@ export class TeamControllerService {
     }
 
     /**
-     * getTeamsByLeader
+     * getTeamByName
      * 
+     * @param names names
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getTeamsByLeaderUsingGET(observe?: 'body', reportProgress?: boolean): Observable<Array<Team>>;
-    public getTeamsByLeaderUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Team>>>;
-    public getTeamsByLeaderUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Team>>>;
-    public getTeamsByLeaderUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getTeamByNameUsingGET(names: string, observe?: 'body', reportProgress?: boolean): Observable<Team>;
+    public getTeamByNameUsingGET(names: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Team>>;
+    public getTeamByNameUsingGET(names: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Team>>;
+    public getTeamByNameUsingGET(names: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (names === null || names === undefined) {
+            throw new Error('Required parameter names was null or undefined when calling getTeamByNameUsingGET.');
+        }
 
         let headers = this.defaultHeaders;
 
@@ -380,7 +469,7 @@ export class TeamControllerService {
             'application/json'
         ];
 
-        return this.httpClient.get<Array<Team>>(`${this.basePath}/team/leader`,
+        return this.httpClient.get<Team>(`${this.basePath}/team/${encodeURIComponent(String(names))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -432,7 +521,7 @@ export class TeamControllerService {
             'application/json'
         ];
 
-        return this.httpClient.put<Team>(`${this.basePath}/team/leader/${encodeURIComponent(String(googleName))}/${encodeURIComponent(String(teamName))}`,
+        return this.httpClient.put<Team>(`${this.basePath}/team/leader/${encodeURIComponent(String(teamName))}/${encodeURIComponent(String(googleName))}`,
             null,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -485,7 +574,7 @@ export class TeamControllerService {
             'application/json'
         ];
 
-        return this.httpClient.put<Team>(`${this.basePath}/team/member/${encodeURIComponent(String(googleName))}/${encodeURIComponent(String(teamName))}`,
+        return this.httpClient.put<Team>(`${this.basePath}/team/member/${encodeURIComponent(String(teamName))}/${encodeURIComponent(String(googleName))}`,
             null,
             {
                 withCredentials: this.configuration.withCredentials,
