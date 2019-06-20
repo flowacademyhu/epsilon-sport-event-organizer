@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppStateService } from 'src/app/shared/service/app-state.service';
 import { TeamService } from 'src/app/shared/service/team.service';
+import { User } from 'src/app/api';
 
 @Component({
   selector: 'app-profile',
@@ -16,6 +17,8 @@ export class ProfileComponent implements OnInit {
   teamsIAmLeaderIn: any[];
   teamsIAmMemberIn: any[];
 
+  
+
   ngOnInit() {
 
     this.userDatas = this.state.user;
@@ -23,12 +26,14 @@ export class ProfileComponent implements OnInit {
     this.teamService.getByLeader().subscribe(
       teams => {
         this.teamsIAmLeaderIn = teams;
+        console.log(this.teamsIAmLeaderIn);
       }
     );
 
     this.teamService.getByMember().subscribe(
       teams => {
         this.teamsIAmMemberIn = teams;
+        console.log(this.teamsIAmMemberIn);
       }
     );
   }

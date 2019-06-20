@@ -5,6 +5,7 @@ import hu.flowacademy.epsilon.sport_event_organizer.model.Team;
 import hu.flowacademy.epsilon.sport_event_organizer.model.User;
 import hu.flowacademy.epsilon.sport_event_organizer.repository.TeamRepository;
 import hu.flowacademy.epsilon.sport_event_organizer.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +15,7 @@ import java.util.Set;
 
 @Service
 @Transactional
+@Slf4j
 public class TeamService {
 
     @Autowired
@@ -84,8 +86,8 @@ public class TeamService {
     public Team putLeader(String teamName, String googleName) {
         User userToAdd = userService.findUserByGoogleName(googleName);
         Team team = teamRepository.findByName(teamName).orElseThrow(() -> new TeamNotFoundException(teamName));
-        if (team.getMembers().contains(userToAdd)) {
-            team.getMembers().remove(userToAdd);
+        if (team.getUsers().contains(userToAdd)) {
+            team.getUsers().remove(userToAdd);
         }
         userToAdd.addTeamLeader(team);
         userService.save(userToAdd);

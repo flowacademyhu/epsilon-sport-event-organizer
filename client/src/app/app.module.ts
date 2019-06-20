@@ -23,6 +23,9 @@ import { MatFormFieldModule, MatInputModule, MatTableModule } from '@angular/mat
 import { AddMemberModalComponent } from './shared/component/add-member-modal/add-member-modal.component';
 import { ShowTeamModalComponent } from './shared/component/show-team-modal/show-team-modal.component';
 import { ShowCupModalComponent } from './shared/component/show-cup-modal/show-cup-modal.component';
+import { CupComponent } from './components/cup/cup.component';
+import { KeysPipe } from './shared/pipe/keys.pipe';
+import { ApiModule } from './api';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -41,7 +44,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     CreateTeamModalComponent,
     AddMemberModalComponent,
     ShowTeamModalComponent,
-    ShowCupModalComponent
+    ShowCupModalComponent,
+    CupComponent,
+    KeysPipe
   ],
   imports: [
     BrowserModule,
@@ -54,6 +59,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatInputModule,
     MatTableModule,
     BrowserAnimationsModule,
+    ApiModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

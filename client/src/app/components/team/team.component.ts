@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { TeamService } from 'src/app/shared/service/team.service';
 import { AppStateService } from 'src/app/shared/service/app-state.service';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { CreateTeamModalComponent } from 'src/app/shared/component/create-team-modal/create-team-modal.component';
 import { AddMemberModalComponent } from 'src/app/shared/component/add-member-modal/add-member-modal.component';
-import { asTextData } from '@angular/core/src/view';
 
 @Component({
   selector: 'app-team',
@@ -76,7 +74,6 @@ export class TeamComponent implements OnInit {
 displayedColumns: string[] = ['name'];
 
   constructor(
-    private teamService: TeamService,
     private state: AppStateService,
     private dialog: MatDialog
     ) { }
