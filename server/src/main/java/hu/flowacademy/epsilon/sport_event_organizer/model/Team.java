@@ -28,12 +28,12 @@ public class Team {
     @Column
     private boolean isDeleted;
 
-    @JsonIgnore
+
     @ManyToMany(mappedBy = "teamMembers")
     private Set<User> users = new HashSet<>();
 
 
-    @JsonIgnore
+
     @ManyToMany(mappedBy = "teamLeaders")
     private Set<User> leaders = new HashSet<>();
 

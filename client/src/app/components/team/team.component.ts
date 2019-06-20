@@ -32,7 +32,7 @@ export class TeamComponent implements OnInit {
 
   deleteTeam(teamName: string) {
     this.isLeader = false;
-    this.teamService.deleteCupUsingDELETE1(teamName).subscribe(
+    this.teamService.deleteTeamUsingDELETE(teamName).subscribe(
       (data: any) => {
       }
     );
@@ -64,7 +64,7 @@ export class TeamComponent implements OnInit {
   }
 
   getByTeamName() {
-    this.teamService.getTeamUsingGET(this.teamName).subscribe(
+    this.teamService.getTeamByNameUsingGET(this.teamName).subscribe(
       (data: any) => {
         this.team = data;
         this.teamName = '';
@@ -79,15 +79,16 @@ export class TeamComponent implements OnInit {
     );
   }
 
-  promoteMember(name: string, teamName: string) {
-    this.teamService.putMemberUsingPUT(name, teamName).subscribe(
+  promoteMember(googleName: string, teamName: string) {
+    this.teamService.putLeaderUsingPUT(googleName, teamName).subscribe(
       (data: any) => {
+        this.team.leaders = data.leaders;
       }
     );
   }
 
-  deleteMember(name: string, teamName: string) {
-    this.teamService.deleteMemberUsingDELETE(name, teamName).subscribe(
+  deleteMember(googleName: string, teamName: string) {
+    this.teamService.deleteMemberUsingDELETE(googleName, teamName).subscribe(
       (data: any) => {
         this.team.members = data.members;
       }

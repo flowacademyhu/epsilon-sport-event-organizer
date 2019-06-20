@@ -35,18 +35,18 @@
     <div class="col-sm-6 rounded background margin-top">
       <h5 *ngIf="isSearchPressed">members:</h5>
       <div *ngIf="isSearchPressed">
-        <h6 *ngIf="team.members.length == 0">
+        <h6 *ngIf="team.users.length == 0">
           Here are no members in this team
         </h6>
       </div>
-      <div *ngFor="let i of team.members">
+      <div *ngFor="let i of team.users">
         {{ i.googleName }}
         <div *ngIf="isLeader && state.user.googleName != i.googleName">
           <img
             src="../../../assets/pictures/promoteMember.png"
             alt="promote"
             class="xbuttons"
-            (click)="promoteMember(i.googleName, team.name, team)"
+            (click)="promoteMember(i.googleName, team.name)"
             style="cursor: pointer;"
           />
           <img
