@@ -28,6 +28,7 @@ body {
 .top {
   top: 3;
   background-color: rgb(65, 192, 53);
+  
 }
 
 /* Control the bottom side */
@@ -73,4 +74,18 @@ body {
 .right {
   right: 0;
   background-color: red;
+}
+
+table td{
+  border: 3px solid black;
+}
+
+table {
+  border-collapse: collapse;
+  
+}
+
+a {
+  text-decoration: none;
+  color: black;
 }

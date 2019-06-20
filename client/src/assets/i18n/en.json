@@ -12,8 +12,8 @@
   "Profile": "Profile",
   "LoginGoogle": "Login with Google",
   "LoginGuest": "Login as guest",
-  "TeamName": "Team Name:",
-  "CompanyName": "Company Name:",
+  "TeamName": "Team Name",
+  "CompanyName": "Company Name",
   "SearchTeam": "Search Team:",
   "Search": "Search",
   "Submit": "Submit:",
@@ -25,5 +25,6 @@
   "Delete": "Delete",
   "AddLeader": "Add Leader:",
   "LeaderName": "Leader Name",
-  "DeleteLeader": "Delete Leader"
+  "DeleteLeader": "Delete Leader",
+  "Leadership": "Leadership"
 }
