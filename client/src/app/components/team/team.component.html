@@ -4,10 +4,15 @@
       {{ "CreateTeam" | translate }}
     </a>
   </div>
-  <div class="col-sm-6 rounded background margin-top">
-    <h3>{{ "SearchTeam" | translate }}</h3>
+  <div class="row">
+    <div class="col-sm-4 rounded background margin-top">
+      <h1>brékó</h1>
+    </div>
+  <div class="col-sm-4 rounded background margin-top">
+    <h3 class="paddig-text-top">{{ "SearchTeam" | translate }}</h3>
     <h4>{{ "TeamName" | translate }}</h4>
-    <input type="text" name="teamName" [(ngModel)]="teamName" />
+    <div class="padding-text-bottom">
+    <input type="text" name="teamName" [(ngModel)]="teamName" class="padding-text-bottom"/>
     <a
       type="button"
       class="btn btn-outline-primary createButton"
@@ -15,6 +20,8 @@
     >
       {{ "Search" | translate }}
     </a>
+  </div>
+</div>
   </div>
   <div class="col-sm-6 rounded background margin-top">
     <div class="col-sm-6 rounded background margin-top">
@@ -63,25 +70,8 @@
         <a type="button" class="btn btn-primary createButton" (click)="deleteTeam(team.name)">
             {{ "Delete" | translate }}
         </a>
-        <a type="button" class="btn btn-primary createButton" (click)="deleteTeam(team.name)">
+        <a type="button" class="btn btn-primary createButton" (click)="onAdd()">
             {{ "Add" | translate }}
         </a>
     </div>
   </div>
-
-  <br />
-  {{ "CreatTeam" | translate }}Create: <br />
-  {{ "TeamName" | translate }}
-  <input type="text" name="createdTeamName" [(ngModel)]="teamNameToCreate" />
-  {{ "CompanyName" | translate }}
-  <input type="text" name="createdCompanyName" [(ngModel)]="companyNameToCreate" />
-  <button (click)="create()">{{ "Submit" | translate }}</button>
-
-  <br />
-  {{ "AddMember" | translate }} <br />
-  {{ "MemberName" | translate }}
-  <input type="text" name="memberToAdd" [(ngModel)]="memberToAdd" />
-  {{ "TeamName" | translate }}
-  <input type="text" name="teamName" [(ngModel)]="teamNametoAdd" />
-  <button (click)="putMemberInTeam()">{{ "Add" | translate }}</button>
-  <br />

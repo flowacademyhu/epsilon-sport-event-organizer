@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { TeamService } from 'src/app/shared/service/team.service';
 import { AppStateService } from 'src/app/shared/service/app-state.service';
 import { MatDialog, MatDialogConfig } from '@angular/material';
-import { CreateComponent } from '../create/create.component';
+import { CreateTeamModalComponent } from 'src/app/shared/component/create-team-modal/create-team-modal.component';
+import { AddMemberModalComponent } from 'src/app/shared/component/add-member-modal/add-member-modal.component';
 
 @Component({
   selector: 'app-team',
@@ -15,8 +16,6 @@ export class TeamComponent implements OnInit {
   companyName: String = '';
   team: any = '';
   createdTeam: Team;
-  teamNameToCreate: String = '';
-  companyNameToCreate: String = '';
   data: any;
   dataLeader: any;
   memberToAdd: String = '';
@@ -36,12 +35,20 @@ export class TeamComponent implements OnInit {
 
   }
 
-  onCreate() {
+  onAdd() {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
+    dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '60%';
-    this.dialog.open(CreateComponent, dialogConfig);
+    this.dialog.open(AddMemberModalComponent, dialogConfig);
+  }
+
+  onCreate() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '60%';
+    this.dialog.open(CreateTeamModalComponent, dialogConfig);
   }
 
   deleteTeam(teamName: String) {
@@ -58,21 +65,6 @@ export class TeamComponent implements OnInit {
       (data: any) => {
         this.memberToAdd = '';
         this.teamNametoAdd = '';
-      }
-    );
-  }
-
-  create() {
-    this.createdTeam = {name: this.teamNameToCreate, company: this.companyNameToCreate, imageUrl: ''};
-
-    this.isLeader = false;
-
-    this.teamService.create(this.createdTeam).subscribe(
-      (data: any) => {
-        this.data = data;
-        this.dataLeader = data.leader;
-        this.teamNameToCreate = '';
-        this.companyNameToCreate = '';
       }
     );
   }

@@ -25,5 +25,6 @@
   "Delete": "Törlés",
   "AddLeader": "Csapatvezető hozzáadása:",
   "LeaderName": "Csapatvezető neve",
-  "DeleteLeader": "Csapatvezető törlése"
+  "DeleteLeader": "Csapatvezető törlése",
+  "Cancel": "Mégse"
 }
