@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { Team } from 'src/app/api';
 
 @Injectable({
   providedIn: 'root'
