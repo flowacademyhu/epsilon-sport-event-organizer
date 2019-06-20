@@ -4,15 +4,16 @@
       {{ "CreateTeam" | translate }}
     </a>
   </div>
-  <div class="row">
-    <div class="col-sm-4 rounded background margin-top">
-      <h1>brékó</h1>
+  <div class="row margin-top">
+    <div class="col-sm-4 rounded background paddig-text-top">
+      <h1>{{ "Teams" | translate }}</h1>
     </div>
-  <div class="col-sm-4 rounded background margin-top">
+  <div class="col-sm-4">
+    <div class="background rounded">
     <h3 class="paddig-text-top">{{ "SearchTeam" | translate }}</h3>
     <h4>{{ "TeamName" | translate }}</h4>
     <div class="padding-text-bottom">
-    <input type="text" name="teamName" [(ngModel)]="teamName" class="padding-text-bottom"/>
+    <input type="text" name="teamName" [(ngModel)]="teamName"/>
     <a
       type="button"
       class="btn btn-outline-primary createButton"
@@ -22,56 +23,58 @@
     </a>
   </div>
 </div>
-  </div>
-  <div class="col-sm-6 rounded background margin-top">
-    <div class="col-sm-6 rounded background margin-top">
-      <h5 *ngIf="isSearchPressed">leaders:</h5>
-      <div *ngFor="let i of team.leaders">
-        {{ i.googleName }}
-        <div *ngIf="isLeader && team.leaders.length > 1">
-          <img
-            src="../../../assets/pictures/deleteX.png"
-            alt="delete"
-            class="xbuttons"
-            (click)="deleteLeader(i.googleName, team.name)"
-            style="cursor: pointer;"
-          />
+<div class="background rounded">
+    <div>
+        <h5 *ngIf="isSearchPressed">leaders:</h5>
+        <div *ngFor="let i of team.leaders">
+          {{ i.googleName }}
+          <div *ngIf="isLeader && team.leaders.length > 1">
+            <img
+              src="../../../assets/pictures/deleteX.png"
+              alt="delete"
+              class="xbuttons"
+              (click)="deleteLeader(i.googleName, team.name)"
+              style="cursor: pointer;"
+            />
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-sm-6 rounded background margin-top">
-      <h5 *ngIf="isSearchPressed">members:</h5>
-      <div *ngIf="isSearchPressed">
-        <h6 *ngIf="team.members.length == 0">
-          Here are no members in this team
-        </h6>
-      </div>
-      <div *ngFor="let i of team.members">
-        {{ i.googleName }}
-        <div *ngIf="isLeader && state.user.googleName != i.googleName">
-          <img
-            src="../../../assets/pictures/promoteMember.png"
-            alt="promote"
-            class="xbuttons"
-            (click)="promoteMember(i.googleName, team.name, team)"
-            style="cursor: pointer;"
-          />
-          <img
-            src="../../../assets/pictures/deleteX.png"
-            alt="delete"
-            class="xbuttons"
-            (click)="deleteMember(i.googleName, team.name)"
-            style="cursor: pointer;"
-          />
+      <div>
+        <h5 *ngIf="isSearchPressed">members:</h5>
+        <div *ngIf="isSearchPressed">
+          <h6 *ngIf="team.members.length == 0">
+            Here are no members in this team
+          </h6>
+        </div>
+        <div *ngFor="let i of team.members">
+          {{ i.googleName }}
+          <div *ngIf="isLeader && state.user.googleName != i.googleName">
+            <img
+              src="../../../assets/pictures/promoteMember.png"
+              alt="promote"
+              class="xbuttons"
+              (click)="promoteMember(i.googleName, team.name, team)"
+              style="cursor: pointer;"
+            />
+            <img
+              src="../../../assets/pictures/deleteX.png"
+              alt="delete"
+              class="xbuttons"
+              (click)="deleteMember(i.googleName, team.name)"
+              style="cursor: pointer;"
+            />
+          </div>
         </div>
       </div>
-    </div>
-    <div *ngIf="isLeader">
-        <a type="button" class="btn btn-primary createButton" (click)="deleteTeam(team.name)">
-            {{ "Delete" | translate }}
-        </a>
-        <a type="button" class="btn btn-primary createButton" (click)="onAdd()">
-            {{ "Add" | translate }}
-        </a>
-    </div>
+      <div *ngIf="isLeader">
+          <a type="button" class="btn btn-primary createButton" (click)="deleteTeam(team.name)">
+              {{ "Delete" | translate }}
+          </a>
+          <a type="button" class="btn btn-primary createButton" (click)="onAdd()">
+              {{ "Add" | translate }}
+          </a>
+      </div>
+
+</div>
+</div>
   </div>
