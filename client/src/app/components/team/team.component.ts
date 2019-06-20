@@ -4,6 +4,7 @@ import { AppStateService } from 'src/app/shared/service/app-state.service';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { CreateTeamModalComponent } from 'src/app/shared/component/create-team-modal/create-team-modal.component';
 import { AddMemberModalComponent } from 'src/app/shared/component/add-member-modal/add-member-modal.component';
+import { asTextData } from '@angular/core/src/view';
 
 @Component({
   selector: 'app-team',
@@ -24,6 +25,55 @@ export class TeamComponent implements OnInit {
 
   isLeader: boolean = false;
   isSearchPressed: boolean = false;
+  list = [{
+    'name': 'kkk',
+    'company': 'asd'
+  },
+{
+  'name': 'kuka',
+  'company': 'lol'
+},
+{
+  'name': 'kuka',
+  'company': 'lol'
+},
+{
+  'name': 'kuka',
+  'company': 'lol'
+},
+{
+  'name': 'kuka',
+  'company': 'lol'
+},
+{
+  'name': 'kuka',
+  'company': 'lol'
+},
+{
+  'name': 'kuka',
+  'company': 'lol'
+},
+{
+  'name': 'kuka',
+  'company': 'lol'
+},
+{
+  'name': 'kuka',
+  'company': 'lol'
+},
+{
+  'name': 'kuka',
+  'company': 'lol'
+},
+{
+  'name': 'kuka',
+  'company': 'lol'
+},
+{
+  'name': 'kuka',
+  'company': 'lol'
+}];
+displayedColumns: string[] = ['name'];
 
   constructor(
     private teamService: TeamService,
@@ -72,6 +122,7 @@ export class TeamComponent implements OnInit {
   getByTeamName() {
     this.teamService.getByTeamName(this.teamName).subscribe(
       (data: any) => {
+        console.log(data);
         this.team = data;
         this.teamName = '';
         this.isSearchPressed = true;

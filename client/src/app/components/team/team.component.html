@@ -4,15 +4,28 @@
       {{ "CreateTeam" | translate }}
     </a>
   </div>
-  <div class="row margin-top">
+  <div class="row margin-top padding-text-bottom">
     <div class="col-sm-4 rounded background paddig-text-top">
       <h1>{{ "Teams" | translate }}</h1>
+      <!-- table -->
+      <div class="mat-elevation-z8 padding-bottom-50">
+        <mat-table [dataSource]="list">
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef>name</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element|json}}</mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+      </div>
+      <!-- table -->
     </div>
   <div class="col-sm-4">
     <div class="background rounded">
     <h3 class="paddig-text-top">{{ "SearchTeam" | translate }}</h3>
     <h4>{{ "TeamName" | translate }}</h4>
-    <div class="padding-text-bottom">
+    <div>
     <input type="text" name="teamName" [(ngModel)]="teamName"/>
     <a
       type="button"
