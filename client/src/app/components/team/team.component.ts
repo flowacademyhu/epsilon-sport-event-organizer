@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AppStateService } from 'src/app/shared/service/app-state.service';
-import { MatDialog, MatDialogConfig } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatSort, MatTableDataSource } from '@angular/material';
 import { CreateTeamModalComponent } from 'src/app/shared/component/create-team-modal/create-team-modal.component';
 import { AddMemberModalComponent } from 'src/app/shared/component/add-member-modal/add-member-modal.component';
 import { TeamControllerService, Team } from 'src/app/api';
@@ -24,55 +24,11 @@ export class TeamComponent implements OnInit {
 
   isLeader: boolean = false;
   isSearchPressed: boolean = false;
-  list = [{
-    'name': 'kkk',
-    'company': 'asd'
-  },
-{
-  'name': 'kuka',
-  'company': 'lol'
-},
-{
-  'name': 'kuka',
-  'company': 'lol'
-},
-{
-  'name': 'kuka',
-  'company': 'lol'
-},
-{
-  'name': 'kuka',
-  'company': 'lol'
-},
-{
-  'name': 'kuka',
-  'company': 'lol'
-},
-{
-  'name': 'kuka',
-  'company': 'lol'
-},
-{
-  'name': 'kuka',
-  'company': 'lol'
-},
-{
-  'name': 'kuka',
-  'company': 'lol'
-},
-{
-  'name': 'kuka',
-  'company': 'lol'
-},
-{
-  'name': 'kuka',
-  'company': 'lol'
-},
-{
-  'name': 'kuka',
-  'company': 'lol'
-}];
-displayedColumns: string[] = ['name'];
+  teamList: Team[];
+  /* listData: MatTableDataSource<any>; */
+  displayedColumns: string[] = ['name', 'company', 'actions'];
+
+  /* @ViewChild(MatSort) sort: MatSort; */
 
   constructor(
     private teamService: TeamControllerService,
@@ -80,6 +36,20 @@ displayedColumns: string[] = ['name'];
     private dialog: MatDialog) { }
 
   ngOnInit() {
+
+    this.teamService.getAllTeamsUsingGET().subscribe(
+      teamlist => {
+        this.teamList = teamlist;
+        /* const array = teamlist.map (
+          item => {
+            return {
+              $key: item.name
+            };
+          });
+        this.listData = new MatTableDataSource(array);
+        this.listData.sort = this.sort; */
+      }
+    );
 
   }
 
