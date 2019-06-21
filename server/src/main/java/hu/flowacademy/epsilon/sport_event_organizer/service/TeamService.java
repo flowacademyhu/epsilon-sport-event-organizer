@@ -126,5 +126,24 @@ public class TeamService {
         return team;
     }
 
+    public void deleteTeamByName(String teamName) {
+        teamRepository.updateDelete(teamName, true);
+    }
+
+
+    public Team addGusetMemberToTeam(String teamName, String teamLeader, String name, String email) {
+        Team team = teamRepository.findByName(teamName).orElseThrow(() -> new TeamNotFoundException(teamName));
+        User user = new User();
+        user.setGoogleName(name);
+        user.setProvider(AuthProvider.local);
+        user.setEmail(email);
+        user.addTeamMember(team);
+        userService.save(user);
+        sendMail(email, teamLeader, teamName);
+        team.addMember(user);
+        return team;
+
+    }
+
 
 }
