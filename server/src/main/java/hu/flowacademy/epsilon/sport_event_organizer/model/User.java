@@ -2,6 +2,7 @@ package hu.flowacademy.epsilon.sport_event_organizer.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 
@@ -17,6 +18,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "users", uniqueConstraints = {
         @UniqueConstraint(columnNames = "email")
 })
+@Data
 public class User {
 
     @Id
@@ -77,22 +79,6 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "cup_name"))
     private Set<Cup> cups;
 
-
-    public Set<Team> getTeamMembers() {
-        return teamMembers;
-    }
-
-
-    public Set<Team> getTeamLeaders() {
-        return teamLeaders;
-    }
-
-
-    public Set<Cup> getCups() {
-        return cups;
-    }
-
-
     public void addTeamMember(Team team) {
         if (teamMembers == null) {
             this.teamMembers = new HashSet<>();
@@ -133,104 +119,5 @@ public class User {
             this.cups = new HashSet<>();
         }
         cups.remove(cup);
-    }
-
-
-    public void setTeamMember(Set<Team> teamMembers) {
-        this.teamMembers = teamMembers;
-    }
-
-    public void setTeamLeader(Set<Team> teamLeaders) {
-        this.teamLeaders = teamLeaders;
-    }
-
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getGoogleName() {
-        return googleName;
-    }
-
-    public void setGoogleName(String googleName) {
-        this.googleName = googleName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public Boolean getEmailVerified() {
-        return emailVerified;
-    }
-
-    public void setEmailVerified(Boolean emailVerified) {
-        this.emailVerified = emailVerified;
-    }
-
-    public AuthProvider getProvider() {
-        return provider;
-    }
-
-    public void setProvider(AuthProvider provider) {
-        this.provider = provider;
-    }
-
-    public String getProviderId() {
-        return providerId;
-    }
-
-    public void setProviderId(String providerId) {
-        this.providerId = providerId;
-    }
-
-    public String getAccessToken() {
-        return accessToken;
-    }
-
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof User)) return false;
-        User user = (User) obj;
-        return Objects.equals(id, user.id) &&
-                Objects.equals(googleName, user.googleName) &&
-                Objects.equals(email, user.email);
-    }
-
-    public boolean isDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
     }
 }
