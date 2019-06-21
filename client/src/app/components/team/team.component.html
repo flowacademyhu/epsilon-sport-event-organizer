@@ -18,7 +18,7 @@
             <mat-header-cell *matHeaderCellDef mat-sort-header>Company</mat-header-cell>
             <mat-cell *matCellDef="let element">{{element.company}}</mat-cell>
           </ng-container>
-          <!-- <ng-container matColumnDef="actions">
+          <ng-container matColumnDef="actions">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <div *ngFor="let team of teamList"> 
                 <div *ngFor="let leader of team.leaders">
@@ -29,7 +29,7 @@
             </mat-cell>
           </div> 
         </div> 
-          </ng-container> -->
+          </ng-container>
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
           <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>

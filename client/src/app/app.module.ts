@@ -24,6 +24,7 @@ import { ShowCupModalComponent } from './shared/component/show-cup-modal/show-cu
 import { CupComponent } from './components/cup/cup.component';
 import { KeysPipe } from './shared/pipe/keys.pipe';
 import { ApiModule, Configuration, ConfigurationParameters } from './api';
+import { CreateCupModalComponent } from './shared/component/create-cup-modal/create-cup-modal.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -50,7 +51,8 @@ export function getConfig(): Configuration {
     ShowTeamModalComponent,
     ShowCupModalComponent,
     CupComponent,
-    KeysPipe
+    KeysPipe,
+    CreateCupModalComponent
   ],
   imports: [
     BrowserModule,
@@ -95,7 +97,9 @@ export function getConfig(): Configuration {
   entryComponents: [
     CreateTeamModalComponent,
     ShowTeamModalComponent,
-    AddMemberModalComponent
+    AddMemberModalComponent,
+    CreateCupModalComponent,
+    ShowCupModalComponent
   ]
 })
 export class AppModule { }
