@@ -1,5 +1,8 @@
 package hu.flowacademy.epsilon.sport_event_organizer.email;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -11,9 +14,13 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 
+@Component
 public class SendMail {
 
-    public static void sendMail(String email, String teamLeader, String team) {
+    @Value("${app.url}")
+    private String homePageUrl;
+
+    public void sendMail(String email, String teamLeader, String team) {
 
         final String username = "projektmunkasports@gmail.com";
         final String password = "Flow123456";
@@ -38,8 +45,7 @@ public class SendMail {
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(email));
             message.setSubject("Team Invitation From " + teamLeader);
-            message.setText("Hello,\n " + teamLeader + " invited you to " + team + " team. Check out our page: http://localhost:4200/"
-                    + "\n\n No spam to my email, please!");
+            message.setText("Hello,\n " + teamLeader + " invited you to " + team + " team. Check out our page: " + homePageUrl);
 
             Transport.send(message);
 
