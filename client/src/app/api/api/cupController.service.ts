@@ -192,7 +192,7 @@ export class CupControllerService {
             'application/json'
         ];
 
-        return this.httpClient.get<Array<Cup>>(`${this.basePath}/cup/${encodeURIComponent(String(company))}`,
+        return this.httpClient.get<Array<Cup>>(`${this.basePath}/cup/company/${encodeURIComponent(String(company))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -239,7 +239,7 @@ export class CupControllerService {
             'application/json'
         ];
 
-        return this.httpClient.get<Array<Cup>>(`${this.basePath}/cup/${encodeURIComponent(String(place))}`,
+        return this.httpClient.get<Array<Cup>>(`${this.basePath}/cup/place/${encodeURIComponent(String(place))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

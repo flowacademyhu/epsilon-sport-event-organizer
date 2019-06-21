@@ -1,15 +1,21 @@
 <body background="./assets/pictures/baseballgb.jpg">
-  <div *ngIf="state.user != null">
-    <a type="button" class="btn btn-primary createButton" (click)="onCreate()">
-      {{ "CreateTeam" | translate }}
-    </a>
-  </div>
   <div class="row margin-top padding-text-bottom">
-    <div class="col-sm-4 rounded background paddig-text-top">
+    <div class="col-sm-6 rounded background paddig-text-top">
       <h1>{{ "Teams" | translate }}</h1>
       <!-- table -->
+      <div class="search-div">
+          <div *ngIf="state.user != null">
+        <button mat-raised-button (click)="onCreate()"><mat-icon>add</mat-icon>{{ "CreateTeam" | translate }}</button>
+        </div>
+          <mat-form-field class="search-form-field">
+          <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+          <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="searchClear()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
       <div class="mat-elevation-z8 padding-bottom-50">
-        <mat-table [dataSource]="teamList" matSort>
+        <mat-table [dataSource]="listData" matSort>
           <ng-container matColumnDef="name">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
             <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
@@ -19,20 +25,20 @@
             <mat-cell *matCellDef="let element">{{element.company}}</mat-cell>
           </ng-container>
           <ng-container matColumnDef="actions">
+              <!-- <div *ngFor="let team of teamList"> 
+                  <div *ngFor="let leader of team.leaders"> -->
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
-            <div *ngFor="let team of teamList"> 
-                <div *ngFor="let leader of team.leaders">
             <mat-cell *matCellDef="let row">
               
-              <button mat-icon-button color="warn" *ngIf="leader.googleName == state.user.googleName"><mat-icon>delete_outline</mat-icon></button>
+              <button mat-icon-button color="warn"><mat-icon>delete_outline</mat-icon></button>
             
             </mat-cell>
-          </div> 
-        </div> 
+       
           </ng-container>
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
           <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>
+        <mat-paginator [pageSizeOptions]="[5,10,15]" [pageSize]="5" showFirstLastButtons></mat-paginator>
 
       </div>
       <!-- table -->

@@ -24,18 +24,23 @@ public class CupController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<Cup>> getAllCups() {
-        return ResponseEntity.ok(cupService.getAllNonDeletedCups());
+    public List<Cup> getAllCups() {
+        return cupService.getAllCups();
     }
 
-    @GetMapping("/{company}")
-    public ResponseEntity<List<Cup>> getAllCupsByCompany(@PathVariable String company) {
-        return ResponseEntity.ok(cupService.getCupsByCompany(company));
+    @GetMapping("/company/{company}")
+    public List<Cup> getAllCupsByCompany(@PathVariable String company) {
+        return cupService.getCupsByCompany(company);
     }
 
-    @GetMapping("/{place}")
-    public ResponseEntity<List<Cup>> getAllCupsByPlace(@PathVariable String place) {
-        return ResponseEntity.ok(cupService.getCupsByPlace(place));
+    @GetMapping("/place/{place}")
+    public List<Cup> getAllCupsByPlace(@PathVariable String place) {
+        return cupService.getCupsByPlace(place);
+    }
+
+    @GetMapping("/organizer")
+    public ResponseEntity<List<Cup>> getCupByOrganizer() {
+        return ResponseEntity.ok(cupService.getByCurrentOrganizer());
     }
 
     @PostMapping
@@ -52,11 +57,6 @@ public class CupController {
     public ResponseEntity<Void> deleteCup(@PathVariable String name) {
         cupService.deleteCupByName(name);
         return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping("/organizer")
-    public ResponseEntity<List<Cup>> getCupByOrganizer() {
-        return ResponseEntity.ok(cupService.getByCurrentOrganizer());
     }
 
     /*

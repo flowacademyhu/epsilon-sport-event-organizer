@@ -14,7 +14,7 @@ export class CreateCupModalComponent implements OnInit {
     private cupService: CupControllerService) { }
 
     companyNameToCreate: string = '';
-    courcourtCounter: number = 0;
+    courtCounter: number = 0;
     deleted: boolean;
     description: string = '';
     endDateTime: Date;
@@ -29,7 +29,7 @@ export class CreateCupModalComponent implements OnInit {
   }
 
   createCup() {
-    this.cup = {company: this.companyNameToCreate, courtCounter: this.courcourtCounter, 
+    this.cup = {company: this.companyNameToCreate, courtCounter: this.courtCounter, 
                 description: this.description, endDateTime: this.endDateTime, name: this.cupNametoCreate,
                 place: this.place, registrationEndTime: this.registrationEndTime, startDateTime: this.startDateTime};
     this.cupService.createCupUsingPOST(this.cup).subscribe(
