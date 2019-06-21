@@ -147,7 +147,7 @@ public class TeamService {
         user.setEmail(email);
         user.addTeamMember(team);
         userService.save(user);
-        mailService.sendMail(email, teamLeader, teamName);
+        mailService.sendMailAddGuestToTeam(email, teamLeader, teamName);
         team.addMember(user);
         return team;
     }

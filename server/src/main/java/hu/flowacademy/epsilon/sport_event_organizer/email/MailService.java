@@ -17,29 +17,32 @@ import javax.mail.internet.MimeMessage;
 @Component
 public class MailService {
 
+
     @Value("${app.url}")
     private String homePageUrl;
 
-    public void sendMail(String email, String teamLeader, String team) {
+    final String username = "projektmunkasports@gmail.com";
+    final String password = "Flow123456";
 
-        final String username = "projektmunkasports@gmail.com";
-        final String password = "Flow123456";
+    Properties props = new Properties();
 
-        Properties props = new Properties();
+    public MailService() {
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
+    }
 
-        Session session = Session.getInstance(props,
-                new javax.mail.Authenticator() {
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(username, password);
-                    }
-                });
+    Session session = Session.getInstance(props,
+            new javax.mail.Authenticator() {
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(username, password);
+                }
+            });
+
+    public void sendMailAddGuestToTeam(String email, String teamLeader, String team) {
 
         try {
-
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress("projektmunkasports@gmail.com"));
             message.setRecipients(Message.RecipientType.TO,
