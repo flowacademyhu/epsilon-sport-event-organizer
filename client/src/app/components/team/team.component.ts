@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AppStateService } from 'src/app/shared/service/app-state.service';
-import { MatDialog, MatDialogConfig, MatSort, MatTableDataSource } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatSort, MatTableDataSource, MatPaginator } from '@angular/material';
 import { CreateTeamModalComponent } from 'src/app/shared/component/create-team-modal/create-team-modal.component';
 import { AddMemberModalComponent } from 'src/app/shared/component/add-member-modal/add-member-modal.component';
 import { TeamControllerService, Team } from 'src/app/api';
@@ -24,11 +24,12 @@ export class TeamComponent implements OnInit {
 
   isLeader: boolean = false;
   isSearchPressed: boolean = false;
-  teamList: Team[];
-  /* listData: MatTableDataSource<any>; */
+  searchKey: string;
+  listData: MatTableDataSource<any>;
   displayedColumns: string[] = ['name', 'company', 'actions'];
 
-  /* @ViewChild(MatSort) sort: MatSort; */
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private teamService: TeamControllerService,
@@ -39,18 +40,28 @@ export class TeamComponent implements OnInit {
 
     this.teamService.getAllTeamsUsingGET().subscribe(
       teamlist => {
-        this.teamList = teamlist;
-        /* const array = teamlist.map (
+         const array = teamlist.map(
           item => {
             return {
-              $key: item.name
+              $key: item.name,
+              ...item
             };
           });
         this.listData = new MatTableDataSource(array);
-        this.listData.sort = this.sort; */
+        this.listData.sort = this.sort;
+        this.listData.paginator = this.paginator;
       }
     );
 
+  }
+
+  applyFilter() {
+    this.listData.filter = this.searchKey.trim().toLowerCase();
+  }
+
+  searchClear() {
+    this.searchKey = '';
+    this.applyFilter();
   }
 
   onAdd() {
