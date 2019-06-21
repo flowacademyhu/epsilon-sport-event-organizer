@@ -15,7 +15,7 @@ import javax.mail.internet.MimeMessage;
 
 
 @Component
-public class SendMail {
+public class MailService {
 
     @Value("${app.url}")
     private String homePageUrl;

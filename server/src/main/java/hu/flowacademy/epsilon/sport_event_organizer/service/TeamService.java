@@ -1,5 +1,6 @@
 package hu.flowacademy.epsilon.sport_event_organizer.service;
 
+import hu.flowacademy.epsilon.sport_event_organizer.email.MailService;
 import hu.flowacademy.epsilon.sport_event_organizer.exception.TeamNotFoundException;
 import hu.flowacademy.epsilon.sport_event_organizer.model.AuthProvider;
 import hu.flowacademy.epsilon.sport_event_organizer.model.Team;
@@ -13,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static hu.flowacademy.epsilon.sport_event_organizer.email.SendMail.sendMail;
 
 @Service
 @Transactional
@@ -25,6 +25,10 @@ public class TeamService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private MailService mailService;
+
 
     public Team getTeamByName(String teamName) {
         return teamRepository.findByName(teamName).orElseThrow(() -> new TeamNotFoundException(teamName));
@@ -139,7 +143,7 @@ public class TeamService {
         user.setEmail(email);
         user.addTeamMember(team);
         userService.save(user);
-        sendMail(email, teamLeader, teamName);
+        mailService.sendMail(email, teamLeader, teamName);
         team.addMember(user);
         return team;
     }
