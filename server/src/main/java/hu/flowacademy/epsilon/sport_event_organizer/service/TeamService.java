@@ -131,7 +131,7 @@ public class TeamService {
     }
 
 
-    public Team addGusetMemberToTeam(String teamName, String teamLeader, String name, String email) {
+    public Team addGuestMemberToTeam(String teamName, String teamLeader, String name, String email) {
         Team team = teamRepository.findByName(teamName).orElseThrow(() -> new TeamNotFoundException(teamName));
         User user = new User();
         user.setGoogleName(name);
@@ -142,7 +142,6 @@ public class TeamService {
         sendMail(email, teamLeader, teamName);
         team.addMember(user);
         return team;
-
     }
 
 

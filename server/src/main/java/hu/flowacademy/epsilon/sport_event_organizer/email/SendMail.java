@@ -36,9 +36,9 @@ public class SendMail {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress("projektmunkasports@gmail.com"));
             message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse("email"));
+                    InternetAddress.parse(email));
             message.setSubject("Team Invitation From " + teamLeader);
-            message.setText("Hello,\n" + teamLeader + "invited you " + team + " team. Check our page: http://localhost:4200/"
+            message.setText("Hello,\n " + teamLeader + " invited you to " + team + " team. Check out our page: http://localhost:4200/"
                     + "\n\n No spam to my email, please!");
 
             Transport.send(message);
