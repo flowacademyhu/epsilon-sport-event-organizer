@@ -9,6 +9,8 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { Team } from './team';
+import { User } from './user';
 
 
 export interface Cup { 
@@ -19,7 +21,9 @@ export interface Cup {
     endDateTime?: Date;
     imageUrl?: string;
     name?: string;
+    organizers?: Array<User>;
     place?: string;
     registrationEndTime?: Date;
     startDateTime?: Date;
+    teams?: Array<Team>;
 }
