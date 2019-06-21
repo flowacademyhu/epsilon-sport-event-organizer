@@ -95,7 +95,10 @@ public class TeamService {
 
     public List<Team> getByCurrentLeader() {
         User currentUser = userService.getCurrentUser();
-        return teamRepository.findByLeaders(currentUser);
+        List<Team> teamList = teamRepository.findByLeaders(currentUser);
+        return teamList.stream()
+                .filter(team -> !team.isDeleted())
+                .collect(Collectors.toList());
     }
 
     public Team putLeader(String teamName, String googleName) {

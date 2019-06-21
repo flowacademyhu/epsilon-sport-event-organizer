@@ -54,22 +54,15 @@ public class CupService {
         throw new CupNotFoundException(name);
     }
 
+    // returning all non-deleted cups!
     public List<Cup> getAllCups() {
-        return cupRepository.findAll();
-    }
-
-    public List<Cup> getAllNonDeletedCups() {
         List<Cup> cupList = cupRepository.findAll();
-        for (Cup cup: cupList) {
-            if (cup.isDeleted()) {
-                cupList.remove(cup);
-            }
-        }
-        log.info(cupList.toString());
-        return cupList;
+        return cupList.stream()
+                .filter(cup -> !cup.isDeleted())
+                .collect(Collectors.toList());
     }
 
-    // returning only non-deleted cups!
+    // returning only non-deleted cups - by place!
     public List<Cup> getCupsByPlace(String place) {
         List<Cup> cupList = cupRepository.findByPlace(place);
         return cupList.stream()
@@ -77,7 +70,7 @@ public class CupService {
                 .collect(Collectors.toList());
     }
 
-    // returning only non-deleted cups!
+    // returning only non-deleted cups - by company!
     public List<Cup> getCupsByCompany(String company) {
         List<Cup> cupList = cupRepository.findByCompany(company);
         return cupList.stream()
