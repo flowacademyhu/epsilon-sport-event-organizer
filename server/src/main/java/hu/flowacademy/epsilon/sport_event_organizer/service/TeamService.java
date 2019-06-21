@@ -123,6 +123,7 @@ public class TeamService {
         userService.save(userToAdd);
         team.deleteLeader(userToAdd);
 //        Set<User> users = team.getLeaders();
+//        users.removeIf(user -> user.isDeleted());
 //        users.removeIf(User::isDeleted);
 //        return users;
         return team;

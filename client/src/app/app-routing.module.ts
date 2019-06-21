@@ -7,7 +7,6 @@ import { LoggedinGuard } from './shared/guard/loggedin.guard';
 import { TeamComponent } from './components/team/team.component';
 import { CupComponent } from './components/cup/cup.component';
 
-
 const routes: Routes = [
   {path: '', component: MainPageComponent},
   {path: 'oauth2/redirect', component: MainPageComponent},

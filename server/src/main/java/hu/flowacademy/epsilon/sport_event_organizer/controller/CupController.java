@@ -25,7 +25,7 @@ public class CupController {
 
     @GetMapping()
     public List<Cup> getAllCups() {
-        return cupService.getAl lCups();
+        return cupService.getAllCups();
     }
 
     @GetMapping("/company/{company}")

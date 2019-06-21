@@ -12,8 +12,8 @@
   "Profile" : "Profil",
   "LoginGoogle": "Belépés Google fiókkal",
   "LoginGuest": "Belépés vendégként",
-  "TeamName": "Csapat neve:",
-  "CompanyName": "Cég neve:",
+  "TeamName": "Csapat neve",
+  "CompanyName": "Cég neve",
   "SearchTeam": "Csapat keresése:",
   "Search": "Keresés",
   "Submit": "Létrehoz",
@@ -23,8 +23,9 @@
   "AddMember": "Csapattag hozáadása",
   "DeleteMember": "Csapattag törlése",
   "Delete": "Törlés",
-  "AddLeader": "Csapatvezető hozzáadása:",
+  "AddLeader": "Csapatvezető hozzáadása",
   "LeaderName": "Csapatvezető neve",
   "DeleteLeader": "Csapatvezető törlése",
+  "Cancel": "Mégse",
   "Leadership": "Csapatvezető"
 }
