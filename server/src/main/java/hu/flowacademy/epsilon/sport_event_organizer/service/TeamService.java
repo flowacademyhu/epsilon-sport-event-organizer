@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -28,6 +29,20 @@ public class TeamService {
         return teamRepository.findByName(teamName).orElseThrow(() -> new TeamNotFoundException(teamName));
     }
 
+    public List<Team> getAllNonDeletedTeams() {
+        List<Team> teamList = teamRepository.findAll();
+        return teamList.stream()
+                .filter(team -> !team.isDeleted())
+                .collect(Collectors.toList());
+    }
+
+    //returning all non-deleted Teams by Company
+    public List<Team> getAllTeamsByCompany(String company) {
+        List<Team> teamList = teamRepository.findByCompany(company);
+        return teamList.stream()
+                .filter(team -> !team.isDeleted())
+                .collect(Collectors.toList());
+    }
 
     public Team save(Team team) {
         User currentUser = userService.getCurrentUser();
@@ -48,7 +63,7 @@ public class TeamService {
         return teamRepository.save(previousTeam);
     }
 
-    public List<Team> getByCurrentMember() {
+    public List<Team> getByCurrentUser() {
         User currentUser = userService.getCurrentUser();
         return teamRepository.findByUsers(currentUser);
     }
@@ -80,7 +95,10 @@ public class TeamService {
 
     public List<Team> getByCurrentLeader() {
         User currentUser = userService.getCurrentUser();
-        return teamRepository.findByLeaders(currentUser);
+        List<Team> teamList = teamRepository.findByLeaders(currentUser);
+        return teamList.stream()
+                .filter(team -> !team.isDeleted())
+                .collect(Collectors.toList());
     }
 
     public Team putLeader(String teamName, String googleName) {

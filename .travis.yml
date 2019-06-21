@@ -1,12 +1,21 @@
-jdk: openjdk11
-language: java
-services:
-  - postgresql
-before_script:
-  - createuser sport_event_organizer
-  - psql -c "alter user sport_event_organizer with encrypted password '123456';" -U postgres
-  - psql -c "create database sport_event_organizer;" -U postgres
-  - psql -c "grant all privileges on database sport_event_organizer to sport_event_organizer;" -U postgres
-script:
-  - "cd ./server"
-  - "./mvnw clean test"
+matrix:
+  include:
+    - language: java
+      jdk: openjdk11
+      services:
+      - postgresql
+      before_script:
+      - createuser sport_event_organizer
+      - psql -c "alter user sport_event_organizer with encrypted password '123456';" -U postgres
+      - psql -c "create database sport_event_organizer;" -U postgres
+      - psql -c "grant all privileges on database sport_event_organizer to sport_event_organizer;" -U postgres
+      script:
+      - "cd ./server"
+      - "./mvnw clean test"
+    - language: node_js
+      node_js: "8.15"
+      script:
+      - "cd ./client"
+      - "npm install -g @angular/cli && npm install"
+      - "ng build --aot"
+

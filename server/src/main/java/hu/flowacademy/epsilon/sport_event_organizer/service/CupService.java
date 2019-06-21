@@ -5,15 +5,19 @@ import hu.flowacademy.epsilon.sport_event_organizer.model.Cup;
 import hu.flowacademy.epsilon.sport_event_organizer.model.Team;
 import hu.flowacademy.epsilon.sport_event_organizer.model.User;
 import hu.flowacademy.epsilon.sport_event_organizer.repository.CupRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+
 
 @Service
 @Transactional
+@Slf4j
 public class CupService {
     @Autowired
     private CupRepository cupRepository;
@@ -29,17 +33,9 @@ public class CupService {
         cup.setDeleted(false);
         cupRepository.save(cup);
         currentUser.addCup(cup);
-        User user = userService.save(currentUser);
-        cup.addOrganizer(user);
+        userService.save(currentUser);
+        cup.addOrganizer(currentUser);
         return cup;
-    }
-
-    public Cup getCupByName(String cupName) {
-        Cup cup = cupRepository.findByName(cupName).orElseThrow(() -> new CupNotFoundException(cupName));
-        if (!cup.isDeleted()) {
-            return cup;
-        }
-        throw new CupNotFoundException(cupName);
     }
 
     public Cup update(Cup cup) {
@@ -50,12 +46,36 @@ public class CupService {
         return cupRepository.save(previousCup);
     }
 
-    public Cup getByName(String cupName) {
-        Cup cup = cupRepository.findByName(cupName).orElseThrow(() -> new CupNotFoundException(cupName));
+    public Cup getByName(String name) {
+        Cup cup = cupRepository.findByName(name).orElseThrow(() -> new CupNotFoundException(name));
         if (!cup.isDeleted()) {
             return cup;
         }
-        throw new CupNotFoundException(cupName);
+        throw new CupNotFoundException(name);
+    }
+
+    // returning all non-deleted cups!
+    public List<Cup> getAllCups() {
+        List<Cup> cupList = cupRepository.findAll();
+        return cupList.stream()
+                .filter(cup -> !cup.isDeleted())
+                .collect(Collectors.toList());
+    }
+
+    // returning only non-deleted cups - by place!
+    public List<Cup> getCupsByPlace(String place) {
+        List<Cup> cupList = cupRepository.findByPlace(place);
+        return cupList.stream()
+                .filter(cup -> !cup.isDeleted())
+                .collect(Collectors.toList());
+    }
+
+    // returning only non-deleted cups - by company!
+    public List<Cup> getCupsByCompany(String company) {
+        List<Cup> cupList = cupRepository.findByCompany(company);
+        return cupList.stream()
+                .filter(cup -> !cup.isDeleted())
+                .collect(Collectors.toList());
     }
 
     public List<Cup> getByCurrentOrganizer() {
