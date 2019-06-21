@@ -28,6 +28,8 @@ public class CupController {
         return cupService.getAllCups();
     }
 
+    //TODO get all applied teams
+
     @GetMapping("/company/{company}")
     public List<Cup> getAllCupsByCompany(@PathVariable String company) {
         return cupService.getCupsByCompany(company);
@@ -56,6 +58,12 @@ public class CupController {
     @DeleteMapping("/{name}")
     public ResponseEntity<Void> deleteCup(@PathVariable String name) {
         cupService.deleteCupByName(name);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/apply/{cupName}/{teamName}")
+    public ResponseEntity<Void> applyTeam(@PathVariable String cupName, @PathVariable String teamName) {
+        cupService.applyTeam(cupName, teamName);
         return ResponseEntity.noContent().build();
     }
 
