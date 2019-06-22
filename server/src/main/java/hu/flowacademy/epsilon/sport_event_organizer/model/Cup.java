@@ -70,7 +70,7 @@ public class Cup {
         approved.add(team);
     }
 
-    public void denieTeam(Team team) {
+    public void refuseTeam(Team team) {
         teams.remove(team);
     }
 

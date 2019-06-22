@@ -39,18 +39,13 @@ public class CupController {
     }
 
     @GetMapping("/organizer")
-    public ResponseEntity<List<Cup>> getCupByOrganizer() {
-        return ResponseEntity.ok(cupService.getByCurrentOrganizer());
+    public List<Cup> getCupByOrganizer() {
+        return cupService.getByCurrentOrganizer();
     }
 
-    @GetMapping("/{cupName}/applied")
-    public Set<Team> getAppliedTeams(@PathVariable String cupName) {
-        return cupService.getAppliedTeams(cupName);
-    }
-
-    @GetMapping("/{cupName}/approved")
-    public Set<Team> getApprovedTeams(@PathVariable String cupName) {
-        return cupService.getApprovedTeams(cupName);
+    @GetMapping("/my-cups")
+    public List<Cup> getCupsByParticipation() {
+        return cupService.getCupsByParticipation();
     }
 
     @PostMapping
@@ -85,6 +80,16 @@ public class CupController {
     public ResponseEntity<Void> refuseTeam(@PathVariable String cupName, @PathVariable String teamName) {
         cupService.refuseTeam(cupName, teamName);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{cupName}/applied")
+    public Set<Team> getAppliedTeams(@PathVariable String cupName) {
+        return cupService.getAppliedTeams(cupName);
+    }
+
+    @GetMapping("/{cupName}/approved")
+    public Set<Team> getApprovedTeams(@PathVariable String cupName) {
+        return cupService.getApprovedTeams(cupName);
     }
 
     /*

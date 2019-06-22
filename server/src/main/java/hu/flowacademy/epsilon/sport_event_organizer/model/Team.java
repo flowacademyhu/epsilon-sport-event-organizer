@@ -6,7 +6,6 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -48,7 +47,7 @@ public class Team {
             name = "cups_approved",
             joinColumns = @JoinColumn(name = "teams_name"),
             inverseJoinColumns = @JoinColumn(name = "cups_name"))
-    private Set<Cup> validated;
+    private Set<Cup> validatedCups;
 
     public void addCup(Cup cup) {
         if (cups == null) {
@@ -58,10 +57,11 @@ public class Team {
     }
 
     public void addValidatedCup(Cup cup) {
-        if (validated == null) {
-            this.validated = new HashSet<>();
+        if (validatedCups == null) {
+            this.validatedCups = new HashSet<>();
         }
-        validated.add(cup);
+        validatedCups.add(cup);
+        deleteCup(cup);
     }
 
     public void deleteCup(Cup cup) {

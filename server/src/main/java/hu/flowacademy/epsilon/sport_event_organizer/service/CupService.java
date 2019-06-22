@@ -1,7 +1,6 @@
 package hu.flowacademy.epsilon.sport_event_organizer.service;
 
 import hu.flowacademy.epsilon.sport_event_organizer.exception.CupNotFoundException;
-import hu.flowacademy.epsilon.sport_event_organizer.exception.UserForbidenException;
 import hu.flowacademy.epsilon.sport_event_organizer.exception.UserUnauthorizedException;
 import hu.flowacademy.epsilon.sport_event_organizer.model.Cup;
 import hu.flowacademy.epsilon.sport_event_organizer.model.Team;
@@ -88,6 +87,16 @@ public class CupService {
         return cups;
     }
 
+    public List<Cup> getCupsByParticipation() {
+        User user = userService.getCurrentUser();
+        String name = user.getGoogleName();
+        List<Cup> cups = cupRepository.findAll();
+        return cups.stream()
+                .filter(cup -> cup.getApproved().contains(name))
+                .filter(cup -> !cup.isDeleted())
+                .collect(Collectors.toList());
+    }
+
     public void applyTeam(String cupName, String teamName) {
         Cup cup = cupRepository.findByName(cupName).orElseThrow(() -> new CupNotFoundException(cupName));
         Team team = teamService.getTeamByName(teamName);
@@ -112,6 +121,9 @@ public class CupService {
         User user = userService.getCurrentUser();
         if (cup.getOrganizers().contains(user) && teams.contains(teamToApprove)) {
             cup.approveTeam(teamToApprove);
+            teamToApprove.addValidatedCup(cup);
+            teamService.save(teamToApprove);
+            cupRepository.save(cup);
         }
         log.error(teamToApprove.toString());
         log.error(teams.toString());
@@ -123,7 +135,7 @@ public class CupService {
         Team teamToRefuse = teamService.getTeamByName(teamName);
         User user = userService.getCurrentUser();
         if (cup.getOrganizers().contains(user) && teams.contains(teamToRefuse)) {
-            cup.denieTeam(teamToRefuse);
+            cup.refuseTeam(teamToRefuse);
         }
         log.error(teamToRefuse.toString());
         log.error(teams.toString());
