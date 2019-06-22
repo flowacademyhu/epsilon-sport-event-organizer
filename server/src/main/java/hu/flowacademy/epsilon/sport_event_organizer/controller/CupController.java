@@ -28,8 +28,6 @@ public class CupController {
         return cupService.getAllCups();
     }
 
-    //TODO get all applied teams
-
     @GetMapping("/company/{company}")
     public List<Cup> getAllCupsByCompany(@PathVariable String company) {
         return cupService.getCupsByCompany(company);
@@ -43,6 +41,11 @@ public class CupController {
     @GetMapping("/organizer")
     public ResponseEntity<List<Cup>> getCupByOrganizer() {
         return ResponseEntity.ok(cupService.getByCurrentOrganizer());
+    }
+
+    @GetMapping("/{cupName}/applied")
+    public Set<Team> getAppliedTeams(@PathVariable String cupName) {
+        return cupService.getAppliedTeams(cupName);
     }
 
     @PostMapping

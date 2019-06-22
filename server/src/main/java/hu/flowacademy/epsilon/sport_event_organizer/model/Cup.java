@@ -65,9 +65,13 @@ public class Cup {
         teams.add(team);
     }
 
-    public void addApprovedTeam(Team team) {
+    public void approveTeam(Team team) {
         teams.remove(team);
         approved.add(team);
+    }
+
+    public void denieTeam(Team team) {
+        teams.remove(team);
     }
 
     public void deleteTeam(Team team) {
