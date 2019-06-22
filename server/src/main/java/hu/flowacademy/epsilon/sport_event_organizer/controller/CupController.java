@@ -48,6 +48,11 @@ public class CupController {
         return cupService.getAppliedTeams(cupName);
     }
 
+    @GetMapping("/{cupName}/approved")
+    public Set<Team> getApprovedTeams(@PathVariable String cupName) {
+        return cupService.getApprovedTeams(cupName);
+    }
+
     @PostMapping
     public ResponseEntity<Cup> createCup(@RequestBody Cup cup) {
         return ResponseEntity.ok(cupService.save(cup));
@@ -67,6 +72,18 @@ public class CupController {
     @PostMapping("/apply/{cupName}/{teamName}")
     public ResponseEntity<Void> applyTeam(@PathVariable String cupName, @PathVariable String teamName) {
         cupService.applyTeam(cupName, teamName);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/approve/{cupName}/{teamName}")
+    public ResponseEntity<Void> approveTeam(@PathVariable String cupName, @PathVariable String teamName) {
+        cupService.approveTeam(cupName, teamName);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/refuse/{cupName}/{teamName}")
+    public ResponseEntity<Void> refuseTeam(@PathVariable String cupName, @PathVariable String teamName) {
+        cupService.refuseTeam(cupName, teamName);
         return ResponseEntity.noContent().build();
     }
 

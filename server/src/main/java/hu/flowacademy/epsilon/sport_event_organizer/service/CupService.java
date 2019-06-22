@@ -92,13 +92,12 @@ public class CupService {
         Cup cup = cupRepository.findByName(cupName).orElseThrow(() -> new CupNotFoundException(cupName));
         Team team = teamService.getTeamByName(teamName);
         User currentUser = userService.getCurrentUser();
-        if (team.getLeaders().contains(currentUser) && !team.isDeleted()) {
+        if (team.getLeaders().contains(currentUser)) {
             cup.addTeam(team);
             team.addCup(cup);
             teamService.save(team);
             cupRepository.save(cup);
-        }
-        throw new UserUnauthorizedException();
+        } else { throw new UserUnauthorizedException(); }
     }
 
     public Set<Team> getAppliedTeams(String cupName) {
