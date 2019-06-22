@@ -1,6 +1,8 @@
 package hu.flowacademy.epsilon.sport_event_organizer.service;
 
 import hu.flowacademy.epsilon.sport_event_organizer.exception.CupNotFoundException;
+import hu.flowacademy.epsilon.sport_event_organizer.exception.UserForbidenException;
+import hu.flowacademy.epsilon.sport_event_organizer.exception.UserUnauthorizedException;
 import hu.flowacademy.epsilon.sport_event_organizer.model.Cup;
 import hu.flowacademy.epsilon.sport_event_organizer.model.Team;
 import hu.flowacademy.epsilon.sport_event_organizer.model.User;
@@ -19,6 +21,7 @@ import java.util.stream.Collectors;
 @Transactional
 @Slf4j
 public class CupService {
+
     @Autowired
     private CupRepository cupRepository;
 
@@ -83,6 +86,52 @@ public class CupService {
         List<Cup> cups = cupRepository.findByOrganizers(currentUser);
         cups.removeIf(Cup::isDeleted);
         return cups;
+    }
+
+    public void applyTeam(String cupName, String teamName) {
+        Cup cup = cupRepository.findByName(cupName).orElseThrow(() -> new CupNotFoundException(cupName));
+        Team team = teamService.getTeamByName(teamName);
+        User currentUser = userService.getCurrentUser();
+        if (team.getLeaders().contains(currentUser)) {
+            cup.addTeam(team);
+            team.addCup(cup);
+            teamService.save(team);
+            cupRepository.save(cup);
+        } else { throw new UserUnauthorizedException(); }
+    }
+
+    public Set<Team> getAppliedTeams(String cupName) {
+        Cup cup = cupRepository.findByName(cupName).orElseThrow(() -> new CupNotFoundException(cupName));
+        return cup.getTeams();
+    }
+
+    public void approveTeam(String cupName, String teamName) {
+        Cup cup = cupRepository.findByName(cupName).orElseThrow(() -> new CupNotFoundException(cupName));
+        Set<Team> teams = getAppliedTeams(cupName);
+        Team teamToApprove = teamService.getTeamByName(teamName);
+        User user = userService.getCurrentUser();
+        if (cup.getOrganizers().contains(user) && teams.contains(teamToApprove)) {
+            cup.approveTeam(teamToApprove);
+        }
+        log.error(teamToApprove.toString());
+        log.error(teams.toString());
+    }
+
+    public void refuseTeam(String cupName, String teamName) {
+        Cup cup = cupRepository.findByName(cupName).orElseThrow(() -> new CupNotFoundException(cupName));
+        Set<Team> teams = getAppliedTeams(cupName);
+        Team teamToRefuse = teamService.getTeamByName(teamName);
+        User user = userService.getCurrentUser();
+        if (cup.getOrganizers().contains(user) && teams.contains(teamToRefuse)) {
+            cup.denieTeam(teamToRefuse);
+        }
+        log.error(teamToRefuse.toString());
+        log.error(teams.toString());
+    }
+
+    public Set<Team> getApprovedTeams(String cupName) {
+        Cup cup = cupRepository.findByName(cupName).orElseThrow(() -> new CupNotFoundException(cupName));
+        return cup.getApproved();
     }
 
     public Set<User> putOrganizer(String googleName, String cupName) {

@@ -12,8 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.util.HashSet;
-import java.util.Set;
 
 @Component
 @Transactional
@@ -86,10 +84,22 @@ public class InitDataLoader implements CommandLineRunner {
         user.addCup(cup);
         team1.addCup(cup);
 
+        Cup cup2 = new Cup();
+        cup2.setName("test");
+        cup2.setCompany("Flow Academy");
+        cup2.setPlace("Hattyas");
+        cup2.setCourtCounter(1);
+        cup2.setDescription("n.a");
+        cup2.setDeleted(false);
+
+        user.addCup(cup2);
+        team2.addValidatedCup(cup2);
+
         sportRepository.save(sport);
         sportRepository.save(sport1);
         sportRepository.save(sport2);
         cupRepository.save(cup);
+        cupRepository.save(cup2);
         teamRepository.save(team1);
         teamRepository.save(team2);
         userRepository.save(user);

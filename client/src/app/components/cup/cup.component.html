@@ -1,4 +1,73 @@
-<body>
-  <p>Creat Cup</p>
-  <input type="text"> <button >Creat</button>
-</body>
+<body background="./assets/pictures/baseballgb.jpg">
+  <div *ngIf="state.user != null">
+    <input type="text" name="cupNameToDelete" [(ngModel)]="cupNameToDelete">
+    <a type="button" class="btn btn-primary createButton" (click)="onDeleteCup()">
+      {{ "DeleteCup" | translate }}
+    </a>
+  </div>
+  <div class="row margin-top padding-text-bottom">
+      <div class="col-sm-6 rounded background paddig-text-top">
+        <h1>{{ "Cups" | translate }}</h1>
+        <!-- table -->
+        <div class="search-div">
+            <div *ngIf="state.user != null">
+          <button mat-raised-button (click)="onCreateCup()"><mat-icon>add</mat-icon>{{ "CreateCup" | translate }}</button>
+          </div>
+            <mat-form-field class="search-form-field">
+            <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+            <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="searchClear()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+        <div class="mat-elevation-z8 padding-bottom-50">
+          <mat-table [dataSource]="listData" matSort>
+
+            <ng-container matColumnDef="name">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="company">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Company</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.company}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="endDateTime">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>endDateTime</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.endDateTime}}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="place">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>place</mat-header-cell>
+                  <mat-cell *matCellDef="let element">{{element.place}}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="registrationEndTime">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>registrationEndTime</mat-header-cell>
+                  <mat-cell *matCellDef="let element">{{element.registrationEndTime}}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="startDateTime">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>startDateTime</mat-header-cell>
+                  <mat-cell *matCellDef="let element">{{element.startDateTime}}</mat-cell>
+              </ng-container>
+
+            <ng-container matColumnDef="actions">
+                <!--<div *ngFor="let team of teamList"> 
+                    <div *ngFor="let leader of team.leaders"> -->
+              <mat-header-cell *matHeaderCellDef></mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                
+                <button mat-icon-button color="warn"><mat-icon>delete_outline</mat-icon></button>
+              
+              </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+          <mat-paginator [pageSizeOptions]="[5,10,15]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+  
+        </div>
+        <div id="snackbar">Some text some message..</div>
+    </div>

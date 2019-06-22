@@ -53,6 +53,9 @@ public class Cup {
     @ManyToMany(mappedBy = "cups")
     private Set<User> organizers = new HashSet<>();
 
+    @ManyToMany(mappedBy = "cups")
+    private Set<Team> approved = new HashSet<>();
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "sports_name", foreignKey = @ForeignKey(name = "fk_cups_sports"))
@@ -60,6 +63,15 @@ public class Cup {
 
     public void addTeam(Team team) {
         teams.add(team);
+    }
+
+    public void approveTeam(Team team) {
+        teams.remove(team);
+        approved.add(team);
+    }
+
+    public void denieTeam(Team team) {
+        teams.remove(team);
     }
 
     public void deleteTeam(Team team) {

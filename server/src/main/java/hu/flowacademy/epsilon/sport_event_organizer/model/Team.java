@@ -42,11 +42,26 @@ public class Team {
             inverseJoinColumns = @JoinColumn(name = "cups_name"))
     private Set<Cup> cups;
 
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(
+            name = "cups_approved",
+            joinColumns = @JoinColumn(name = "teams_name"),
+            inverseJoinColumns = @JoinColumn(name = "cups_name"))
+    private Set<Cup> validated;
+
     public void addCup(Cup cup) {
         if (cups == null) {
             this.cups = new HashSet<>();
         }
         cups.add(cup);
+    }
+
+    public void addValidatedCup(Cup cup) {
+        if (validated == null) {
+            this.validated = new HashSet<>();
+        }
+        validated.add(cup);
     }
 
     public void deleteCup(Cup cup) {
