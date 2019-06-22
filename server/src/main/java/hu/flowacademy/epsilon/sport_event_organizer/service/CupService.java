@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -84,6 +85,20 @@ public class CupService {
         cups.removeIf(Cup::isDeleted);
         return cups;
     }
+
+    public void applyTeam(String cupName, String teamName) {
+        Cup cup = cupRepository.findByName(cupName).orElseThrow(() -> new CupNotFoundException(cupName));
+        Team team = teamService.getTeamByName(teamName);
+        User currentUser = userService.getCurrentUser();
+        if (team.getLeaders().contains(currentUser) && !team.isDeleted()) {
+            cup.addTeam(team);
+            team.addCup(cup);
+            teamService.save(team);
+            cupRepository.save(cup);
+        }
+    }
+
+    //TODO list all applied teams
 
     public Set<User> putOrganizer(String googleName, String cupName) {
         User userToAdd = userService.findUserByGoogleName(googleName);
