@@ -35,5 +35,6 @@
   "CupName": "Kupa neve",
   "Place": "Helyszín",
   "RegistrationEndTime": "Jelentkezési határidő(?)",
-  "startDateTime": "Kupa kezdete(?)"
+  "startDateTime": "Kupa kezdete(?)",
+  "Cups": "Kupák"
 }

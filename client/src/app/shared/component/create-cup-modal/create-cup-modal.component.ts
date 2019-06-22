@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { CupControllerService, Cup } from 'src/app/api';
 
@@ -34,10 +34,18 @@ export class CreateCupModalComponent implements OnInit {
                 place: this.place, registrationEndTime: this.registrationEndTime, startDateTime: this.startDateTime};
     this.cupService.createCupUsingPOST(this.cup).subscribe(
       (data: any) => {
+        // Get the snackbar DIV
+        var x = document.getElementById("snackbar");
+
+        // Add the "show" class to DIV
+        x.className = "show";
+
+        // After 3 seconds, remove the show class from DIV
+        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+
         this.dialogRef.close(CreateCupModalComponent);
       }
-    )
-        
+    );
   }
 
 }

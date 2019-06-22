@@ -35,5 +35,6 @@
   "CupName": "Cup Name",
   "Place": "Place",
   "RegistrationEndTime": "RegistrationEndTime",
-  "startDateTime": "startDateTime"
+  "startDateTime": "startDateTime",
+  "Cups": "Cups"
 }
