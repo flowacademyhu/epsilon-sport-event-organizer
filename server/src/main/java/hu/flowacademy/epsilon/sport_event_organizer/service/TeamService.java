@@ -82,6 +82,7 @@ public class TeamService {
 //        Set<User> users = team.getMembers();
 //        users.removeIf(User::isDeleted);
 //        return users;
+        mailService.sendMailAddUserToTeamMember(userToAdd, team);
         return team;
     }
 
@@ -92,6 +93,7 @@ public class TeamService {
         userToRemove.deleteTeamMember(team);
         userService.save(userToRemove);
         team.deleteMember(userToRemove);
+        mailService.sendMailDeleteUserFromTeam(userToRemove, team);
 //        Set<User> users = team.getMembers();
 //        users.removeIf(User::isDeleted);
 //        return users;
@@ -115,6 +117,7 @@ public class TeamService {
         userToAdd.addTeamLeader(team);
         userService.save(userToAdd);
         team.addLeader(userToAdd);
+        mailService.sendMailAddUserToTeamLeader(userToAdd, team);
 //        Set<User> users = team.getLeaders();
 //        users.removeIf(User::isDeleted);
 //        return users;
@@ -127,6 +130,7 @@ public class TeamService {
         userToAdd.deleteTeamLeader(team);
         userService.save(userToAdd);
         team.deleteLeader(userToAdd);
+        mailService.sendMailDeleteUserFromTeam(userToAdd, team);
 //        Set<User> users = team.getLeaders();
 //        users.removeIf(user -> user.isDeleted());
 //        users.removeIf(User::isDeleted);
@@ -147,10 +151,8 @@ public class TeamService {
         user.setEmail(email);
         user.addTeamMember(team);
         userService.save(user);
-        mailService.sendMailAddGuestToTeam(email, teamLeader, teamName);
+        mailService.sendMailAddUserToTeamMember(user, team);
         team.addMember(user);
         return team;
     }
-
-
 }
