@@ -25,16 +25,12 @@
             <mat-cell *matCellDef="let element">{{element.company}}</mat-cell>
           </ng-container>
           <ng-container matColumnDef="actions">
-              <!-- <div *ngFor="let team of teamList"> 
-                  <div *ngFor="let leader of team.leaders"> -->
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef="let row">
               
-              <button mat-icon-button color="warn"><mat-icon>delete_outline</mat-icon></button>
+              <button mat-icon-button color="warn" *ngIf="findOutIsLeader()" status="available"><mat-icon>delete_outline</mat-icon></button>
             
             </mat-cell>
-         <!--  </div> 
-        </div> --> 
           </ng-container>
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
           <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
@@ -102,7 +98,7 @@
           </div>
         </div>
       </div>
-      <div *ngIf="isLeader">
+      <div *ngIf="findOutIsLeader()">
           <a type="button" class="btn btn-primary createButton" (click)="deleteTeam(team.name)">
               {{ "Delete" | translate }}
           </a>

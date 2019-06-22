@@ -4,6 +4,7 @@ import { MatDialog, MatDialogConfig, MatSort, MatTableDataSource, MatPaginator }
 import { CreateTeamModalComponent } from 'src/app/shared/component/create-team-modal/create-team-modal.component';
 import { AddMemberModalComponent } from 'src/app/shared/component/add-member-modal/add-member-modal.component';
 import { TeamControllerService, Team } from 'src/app/api';
+import { TeamStateService } from 'src/app/shared/service/team-state.service';
 
 @Component({
   selector: 'app-team',
@@ -24,6 +25,7 @@ export class TeamComponent implements OnInit {
 
   isLeader: boolean = false;
   isSearchPressed: boolean = false;
+  teamList: Team[];
   searchKey: string;
   listData: MatTableDataSource<any>;
   displayedColumns: string[] = ['name', 'company', 'actions'];
@@ -34,12 +36,14 @@ export class TeamComponent implements OnInit {
   constructor(
     private teamService: TeamControllerService,
     private state: AppStateService,
+    private teamState: TeamStateService,
     private dialog: MatDialog) { }
 
   ngOnInit() {
 
     this.teamService.getAllTeamsUsingGET().subscribe(
       teamlist => {
+        this.teamList = teamlist;
          const array = teamlist.map(
           item => {
             return {
@@ -62,6 +66,29 @@ export class TeamComponent implements OnInit {
   searchClear() {
     this.searchKey = '';
     this.applyFilter();
+  }
+
+  findOutIsLeader() {
+    console.log('metódus');
+    console.log(this.teamState.teams);
+    for ( let i = 0; i < this.teamState.teams.length; i++) {
+      console.log('első FOR CIKLUS');
+      for ( let k = 0; k < (<any>this.teamState.teams[i]).leaders.length; k++) {
+        console.log('true or false');
+        console.log((<any>this.teamState.teams[i]).leaders[k].googleName);
+        console.log(this.state.user.googleName);
+        if ((<any>this.teamState.teams[i]).leaders[k].googleName === this.state.user.googleName) {
+          console.log('true');
+          return true;
+
+        } else {
+          console.log('false');
+          return false;
+        }
+      }
+    }
+    console.log('false2');
+    return false;
   }
 
   onAdd() {
