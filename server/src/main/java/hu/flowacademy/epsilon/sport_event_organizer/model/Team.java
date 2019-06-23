@@ -28,6 +28,13 @@ public class Team {
     @Column
     private boolean isDeleted;
 
+    private int winnerCounter;
+
+    private String groupName;
+
+    private boolean isQualified;
+
+
     @ManyToMany(mappedBy = "teamMembers")
     private Set<User> users = new HashSet<>();
 
@@ -49,6 +56,7 @@ public class Team {
             joinColumns = @JoinColumn(name = "teams_name"),
             inverseJoinColumns = @JoinColumn(name = "cups_name"))
     private Set<Cup> validated;
+
 
     public void addCup(Cup cup) {
         if (cups == null) {
