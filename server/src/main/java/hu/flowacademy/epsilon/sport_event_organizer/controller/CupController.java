@@ -38,11 +38,6 @@ public class CupController {
         return cupService.getCupsByPlace(place);
     }
 
-    @GetMapping("/organizer")
-    public List<Cup> getCupByOrganizer() {
-        return cupService.getByCurrentOrganizer();
-    }
-
     @GetMapping("/my-cups")
     public List<Cup> getCupsByParticipation() {
         return cupService.getCupsByParticipation();
@@ -92,26 +87,25 @@ public class CupController {
         return cupService.getApprovedTeams(cupName);
     }
 
-    /*
-    @PutMapping("/organizer/{googleName}/{cupName}")
-    public Set<User> putOrganizer(@PathVariable String googleName, @PathVariable String cupName) {
-        return cupService.putOrganizer(googleName, cupName);
+    @GetMapping("/organizer")
+    public List<Cup> getCupByOrganizer() {
+        return cupService.getByCurrentOrganizer();
     }
 
-    @DeleteMapping("/organizer/{googleName}/{cupName}")
-    public Set<User> deleteOrganizer(@PathVariable String googleName, @PathVariable String cupName) {
-        return cupService.deleteOrganizer(googleName, cupName);
+    @GetMapping("/organizers/{cupName}")
+    public Set<User> getOrganizers(@PathVariable String cupName) {
+        return cupService.getOrganizers(cupName);
     }
 
-    @PutMapping("/team/{teamName}/{cupName}")
-    public Set<Team> putTeam(@PathVariable String teamName, @PathVariable String cupName) {
-        return cupService.putTeam(teamName, cupName);
+    @PostMapping("/organizers/add/{cupName}/{googleName}")
+    public ResponseEntity<Void> addOrganizer(@PathVariable String cupName, @PathVariable String googleName) {
+        cupService.addOrganizer(cupName, googleName);
+        return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/team/{teamName}/{cupName}")
-    public Set<Team> deleteTeam(@PathVariable String teamName, @PathVariable String cupName) {
-        return cupService.deleteTeam(teamName, cupName);
+    @PostMapping("/organizers/delete/{cupName}/{googleName}")
+    public ResponseEntity<Void> deleteOrganizer(@PathVariable String cupName, @PathVariable String googleName) {
+        cupService.deleteOrganizer(cupName, googleName);
+        return ResponseEntity.noContent().build();
     }
-
-     */
 }

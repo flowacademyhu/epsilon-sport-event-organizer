@@ -151,48 +151,34 @@ public class CupService {
         } else { throw new UserUnauthorizedException(); }
     }
 
-    public Set<User> putOrganizer(String googleName, String cupName) {
-        User userToAdd = userService.findUserByGoogleName(googleName);
+    public Set<User> getOrganizers(String cupName) {
         Cup cup = cupRepository.findByName(cupName).orElseThrow(() -> new CupNotFoundException(cupName));
-        userToAdd.addCup(cup);
-        userService.save(userToAdd);
-        Set<User> users = cup.getOrganizers();
-        users.removeIf(User::isDeleted);
-        return users;
+        return userService.findByCupOrganizers(cup);
     }
 
-    public Set<User> deleteOrganizer(String googleName, String cupName) {
-        User userToRemove = userService.findUserByGoogleName(googleName);
-        Cup cups = cupRepository.findByName(cupName).orElseThrow(() -> new CupNotFoundException(cupName));
-        userToRemove.deleteCup(cups);
-        userService.save(userToRemove);
-        Set<User> users = cups.getOrganizers();
-        users.removeIf(User::isDeleted);
-        if (users.size() == 1) {
-            throw new RuntimeException();
-            //TODO write a normal exception
-        }
-        return users;
+    public void addOrganizer(String cupName, String googleName) {
+        Cup cup = cupRepository.findByName(cupName).orElseThrow(() -> new CupNotFoundException(cupName));
+        User currentUser = userService.getCurrentUser();
+        User userToMakeOrganizer = userService.findUserByGoogleName(googleName);
+        if (getOrganizers(cupName).contains(currentUser) && !cup.isDeleted() && !userToMakeOrganizer.isDeleted() && !getOrganizers(cupName).contains(userToMakeOrganizer)) {
+            userToMakeOrganizer.addCup(cup); //elnevezés rossz, de valójában a kup szervezőkhöz adjuk hozzá, nem a kupához!
+            cup.addOrganizer(userToMakeOrganizer);
+            userService.save(userToMakeOrganizer);
+            update(cup);
+        } else { throw new UserUnauthorizedException(); }
     }
 
-    public Set<Team> putTeam(String teamName, String cupName) {
-        Team teamToAdd = teamService.getTeamByName(teamName);
+    public void deleteOrganizer(String cupName, String googleName) {
         Cup cup = cupRepository.findByName(cupName).orElseThrow(() -> new CupNotFoundException(cupName));
-        teamToAdd.addCup(cup);
-        teamService.save(teamToAdd);
-        Set<Team> teams = cup.getTeams();
-        teams.removeIf(Team::isDeleted);
-        return teams;
-    }
-
-    public Set<Team> deleteTeam(String teamName, String cupName) {
-        Team teamToRemove = teamService.getTeamByName(teamName);
-        Cup cup = cupRepository.findByName(cupName).orElseThrow(() -> new CupNotFoundException(cupName));
-        teamToRemove.deleteCup(cup);
-        teamService.save(teamToRemove);
-        Set<Team> teams = cup.getTeams();
-        teams.removeIf(Team::isDeleted);
-        return teams;
+        User currentUser = userService.getCurrentUser();
+        User userToDelete = userService.findUserByGoogleName(googleName);
+        int organizerCount = getOrganizers(cupName).size();
+        if (organizerCount > 1 && getOrganizers(cupName).contains(currentUser) && getOrganizers(cupName).contains(userToDelete)) {
+            userToDelete.deleteCup(cup); //itt is szervezőre értjük...
+            cup.deleteOrganizer(userToDelete);
+            userService.save(userToDelete);
+            update(cup);
+        } else { throw new UserUnauthorizedException(); }
     }
 
     public void deleteCupByName(String cupName) {
