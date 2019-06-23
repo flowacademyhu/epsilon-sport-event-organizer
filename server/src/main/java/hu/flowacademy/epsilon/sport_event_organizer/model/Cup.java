@@ -4,6 +4,7 @@ package hu.flowacademy.epsilon.sport_event_organizer.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,26 +14,31 @@ import java.util.Set;
 @Entity
 @Table(name = "cups")
 @Data
-@EqualsAndHashCode(exclude = {"isDeleted", "teams", "organizers", "sport"})
+@ToString(onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(exclude = {"isDeleted", "teams", "organizers", "approved", "sport"})
 public class Cup {
 
     @Id
     @Column(unique = true)
+    @ToString.Include
     private String name;
 
     @Column
+    @ToString.Include
     private String company;
 
     @Column
     private String imageUrl;
 
     @Column
+    @ToString.Include
     private String place;
 
     @Column
     private Integer courtCounter;
 
     @Column(columnDefinition = "TEXT")
+    @ToString.Include
     private String description;
 
     @Column

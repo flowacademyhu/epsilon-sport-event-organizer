@@ -6,6 +6,7 @@ import hu.flowacademy.epsilon.sport_event_organizer.model.Cup;
 import hu.flowacademy.epsilon.sport_event_organizer.model.Team;
 import hu.flowacademy.epsilon.sport_event_organizer.model.User;
 import hu.flowacademy.epsilon.sport_event_organizer.repository.CupRepository;
+import hu.flowacademy.epsilon.sport_event_organizer.repository.TeamRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,9 @@ public class CupService {
 
     @Autowired
     private CupRepository cupRepository;
+
+    @Autowired
+    private TeamRepository teamRepository;
 
     @Autowired
     private UserService userService;
@@ -104,14 +108,21 @@ public class CupService {
         if (team.getLeaders().contains(currentUser)) {
             cup.addTeam(team);
             team.addCup(cup);
-            teamService.save(team);
+            teamService.update(team);
             cupRepository.save(cup);
         } else { throw new UserUnauthorizedException(); }
     }
 
+
     public Set<Team> getAppliedTeams(String cupName) {
         Cup cup = cupRepository.findByName(cupName).orElseThrow(() -> new CupNotFoundException(cupName));
-        return cup.getTeams();
+        return teamRepository.findByCups(cup);
+    }
+
+
+    public Set<Team> getApprovedTeams(String cupName) {
+        Cup cup = cupRepository.findByName(cupName).orElseThrow(() -> new CupNotFoundException(cupName));
+        return teamRepository.findByValidatedCups(cup);
     }
 
     public void approveTeam(String cupName, String teamName) {
@@ -122,11 +133,9 @@ public class CupService {
         if (cup.getOrganizers().contains(user) && teams.contains(teamToApprove)) {
             cup.approveTeam(teamToApprove);
             teamToApprove.addValidatedCup(cup);
-            teamService.save(teamToApprove);
+            teamService.update(teamToApprove);
             cupRepository.save(cup);
-        }
-        log.error(teamToApprove.toString());
-        log.error(teams.toString());
+        } else { throw new UserUnauthorizedException(); }
     }
 
     public void refuseTeam(String cupName, String teamName) {
@@ -136,14 +145,10 @@ public class CupService {
         User user = userService.getCurrentUser();
         if (cup.getOrganizers().contains(user) && teams.contains(teamToRefuse)) {
             cup.refuseTeam(teamToRefuse);
-        }
-        log.error(teamToRefuse.toString());
-        log.error(teams.toString());
-    }
-
-    public Set<Team> getApprovedTeams(String cupName) {
-        Cup cup = cupRepository.findByName(cupName).orElseThrow(() -> new CupNotFoundException(cupName));
-        return cup.getApproved();
+            teamToRefuse.refusedCup(cup);
+            teamService.update(teamToRefuse);
+            cupRepository.save(cup);
+        } else { throw new UserUnauthorizedException(); }
     }
 
     public Set<User> putOrganizer(String googleName, String cupName) {

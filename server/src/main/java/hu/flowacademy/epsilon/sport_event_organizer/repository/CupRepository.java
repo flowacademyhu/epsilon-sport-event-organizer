@@ -27,4 +27,8 @@ public interface CupRepository extends JpaRepository<Cup, String> {
 
     List<Cup> findByCompany(String company);
 
+    Set<Cup> findByTeams(Team team);
+
+    Set<Cup> findByApproved(Team team);
+
 }
