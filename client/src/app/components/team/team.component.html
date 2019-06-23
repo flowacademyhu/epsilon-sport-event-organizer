@@ -15,7 +15,7 @@
         </mat-form-field>
       </div>
       <div class="mat-elevation-z8 padding-bottom-50">
-        <mat-table [dataSource]="listData" matSort>
+        <mat-table [dataSource]="listData" matSort multiTemplateDataRows>
           <ng-container matColumnDef="name">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
             <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
@@ -26,17 +26,64 @@
           </ng-container>
           <ng-container matColumnDef="actions">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
-            <mat-cell *matCellDef="let row">
+            <mat-cell *matCellDef="let row; let element">
               
-              <button mat-icon-button color="warn" *ngIf="findOutIsLeader()" status="available"><mat-icon>delete_outline</mat-icon></button>
+              <div *ngFor="let leader of element.leaders">
+                <div *ngIf="leader.googleName == state.user.googleName">
+                    <a (click)="onAdd(element.name)"><mat-icon>add_outline</mat-icon></a>
+                    <a *ngIf="element.leaders.length > 1" (click)="deleteTeam(element.name)"><mat-icon>delete_outline</mat-icon></a>
+                </div>
+              </div>
             
             </mat-cell>
           </ng-container>
+
+
+
+
+          <ng-container matColumnDef="expandedDetail">
+              <mat-cell class="example-element-row" *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+                <div class="example-element-detail"
+                     [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                <!--   <div class="example-element-description">
+                    {{element.description}}
+                    <span class="example-element-description-attribution"> -- Wikipedia </span> 
+                  </div>-->
+                Leaders: 
+                <div *ngFor="let leader of element.leaders">
+                  <div>{{ leader.googleName }}</div>
+                </div>
+                Members: 
+                <div *ngFor="let member of element.users">
+                  <div>{{ member.googleName }}, </div>
+                </div>
+                </div>
+              </mat-cell>
+            </ng-container>
+
+
+
+
+
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+
+
+
+          <mat-row *matRowDef="let element; columns: displayedColumns;"
+      class="example-element-row"
+      [class.example-expanded-row]="expandedElement === element"
+      (click)="expandedElement = expandedElement === element ? null : element">
+          </mat-row>
+  <mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></mat-row>
+
+
+
+
+
+         <!--  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> -->
         </mat-table>
         <mat-paginator [pageSizeOptions]="[5,10,15]" [pageSize]="5" showFirstLastButtons></mat-paginator>
-
       </div>
       <!-- table -->
     </div>
@@ -98,11 +145,11 @@
           </div>
         </div>
       </div>
-      <div *ngIf="findOutIsLeader()">
+      <div *ngIf="true">
           <a type="button" class="btn btn-primary createButton" (click)="deleteTeam(team.name)">
               {{ "Delete" | translate }}
           </a>
-          <a type="button" class="btn btn-primary createButton" (click)="onAdd()">
+          <a type="button" class="btn btn-primary createButton">
               {{ "Add" | translate }}
           </a>
       </div>

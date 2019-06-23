@@ -5,12 +5,22 @@ import { CreateTeamModalComponent } from 'src/app/shared/component/create-team-m
 import { AddMemberModalComponent } from 'src/app/shared/component/add-member-modal/add-member-modal.component';
 import { TeamControllerService, Team } from 'src/app/api';
 import { TeamStateService } from 'src/app/shared/service/team-state.service';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-team',
   templateUrl: './team.component.html',
-  styleUrls: ['./team.component.css']
+  styleUrls: ['./team.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
+
 export class TeamComponent implements OnInit {
 
   teamName: string = '';
@@ -29,6 +39,8 @@ export class TeamComponent implements OnInit {
   searchKey: string;
   listData: MatTableDataSource<any>;
   displayedColumns: string[] = ['name', 'company', 'actions'];
+
+  expandedElement: any | null;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -59,6 +71,7 @@ export class TeamComponent implements OnInit {
 
   }
 
+
   applyFilter() {
     this.listData.filter = this.searchKey.trim().toLowerCase();
   }
@@ -68,30 +81,8 @@ export class TeamComponent implements OnInit {
     this.applyFilter();
   }
 
-  findOutIsLeader() {
-    console.log('metódus');
-    console.log(this.teamState.teams);
-    for ( let i = 0; i < this.teamState.teams.length; i++) {
-      console.log('első FOR CIKLUS');
-      for ( let k = 0; k < (<any>this.teamState.teams[i]).leaders.length; k++) {
-        console.log('true or false');
-        console.log((<any>this.teamState.teams[i]).leaders[k].googleName);
-        console.log(this.state.user.googleName);
-        if ((<any>this.teamState.teams[i]).leaders[k].googleName === this.state.user.googleName) {
-          console.log('true');
-          return true;
-
-        } else {
-          console.log('false');
-          return false;
-        }
-      }
-    }
-    console.log('false2');
-    return false;
-  }
-
-  onAdd() {
+  onAdd(teamName: string) {
+    console.log(teamName);
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
