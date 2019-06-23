@@ -33,7 +33,7 @@ export class TeamComponent implements OnInit {
 
   constructor(
     private teamService: TeamControllerService,
-    private state: AppStateService,
+    public state: AppStateService,
     private dialog: MatDialog) { }
 
   ngOnInit() {
