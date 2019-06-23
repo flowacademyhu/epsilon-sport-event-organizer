@@ -3,29 +3,33 @@ package hu.flowacademy.epsilon.sport_event_organizer.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name = "teams")
 @Data
-@EqualsAndHashCode(exclude = {"users", "leaders", "cups", "isDeleted"})
+@ToString(onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(exclude = {"users", "leaders", "cups", "validatedCups", "isDeleted"})
 public class Team {
 
     @Id
     @Column(unique = true)
+    @ToString.Include
     private String name;
 
     @Column
+    @ToString.Include
     private String company;
 
     @Column
     private String imageUrl;
 
     @Column
+    @ToString.Include
     private boolean isDeleted;
 
     private int winnerCounter;
@@ -55,7 +59,7 @@ public class Team {
             name = "cups_approved",
             joinColumns = @JoinColumn(name = "teams_name"),
             inverseJoinColumns = @JoinColumn(name = "cups_name"))
-    private Set<Cup> validated;
+    private Set<Cup> validatedCups;
 
 
     public void addCup(Cup cup) {
@@ -66,10 +70,15 @@ public class Team {
     }
 
     public void addValidatedCup(Cup cup) {
-        if (validated == null) {
-            this.validated = new HashSet<>();
+        if (validatedCups == null) {
+            this.validatedCups = new HashSet<>();
         }
-        validated.add(cup);
+        validatedCups.add(cup);
+        deleteCup(cup);
+    }
+
+    public void refusedCup(Cup cup) {
+        cups.remove(cup);
     }
 
     public void deleteCup(Cup cup) {

@@ -14,7 +14,7 @@ export class CupComponent implements OnInit {
 
   constructor(
     private cupService: CupControllerService,
-    private state: AppStateService,
+    public state: AppStateService,
     private dialog: MatDialog) { }
 
   cupNameToDelete: string = '';

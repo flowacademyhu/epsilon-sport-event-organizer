@@ -1,5 +1,6 @@
 package hu.flowacademy.epsilon.sport_event_organizer.service;
 
+import hu.flowacademy.epsilon.sport_event_organizer.email.MailService;
 import hu.flowacademy.epsilon.sport_event_organizer.model.Team;
 import hu.flowacademy.epsilon.sport_event_organizer.model.User;
 import hu.flowacademy.epsilon.sport_event_organizer.repository.TeamRepository;
@@ -34,6 +35,9 @@ public class TeamServiceTest {
         public UserService userService() {
             return new UserService();
         }
+
+        @Bean
+        public MailService mailService() { return new MailService(); }
     }
 
     @Autowired
@@ -41,6 +45,9 @@ public class TeamServiceTest {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private MailService mailService;
 
     @MockBean
     private TeamRepository teamRepository;
