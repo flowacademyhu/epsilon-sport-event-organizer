@@ -1,0 +1,39 @@
+<h1 mat-dialog-title>{{ "CreatCup" | translate }}</h1>
+<div mat-dialog-content>
+  <p>{{ "CompanyName" | translate }}</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="companyNameToCreate">
+  </mat-form-field>
+  <p>{{ "CourtCounter" | translate }}</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="courtCounter">
+  </mat-form-field>
+  <p>{{ "Description" | translate }}</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="description">
+  </mat-form-field>
+</div>
+<p>{{ "EndDateTime" | translate }}</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="endDateTime">
+  </mat-form-field>
+  <p>{{ "CupName" | translate }}</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="cupNametoCreate">
+  </mat-form-field>
+  <p>{{ "Place" | translate }}</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="place">
+  </mat-form-field>
+  <p>{{ "RegistrationEndTime" | translate }}</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="registrationEndTime">
+  </mat-form-field>
+  <p>{{ "startDateTime" | translate }}</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="startDateTime">
+  </mat-form-field>
+<div mat-dialog-actions>
+  <button mat-button (click)="createCup()">{{ "Submit" | translate }}</button>
+  <button mat-button (click)="exit()" cdkFocusInitial>{{ "Cancel" | translate }}</button>
+</div>

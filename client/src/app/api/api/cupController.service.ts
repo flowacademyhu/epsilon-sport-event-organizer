@@ -19,6 +19,8 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 import { Cup } from '../model/cup';
+import { Team } from '../model/team';
+import { User } from '../model/user';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -55,6 +57,165 @@ export class CupControllerService {
         return false;
     }
 
+
+    /**
+     * addOrganizer
+     * 
+     * @param cupName cupName
+     * @param googleName googleName
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public addOrganizerUsingPOST(cupName: string, googleName: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public addOrganizerUsingPOST(cupName: string, googleName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public addOrganizerUsingPOST(cupName: string, googleName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public addOrganizerUsingPOST(cupName: string, googleName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (cupName === null || cupName === undefined) {
+            throw new Error('Required parameter cupName was null or undefined when calling addOrganizerUsingPOST.');
+        }
+
+        if (googleName === null || googleName === undefined) {
+            throw new Error('Required parameter googleName was null or undefined when calling addOrganizerUsingPOST.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+
+        return this.httpClient.post<any>(`${this.basePath}/cup/organizers/add/${encodeURIComponent(String(cupName))}/${encodeURIComponent(String(googleName))}`,
+            null,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * applyTeam
+     * 
+     * @param cupName cupName
+     * @param teamName teamName
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public applyTeamUsingPOST(cupName: string, teamName: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public applyTeamUsingPOST(cupName: string, teamName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public applyTeamUsingPOST(cupName: string, teamName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public applyTeamUsingPOST(cupName: string, teamName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (cupName === null || cupName === undefined) {
+            throw new Error('Required parameter cupName was null or undefined when calling applyTeamUsingPOST.');
+        }
+
+        if (teamName === null || teamName === undefined) {
+            throw new Error('Required parameter teamName was null or undefined when calling applyTeamUsingPOST.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+
+        return this.httpClient.post<any>(`${this.basePath}/cup/apply/${encodeURIComponent(String(cupName))}/${encodeURIComponent(String(teamName))}`,
+            null,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * approveTeam
+     * 
+     * @param cupName cupName
+     * @param teamName teamName
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public approveTeamUsingPOST(cupName: string, teamName: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public approveTeamUsingPOST(cupName: string, teamName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public approveTeamUsingPOST(cupName: string, teamName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public approveTeamUsingPOST(cupName: string, teamName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (cupName === null || cupName === undefined) {
+            throw new Error('Required parameter cupName was null or undefined when calling approveTeamUsingPOST.');
+        }
+
+        if (teamName === null || teamName === undefined) {
+            throw new Error('Required parameter teamName was null or undefined when calling approveTeamUsingPOST.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+
+        return this.httpClient.post<any>(`${this.basePath}/cup/approve/${encodeURIComponent(String(cupName))}/${encodeURIComponent(String(teamName))}`,
+            null,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
 
     /**
      * createCup
@@ -146,6 +307,59 @@ export class CupControllerService {
         ];
 
         return this.httpClient.delete<any>(`${this.basePath}/cup/${encodeURIComponent(String(name))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * deleteOrganizer
+     * 
+     * @param cupName cupName
+     * @param googleName googleName
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public deleteOrganizerUsingPOST(cupName: string, googleName: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public deleteOrganizerUsingPOST(cupName: string, googleName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public deleteOrganizerUsingPOST(cupName: string, googleName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public deleteOrganizerUsingPOST(cupName: string, googleName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (cupName === null || cupName === undefined) {
+            throw new Error('Required parameter cupName was null or undefined when calling deleteOrganizerUsingPOST.');
+        }
+
+        if (googleName === null || googleName === undefined) {
+            throw new Error('Required parameter googleName was null or undefined when calling deleteOrganizerUsingPOST.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+
+        return this.httpClient.post<any>(`${this.basePath}/cup/organizers/delete/${encodeURIComponent(String(cupName))}/${encodeURIComponent(String(googleName))}`,
+            null,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -292,6 +506,100 @@ export class CupControllerService {
     }
 
     /**
+     * getAppliedTeams
+     * 
+     * @param cupName cupName
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getAppliedTeamsUsingGET(cupName: string, observe?: 'body', reportProgress?: boolean): Observable<Array<Team>>;
+    public getAppliedTeamsUsingGET(cupName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Team>>>;
+    public getAppliedTeamsUsingGET(cupName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Team>>>;
+    public getAppliedTeamsUsingGET(cupName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (cupName === null || cupName === undefined) {
+            throw new Error('Required parameter cupName was null or undefined when calling getAppliedTeamsUsingGET.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+
+        return this.httpClient.get<Array<Team>>(`${this.basePath}/cup/${encodeURIComponent(String(cupName))}/applied`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * getApprovedTeams
+     * 
+     * @param cupName cupName
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getApprovedTeamsUsingGET(cupName: string, observe?: 'body', reportProgress?: boolean): Observable<Array<Team>>;
+    public getApprovedTeamsUsingGET(cupName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Team>>>;
+    public getApprovedTeamsUsingGET(cupName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Team>>>;
+    public getApprovedTeamsUsingGET(cupName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (cupName === null || cupName === undefined) {
+            throw new Error('Required parameter cupName was null or undefined when calling getApprovedTeamsUsingGET.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+
+        return this.httpClient.get<Array<Team>>(`${this.basePath}/cup/${encodeURIComponent(String(cupName))}/approved`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * getCupByName
      * 
      * @param name name
@@ -371,6 +679,148 @@ export class CupControllerService {
         ];
 
         return this.httpClient.get<Array<Cup>>(`${this.basePath}/cup/organizer`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * getCupsByParticipation
+     * 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getCupsByParticipationUsingGET(observe?: 'body', reportProgress?: boolean): Observable<Array<Cup>>;
+    public getCupsByParticipationUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Cup>>>;
+    public getCupsByParticipationUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Cup>>>;
+    public getCupsByParticipationUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+
+        return this.httpClient.get<Array<Cup>>(`${this.basePath}/cup/my-cups`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * getOrganizers
+     * 
+     * @param cupName cupName
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getOrganizersUsingGET(cupName: string, observe?: 'body', reportProgress?: boolean): Observable<Array<User>>;
+    public getOrganizersUsingGET(cupName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<User>>>;
+    public getOrganizersUsingGET(cupName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<User>>>;
+    public getOrganizersUsingGET(cupName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (cupName === null || cupName === undefined) {
+            throw new Error('Required parameter cupName was null or undefined when calling getOrganizersUsingGET.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+
+        return this.httpClient.get<Array<User>>(`${this.basePath}/cup/organizers/${encodeURIComponent(String(cupName))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * refuseTeam
+     * 
+     * @param cupName cupName
+     * @param teamName teamName
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public refuseTeamUsingPOST(cupName: string, teamName: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public refuseTeamUsingPOST(cupName: string, teamName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public refuseTeamUsingPOST(cupName: string, teamName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public refuseTeamUsingPOST(cupName: string, teamName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (cupName === null || cupName === undefined) {
+            throw new Error('Required parameter cupName was null or undefined when calling refuseTeamUsingPOST.');
+        }
+
+        if (teamName === null || teamName === undefined) {
+            throw new Error('Required parameter teamName was null or undefined when calling refuseTeamUsingPOST.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+
+        return this.httpClient.post<any>(`${this.basePath}/cup/refuse/${encodeURIComponent(String(cupName))}/${encodeURIComponent(String(teamName))}`,
+            null,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

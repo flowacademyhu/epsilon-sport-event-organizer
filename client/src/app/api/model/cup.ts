@@ -14,6 +14,7 @@ import { User } from './user';
 
 
 export interface Cup { 
+    approved?: Array<Team>;
     company?: string;
     courtCounter?: number;
     deleted?: boolean;
