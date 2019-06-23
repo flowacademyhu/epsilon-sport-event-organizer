@@ -27,5 +27,9 @@
   "LeaderName": "Leader Name",
   "DeleteLeader": "Delete Leader",
   "Cancel": "Cancel",
-  "Leadership": "Leadership"
+  "Leadership": "Leadership",
+  "Name": "Name",
+  "Leaders": "Leaders",
+  "Members": "Members"
+  
 }

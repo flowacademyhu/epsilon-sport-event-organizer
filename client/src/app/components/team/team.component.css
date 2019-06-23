@@ -46,7 +46,7 @@ table {
 } 
 
 mat-row.example-detail-row {
-  height: 0;
+  height: fit-content;
 }
 
 mat-row.example-element-row:not(.example-expanded-row):hover {
@@ -99,4 +99,8 @@ mat-row.example-element-row:not(.example-expanded-row):active {
 
 .disabled {
   visibility: hidden;
+}
+
+.padding-between-columns {
+  padding-right: 20px;
 }

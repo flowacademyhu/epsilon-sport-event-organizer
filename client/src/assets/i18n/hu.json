@@ -27,5 +27,9 @@
   "LeaderName": "Csapatvezető neve",
   "DeleteLeader": "Csapatvezető törlése",
   "Cancel": "Mégse",
-  "Leadership": "Csapatvezető"
+  "Leadership": "Csapatvezető",
+  "Name": "Név",
+  "Leaders": "Csapatkapitányok",
+  "Members": "Csapattagok"
+  
 }

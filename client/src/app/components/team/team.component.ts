@@ -7,6 +7,7 @@ import { TeamControllerService, Team } from 'src/app/api';
 import { TeamStateService } from 'src/app/shared/service/team-state.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Observable, of } from 'rxjs';
+import { RecentTeamService } from 'src/app/shared/service/recent-team.service';
 
 @Component({
   selector: 'app-team',
@@ -33,7 +34,6 @@ export class TeamComponent implements OnInit {
   teamNametoAdd: string = '';
   teamtoAddMember: Team;
 
-  isLeader: boolean = false;
   isSearchPressed: boolean = false;
   teamList: Team[];
   searchKey: string;
@@ -49,6 +49,7 @@ export class TeamComponent implements OnInit {
     private teamService: TeamControllerService,
     private state: AppStateService,
     private teamState: TeamStateService,
+    private recentTeam: RecentTeamService,
     private dialog: MatDialog) { }
 
   ngOnInit() {
@@ -81,8 +82,8 @@ export class TeamComponent implements OnInit {
     this.applyFilter();
   }
 
-  onAdd(teamName: string) {
-    console.log(teamName);
+  onAdd(team: Team) {
+    this.recentTeam.team = team;
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
@@ -99,7 +100,6 @@ export class TeamComponent implements OnInit {
   }
 
   deleteTeam(teamName: string) {
-    this.isLeader = false;
     this.teamService.deleteTeamUsingDELETE(teamName).subscribe(
       (data: any) => {
       }
@@ -123,12 +123,6 @@ export class TeamComponent implements OnInit {
         this.team = data;
         this.teamName = '';
         this.isSearchPressed = true;
-        this.isLeader = false;
-        for (let i = 0; i < data.leaders.length; i++) {
-            if (data.leaders[i].googleName == this.state.user.googleName) {
-              this.isLeader = true;
-            }
-        }
       }
     );
   }
@@ -150,20 +144,9 @@ export class TeamComponent implements OnInit {
   }
 
   deleteLeader(name: string, teamName: string) {
-    this.isLeader = false;
     this.teamService.deleteLeaderUsingDELETE(name, teamName).subscribe(
       (data: any) => {
-        for (let i = 0; i < data.leaders.length; i++) {
-          if (data.leaders[i].googleName == this.state.user.googleName) {
-            console.log('leader true');
-            this.isLeader = true;
-          } else {
-            console.log('leader false');
-            this.isLeader = false;
-          }
-        }
         this.team = data;
-        console.log(this.team);
       }
     );
   }

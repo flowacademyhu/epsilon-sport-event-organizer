@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { TeamControllerService } from 'src/app/api';
+import { RecentTeamService } from '../../service/recent-team.service';
 
 @Component({
   selector: 'app-add-member-modal',
@@ -14,7 +15,8 @@ export class AddMemberModalComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<AddMemberModalComponent>,
-    private teamService: TeamControllerService
+    private teamService: TeamControllerService,
+    private recentTeam: RecentTeamService
     ) { }
 
   ngOnInit() {
@@ -22,8 +24,8 @@ export class AddMemberModalComponent implements OnInit {
 
   add() {
     console.log('eteetetete');
-    console.log(this.teamName);
-    this.teamService.putMemberUsingPUT(this.memberNameToAdd, this.teamName).subscribe();
+    console.log(this.recentTeam.team.name);
+    this.teamService.putMemberUsingPUT(this.memberNameToAdd, this.recentTeam.team.name).subscribe();
     this.dialogRef.close(AddMemberModalComponent);
   }
 
