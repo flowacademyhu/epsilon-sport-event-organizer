@@ -34,7 +34,7 @@ body {
 /* Control the bottom side */
 .bottom {
   bottom: 0;
-  background-color: red;
+  /*background-color: red;*/
 }
 
 /* If you want the content centered horizontally and vertically */
@@ -72,7 +72,7 @@ body {
 /* Control the right side */
 .right {
   right: 0;
-  background-color: red;
+  /*background-color: red;*/
 }
 
 table td{

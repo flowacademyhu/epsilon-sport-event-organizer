@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AppStateService } from 'src/app/shared/service/app-state.service';
 import { User, TeamControllerService, CupControllerService } from 'src/app/api';
-import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
+import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatDialogConfig, } from '@angular/material';
 
 @Component({
   selector: 'app-profile',
@@ -18,10 +18,8 @@ export class ProfileComponent implements OnInit {
 
   teamsIAmLeaderIn: any[];
   teamsIAmMemberIn: any[];
-  cupsIAmOrganizerIn: any[];
-  cupsIAmParticipatedIn: any[];
   listCupData: MatTableDataSource<any>;
-  displayedCupColumns: string[] = ['name',  'company', 'endDateTime', 'place', 'registrationEndTime', 'startDateTime'];
+  displayedColumns: string[] = ['name',  'company', 'endDateTime', 'place'];
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -44,7 +42,22 @@ export class ProfileComponent implements OnInit {
       }
     );
 
-   //here comes cupService
+   this.cupService.getCupByOrganizerUsingGET().subscribe(
+     cuplist => {
+       const array = cuplist.map(
+         item => {
+           return {
+             $key: item.name,
+             ...item
+           };
+         }
+       );
+       console.log(cuplist);
+       this.listCupData = new MatTableDataSource(array);
+       this.listCupData.sort = this.sort;
+       this.listCupData.paginator = this.paginator;
+     }
+   );
   }
 
 }
