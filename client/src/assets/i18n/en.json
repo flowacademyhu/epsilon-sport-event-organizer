@@ -36,5 +36,9 @@
   "Place": "Place",
   "RegistrationEndTime": "RegistrationEndTime",
   "EventDate": "Event Date",
-  "SuccesfullyCreatedCup": "Succesfully created cup"
+  "SuccesfullyCreatedCup": "Succesfully created cup",
+  "Name": "Name",
+  "Company": "Company",
+  "RegistrationEndDate": "Registration end date",
+  "EventDate": "Event date"
 }
