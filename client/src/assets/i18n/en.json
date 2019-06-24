@@ -21,6 +21,8 @@
   "Add": "Add",
   "MemberName": "Member Name:",
   "CreateTeam": "Create Team",
+  "AddGuest": "Add Guest",
+  "GuestName": "Guest Name:",
   "AddMember": "Add Member",
   "DeleteMember": "Delete Member",
   "Delete": "Delete",
@@ -43,6 +45,7 @@
   "Yes": "Yes",
   "No": "No",
   "TeamDeleteConfirm": "Would you like to delete this team: ",
-  "MemberDeleteConfirm": "Would you like to remove: "
-  
+  "MemberDeleteConfirm": "Would you like to remove: ",
+  "EventDate": "Event Date",
+  "SuccesfullyCreatedCup": "Succesfully created cup"
 }

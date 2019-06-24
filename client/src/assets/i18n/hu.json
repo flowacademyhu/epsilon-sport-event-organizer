@@ -19,7 +19,9 @@
   "Search": "Keresés",
   "Submit": "Létrehoz",
   "Add": "Hozzáad",
-  "MemberName": "Csapattíg",
+  "AddGuest": "Vendég hozzáadása",
+  "GuestName": "Vendég neve",
+  "MemberName": "Csapattag",
   "CreateTeam": "Csapat létrehozása",
   "AddMember": "Csapattag hozáadása",
   "DeleteMember": "Csapattag törlése",
@@ -43,5 +45,7 @@
   "Yes": "Igen",
   "No": "Nem",
   "TeamDeleteConfirm": "Szeretné törölni ezt a csapatot: ",
-  "MemberDeleteConfirm": "Szeretné eltávolítani: "
+  "MemberDeleteConfirm": "Szeretné eltávolítani: ",
+  "EventDate": "Kupa kezdete",
+  "SuccesfullyCreatedCup": "Sikeresen létrehoztad a kupát!"
 }

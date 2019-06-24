@@ -24,13 +24,10 @@ import { ShowCupModalComponent } from './shared/component/show-cup-modal/show-cu
 import { CupComponent } from './components/cup/cup.component';
 import { KeysPipe } from './shared/pipe/keys.pipe';
 import { ApiModule, Configuration, ConfigurationParameters } from './api';
-<<<<<<< HEAD
 import { CreateCupModalComponent } from './shared/component/create-cup-modal/create-cup-modal.component';
-=======
 import { DeleteTeamConfirmComponent } from './shared/component/delete-team-confirm/delete-team-confirm.component';
 import { DeleteMemberConfirmComponent } from './shared/component/delete-member-confirm/delete-member-confirm.component';
 import { DeleteLeaderConfirmComponent } from './shared/component/delete-leader-confirm/delete-leader-confirm.component';
->>>>>>> feature/T40-teamUiRefreshBug
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -58,13 +55,10 @@ export function getConfig(): Configuration {
     ShowCupModalComponent,
     CupComponent,
     KeysPipe,
-<<<<<<< HEAD
-    CreateCupModalComponent
-=======
+    CreateCupModalComponent,
     DeleteTeamConfirmComponent,
     DeleteMemberConfirmComponent,
     DeleteLeaderConfirmComponent
->>>>>>> feature/T40-teamUiRefreshBug
   ],
   imports: [
     BrowserModule,
@@ -112,14 +106,11 @@ export function getConfig(): Configuration {
     CreateTeamModalComponent,
     ShowTeamModalComponent,
     AddMemberModalComponent,
-<<<<<<< HEAD
     CreateCupModalComponent,
-    ShowCupModalComponent
-=======
+    ShowCupModalComponent,
     DeleteTeamConfirmComponent,
     DeleteLeaderConfirmComponent,
     DeleteMemberConfirmComponent
->>>>>>> feature/T40-teamUiRefreshBug
   ]
 })
 export class AppModule { }
