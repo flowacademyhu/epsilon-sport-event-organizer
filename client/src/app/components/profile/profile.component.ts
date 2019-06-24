@@ -19,7 +19,7 @@ export class ProfileComponent implements OnInit {
   teamsIAmLeaderIn: any[];
   teamsIAmMemberIn: any[];
   listCupData: MatTableDataSource<any>;
-  displayedColumns: string[] = ['name',  'company', 'endDateTime', 'place'];
+  displayedColumns: string[] = ['name',  'company', 'place', 'registrationEndDate', 'eventDate'];
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -27,6 +27,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
 
     this.userDatas = this.state.user;
+    console.log(this.userDatas);
 
     this.teamService.getAllTeamsByLeaderUsingGET().subscribe(
       teams => {
