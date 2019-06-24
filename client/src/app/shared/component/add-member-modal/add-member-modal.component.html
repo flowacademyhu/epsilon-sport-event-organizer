@@ -1,0 +1,11 @@
+  <h1 mat-dialog-title>{{ "AddMember" | translate }}</h1>
+  <div mat-dialog-content>
+    <p>{{ "MemberName" | translate }}</p>
+    <mat-form-field>
+      <input matInput [(ngModel)]="memberNameToAdd">
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="add()">{{ "Add" | translate }}</button>
+    <button mat-button (click)="exit()" cdkFocusInitial>{{ "Cancel" | translate }}</button>
+  </div>

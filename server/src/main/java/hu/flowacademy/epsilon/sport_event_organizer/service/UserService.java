@@ -1,9 +1,11 @@
 package hu.flowacademy.epsilon.sport_event_organizer.service;
 
 import hu.flowacademy.epsilon.sport_event_organizer.exception.UserNotFoundException;
+import hu.flowacademy.epsilon.sport_event_organizer.model.Cup;
 import hu.flowacademy.epsilon.sport_event_organizer.model.User;
 import hu.flowacademy.epsilon.sport_event_organizer.repository.UserRepository;
 import hu.flowacademy.epsilon.sport_event_organizer.security.UserPrincipal;
+import org.elasticsearch.action.search.SearchTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -47,9 +50,10 @@ public class UserService {
     }
 
     public void deleteUserByGoogleName(String googleName) {
-//        User user = userRepository.findByGoogleName(googleName).orElseThrow(() -> new UserNotFoundException(googleName));
-//        user.setDeleted(true);
         userRepository.updateDelete(googleName, true);
     }
 
+    public Set<User> findByCupOrganizers(Cup cup) {
+        return userRepository.findByCups(cup);
+    }
 }

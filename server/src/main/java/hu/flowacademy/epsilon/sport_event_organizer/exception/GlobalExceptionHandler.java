@@ -37,5 +37,9 @@ public class GlobalExceptionHandler {
         return e.getMessage();
     }
 
+    @ResponseBody
+    @ExceptionHandler(UserUnauthorizedException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public String userunauthorizedHandler(UserUnauthorizedException e) { return e.getMessage(); }
 
 }
