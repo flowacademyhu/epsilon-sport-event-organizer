@@ -31,6 +31,9 @@
   "Leadership": "Csapatvezető",
   "Name": "Név",
   "Leaders": "Csapatkapitányok",
-  "Members": "Csapattagok"
-  
+  "Members": "Csapattagok",
+  "Yes": "Igen",
+  "No": "Nem",
+  "TeamDeleteConfirm": "Szeretné törölni ezt a csapatot: ",
+  "MemberDeleteConfirm": "Szeretné eltávolítani: "
 }

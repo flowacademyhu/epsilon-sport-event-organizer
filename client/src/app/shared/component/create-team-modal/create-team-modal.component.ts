@@ -25,13 +25,13 @@ export class CreateTeamModalComponent implements OnInit {
     this.team = {name: this.teamNameToCreate, company: this.companyNameToCreate};
     this.teamService.createTeamUsingPOST(this.team).subscribe(
       data => {
-        this.dialogRef.close(CreateTeamModalComponent);
+        this.dialogRef.close();
       }
     );
   }
 
   exit() {
-    this.dialogRef.close(CreateTeamModalComponent);
+    this.dialogRef.close();
   }
 
 }

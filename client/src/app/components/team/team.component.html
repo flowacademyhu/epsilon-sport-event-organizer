@@ -4,7 +4,7 @@
       <h1>{{ "Teams" | translate }}</h1>
       <!-- table -->
       <div class="search-div">
-          <div *ngIf="state.user != null">
+          <div *ngIf="(state.user$ | async) != null">
         <button mat-raised-button (click)="onCreate()"><mat-icon>add</mat-icon>{{ "CreateTeam" | translate }}</button>
         </div>
           <mat-form-field class="search-form-field">
@@ -30,7 +30,7 @@
               <div *ngFor="let leader of element.leaders">
                 <div *ngIf="leader.googleName == state.user.googleName">
                     <a style="cursor: pointer;" (click)="onAdd(element)"><mat-icon>add_outline</mat-icon></a>
-                    <a style="cursor: pointer;" (click)="deleteTeam(element.name)"><mat-icon>delete_outline</mat-icon></a>
+                    <a style="cursor: pointer;" (click)="deleteTeam(element)"><mat-icon>delete_outline</mat-icon></a>
                 </div>
               </div>
             </mat-cell>
@@ -48,7 +48,7 @@
                       src="../../../assets/pictures/deleteX.png"
                       alt="delete"
                       class="leaderButtons"
-                      (click)="deleteLeader(leader.googleName, element.name)"
+                      (click)="deleteLeader(leader, element)"
                       style="cursor: pointer;">
                   </div>
                 </div>
@@ -69,7 +69,7 @@
                           src="../../../assets/pictures/deleteX.png"
                           alt="delete"
                           class="memberButtons"
-                          (click)="deleteMember(member.googleName, element.name)"
+                          (click)="deleteMember(member, element)"
                           style="cursor: pointer;">
                   </div>
                 </div>

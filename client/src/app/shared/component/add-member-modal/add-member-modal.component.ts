@@ -1,7 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { Component, OnInit, Input, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { TeamControllerService } from 'src/app/api';
-import { RecentTeamService } from '../../service/recent-team.service';
 
 @Component({
   selector: 'app-add-member-modal',
@@ -11,20 +10,24 @@ import { RecentTeamService } from '../../service/recent-team.service';
 export class AddMemberModalComponent implements OnInit {
 
   memberNameToAdd: string = '';
-  teamName: string;
+  guestNameToAdd: string = '';
 
   constructor(
     public dialogRef: MatDialogRef<AddMemberModalComponent>,
     private teamService: TeamControllerService,
-    private recentTeam: RecentTeamService
+    @Inject(MAT_DIALOG_DATA) public data: any
     ) { }
 
   ngOnInit() {
   }
 
   add() {
-    this.teamService.putMemberUsingPUT(this.memberNameToAdd, this.recentTeam.team.name).subscribe();
+    this.teamService.putMemberUsingPUT(this.memberNameToAdd, this.data.team.name).subscribe();
     this.dialogRef.close(AddMemberModalComponent);
+  }
+
+  addGuest() {
+  //guest here
   }
 
   exit() {
