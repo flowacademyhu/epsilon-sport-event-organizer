@@ -1,10 +1,10 @@
-<body background="./assets/pictures/baseballgb.jpg">
+<body background="./assets/pictures/ballsBg.jpg">
   <div class="margin-top padding-text-bottom">
-    <div class="col-sm-10 rounded background paddig-text-top">
+    <div class="col-sm-10 rounded background paddig-text-top margin-bottom-200">
       <h1>{{ "Teams" | translate }}</h1>
       <!-- table -->
       <div class="search-div">
-          <div *ngIf="state.user != null">
+          <div *ngIf="(state.user$ | async) != null">
         <button mat-raised-button (click)="onCreate()"><mat-icon>add</mat-icon>{{ "CreateTeam" | translate }}</button>
         </div>
           <mat-form-field class="search-form-field">
@@ -30,7 +30,7 @@
               <div *ngFor="let leader of element.leaders">
                 <div *ngIf="leader.googleName == state.user.googleName">
                     <a style="cursor: pointer;" (click)="onAdd(element)"><mat-icon>add_outline</mat-icon></a>
-                    <a style="cursor: pointer;" (click)="deleteTeam(element.name)"><mat-icon>delete_outline</mat-icon></a>
+                    <a style="cursor: pointer;" (click)="deleteTeam(element)"><mat-icon>delete_outline</mat-icon></a>
                 </div>
               </div>
             </mat-cell>
@@ -47,8 +47,8 @@
                     <img *ngIf="element.leaders.length > 1"
                       src="../../../assets/pictures/deleteX.png"
                       alt="delete"
-                      class="xbuttons"
-                      (click)="deleteLeader(leader.googleName, element.name)"
+                      class="leaderButtons"
+                      (click)="deleteLeader(leader, element)"
                       style="cursor: pointer;">
                   </div>
                 </div>
@@ -61,15 +61,15 @@
                   <div *ngIf="leader.googleName === state.user.googleName">
                   <img
                           alt="promote"
-                          class="xbuttons"
+                          class="memberButtons"
                           (click)="promoteMember(member.googleName, element.name)"
                           src="../../../assets/pictures/promoteMember.png"
                           style="cursor: pointer;">   
                       <img
                           src="../../../assets/pictures/deleteX.png"
                           alt="delete"
-                          class="xbuttons"
-                          (click)="deleteMember(member.googleName, element.name)"
+                          class="memberButtons"
+                          (click)="deleteMember(member, element)"
                           style="cursor: pointer;">
                   </div>
                 </div>

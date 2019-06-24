@@ -3,11 +3,12 @@ import { AppStateService } from 'src/app/shared/service/app-state.service';
 import { MatDialog, MatDialogConfig, MatSort, MatTableDataSource, MatPaginator } from '@angular/material';
 import { CreateTeamModalComponent } from 'src/app/shared/component/create-team-modal/create-team-modal.component';
 import { AddMemberModalComponent } from 'src/app/shared/component/add-member-modal/add-member-modal.component';
-import { TeamControllerService, Team } from 'src/app/api';
+import { TeamControllerService, Team, User } from 'src/app/api';
 import { TeamStateService } from 'src/app/shared/service/team-state.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { Observable, of } from 'rxjs';
-import { RecentTeamService } from 'src/app/shared/service/recent-team.service';
+import { DeleteTeamConfirmComponent } from 'src/app/shared/component/delete-team-confirm/delete-team-confirm.component';
+import { DeleteMemberConfirmComponent } from 'src/app/shared/component/delete-member-confirm/delete-member-confirm.component';
+import { DeleteLeaderConfirmComponent } from 'src/app/shared/component/delete-leader-confirm/delete-leader-confirm.component';
 
 @Component({
   selector: 'app-team',
@@ -47,13 +48,15 @@ export class TeamComponent implements OnInit {
 
   constructor(
     private teamService: TeamControllerService,
-    private state: AppStateService,
-    private teamState: TeamStateService,
-    private recentTeam: RecentTeamService,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog,
+    private state: AppStateService
+    ) { }
 
   ngOnInit() {
+    this.getData();
+  }
 
+  getData() {
     this.teamService.getAllTeamsUsingGET().subscribe(
       teamlist => {
         this.teamList = teamlist;
@@ -69,7 +72,6 @@ export class TeamComponent implements OnInit {
         this.listData.paginator = this.paginator;
       }
     );
-
   }
 
 
@@ -83,12 +85,16 @@ export class TeamComponent implements OnInit {
   }
 
   onAdd(team: Team) {
-    this.recentTeam.team = team;
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '60%';
-    this.dialog.open(AddMemberModalComponent, dialogConfig);
+    dialogConfig.data = {team: team};
+    this.dialog.open(AddMemberModalComponent, dialogConfig).afterClosed().subscribe(
+      result => {
+        this.getData();
+      }
+    );
   }
 
   onCreate() {
@@ -96,12 +102,22 @@ export class TeamComponent implements OnInit {
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '60%';
-    this.dialog.open(CreateTeamModalComponent, dialogConfig);
+    this.dialog.open(CreateTeamModalComponent, dialogConfig).afterClosed().subscribe(
+      result => {
+        this.getData();
+      }
+    );
   }
 
-  deleteTeam(teamName: string) {
-    this.teamService.deleteTeamUsingDELETE(teamName).subscribe(
-      (data: any) => {
+  deleteTeam(team: Team) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '40%';
+    dialogConfig.data = {team: team};
+    this.dialog.open(DeleteTeamConfirmComponent, dialogConfig).afterClosed().subscribe(
+      result => {
+        this.getData();
       }
     );
   }
@@ -114,6 +130,7 @@ export class TeamComponent implements OnInit {
         this.teamNametoAdd = '';
       }
     );
+    this.getData();
   }
 
   getByTeamName() {
@@ -133,20 +150,31 @@ export class TeamComponent implements OnInit {
         this.team.leaders = data.leaders;
       }
     );
+    this.getData();
   }
 
-  deleteMember(googleName: string, teamName: string) {
-    this.teamService.deleteMemberUsingDELETE(googleName, teamName).subscribe(
-      (data: any) => {
-        this.team = data;
+  deleteMember(member: User, team: Team) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '40%';
+    dialogConfig.data = {member: member, team: team};
+    this.dialog.open(DeleteMemberConfirmComponent, dialogConfig).afterClosed().subscribe(
+      result => {
+        this.getData();
       }
     );
   }
 
-  deleteLeader(name: string, teamName: string) {
-    this.teamService.deleteLeaderUsingDELETE(name, teamName).subscribe(
-      (data: any) => {
-        this.team = data;
+  deleteLeader(leader: User, team: Team) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '40%';
+    dialogConfig.data = {leader: leader, team: team};
+    this.dialog.open(DeleteLeaderConfirmComponent, dialogConfig).afterClosed().subscribe(
+      result => {
+        this.getData();
       }
     );
   }

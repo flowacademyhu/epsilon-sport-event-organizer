@@ -1,4 +1,5 @@
 {
+  "Welcome": "Welcome to Sport Event Organizer!",
   "Home": "Home",
   "Teams": "Teams",
   "Cups": "Cups",
@@ -38,6 +39,10 @@
   "startDateTime": "startDateTime",
   "Name": "Name",
   "Leaders": "Leaders",
-  "Members": "Members"
+  "Members": "Members",
+  "Yes": "Yes",
+  "No": "No",
+  "TeamDeleteConfirm": "Would you like to delete this team: ",
+  "MemberDeleteConfirm": "Would you like to remove: "
   
 }

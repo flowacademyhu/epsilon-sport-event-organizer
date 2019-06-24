@@ -1,4 +1,5 @@
 {
+  "Welcome": "Üdvözlünk a Sport Event Organizer oldalán!",
   "Home": "Főoldal",
   "Teams": "Csapatok",
   "Cups": "Kupák",
@@ -38,6 +39,9 @@
   "startDateTime": "Kupa kezdete(?)",
   "Name": "Név",
   "Leaders": "Csapatkapitányok",
-  "Members": "Csapattagok"
-  
+  "Members": "Csapattagok",
+  "Yes": "Igen",
+  "No": "Nem",
+  "TeamDeleteConfirm": "Szeretné törölni ezt a csapatot: ",
+  "MemberDeleteConfirm": "Szeretné eltávolítani: "
 }
