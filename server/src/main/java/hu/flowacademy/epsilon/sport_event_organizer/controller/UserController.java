@@ -33,23 +33,23 @@ public class UserController {
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
     }
 
-    @DeleteMapping("/delete/{googleName}")
+    @DeleteMapping("/{googleName}")
     public ResponseEntity<Void> deleteUser(@PathVariable String googleName) {
         userService.deleteUserByGoogleName(googleName);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/get-current")
-    public ResponseEntity<User> getUserById() {
+    @GetMapping
+    public ResponseEntity<User> getCurrentUser() {
         return ResponseEntity.ok(userService.getCurrentUser());
     }
 
-    @PutMapping("/update")
+    @PutMapping
     public ResponseEntity<User> updateUser(@RequestBody User user) {
         return ResponseEntity.ok(userService.save(user));
     }
 
-    @GetMapping("/get/{googleName}")
+    @GetMapping("/{googleName}")
     public ResponseEntity<User> getByGoogleName(@PathVariable String googleName) {
         return ResponseEntity.ok(userService.findUserByGoogleName(googleName));
     }

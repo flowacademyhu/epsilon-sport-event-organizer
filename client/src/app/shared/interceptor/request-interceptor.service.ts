@@ -8,7 +8,6 @@ export class RequestInterceptorService implements HttpInterceptor {
   constructor() { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
      if (localStorage.getItem('token')) {
       req = req.clone({
         setHeaders: {

@@ -3,8 +3,9 @@ package hu.flowacademy.epsilon.sport_event_organizer.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
-
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -19,6 +20,8 @@ import javax.validation.constraints.NotNull;
         @UniqueConstraint(columnNames = "email")
 })
 @Data
+@ToString(onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(exclude = {"teamMembers", "teamLeaders", "cups", "isDeleted"})
 public class User {
 
     @Id
@@ -27,10 +30,12 @@ public class User {
     private UUID id;
 
     @Column(unique = true)
+    @ToString.Include
     private String googleName;
 
     @Email
     @Column
+    @ToString.Include
     private String email;
 
     @Column
@@ -47,12 +52,14 @@ public class User {
     private AuthProvider provider;
 
     @Column
+    @ToString.Include
     private String companyName;
 
     @Column(columnDefinition = "TEXT")
     private String accessToken;
 
     @Column
+    @ToString.Include
     private boolean isDeleted;
 
     @JsonIgnore
