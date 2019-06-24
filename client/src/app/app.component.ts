@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AppStateService } from './shared/service/app-state.service';
 import { ActivatedRoute } from '@angular/router';
-import { UserControllerService } from './api';
+import { UserControllerService, TeamControllerService } from './api';
+import { TeamStateService } from './shared/service/team-state.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,9 @@ export class AppComponent implements OnInit {
   constructor(
     private activateRoute: ActivatedRoute,
     private userService: UserControllerService,
-    private appStateService: AppStateService
+    private appStateService: AppStateService,
+    private teamService: TeamControllerService,
+    private teamStateService: TeamStateService
   ) {
   }
 
@@ -31,5 +34,11 @@ export class AppComponent implements OnInit {
       );
     }
   });
+
+  this.teamService.getAllTeamsUsingGET().subscribe(
+    teams => {
+      this.teamStateService.teams.push(...teams);
+    }
+  );
   }
 }

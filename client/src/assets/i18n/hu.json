@@ -36,5 +36,5 @@
   "Place": "Helyszín",
   "RegistrationEndTime": "Jelentkezési határidő(?)",
   "startDateTime": "Kupa kezdete(?)",
-  "Cups": "Kupák"
+  "SuccesfullyCreatedCup": "Sikeresen létrehoztad a kupát!"
 }

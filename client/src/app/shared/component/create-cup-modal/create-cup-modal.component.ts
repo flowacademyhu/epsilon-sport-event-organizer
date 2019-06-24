@@ -21,9 +21,11 @@ export class CreateCupModalComponent implements OnInit {
     imageUrl: string;
     cupNametoCreate: string = '';
     place: string = '';
-    registrationEndTime: Date;
-    startDateTime: Date;
+    registrationEndTime: Date;  
+    startDateTime: any;
     cup: Cup;
+    datum: any;
+    
 
   ngOnInit() {
   }
@@ -34,6 +36,9 @@ export class CreateCupModalComponent implements OnInit {
                 place: this.place, registrationEndTime: this.registrationEndTime, startDateTime: this.startDateTime};
     this.cupService.createCupUsingPOST(this.cup).subscribe(
       (data: any) => {
+       this.datum = this.registrationEndTime.getDate;
+console.log(this.datum);
+
         // Get the snackbar DIV
         var x = document.getElementById("snackbar");
 

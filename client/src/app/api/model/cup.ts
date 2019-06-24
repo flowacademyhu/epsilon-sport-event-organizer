@@ -25,6 +25,6 @@ export interface Cup {
     organizers?: Array<User>;
     place?: string;
     registrationEndTime?: Date;
-    startDateTime?: Date;
+    startDateTime?: any;
     teams?: Array<Team>;
 }
