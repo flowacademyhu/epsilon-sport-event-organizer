@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AppStateService } from 'src/app/shared/service/app-state.service';
-import { User, TeamControllerService } from 'src/app/api';
+import { User, TeamControllerService, CupControllerService } from 'src/app/api';
+import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 
 @Component({
   selector: 'app-profile',
@@ -10,12 +11,20 @@ import { User, TeamControllerService } from 'src/app/api';
 export class ProfileComponent implements OnInit {
 
   constructor(private state: AppStateService,
-              private teamService: TeamControllerService) { }
+              private teamService: TeamControllerService,
+              private cupService: CupControllerService) { }
 
   userDatas: User;
 
   teamsIAmLeaderIn: any[];
   teamsIAmMemberIn: any[];
+  cupsIAmOrganizerIn: any[];
+  cupsIAmParticipatedIn: any[];
+  listCupData: MatTableDataSource<any>;
+  displayedCupColumns: string[] = ['name',  'company', 'endDateTime', 'place', 'registrationEndTime', 'startDateTime'];
+
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngOnInit() {
 
@@ -34,6 +43,8 @@ export class ProfileComponent implements OnInit {
         console.log(this.teamsIAmMemberIn);
       }
     );
+
+   //here comes cupService
   }
 
 }
