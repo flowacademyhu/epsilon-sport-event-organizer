@@ -38,6 +38,7 @@
   "startDateTime": "Kupa kezdete(?)",
   "Name": "Név",
   "Leaders": "Csapatkapitányok",
-  "Members": "Csapattagok"
-  
+  "Members": "Csapattagok",
+  "EventDate": "Kupa kezdete",
+  "SuccesfullyCreatedCup": "Sikeresen létrehoztad a kupát!"
 }

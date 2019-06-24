@@ -13,10 +13,7 @@
     <input matInput [(ngModel)]="description">
   </mat-form-field>
 </div>
-<p>{{ "EndDateTime" | translate }}</p>
-  <mat-form-field>
-    <input matInput [(ngModel)]="endDateTime">
-  </mat-form-field>
+
   <p>{{ "CupName" | translate }}</p>
   <mat-form-field>
     <input matInput [(ngModel)]="cupNametoCreate">
@@ -25,13 +22,17 @@
   <mat-form-field>
     <input matInput [(ngModel)]="place">
   </mat-form-field>
-  <p>{{ "RegistrationEndTime" | translate }}</p>
+  <p>{{ "RegistrationEnd" | translate }}</p>
   <mat-form-field>
-    <input matInput [(ngModel)]="registrationEndTime">
+    <input matInput [(ngModel)]="registrationEndDate" [matDatepicker]="myDatepickere">
+    <mat-datepicker-toggle matSuffix [for]="myDatepickere"></mat-datepicker-toggle>
+    <mat-datepicker #myDatepickere></mat-datepicker>
   </mat-form-field>
-  <p>{{ "startDateTime" | translate }}</p>
+  <p>{{ "EventDate" | translate }}</p>
   <mat-form-field>
-    <input matInput [(ngModel)]="startDateTime">
+    <input matInput [(ngModel)]="eventDate" [matDatepicker]="myDatepicker">
+    <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+    <mat-datepicker #myDatepicker></mat-datepicker>
   </mat-form-field>
 <div mat-dialog-actions>
   <button mat-button (click)="createCup()">{{ "Submit" | translate }}</button>

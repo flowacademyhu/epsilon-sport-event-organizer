@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AppStateService } from 'src/app/shared/service/app-state.service';
 import { MatDialog, MatDialogConfig, MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
-import { CupControllerService } from 'src/app/api';
+import { CupControllerService, TeamControllerService, Team } from 'src/app/api';
 import { CreateCupModalComponent } from 'src/app/shared/component/create-cup-modal/create-cup-modal.component';
+import { TeamStateService } from 'src/app/shared/service/team-state.service';
 
 
 @Component({
@@ -14,8 +15,11 @@ export class CupComponent implements OnInit {
 
   constructor(
     private cupService: CupControllerService,
-    public state: AppStateService,
-    private dialog: MatDialog) { }
+    private state: AppStateService,
+    private dialog: MatDialog,
+    private teamStateService: TeamStateService,
+    private teamService: TeamControllerService
+    ) { }
 
   cupNameToDelete: string = '';
 
@@ -23,7 +27,8 @@ export class CupComponent implements OnInit {
   isSearchPressed: boolean = false;
   searchKey: string;
   listData: MatTableDataSource<any>;
-  displayedColumns: string[] = ['name',  'company', 'endDateTime', 'place', 'registrationEndTime', 'startDateTime']
+  displayedColumns: string[] = ['name',  'company', 'place', 'registrationEndDate', 'eventDate', 'actionsa']
+  teams: Team;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -46,6 +51,14 @@ export class CupComponent implements OnInit {
       }
     );
 
+        this.teamService.getAllTeamsUsingGET().subscribe(
+          (teams: any) => {
+            this.teamStateService.teams = teams;
+            this.teams = teams;
+          }
+      );
+
+
   }
 
 
@@ -62,7 +75,7 @@ export class CupComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '20%';
+    dialogConfig.width = '40%';
     dialogConfig.height = '80%';
     this.dialog.open(CreateCupModalComponent, dialogConfig);
   }

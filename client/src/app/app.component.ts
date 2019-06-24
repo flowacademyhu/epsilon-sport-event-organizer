@@ -16,8 +16,8 @@ export class AppComponent implements OnInit {
   constructor(
     private activateRoute: ActivatedRoute,
     private userService: UserControllerService,
-    private teamService: TeamControllerService,
     private appStateService: AppStateService,
+    private teamService: TeamControllerService,
     private teamStateService: TeamStateService
   ) {
   }

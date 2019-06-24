@@ -38,6 +38,7 @@
   "startDateTime": "startDateTime",
   "Name": "Name",
   "Leaders": "Leaders",
-  "Members": "Members"
-  
+  "Members": "Members",
+  "EventDate": "Event Date",
+  "SuccesfullyCreatedCup": "Succesfully created cup"
 }

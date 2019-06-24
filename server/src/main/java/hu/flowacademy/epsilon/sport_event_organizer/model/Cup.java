@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -45,13 +45,10 @@ public class Cup {
     private boolean isDeleted;
 
     @Column
-    private LocalDateTime startDateTime;
+    private LocalDate eventDate;
 
     @Column
-    private LocalDateTime endDateTime;
-
-    @Column
-    private LocalDateTime registrationEndTime;
+    private LocalDate registrationEndDate;
 
     @ManyToMany(mappedBy = "cups")
     private Set<Team> teams = new HashSet<>();
@@ -66,6 +63,9 @@ public class Cup {
     @ManyToOne
     @JoinColumn(name = "sports_name", foreignKey = @ForeignKey(name = "fk_cups_sports"))
     private Sport sport;
+
+    @OneToMany(mappedBy = "cup")
+    private Set<Match> matches = new HashSet<>();
 
     public void addTeam(Team team) {
         teams.add(team);

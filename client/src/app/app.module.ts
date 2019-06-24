@@ -25,6 +25,8 @@ import { CupComponent } from './components/cup/cup.component';
 import { KeysPipe } from './shared/pipe/keys.pipe';
 import { ApiModule, Configuration, ConfigurationParameters } from './api';
 import { CreateCupModalComponent } from './shared/component/create-cup-modal/create-cup-modal.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -69,6 +71,8 @@ export function getConfig(): Configuration {
     MatIconModule,
     BrowserAnimationsModule,
     ApiModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     ApiModule.forRoot(getConfig),
     TranslateModule.forRoot({
       loader: {
@@ -83,7 +87,8 @@ export function getConfig(): Configuration {
       provide: HTTP_INTERCEPTORS,
       useClass: RequestInterceptorService,
       multi: true
-    }
+    },
+    MatDatepickerModule
 ],
   bootstrap: [AppComponent],
   exports: [
