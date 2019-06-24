@@ -3,6 +3,7 @@ package hu.flowacademy.epsilon.sport_event_organizer.service;
 import hu.flowacademy.epsilon.sport_event_organizer.exception.CupNotFoundException;
 import hu.flowacademy.epsilon.sport_event_organizer.exception.UserUnauthorizedException;
 import hu.flowacademy.epsilon.sport_event_organizer.model.Cup;
+import hu.flowacademy.epsilon.sport_event_organizer.model.Match;
 import hu.flowacademy.epsilon.sport_event_organizer.model.Team;
 import hu.flowacademy.epsilon.sport_event_organizer.model.User;
 import hu.flowacademy.epsilon.sport_event_organizer.repository.CupRepository;
@@ -12,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -110,7 +113,9 @@ public class CupService {
             team.addCup(cup);
             teamService.update(team);
             cupRepository.save(cup);
-        } else { throw new UserUnauthorizedException(); }
+        } else {
+            throw new UserUnauthorizedException();
+        }
     }
 
 
@@ -184,4 +189,6 @@ public class CupService {
     public void deleteCupByName(String cupName) {
         cupRepository.updateDelete(cupName, true);
     }
+
+
 }
