@@ -4,12 +4,24 @@ import { MatDialog, MatDialogConfig, MatSort, MatTableDataSource, MatPaginator }
 import { CreateTeamModalComponent } from 'src/app/shared/component/create-team-modal/create-team-modal.component';
 import { AddMemberModalComponent } from 'src/app/shared/component/add-member-modal/add-member-modal.component';
 import { TeamControllerService, Team } from 'src/app/api';
+import { TeamStateService } from 'src/app/shared/service/team-state.service';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { Observable, of } from 'rxjs';
+import { RecentTeamService } from 'src/app/shared/service/recent-team.service';
 
 @Component({
   selector: 'app-team',
   templateUrl: './team.component.html',
-  styleUrls: ['./team.component.css']
+  styleUrls: ['./team.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
+
 export class TeamComponent implements OnInit {
 
   teamName: string = '';
@@ -22,24 +34,29 @@ export class TeamComponent implements OnInit {
   teamNametoAdd: string = '';
   teamtoAddMember: Team;
 
-  isLeader: boolean = false;
   isSearchPressed: boolean = false;
+  teamList: Team[];
   searchKey: string;
   listData: MatTableDataSource<any>;
   displayedColumns: string[] = ['name', 'company', 'actions'];
+
+  expandedElement: any | null;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private teamService: TeamControllerService,
-    public state: AppStateService,
+    private state: AppStateService,
+    private teamState: TeamStateService,
+    private recentTeam: RecentTeamService,
     private dialog: MatDialog) { }
 
   ngOnInit() {
 
     this.teamService.getAllTeamsUsingGET().subscribe(
       teamlist => {
+        this.teamList = teamlist;
          const array = teamlist.map(
           item => {
             return {
@@ -55,6 +72,7 @@ export class TeamComponent implements OnInit {
 
   }
 
+
   applyFilter() {
     this.listData.filter = this.searchKey.trim().toLowerCase();
   }
@@ -64,7 +82,8 @@ export class TeamComponent implements OnInit {
     this.applyFilter();
   }
 
-  onAdd() {
+  onAdd(team: Team) {
+    this.recentTeam.team = team;
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
@@ -81,7 +100,6 @@ export class TeamComponent implements OnInit {
   }
 
   deleteTeam(teamName: string) {
-    this.isLeader = false;
     this.teamService.deleteTeamUsingDELETE(teamName).subscribe(
       (data: any) => {
       }
@@ -105,12 +123,6 @@ export class TeamComponent implements OnInit {
         this.team = data;
         this.teamName = '';
         this.isSearchPressed = true;
-        this.isLeader = false;
-        for (let i = 0; i < data.leaders.length; i++) {
-            if (data.leaders[i].googleName == this.state.user.googleName) {
-              this.isLeader = true;
-            }
-        }
       }
     );
   }
@@ -132,20 +144,9 @@ export class TeamComponent implements OnInit {
   }
 
   deleteLeader(name: string, teamName: string) {
-    this.isLeader = false;
     this.teamService.deleteLeaderUsingDELETE(name, teamName).subscribe(
       (data: any) => {
-        for (let i = 0; i < data.leaders.length; i++) {
-          if (data.leaders[i].googleName == this.state.user.googleName) {
-            console.log('leader true');
-            this.isLeader = true;
-          } else {
-            console.log('leader false');
-            this.isLeader = false;
-          }
-        }
         this.team = data;
-        console.log(this.team);
       }
     );
   }

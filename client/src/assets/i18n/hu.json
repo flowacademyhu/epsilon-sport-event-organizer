@@ -36,5 +36,8 @@
   "Place": "Helyszín",
   "RegistrationEndTime": "Jelentkezési határidő(?)",
   "startDateTime": "Kupa kezdete(?)",
-  "Cups": "Kupák"
+  "Name": "Név",
+  "Leaders": "Csapatkapitányok",
+  "Members": "Csapattagok"
+  
 }

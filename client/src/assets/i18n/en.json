@@ -36,5 +36,8 @@
   "Place": "Place",
   "RegistrationEndTime": "RegistrationEndTime",
   "startDateTime": "startDateTime",
-  "Cups": "Cups"
+  "Name": "Name",
+  "Leaders": "Leaders",
+  "Members": "Members"
+  
 }
