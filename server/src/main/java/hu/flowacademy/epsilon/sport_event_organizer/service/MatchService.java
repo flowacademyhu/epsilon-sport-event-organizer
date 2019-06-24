@@ -222,10 +222,14 @@ public class MatchService {
         qualifierMatches.add(dNotQualifiedMatch);
         qualifierMatches.add(eQualifiedMatch);
         qualifierMatches.add(fQualifiedMatch);
+        cNotQualifiedMatch.setGroupName("Not Qualified");
+        dNotQualifiedMatch.setGroupName("Not Qualified");
+        eQualifiedMatch.setGroupName("Qualified");
+        fQualifiedMatch.setGroupName("Qualified");
 
 
         qualifierMatches.forEach(match -> match.setCup(cup));
-        qualifierMatches.forEach(match -> match.setGroupName("Qualifier"));
+
 
         //pályák szétosztása
         String courtName = "Court1";

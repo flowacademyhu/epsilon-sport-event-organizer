@@ -1,10 +1,7 @@
 package hu.flowacademy.epsilon.sport_event_organizer.utils;
 
 import hu.flowacademy.epsilon.sport_event_organizer.model.*;
-import hu.flowacademy.epsilon.sport_event_organizer.repository.CupRepository;
-import hu.flowacademy.epsilon.sport_event_organizer.repository.SportRepository;
-import hu.flowacademy.epsilon.sport_event_organizer.repository.TeamRepository;
-import hu.flowacademy.epsilon.sport_event_organizer.repository.UserRepository;
+import hu.flowacademy.epsilon.sport_event_organizer.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -120,8 +117,11 @@ public class InitDataLoader implements CommandLineRunner {
         sportRepository.save(sport1);
         sportRepository.save(sport2);
 
+
         cupRepository.save(cup);
         cupRepository.save(cup2);
+
+
         teamRepository.save(team1);
         teamRepository.save(team2);
         teamRepository.save(team3);
@@ -130,8 +130,12 @@ public class InitDataLoader implements CommandLineRunner {
         teamRepository.save(team6);
         teamRepository.save(team7);
         teamRepository.save(team8);
+
+
         userRepository.save(user);
         userRepository.save(user1);
         userRepository.save(user2);
+
+
     }
 }
