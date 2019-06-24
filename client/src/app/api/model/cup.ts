@@ -19,12 +19,11 @@ export interface Cup {
     courtCounter?: number;
     deleted?: boolean;
     description?: string;
-    endDateTime?: Date;
+    eventDate?: string;
     imageUrl?: string;
     name?: string;
     organizers?: Array<User>;
     place?: string;
-    registrationEndTime?: Date;
-    startDateTime?: any;
+    registrationEndDate?: string;
     teams?: Array<Team>;
 }
