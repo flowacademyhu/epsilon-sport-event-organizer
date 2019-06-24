@@ -23,7 +23,6 @@ public class MatchService {
     @Autowired
     private TeamService teamService;
 
-
     @Autowired
     private MatchRepository matchRepository;
 
