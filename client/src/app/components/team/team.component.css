@@ -19,9 +19,14 @@ body {
 
 }
 
-.xbuttons {
-  height: 10%;
-  width: 10%;
+.memberButtons {
+  height: 5%;
+  width: 5%;
+}
+
+.leaderButtons {
+  height: 7%;
+  width: 7%;
 }
 
 .paddig-text-top {
@@ -36,10 +41,9 @@ body {
   padding-bottom: 50px;
 }
 
-
-
-
-
+.margin-bottom-200 {
+  margin-bottom: 200px;
+}
 
 table {
   width: 100%;
@@ -88,14 +92,6 @@ mat-row.example-element-row:not(.example-expanded-row):active {
 .example-element-description-attribution {
   opacity: 0.5;
 }
-
-/* .mat-row {
-  height: auto;
-}
-
-.mat-cell {
-  padding: 100px 140px 20px 0;
-} */
 
 .disabled {
   visibility: hidden;

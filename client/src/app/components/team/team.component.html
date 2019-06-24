@@ -1,6 +1,6 @@
-<body background="./assets/pictures/baseballgb.jpg">
+<body background="./assets/pictures/ballsBg.jpg">
   <div class="margin-top padding-text-bottom">
-    <div class="col-sm-10 rounded background paddig-text-top">
+    <div class="col-sm-10 rounded background paddig-text-top margin-bottom-200">
       <h1>{{ "Teams" | translate }}</h1>
       <!-- table -->
       <div class="search-div">
@@ -47,7 +47,7 @@
                     <img *ngIf="element.leaders.length > 1"
                       src="../../../assets/pictures/deleteX.png"
                       alt="delete"
-                      class="xbuttons"
+                      class="leaderButtons"
                       (click)="deleteLeader(leader.googleName, element.name)"
                       style="cursor: pointer;">
                   </div>
@@ -61,14 +61,14 @@
                   <div *ngIf="leader.googleName === state.user.googleName">
                   <img
                           alt="promote"
-                          class="xbuttons"
+                          class="memberButtons"
                           (click)="promoteMember(member.googleName, element.name)"
                           src="../../../assets/pictures/promoteMember.png"
                           style="cursor: pointer;">   
                       <img
                           src="../../../assets/pictures/deleteX.png"
                           alt="delete"
-                          class="xbuttons"
+                          class="memberButtons"
                           (click)="deleteMember(member.googleName, element.name)"
                           style="cursor: pointer;">
                   </div>

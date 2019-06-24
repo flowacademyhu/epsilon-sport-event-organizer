@@ -23,8 +23,6 @@ export class AddMemberModalComponent implements OnInit {
   }
 
   add() {
-    console.log('eteetetete');
-    console.log(this.recentTeam.team.name);
     this.teamService.putMemberUsingPUT(this.memberNameToAdd, this.recentTeam.team.name).subscribe();
     this.dialogRef.close(AddMemberModalComponent);
   }
