@@ -27,7 +27,7 @@ export class CupComponent implements OnInit {
   isSearchPressed: boolean = false;
   searchKey: string;
   listData: MatTableDataSource<any>;
-  displayedColumns: string[] = ['name',  'company', 'endDateTime', 'place', 'registrationEndTime', 'startDateTime', 'actionsa']
+  displayedColumns: string[] = ['name',  'company', 'place', 'registrationEndDate', 'eventDate', 'actionsa']
   teams: Team;
 
   @ViewChild(MatSort) sort: MatSort;

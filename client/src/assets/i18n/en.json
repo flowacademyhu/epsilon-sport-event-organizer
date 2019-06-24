@@ -35,6 +35,6 @@
   "CupName": "Cup Name",
   "Place": "Place",
   "RegistrationEndTime": "RegistrationEndTime",
-  "startDateTime": "startDateTime",
+  "EventDate": "Event Date",
   "SuccesfullyCreatedCup": "Succesfully created cup"
 }

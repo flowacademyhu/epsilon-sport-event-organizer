@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -37,6 +38,10 @@ public class CupService {
     public Cup save(Cup cup) {
         User currentUser = userService.getCurrentUser();
         cup.setDeleted(false);
+        LocalDate cupTomorrow = cup.getEventDate().plusDays(1);
+        LocalDate regTomorrow = cup.getRegistrationEndDate().plusDays(1);
+        cup.setEventDate(cupTomorrow);
+        cup.setRegistrationEndDate(regTomorrow);
         cupRepository.save(cup);
         currentUser.addCup(cup);
         userService.save(currentUser);
