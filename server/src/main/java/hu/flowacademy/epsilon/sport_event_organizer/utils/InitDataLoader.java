@@ -50,8 +50,20 @@ public class InitDataLoader implements CommandLineRunner {
 
         Team team1 = new Team();
         Team team2 = new Team();
+        Team team3 = new Team();
+        Team team4 = new Team();
+        Team team5 = new Team();
+        Team team6 = new Team();
+        Team team7 = new Team();
+        Team team8 = new Team();
         team1.setName("Hipsters");
         team2.setName("The Crew");
+        team3.setName("Girls");
+        team4.setName("Boys");
+        team5.setName("Rockets");
+        team6.setName("Real Szeged");
+        team7.setName("Fradi");
+        team8.setName("Újpest");
         team1.setCompany("Flow Academy");
         team2.setCompany("Flow Academy");
 
@@ -68,10 +80,11 @@ public class InitDataLoader implements CommandLineRunner {
         cup.setName("Flow Cup");
         cup.setCompany("Flow Academy");
         cup.setPlace("Szeged, Hattyas u. 10, 6725");
-        cup.setCourtCounter(3);
+        cup.setCourtCounter(4);
         cup.setDescription("This is the best sport event in Szeged.");
         cup.setStartDateTime(LocalDateTime.of(2019, Month.JULY, 29, 8, 0, 0));
         cup.setEndDateTime(LocalDateTime.of(2019, Month.JULY, 29, 16, 0, 0));
+
 
         cup.setSport(sport);
 
@@ -82,7 +95,15 @@ public class InitDataLoader implements CommandLineRunner {
         user.addTeamLeader(team2);
 
         user.addCup(cup);
-        team1.addCup(cup);
+        team1.addValidatedCup(cup);
+        team2.addValidatedCup(cup);
+        team3.addValidatedCup(cup);
+        team4.addValidatedCup(cup);
+        team5.addValidatedCup(cup);
+        team6.addValidatedCup(cup);
+        team7.addValidatedCup(cup);
+        team8.addValidatedCup(cup);
+
 
         Cup cup2 = new Cup();
         cup2.setName("test");
@@ -98,10 +119,17 @@ public class InitDataLoader implements CommandLineRunner {
         sportRepository.save(sport);
         sportRepository.save(sport1);
         sportRepository.save(sport2);
+
         cupRepository.save(cup);
         cupRepository.save(cup2);
         teamRepository.save(team1);
         teamRepository.save(team2);
+        teamRepository.save(team3);
+        teamRepository.save(team4);
+        teamRepository.save(team5);
+        teamRepository.save(team6);
+        teamRepository.save(team7);
+        teamRepository.save(team8);
         userRepository.save(user);
         userRepository.save(user1);
         userRepository.save(user2);
