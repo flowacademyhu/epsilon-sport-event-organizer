@@ -21,6 +21,8 @@
   "Add": "Add",
   "MemberName": "Member Name:",
   "CreateTeam": "Create Team",
+  "GuestName": "Guest Name:",
+  "AddGuest": "Add guest",
   "AddMember": "Add Member",
   "DeleteMember": "Delete Member",
   "Delete": "Delete",
