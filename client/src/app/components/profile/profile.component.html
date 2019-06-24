@@ -47,6 +47,7 @@
         
       <div class="splite bottom">
         <div class="mat-elevation-z8">
+          <div *ngIf="listCupDataSize > 0">
           <h3>My Cups</h3>
           <mat-table [dataSource]="listCupData" matSort>
             <ng-container matColumnDef="name">
@@ -78,9 +79,43 @@
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
           </mat-table>
           <mat-paginator [pageSizeOptions]="[5,10,15]" [pageSize]="5" showFirstLastButtons></mat-paginator>
-  
+         </div>
+
+        <div *ngIf="listCupDataMembershipSize > 0">
+          <h3>Cup membership</h3>
+          <mat-table [dataSource]="listCupData2" matSort>
+            <ng-container matColumnDef="name">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="company">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Company</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.company}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="place">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>place</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.place}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="registrationEndDate">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Registration End Date</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.registrationEndDate}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="eventDate">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Event Date</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.eventDate}}</mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+          <mat-paginator [pageSizeOptions]="[5,10,15]" [pageSize]="5" showFirstLastButtons></mat-paginator>
         </div>
       </div>
+    </div>
   </div>
   
  

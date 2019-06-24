@@ -19,6 +19,9 @@ export class ProfileComponent implements OnInit {
   teamsIAmLeaderIn: any[];
   teamsIAmMemberIn: any[];
   listCupData: MatTableDataSource<any>;
+  listCupDataSize: number;
+  listCupDataMembership: MatTableDataSource<any>;
+  listCupDataMembershipSize: number;
   displayedColumns: string[] = ['name',  'company', 'place', 'registrationEndDate', 'eventDate'];
 
   @ViewChild(MatSort) sort: MatSort;
@@ -27,7 +30,6 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
 
     this.userDatas = this.state.user;
-    console.log(this.userDatas);
 
     this.teamService.getAllTeamsByLeaderUsingGET().subscribe(
       teams => {
@@ -57,8 +59,26 @@ export class ProfileComponent implements OnInit {
        this.listCupData = new MatTableDataSource(array);
        this.listCupData.sort = this.sort;
        this.listCupData.paginator = this.paginator;
+       this.listCupDataSize = this.listCupData.data.length;
+     }
+   );
+
+   this.cupService.getCupsByParticipationUsingGET().subscribe(
+     cuplist => {
+       const array = cuplist.map(
+         item => {
+           return {
+             $key: item.name,
+             ...item
+           };
+         }
+       );
+       console.log(cuplist);
+       this.listCupDataMembership = new MatTableDataSource(array);
+       this.listCupDataMembership.sort = this.sort;
+       this.listCupDataMembership.paginator = this.paginator;
+       this.listCupDataMembershipSize = this.listCupDataMembership.data.length;
      }
    );
   }
-
 }
