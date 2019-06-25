@@ -34,34 +34,17 @@ export class ProfileComponent implements OnInit {
     this.teamService.getAllTeamsByLeaderUsingGET().subscribe(
       teams => {
         this.teamsIAmLeaderIn = teams;
-        console.log(this.teamsIAmLeaderIn);
+        // console.log(this.teamsIAmLeaderIn);
       }
     );
 
     this.teamService.getAllTeamsByMemberUsingGET().subscribe(
       teams => {
         this.teamsIAmMemberIn = teams;
-        console.log(this.teamsIAmMemberIn);
+        // console.log(this.teamsIAmMemberIn);
       }
     );
-
-   this.cupService.getCupByOrganizerUsingGET().subscribe(
-     cuplist => {
-       const array = cuplist.map(
-         item => {
-           return {
-             $key: item.name,
-             ...item
-           };
-         }
-       );
-       console.log(cuplist);
-       this.listCupData = new MatTableDataSource(array);
-       this.listCupData.sort = this.sort;
-       this.listCupData.paginator = this.paginator;
-       this.listCupDataSize = this.listCupData.data.length;
-     }
-   );
+    this.getCupsOrganizer();
 
    this.cupService.getCupsByParticipationUsingGET().subscribe(
      cuplist => {
@@ -80,5 +63,25 @@ export class ProfileComponent implements OnInit {
        this.listCupDataMembershipSize = this.listCupDataMembership.data.length;
      }
    );
+  }
+
+  getCupsOrganizer() {
+    this.cupService.getCupByOrganizerUsingGET().subscribe(
+      cuplist => {
+        const array = cuplist.map(
+          item => {
+            return {
+              $key: item.name,
+              ...item
+            };
+          }
+        );
+        // console.log(cuplist);
+        this.listCupData = new MatTableDataSource(array);
+        this.listCupData.sort = this.sort;
+        this.listCupData.paginator = this.paginator;
+        this.listCupDataSize = this.listCupData.data.length;
+      }
+    );
   }
 }

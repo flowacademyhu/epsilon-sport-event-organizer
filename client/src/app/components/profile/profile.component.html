@@ -80,10 +80,14 @@
           </mat-table>
           <mat-paginator [pageSizeOptions]="[5,10,15]" [pageSize]="5" showFirstLastButtons></mat-paginator>
          </div>
+         <div *ngIf="listCupDataSize === 0">
+          <h3>No upcoming cups - as organizer</h3>
+        </div>
+
 
         <div *ngIf="listCupDataMembershipSize > 0">
           <h3>Cup membership</h3>
-          <mat-table [dataSource]="listCupData2" matSort>
+          <mat-table [dataSource]="listCupDataMembership" matSort>
             <ng-container matColumnDef="name">
               <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
               <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
@@ -114,6 +118,11 @@
           </mat-table>
           <mat-paginator [pageSizeOptions]="[5,10,15]" [pageSize]="5" showFirstLastButtons></mat-paginator>
         </div>
+        <div *ngIf="listCupDataMembershipSize === 0">
+          <h3>No upcoming cups - as team member</h3>
+        </div>
+
+        
       </div>
     </div>
   </div>
