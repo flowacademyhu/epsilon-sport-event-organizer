@@ -84,12 +84,12 @@ export class TeamComponent implements OnInit {
     this.applyFilter();
   }
 
-  onAdd(team: Team) {
+  onAdd(leader: User, team: Team) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '60%';
-    dialogConfig.data = {team: team};
+    dialogConfig.data = {leader: leader, team: team};
     this.dialog.open(AddMemberModalComponent, dialogConfig).afterClosed().subscribe(
       result => {
         this.getData();

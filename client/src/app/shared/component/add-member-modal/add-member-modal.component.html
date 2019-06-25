@@ -18,10 +18,11 @@
     <p>{{ "GuestName" | translate }}</p>
     <mat-form-field>
       <input matInput [(ngModel)]="guestNameToAdd">
+      <input matInput [(ngModel)]="guestEmailToAdd">
     </mat-form-field>
   </div>
   <div mat-dialog-actions>
-    <button mat-button (click)="add()">{{ "Add" | translate }}</button>
+    <button mat-button (click)="addGuest()">{{ "Add" | translate }}</button>
     <button mat-button (click)="exit()" cdkFocusInitial>{{ "Cancel" | translate }}</button>
   </div>
 </div>

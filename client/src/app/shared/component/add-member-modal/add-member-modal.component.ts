@@ -11,6 +11,7 @@ export class AddMemberModalComponent implements OnInit {
 
   memberNameToAdd: string = '';
   guestNameToAdd: string = '';
+  guestEmailToAdd: string = '';
 
   constructor(
     public dialogRef: MatDialogRef<AddMemberModalComponent>,
@@ -27,7 +28,7 @@ export class AddMemberModalComponent implements OnInit {
   }
 
   addGuest() {
-  //guest here
+    this.teamService.
   }
 
   exit() {
