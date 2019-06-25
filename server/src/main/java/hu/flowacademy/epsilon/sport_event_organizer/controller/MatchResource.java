@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/match")
-public class MatchController {
+public class MatchResource {
     @Autowired
     private MatchService matchService;
 

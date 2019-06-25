@@ -1,5 +1,6 @@
 package hu.flowacademy.epsilon.sport_event_organizer.service;
 
+import hu.flowacademy.epsilon.sport_event_organizer.email.MailService;
 import hu.flowacademy.epsilon.sport_event_organizer.exception.CupNotFoundException;
 import hu.flowacademy.epsilon.sport_event_organizer.exception.UserUnauthorizedException;
 import hu.flowacademy.epsilon.sport_event_organizer.model.Cup;
@@ -37,6 +38,10 @@ public class CupService {
 
     @Autowired
     private TeamService teamService;
+
+    @Autowired
+    private MailService mailService;
+
 
     public Cup save(Cup cup) {
         User currentUser = userService.getCurrentUser();
@@ -114,11 +119,14 @@ public class CupService {
         Team team = teamService.getTeamByName(teamName);
         User currentUser = userService.getCurrentUser();
         if (team.getLeaders().contains(currentUser)) {
+            mailService.sendMailOrganizersToApplieTeam(team, cup);
             cup.addTeam(team);
             team.addCup(cup);
             teamService.update(team);
             cupRepository.save(cup);
-        } else { throw new UserUnauthorizedException(); }
+        } else {
+            throw new UserUnauthorizedException();
+        }
     }
 
 
@@ -139,11 +147,14 @@ public class CupService {
         Team teamToApprove = teamService.getTeamByName(teamName);
         User user = userService.getCurrentUser();
         if (cup.getOrganizers().contains(user) && teams.contains(teamToApprove)) {
+            mailService.sendMailTeamLeaderBecauseTeamApproved(teamToApprove, cup);
             cup.approveTeam(teamToApprove);
             teamToApprove.addValidatedCup(cup);
             teamService.update(teamToApprove);
             cupRepository.save(cup);
-        } else { throw new UserUnauthorizedException(); }
+        } else {
+            throw new UserUnauthorizedException();
+        }
     }
 
     public void refuseTeam(String cupName, String teamName) {
@@ -152,11 +163,14 @@ public class CupService {
         Team teamToRefuse = teamService.getTeamByName(teamName);
         User user = userService.getCurrentUser();
         if (cup.getOrganizers().contains(user) && teams.contains(teamToRefuse)) {
+            mailService.sendMailTeamLeaderBecauseTeamRefused(teamToRefuse, cup);
             cup.refuseTeam(teamToRefuse);
             teamToRefuse.refusedCup(cup);
             teamService.update(teamToRefuse);
             cupRepository.save(cup);
-        } else { throw new UserUnauthorizedException(); }
+        } else {
+            throw new UserUnauthorizedException();
+        }
     }
 
     public Set<User> getOrganizers(String cupName) {
@@ -173,7 +187,9 @@ public class CupService {
             cup.addOrganizer(userToMakeOrganizer);
             userService.save(userToMakeOrganizer);
             update(cup);
-        } else { throw new UserUnauthorizedException(); }
+        } else {
+            throw new UserUnauthorizedException();
+        }
     }
 
     public void deleteOrganizer(String cupName, String googleName) {
@@ -186,7 +202,9 @@ public class CupService {
             cup.deleteOrganizer(userToDelete);
             userService.save(userToDelete);
             update(cup);
-        } else { throw new UserUnauthorizedException(); }
+        } else {
+            throw new UserUnauthorizedException();
+        }
     }
 
     public void deleteCupByName(String cupName) {
