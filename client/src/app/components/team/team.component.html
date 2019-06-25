@@ -66,13 +66,13 @@
                           style="cursor: pointer;">
                   </div>
                   <div *ngFor="let leader of element.leaders">
-                  <div *ngIf="leader.googleName === state.user.googleName">
-                  <img
+                  <div *ngIf="leader.googleName === state.user.googleName">                  
+                  <img *ngIf="member.provider != 'local'"
                           alt="promote"
                           class="memberButtons"
                           (click)="promoteMember(member.googleName, element.name)"
                           src="../../../assets/pictures/promoteMember.png"
-                          style="cursor: pointer;">   
+                          style="cursor: pointer;">                  
                       <img
                           src="../../../assets/pictures/deleteX.png"
                           alt="delete"

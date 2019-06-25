@@ -98,7 +98,7 @@ mat-row.example-element-row:not(.example-expanded-row):active {
 }
 
 .padding-between-columns {
-  padding-right: 20px;
+  padding-right: 200px;
 }
 
 /* The snackbar - position it at the bottom and in the middle of the screen */
