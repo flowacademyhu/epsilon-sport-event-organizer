@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
-import { CupControllerService, Cup } from 'src/app/api';
+import { CupResourceService, Cup } from 'src/app/api';
 
 @Component({
   selector: 'app-create-cup-modal',
@@ -11,7 +11,7 @@ export class CreateCupModalComponent implements OnInit {
 
   constructor( 
     public dialogRef: MatDialogRef<CreateCupModalComponent>,
-    private cupService: CupControllerService) { }
+    private cupService: CupResourceService) { }
 
     companyNameToCreate: string = '';
     courtCounter: number = 0;

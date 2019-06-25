@@ -64,6 +64,9 @@ public class Cup {
     @JoinColumn(name = "sports_name", foreignKey = @ForeignKey(name = "fk_cups_sports"))
     private Sport sport;
 
+    @OneToMany(mappedBy = "cup")
+    private Set<Match> matches = new HashSet<>();
+
     public void addTeam(Team team) {
         teams.add(team);
     }

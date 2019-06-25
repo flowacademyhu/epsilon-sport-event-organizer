@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
-import { TeamControllerService, Team, CupControllerService } from 'src/app/api';
+import { Team, CupResourceService, TeamResourceService } from 'src/app/api';
 import { MatTableDataSource, MatSort, MatPaginator, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AppStateService } from '../../service/app-state.service';
 
@@ -10,9 +10,9 @@ import { AppStateService } from '../../service/app-state.service';
 })
 export class ApplyCupModalComponent implements OnInit {
 
-  constructor(private teamService: TeamControllerService,
+  constructor(private teamService: TeamResourceService,
     public dialogRef: MatDialogRef<ApplyCupModalComponent>,
-    private cupService: CupControllerService,
+    private cupService: CupResourceService,
     private state: AppStateService,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 

@@ -1,3 +1,5 @@
+  <div class="row">
+  <div class="col-sm-6">
   <h1 mat-dialog-title>{{ "AddMember" | translate }}</h1>
   <div mat-dialog-content>
     <p>{{ "MemberName" | translate }}</p>
@@ -9,3 +11,22 @@
     <button mat-button (click)="add()">{{ "Add" | translate }}</button>
     <button mat-button (click)="exit()" cdkFocusInitial>{{ "Cancel" | translate }}</button>
   </div>
+</div>
+<div class="col-sm-6">
+  <h1 mat-dialog-title>{{ "AddGuest" | translate }}</h1>
+  <div mat-dialog-content>
+    <p>{{ "GuestName" | translate }}</p>
+    <mat-form-field>
+      <input matInput [(ngModel)]="guestNameToAdd">
+    </mat-form-field>
+    <p>Email</p>
+    <mat-form-field>
+      <input matInput [(ngModel)]="guestEmailToAdd">
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="addGuest()">{{ "Add" | translate }}</button>
+    <button mat-button (click)="exit()" cdkFocusInitial>{{ "Cancel" | translate }}</button>
+  </div>
+</div>
+</div>

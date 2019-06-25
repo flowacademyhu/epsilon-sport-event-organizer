@@ -27,7 +27,7 @@ import { Configuration }                                     from '../configurat
 
 
 @Injectable()
-export class CupControllerService {
+export class CupResourceService {
 
     protected basePath = 'https://localhost:8080';
     public defaultHeaders = new HttpHeaders();

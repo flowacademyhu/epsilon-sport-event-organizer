@@ -4,9 +4,10 @@ import { HttpClient } from '@angular/common/http';
 
 
 import { AuthControllerService } from './api/authController.service';
-import { CupControllerService } from './api/cupController.service';
-import { TeamControllerService } from './api/teamController.service';
-import { UserControllerService } from './api/userController.service';
+import { CupResourceService } from './api/cupResource.service';
+import { MatchResourceService } from './api/matchResource.service';
+import { TeamResourceService } from './api/teamResource.service';
+import { UserResourceService } from './api/userResource.service';
 
 @NgModule({
   imports:      [],
@@ -14,9 +15,10 @@ import { UserControllerService } from './api/userController.service';
   exports:      [],
   providers: [
     AuthControllerService,
-    CupControllerService,
-    TeamControllerService,
-    UserControllerService ]
+    CupResourceService,
+    MatchResourceService,
+    TeamResourceService,
+    UserResourceService ]
 })
 export class ApiModule {
     public static forRoot(configurationFactory: () => Configuration): ModuleWithProviders {

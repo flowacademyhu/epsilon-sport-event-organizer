@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { Component, OnInit, Input, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { TeamResourceService } from 'src/app/api';
 
 @Component({
   selector: 'app-add-member-modal',
@@ -8,15 +9,39 @@ import { MatDialogRef } from '@angular/material';
 })
 export class AddMemberModalComponent implements OnInit {
 
-  memberNameToAdd: String = '';
+  memberNameToAdd: string = '';
+  guestNameToAdd: string = '';
+  guestEmailToAdd: string = '';
 
-  constructor(public dialogRef: MatDialogRef<AddMemberModalComponent>) { }
+  constructor(
+    public dialogRef: MatDialogRef<AddMemberModalComponent>,
+    private teamService: TeamResourceService,
+    @Inject(MAT_DIALOG_DATA) public data: any
+    ) { }
 
   ngOnInit() {
   }
 
   add() {
-    //swagger
+    this.teamService.putMemberUsingPUT(this.memberNameToAdd, this.data.team.name).subscribe();
+    this.dialogRef.close(AddMemberModalComponent);
+  }
+
+  addGuest() {
+    this.teamService.putGuestMemberUsingPOST(
+      this.guestEmailToAdd,
+      this.guestNameToAdd,
+      this.data.leader.googleName,
+      this.data.team.name).subscribe();
+      // Get the snackbar DIV
+      var x = document.getElementById("snackbar");
+
+      // Add the "show" class to DIV
+      x.className = "show";
+
+      // After 3 seconds, remove the show class from DIV
+      setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+      this.dialogRef.close(AddMemberModalComponent);
   }
 
   exit() {

@@ -1,10 +1,10 @@
-<body background="./assets/pictures/baseballgb.jpg">
-  <div class="row margin-top padding-text-bottom">
-    <div class="col-sm-6 rounded background paddig-text-top">
+<body background="./assets/pictures/ballsBg.jpg">
+  <div class="margin-top padding-text-bottom">
+    <div class="col-sm-10 rounded background paddig-text-top margin-bottom-200">
       <h1>{{ "Teams" | translate }}</h1>
       <!-- table -->
       <div class="search-div">
-          <div *ngIf="state.user != null">
+          <div *ngIf="(state.user$ | async) != null">
         <button mat-raised-button (click)="onCreate()"><mat-icon>add</mat-icon>{{ "CreateTeam" | translate }}</button>
         </div>
           <mat-form-field class="search-form-field">
@@ -15,9 +15,9 @@
         </mat-form-field>
       </div>
       <div class="mat-elevation-z8 padding-bottom-50">
-        <mat-table [dataSource]="listData" matSort>
+        <mat-table [dataSource]="listData" matSort multiTemplateDataRows>
           <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'Name' | translate }}</mat-header-cell>
             <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
           </ng-container>
           <ng-container matColumnDef="company">
@@ -25,91 +25,79 @@
             <mat-cell *matCellDef="let element">{{element.company}}</mat-cell>
           </ng-container>
           <ng-container matColumnDef="actions">
-              <!-- <div *ngFor="let team of teamList"> 
-                  <div *ngFor="let leader of team.leaders"> -->
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
-            <mat-cell *matCellDef="let row">
-              
-              <button mat-icon-button color="warn"><mat-icon>delete_outline</mat-icon></button>
-            
+            <mat-cell *matCellDef="let row; let element">
+              <div *ngFor="let leader of element.leaders">
+                <div *ngIf="leader.googleName == state.user.googleName">
+                    <a style="cursor: pointer;" (click)="onAdd(leader, element)"><mat-icon>add_outline</mat-icon></a>
+                    <a style="cursor: pointer;" (click)="deleteTeam(element)"><mat-icon>delete_outline</mat-icon></a>
+                </div>
+              </div>
             </mat-cell>
-       
           </ng-container>
+          <ng-container matColumnDef="expandedDetail">
+              <mat-cell class="example-element-row" *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+                <div class="example-element-detail"
+                     [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                <div class="padding-between-columns">
+                  <p class="font-weight-bold">{{ 'Leaders' | translate }}</p>
+                <div *ngFor="let leader of element.leaders">
+                  <div>
+                    {{ leader.googleName }}
+                    <img *ngIf="element.leaders.length > 1"
+                      src="../../../assets/pictures/deleteX.png"
+                      alt="delete"
+                      class="leaderButtons"
+                      (click)="deleteLeader(leader, element)"
+                      style="cursor: pointer;">
+                  </div>
+                </div>
+              </div>
+                <div *ngIf="element.users.length > 0">
+                    <p class="font-weight-bold">{{ 'Members' | translate }}</p>                 
+                <div *ngFor="let member of element.users">
+                  {{ member.googleName }}
+                  <div *ngIf="member.googleName === state.user.googleName">
+                    <img
+                          src="../../../assets/pictures/deleteX.png"
+                          alt="delete"
+                          class="memberButtons"
+                          (click)="deleteMember(member, element)"
+                          style="cursor: pointer;">
+                  </div>
+                  <div *ngFor="let leader of element.leaders">
+                  <div *ngIf="leader.googleName === state.user.googleName">                  
+                  <img *ngIf="member.provider != 'local'"
+                          alt="promote"
+                          class="memberButtons"
+                          (click)="promoteMember(member.googleName, element.name)"
+                          src="../../../assets/pictures/promoteMember.png"
+                          style="cursor: pointer;">                  
+                      <img
+                          src="../../../assets/pictures/deleteX.png"
+                          alt="delete"
+                          class="memberButtons"
+                          (click)="deleteMember(member, element)"
+                          style="cursor: pointer;">
+                  </div>
+                </div>
+                </div>
+                </div>
+                </div>
+              </mat-cell>
+            </ng-container>
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          <mat-row *matRowDef="let element; columns: displayedColumns;"
+      class="example-element-row"
+      [class.example-expanded-row]="expandedElement === element"
+      (click)="expandedElement = expandedElement === element ? null : element">
+          </mat-row>
+  <mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></mat-row>
         </mat-table>
         <mat-paginator [pageSizeOptions]="[5,10,15]" [pageSize]="5" showFirstLastButtons></mat-paginator>
-
       </div>
       <!-- table -->
     </div>
-  <div class="col-sm-4">
-    <div class="background rounded" style="padding-left: 10px ">
-    <h3 class="paddig-text-top">{{ "SearchTeam" | translate }}</h3>
-    <h4>{{ "TeamName" | translate }}</h4>
-    <div style="padding-bottom: 10px">
-    <input type="text" name="teamName" [(ngModel)]="teamName"/>
-    <a
-      type="button"
-      class="btn btn-outline-primary createButton"
-      (click)="getByTeamName()"
-    >
-      {{ "Search" | translate }}
-    </a>
   </div>
-</div>
-<div class="background rounded">
-    <div>
-        <h5 *ngIf="isSearchPressed">leaders:</h5>
-        <div *ngFor="let i of team.leaders">
-          {{ i.googleName }}
-          <div *ngIf="isLeader && team.leaders.length > 1">
-            <img
-              src="../../../assets/pictures/deleteX.png"
-              alt="delete"
-              class="xbuttons"
-              (click)="deleteLeader(i.googleName, team.name)"
-              style="cursor: pointer;"
-            />
-          </div>
-        </div>
-      </div>
-      <div>
-        <h5 *ngIf="isSearchPressed">members:</h5>
-        <div *ngIf="isSearchPressed">
-          <h6 *ngIf="team.users.length == 0">
-            Here are no members in this team
-          </h6>
-        </div>
-        <div *ngFor="let i of team.users">
-          {{ i.googleName }}
-          <div *ngIf="isLeader && state.user.googleName != i.googleName">
-            <img
-              src="../../../assets/pictures/promoteMember.png"
-              alt="promote"
-              class="xbuttons"
-              (click)="promoteMember(i.googleName, team.name, team)"
-              style="cursor: pointer;"
-            />
-            <img
-              src="../../../assets/pictures/deleteX.png"
-              alt="delete"
-              class="xbuttons"
-              (click)="deleteMember(i.googleName, team.name)"
-              style="cursor: pointer;"
-            />
-          </div>
-        </div>
-      </div>
-      <div *ngIf="isLeader">
-          <a type="button" class="btn btn-primary createButton" (click)="deleteTeam(team.name)">
-              {{ "Delete" | translate }}
-          </a>
-          <a type="button" class="btn btn-primary createButton" (click)="onAdd()">
-              {{ "Add" | translate }}
-          </a>
-      </div>
-
-</div>
-</div>
-  </div>
+  <div id="snackbar"> asd </div>
+  

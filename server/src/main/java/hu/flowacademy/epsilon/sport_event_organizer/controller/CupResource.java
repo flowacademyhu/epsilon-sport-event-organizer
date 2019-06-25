@@ -13,7 +13,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping(path = "/cup")
-public class CupController {
+public class CupResource {
 
     @Autowired
     private CupService cupService;
