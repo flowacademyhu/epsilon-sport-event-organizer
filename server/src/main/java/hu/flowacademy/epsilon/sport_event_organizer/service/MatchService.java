@@ -257,4 +257,5 @@ public class MatchService {
         match.setTeamBScore(bScore);
         return matchRepository.save(match);
     }
+
 }

@@ -20,6 +20,4 @@ public class MatchController {
     public List<Match> getGroupMatches(@PathVariable String cupName) {
         return matchService.generateGroupMatches(cupName);
     }
-
-
 }
