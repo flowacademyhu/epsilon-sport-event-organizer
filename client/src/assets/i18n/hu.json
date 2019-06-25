@@ -52,5 +52,8 @@
   "Company": "Cég",
   "RegistrationEndDate": "Jelentkezési határidő",
   "EventDate": "Kupa napja",
-  "CupDeleteConfirm": "Biztos akarod törölni az alábbi kupát: "
+  "CupDeleteConfirm": "Biztos akarod törölni az alábbi kupát: ",
+  "ApprovedTeams": "Jóváhagyott csapatok",
+  "AppliedTeams": "Jelentkezett csapatok",
+  "Organizers": "Szervezők" 
 }

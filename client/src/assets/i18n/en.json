@@ -51,5 +51,8 @@
   "Name": "Name",
   "Company": "Company",
   "RegistrationEndDate": "Registration end date",
-  "CupDeleteConfirm": "Would you like to delete this cup: "
+  "CupDeleteConfirm": "Would you like to delete this cup: ",
+  "ApprovedTeams": "Approved teams",
+  "AppliedTeams": "Applied teams",
+  "Organizers": "Organizers" 
 }

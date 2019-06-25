@@ -5,12 +5,19 @@ import { DeleteCupConfirmComponent } from 'src/app/shared/component/delete-cup-c
 import { CreateCupModalComponent } from 'src/app/shared/component/create-cup-modal/create-cup-modal.component';
 import { TeamStateService } from 'src/app/shared/service/team-state.service';
 import { TeamResourceService, CupResourceService, Team, Cup } from 'src/app/api';
-
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-cup',
   templateUrl: './cup.component.html',
-  styleUrls: ['./cup.component.css']
+  styleUrls: ['./cup.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class CupComponent implements OnInit {
 
