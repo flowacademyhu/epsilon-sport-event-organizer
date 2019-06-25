@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AppStateService } from 'src/app/shared/service/app-state.service';
 import { MatDialog, MatDialogConfig, MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
-import { CupControllerService, TeamControllerService, Team } from 'src/app/api';
 import { CreateCupModalComponent } from 'src/app/shared/component/create-cup-modal/create-cup-modal.component';
 import { TeamStateService } from 'src/app/shared/service/team-state.service';
+import { TeamResourceService, CupResourceService, Team } from 'src/app/api';
 
 
 @Component({
@@ -14,11 +14,11 @@ import { TeamStateService } from 'src/app/shared/service/team-state.service';
 export class CupComponent implements OnInit {
 
   constructor(
-    private cupService: CupControllerService,
-    private state: AppStateService,
+    private cupService: CupResourceService,
+    public state: AppStateService,
     private dialog: MatDialog,
     private teamStateService: TeamStateService,
-    private teamService: TeamControllerService
+    private teamService: TeamResourceService
     ) { }
 
   cupNameToDelete: string = '';

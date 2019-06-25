@@ -3,7 +3,7 @@ import { AppStateService } from 'src/app/shared/service/app-state.service';
 import { MatDialog, MatDialogConfig, MatSort, MatTableDataSource, MatPaginator } from '@angular/material';
 import { CreateTeamModalComponent } from 'src/app/shared/component/create-team-modal/create-team-modal.component';
 import { AddMemberModalComponent } from 'src/app/shared/component/add-member-modal/add-member-modal.component';
-import { TeamControllerService, Team, User } from 'src/app/api';
+import { TeamResourceService, Team, User } from 'src/app/api';
 import { TeamStateService } from 'src/app/shared/service/team-state.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { DeleteTeamConfirmComponent } from 'src/app/shared/component/delete-team-confirm/delete-team-confirm.component';
@@ -47,9 +47,9 @@ export class TeamComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
-    private teamService: TeamControllerService,
+    private teamService: TeamResourceService,
     private dialog: MatDialog,
-    private state: AppStateService
+    public state: AppStateService
     ) { }
 
   ngOnInit() {
