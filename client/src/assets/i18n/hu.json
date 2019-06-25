@@ -53,5 +53,7 @@
   "RegistrationEndDate": "Jelentkezési határidő",
   "EventDate": "Kupa napja",
   "CupDeleteConfirm": "Biztos akarod törölni az alábbi kupát: ",
-  "MyTeams": "Csapataim"
+  "MyTeams": "Csapataim",
+  "AddOrganizer": "Szervező hozzáadása",
+  "DeleteOrganizer": "Szervező törlése"
 }

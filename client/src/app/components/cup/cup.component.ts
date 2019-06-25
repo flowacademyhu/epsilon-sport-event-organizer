@@ -53,7 +53,7 @@ export class CupComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '40%';
+    dialogConfig.width = '100%';
     dialogConfig.data = {cup: cup};
     this.dialog.open(ApplyCupModalComponent, dialogConfig).afterClosed().subscribe(
       result => {

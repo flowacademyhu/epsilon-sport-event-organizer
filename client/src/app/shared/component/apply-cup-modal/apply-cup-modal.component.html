@@ -1,7 +1,8 @@
-<div class="col-sm-10 rounded background paddig-text-top margin-bottom-200">
+<div class="row">
+<div class="col-sm-4 ">
     <h1>{{ "MyTeams" | translate }}</h1>
    
-    </div>
+    
    <div class="mat-elevation-z8 padding-bottom-50 ppp">
           <mat-table [dataSource]="listData" matSort>
 
@@ -35,4 +36,36 @@
           <mat-paginator [pageSizeOptions]="[5,10,15]" [pageSize]="5" showFirstLastButtons></mat-paginator>
   
         </div>
-   
+      </div>
+      <div *ngFor="let organizer of cupData.organizers">
+        <div *ngIf="organizer.googleName == state.user.googleName">
+  <div  class="col-sm-4 ">
+    <h1 mat-dialog-title>{{ "AddOrganizer" | translate }}</h1>
+    <div mat-dialog-content>
+      <p>{{ "MemberName" | translate }}</p>
+      <mat-form-field>
+        <input matInput [(ngModel)]="organiserNameToAdd">
+      </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button (click)="addOrganizer()">{{ "Add" | translate }}</button>
+      <button mat-button (click)="exit()" cdkFocusInitial>{{ "Cancel" | translate }}</button>
+    </div>
+  </div>
+  <div  class="col-sm-4">
+      <h1 mat-dialog-title>{{ "DeleteOrganizer" | translate }}</h1>
+      <div mat-dialog-content>
+        <p>{{ "MemberName" | translate }}</p>
+        <mat-form-field>
+          <input matInput [(ngModel)]="organiserNameToDelete">
+        </mat-form-field>
+      </div>
+      <div mat-dialog-actions>
+        <button mat-button (click)="deleteOrganizer()">{{ "Delete" | translate }}</button>
+        <button mat-button (click)="exit()" cdkFocusInitial>{{ "Cancel" | translate }}</button>
+      </div>
+
+  </div>
+</div>
+  </div>
+</div>
