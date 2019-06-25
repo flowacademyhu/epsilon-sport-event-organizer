@@ -28,7 +28,20 @@ export class AddMemberModalComponent implements OnInit {
   }
 
   addGuest() {
-    this.teamService.
+    this.teamService.putGuestMemberUsingPOST(
+      this.guestEmailToAdd,
+      this.guestNameToAdd,
+      this.data.leader.googleName,
+      this.data.team.name).subscribe();
+      // Get the snackbar DIV
+      var x = document.getElementById("snackbar");
+
+      // Add the "show" class to DIV
+      x.className = "show";
+
+      // After 3 seconds, remove the show class from DIV
+      setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+      this.dialogRef.close(AddMemberModalComponent);
   }
 
   exit() {

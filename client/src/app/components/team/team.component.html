@@ -57,6 +57,14 @@
                     <p class="font-weight-bold">{{ 'Members' | translate }}</p>                 
                 <div *ngFor="let member of element.users">
                   {{ member.googleName }}
+                  <div *ngIf="member.googleName === state.user.googleName">
+                    <img
+                          src="../../../assets/pictures/deleteX.png"
+                          alt="delete"
+                          class="memberButtons"
+                          (click)="deleteMember(member, element)"
+                          style="cursor: pointer;">
+                  </div>
                   <div *ngFor="let leader of element.leaders">
                   <div *ngIf="leader.googleName === state.user.googleName">
                   <img
@@ -91,3 +99,5 @@
       <!-- table -->
     </div>
   </div>
+  <div id="snackbar"> asd </div>
+  
