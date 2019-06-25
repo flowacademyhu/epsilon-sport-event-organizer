@@ -1,0 +1,44 @@
+<div class="col-sm-10 rounded background paddig-text-top margin-bottom-200">
+    <h1>{{ "Teams" | translate }}</h1>
+    <!-- table -->
+        <mat-form-field class="search-form-field">
+        <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+        <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="searchClear()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+   <div class="mat-elevation-z8 padding-bottom-50 ppp">
+          <mat-table [dataSource]="listData" matSort>
+
+            <ng-container matColumnDef="name">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>{{ "Name" | translate }}</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="company">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>{{ "Company" | translate }}</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.company}}</mat-cell>
+            </ng-container>
+
+             
+
+              <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef>actions</mat-header-cell>
+                <mat-cell *matCellDef="let row; let element">
+                  <div *ngFor="let leader of element.leaders">
+                    <div *ngIf="leader.googleName == state.user.googleName">
+                        <a style="cursor: pointer;" (click)="applyTeam(element)"><mat-icon>add_outline</mat-icon></a>
+                    </div>
+                  </div>
+                </mat-cell>
+              </ng-container>
+
+           
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+          <mat-paginator [pageSizeOptions]="[5,10,15]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+  
+        </div>
+   

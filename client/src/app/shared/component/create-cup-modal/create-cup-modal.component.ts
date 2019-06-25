@@ -31,14 +31,11 @@ export class CreateCupModalComponent implements OnInit {
   }
 
   createCup() {
-    this.cup = {company: this.companyNameToCreate, courtCounter: this.courtCounter, 
+    this.cup = {company: this.companyNameToCreate, courtCounter: this.courtCounter,
                 description: this.description, name: this.cupNametoCreate,
                 place: this.place, registrationEndDate: this.registrationEndDate, eventDate: this.eventDate};
     this.cupService.createCupUsingPOST(this.cup).subscribe(
       (data: any) => {
-       // this.datum = this.registrationEndDate.getDate;
-console.log(this.datum);
-
         // Get the snackbar DIV
         var x = document.getElementById("snackbar");
 
