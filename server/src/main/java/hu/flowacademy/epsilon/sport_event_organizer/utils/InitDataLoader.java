@@ -7,6 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 
@@ -79,8 +80,8 @@ public class InitDataLoader implements CommandLineRunner {
         cup.setPlace("Szeged, Hattyas u. 10, 6725");
         cup.setCourtCounter(4);
         cup.setDescription("This is the best sport event in Szeged.");
-        cup.setStartDateTime(LocalDateTime.of(2019, Month.JULY, 29, 8, 0, 0));
-        cup.setEndDateTime(LocalDateTime.of(2019, Month.JULY, 29, 16, 0, 0));
+        cup.setEventDate(LocalDate.of(2019, 6, 30));
+        cup.setRegistrationEndDate(LocalDate.of(2019, 6, 27));
 
 
         cup.setSport(sport);

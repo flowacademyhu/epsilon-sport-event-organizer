@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -40,6 +41,10 @@ public class CupService {
     public Cup save(Cup cup) {
         User currentUser = userService.getCurrentUser();
         cup.setDeleted(false);
+        LocalDate cupTomorrow = cup.getEventDate().plusDays(1);
+        LocalDate regTomorrow = cup.getRegistrationEndDate().plusDays(1);
+        cup.setEventDate(cupTomorrow);
+        cup.setRegistrationEndDate(regTomorrow);
         cupRepository.save(cup);
         currentUser.addCup(cup);
         userService.save(currentUser);
@@ -113,9 +118,7 @@ public class CupService {
             team.addCup(cup);
             teamService.update(team);
             cupRepository.save(cup);
-        } else {
-            throw new UserUnauthorizedException();
-        }
+        } else { throw new UserUnauthorizedException(); }
     }
 
 
@@ -189,6 +192,4 @@ public class CupService {
     public void deleteCupByName(String cupName) {
         cupRepository.updateDelete(cupName, true);
     }
-
-
 }

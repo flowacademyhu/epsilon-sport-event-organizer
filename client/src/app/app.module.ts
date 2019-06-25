@@ -17,7 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateTeamModalComponent } from './shared/component/create-team-modal/create-team-modal.component';
-import { MatFormFieldModule, MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatIconModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatIconModule, MatButtonModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
 import { AddMemberModalComponent } from './shared/component/add-member-modal/add-member-modal.component';
 import { ShowTeamModalComponent } from './shared/component/show-team-modal/show-team-modal.component';
 import { ShowCupModalComponent } from './shared/component/show-cup-modal/show-cup-modal.component';
@@ -25,6 +25,9 @@ import { CupComponent } from './components/cup/cup.component';
 import { KeysPipe } from './shared/pipe/keys.pipe';
 import { ApiModule, Configuration, ConfigurationParameters } from './api';
 import { CreateCupModalComponent } from './shared/component/create-cup-modal/create-cup-modal.component';
+import { DeleteTeamConfirmComponent } from './shared/component/delete-team-confirm/delete-team-confirm.component';
+import { DeleteMemberConfirmComponent } from './shared/component/delete-member-confirm/delete-member-confirm.component';
+import { DeleteLeaderConfirmComponent } from './shared/component/delete-leader-confirm/delete-leader-confirm.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -52,7 +55,10 @@ export function getConfig(): Configuration {
     ShowCupModalComponent,
     CupComponent,
     KeysPipe,
-    CreateCupModalComponent
+    CreateCupModalComponent,
+    DeleteTeamConfirmComponent,
+    DeleteMemberConfirmComponent,
+    DeleteLeaderConfirmComponent
   ],
   imports: [
     BrowserModule,
@@ -67,8 +73,11 @@ export function getConfig(): Configuration {
     MatPaginatorModule,
     MatSortModule,
     MatIconModule,
+    MatButtonModule,
     BrowserAnimationsModule,
     ApiModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     ApiModule.forRoot(getConfig),
     TranslateModule.forRoot({
       loader: {
@@ -83,7 +92,8 @@ export function getConfig(): Configuration {
       provide: HTTP_INTERCEPTORS,
       useClass: RequestInterceptorService,
       multi: true
-    }
+    },
+    MatDatepickerModule
 ],
   bootstrap: [AppComponent],
   exports: [
@@ -92,6 +102,7 @@ export function getConfig(): Configuration {
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatButtonModule,
     MatIconModule
   ],
   entryComponents: [
@@ -99,7 +110,10 @@ export function getConfig(): Configuration {
     ShowTeamModalComponent,
     AddMemberModalComponent,
     CreateCupModalComponent,
-    ShowCupModalComponent
+    ShowCupModalComponent,
+    DeleteTeamConfirmComponent,
+    DeleteLeaderConfirmComponent,
+    DeleteMemberConfirmComponent
   ]
 })
 export class AppModule { }
