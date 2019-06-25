@@ -1,7 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
-import { TeamControllerService } from 'src/app/api';
-import { RecentTeamService } from '../../service/recent-team.service';
+import { Component, OnInit, Input, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { TeamResourceService } from 'src/app/api';
 
 @Component({
   selector: 'app-add-member-modal',
@@ -11,22 +10,38 @@ import { RecentTeamService } from '../../service/recent-team.service';
 export class AddMemberModalComponent implements OnInit {
 
   memberNameToAdd: string = '';
-  teamName: string;
+  guestNameToAdd: string = '';
+  guestEmailToAdd: string = '';
 
   constructor(
     public dialogRef: MatDialogRef<AddMemberModalComponent>,
-    private teamService: TeamControllerService,
-    private recentTeam: RecentTeamService
+    private teamService: TeamResourceService,
+    @Inject(MAT_DIALOG_DATA) public data: any
     ) { }
 
   ngOnInit() {
   }
 
   add() {
-    console.log('eteetetete');
-    console.log(this.recentTeam.team.name);
-    this.teamService.putMemberUsingPUT(this.memberNameToAdd, this.recentTeam.team.name).subscribe();
+    this.teamService.putMemberUsingPUT(this.memberNameToAdd, this.data.team.name).subscribe();
     this.dialogRef.close(AddMemberModalComponent);
+  }
+
+  addGuest() {
+    this.teamService.putGuestMemberUsingPOST(
+      this.guestEmailToAdd,
+      this.guestNameToAdd,
+      this.data.leader.googleName,
+      this.data.team.name).subscribe();
+      // Get the snackbar DIV
+      var x = document.getElementById("snackbar");
+
+      // Add the "show" class to DIV
+      x.className = "show";
+
+      // After 3 seconds, remove the show class from DIV
+      setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+      this.dialogRef.close(AddMemberModalComponent);
   }
 
   exit() {

@@ -25,11 +25,6 @@ body {
 }
 
 /* Control the top side */
-.top {
-  top: 3;
-  background-color: rgb(65, 192, 53);
-  
-}
 
 /* Control the bottom side */
 .bottom {
@@ -91,4 +86,33 @@ a {
 
 .background {
   background-color: #FFEB7F;
+}
+
+#cup {
+  background-color: #FFEB7F;
+  opacity: 0.8;
+  text-align: center;
+  text-shadow: #FFEB7F;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  font-family: 'Luckiest Guy', cursive;
+  font-weight: bold;
+}
+
+h3 {
+  font-size: 200%;
+  font-stretch: extra-expanded;
+  font-weight: 300;
+}
+
+#team {
+  background-color: lightcoral;
+  opacity: 0.8;
+  text-align: center;
+  text-shadow: lightcoral;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  font-family: 'Luckiest Guy', cursive;
+  font-weight: bold;
+  margin: 50px;
 }

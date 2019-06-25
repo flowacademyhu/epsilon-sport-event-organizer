@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/team")
-public class TeamController {
+public class TeamResource {
 
     @Autowired
     private TeamService teamService;

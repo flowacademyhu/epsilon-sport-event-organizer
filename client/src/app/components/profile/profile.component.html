@@ -1,5 +1,4 @@
-<body background="./assets/pictures/baseballgb.jpg">
-  <div class="split left">
+<div class="split left">
     <div class="centered">
       <div class="background rounded">
       <img src= "{{ userDatas.imageUrl }}"/>
@@ -10,6 +9,7 @@
   </div>
   
   <div class="split right">
+    <!--
       <div class="splite top">
           <div class="centered">
               {{ 'Leadership' | translate }}
@@ -44,10 +44,40 @@
                 </table>
           </div>
         </div>
-        
+    -->
+    <div class="splite top">
+        <div class="mat-elevation-z8">
+          <div *ngIf="teamsIAmLeaderInSize > 0" id="team">
+          <h3>My Teams</h3>
+          <mat-table [dataSource]="teamsIAmLeaderIn" matSort>
+            <ng-container matColumnDef="name">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="company">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Company</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.company}}</mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="teamsDefinition"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: teamsDefinition;"></mat-row>
+          </mat-table>
+          <mat-paginator [pageSizeOptions]="[5,10,15]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+         </div>
+         <div *ngIf="teamsIAmLeaderIn === 0" id="team">
+          <h3>You are no leader in any teams...</h3>
+        </div>
+    </div>
+
+
+
+
+
+
       <div class="splite bottom">
         <div class="mat-elevation-z8">
-          <div *ngIf="listCupDataSize > 0">
+          <div *ngIf="listCupDataSize > 0" id="cup">
           <h3>My Cups</h3>
           <mat-table [dataSource]="listCupData" matSort>
             <ng-container matColumnDef="name">
@@ -80,12 +110,12 @@
           </mat-table>
           <mat-paginator [pageSizeOptions]="[5,10,15]" [pageSize]="5" showFirstLastButtons></mat-paginator>
          </div>
-         <div *ngIf="listCupDataSize === 0">
+         <div *ngIf="listCupDataSize === 0" id="cup">
           <h3>No upcoming cups - as organizer</h3>
         </div>
 
 
-        <div *ngIf="listCupDataMembershipSize > 0">
+        <div *ngIf="listCupDataMembershipSize > 0" id="cup">
           <h3>Cup membership</h3>
           <mat-table [dataSource]="listCupDataMembership" matSort>
             <ng-container matColumnDef="name">
@@ -118,7 +148,7 @@
           </mat-table>
           <mat-paginator [pageSizeOptions]="[5,10,15]" [pageSize]="5" showFirstLastButtons></mat-paginator>
         </div>
-        <div *ngIf="listCupDataMembershipSize === 0">
+        <div *ngIf="listCupDataMembershipSize === 0"  id="cup">
           <h3>No upcoming cups - as team member</h3>
         </div>
 
@@ -126,6 +156,3 @@
       </div>
     </div>
   </div>
-  
- 
-</body>

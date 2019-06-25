@@ -1,5 +1,6 @@
 package hu.flowacademy.epsilon.sport_event_organizer.email;
 
+import hu.flowacademy.epsilon.sport_event_organizer.model.Cup;
 import hu.flowacademy.epsilon.sport_event_organizer.model.Team;
 import hu.flowacademy.epsilon.sport_event_organizer.model.User;
 import org.springframework.beans.factory.annotation.Value;
@@ -54,7 +55,7 @@ public class MailService {
             message.setFrom(new InternetAddress("projektmunkasports@gmail.com"));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(user.getEmail()));
-            message.setSubject(team.getName() + "Team Invitation From ");
+            message.setSubject(team.getName() + " Team Invitation");
             message.setText("Hello " + user.getGoogleName() + ",\n  Team leader invited you to " + team.getCompany() + "'s " + team.getName() + " team. Check out our page: " + homePageUrl);
             Transport.send(message);
         } catch (MessagingException e) {
@@ -70,7 +71,7 @@ public class MailService {
             message.setFrom(new InternetAddress("projektmunkasports@gmail.com"));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(user.getEmail()));
-            message.setSubject(team.getName() + "Team Invitation From ");
+            message.setSubject(team.getName() + " Team delete");
             message.setText("Hello " + user.getGoogleName() + ",\n  Team leader deleted you from " + team.getCompany() + "'s " + team.getName() + " team. Check out our page: " + homePageUrl);
             Transport.send(message);
         } catch (MessagingException e) {
@@ -86,11 +87,92 @@ public class MailService {
             message.setFrom(new InternetAddress("projektmunkasports@gmail.com"));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(user.getEmail()));
-            message.setSubject(team.getName() + "Team Invitation From ");
+            message.setSubject(team.getName() + "Team Promotion");
             message.setText("Hello " + user.getGoogleName() + ",\n  Team leader promote you to leader in" + team.getCompany() + "'s " + team.getName() + " team. Check out our page: " + homePageUrl);
             Transport.send(message);
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
     }
+
+    @Async
+    public void sendMailOrganizersToApplieTeam(Team team, Cup cup) {
+        User[] organizersArr = (User[]) cup.getOrganizers().toArray();
+
+
+        for (int i = 0; i < organizersArr.length; i++) {
+            try {
+                Message message = new MimeMessage(session);
+                message.setFrom(new InternetAddress("projektmunkasports@gmail.com"));
+                message.setRecipients(Message.RecipientType.TO,
+                        InternetAddress.parse(organizersArr[i].getEmail()));
+                message.setSubject(team.getName() + "Team join request");
+                message.setText("Hello " + organizersArr[i].getGoogleName() + ",\n" +
+                        team.getName() + " would like to join your " + cup.getName() + " cup. Check out our page: " + homePageUrl);
+                Transport.send(message);
+            } catch (MessagingException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    @Async
+    public void sendMailTeamLeaderBecauseTeamApproved(Team team, Cup cup) {
+        User[] teamLeadersArr = (User[]) team.getLeaders().toArray();
+
+
+        for (int i = 0; i < teamLeadersArr.length; i++) {
+            try {
+                Message message = new MimeMessage(session);
+                message.setFrom(new InternetAddress("projektmunkasports@gmail.com"));
+                message.setRecipients(Message.RecipientType.TO,
+                        InternetAddress.parse(teamLeadersArr[i].getEmail()));
+                message.setSubject(team.getName() + "Approved request");
+                message.setText("Hello " + teamLeadersArr[i].getGoogleName() + ",\n" +
+                        cup.getName() + " leader approved " + team.getName() + "'s request. Check out our page: " + homePageUrl);
+                Transport.send(message);
+            } catch (MessagingException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    @Async
+    public void sendMailTeamLeaderBecauseTeamRefused(Team team, Cup cup) {
+        User[] teamLeadersArr = (User[]) team.getLeaders().toArray();
+
+
+        for (int i = 0; i < teamLeadersArr.length; i++) {
+            try {
+                Message message = new MimeMessage(session);
+                message.setFrom(new InternetAddress("projektmunkasports@gmail.com"));
+                message.setRecipients(Message.RecipientType.TO,
+                        InternetAddress.parse(teamLeadersArr[i].getEmail()));
+                message.setSubject(team.getName() + "Refused request");
+                message.setText("Hello " + teamLeadersArr[i].getGoogleName() + ",\n" +
+                        cup.getName() + " leader refused " + team.getName() + "'s request. Check out our page: " + homePageUrl);
+                Transport.send(message);
+            } catch (MessagingException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+//    @Async
+//    public void sendMailUsertoAddOrganizer(User user, Cup cup) {
+//
+//        try {
+//            Message message = new MimeMessage(session);
+//            message.setFrom(new InternetAddress("projektmunkasports@gmail.com"));
+//            message.setRecipients(Message.RecipientType.TO,
+//                    InternetAddress.parse(teamLeadersArr[i].getEmail()));
+//            message.setSubject(team.getName() + "Refused request");
+//            message.setText("Hello " + teamLeadersArr[i].getGoogleName() + ",\n" +
+//                    cup.getName() + " leader refused " + team.getName() + "'s request. Check out our page: " + homePageUrl);
+//            Transport.send(message);
+//        } catch (MessagingException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+//
 }

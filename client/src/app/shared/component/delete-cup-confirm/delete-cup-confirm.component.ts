@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { CupControllerService } from 'src/app/api';
+import { CupResourceService} from 'src/app/api';
 
 @Component({
   selector: 'app-delete-cup-confirm',
@@ -11,7 +11,7 @@ export class DeleteCupConfirmComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<DeleteCupConfirmComponent>,
-    private cupService: CupControllerService,
+    private cupService: CupResourceService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 

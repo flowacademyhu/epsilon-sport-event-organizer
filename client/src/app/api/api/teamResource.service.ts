@@ -25,7 +25,7 @@ import { Configuration }                                     from '../configurat
 
 
 @Injectable()
-export class TeamControllerService {
+export class TeamResourceService {
 
     protected basePath = 'https://localhost:8080';
     public defaultHeaders = new HttpHeaders();
@@ -470,6 +470,69 @@ export class TeamControllerService {
         ];
 
         return this.httpClient.get<Team>(`${this.basePath}/team/${encodeURIComponent(String(names))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * putGuestMember
+     * 
+     * @param guestEmail guestEmail
+     * @param guestName guestName
+     * @param teamLeader teamLeader
+     * @param teamName teamName
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public putGuestMemberUsingPOST(guestEmail: string, guestName: string, teamLeader: string, teamName: string, observe?: 'body', reportProgress?: boolean): Observable<Team>;
+    public putGuestMemberUsingPOST(guestEmail: string, guestName: string, teamLeader: string, teamName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Team>>;
+    public putGuestMemberUsingPOST(guestEmail: string, guestName: string, teamLeader: string, teamName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Team>>;
+    public putGuestMemberUsingPOST(guestEmail: string, guestName: string, teamLeader: string, teamName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (guestEmail === null || guestEmail === undefined) {
+            throw new Error('Required parameter guestEmail was null or undefined when calling putGuestMemberUsingPOST.');
+        }
+
+        if (guestName === null || guestName === undefined) {
+            throw new Error('Required parameter guestName was null or undefined when calling putGuestMemberUsingPOST.');
+        }
+
+        if (teamLeader === null || teamLeader === undefined) {
+            throw new Error('Required parameter teamLeader was null or undefined when calling putGuestMemberUsingPOST.');
+        }
+
+        if (teamName === null || teamName === undefined) {
+            throw new Error('Required parameter teamName was null or undefined when calling putGuestMemberUsingPOST.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+
+        return this.httpClient.post<Team>(`${this.basePath}/team/member/guest/${encodeURIComponent(String(teamName))}/${encodeURIComponent(String(teamLeader))}/${encodeURIComponent(String(guestName))}/${encodeURIComponent(String(guestEmail))}`,
+            null,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

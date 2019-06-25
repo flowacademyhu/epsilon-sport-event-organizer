@@ -9,6 +9,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { Match } from './match';
 import { Team } from './team';
 import { User } from './user';
 
@@ -21,6 +22,7 @@ export interface Cup {
     description?: string;
     eventDate?: string;
     imageUrl?: string;
+    matches?: Array<Match>;
     name?: string;
     organizers?: Array<User>;
     place?: string;
