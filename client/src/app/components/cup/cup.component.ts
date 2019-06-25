@@ -5,6 +5,7 @@ import { CupControllerService, TeamControllerService, Team, Cup } from 'src/app/
 import { CreateCupModalComponent } from 'src/app/shared/component/create-cup-modal/create-cup-modal.component';
 import { TeamStateService } from 'src/app/shared/service/team-state.service';
 import { DeleteCupConfirmComponent } from 'src/app/shared/component/delete-cup-confirm/delete-cup-confirm.component';
+import { ApplyCupModalComponent } from 'src/app/shared/component/apply-cup-modal/apply-cup-modal.component';
 
 
 @Component({
@@ -46,6 +47,19 @@ export class CupComponent implements OnInit {
       );
 
 
+  }
+
+  applyCup(cup: Cup) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '40%';
+    dialogConfig.data = {cup: cup};
+    this.dialog.open(ApplyCupModalComponent, dialogConfig).afterClosed().subscribe(
+      result => {
+        this.getData();
+      }
+    );
   }
 
   deleteCup(cup: Cup) {

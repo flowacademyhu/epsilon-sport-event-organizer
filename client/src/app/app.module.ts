@@ -28,6 +28,7 @@ import { CreateCupModalComponent } from './shared/component/create-cup-modal/cre
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
 import { DeleteCupConfirmComponent } from './shared/component/delete-cup-confirm/delete-cup-confirm.component';
+import { ApplyCupModalComponent } from './shared/component/apply-cup-modal/apply-cup-modal.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -56,7 +57,8 @@ export function getConfig(): Configuration {
     CupComponent,
     KeysPipe,
     CreateCupModalComponent,
-    DeleteCupConfirmComponent
+    DeleteCupConfirmComponent,
+    ApplyCupModalComponent
   ],
   imports: [
     BrowserModule,
@@ -107,7 +109,8 @@ export function getConfig(): Configuration {
     AddMemberModalComponent,
     CreateCupModalComponent,
     ShowCupModalComponent,
-    DeleteCupConfirmComponent
+    DeleteCupConfirmComponent,
+    ApplyCupModalComponent
 
   ]
 })

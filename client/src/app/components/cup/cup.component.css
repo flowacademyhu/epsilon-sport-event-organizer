@@ -1,6 +1,10 @@
 body { 
   padding-top: 65px; 
 }
+
+.ppp {
+  margin-bottom: 50px
+}
 /* The snackbar - position it at the bottom and in the middle of the screen */
 #snackbar {
   visibility: hidden; /* Hidden by default. Visible on click */

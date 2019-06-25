@@ -56,6 +56,7 @@ export class ApplyCupModalComponent implements OnInit {
 
       }
     );
+    this.dialogRef.close();
   }
 
 }

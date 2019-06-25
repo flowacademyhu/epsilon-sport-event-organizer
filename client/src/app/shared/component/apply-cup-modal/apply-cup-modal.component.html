@@ -1,12 +1,6 @@
 <div class="col-sm-10 rounded background paddig-text-top margin-bottom-200">
-    <h1>{{ "Teams" | translate }}</h1>
-    <!-- table -->
-        <mat-form-field class="search-form-field">
-        <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
-        <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="searchClear()">
-          <mat-icon>close</mat-icon>
-        </button>
-      </mat-form-field>
+    <h1>{{ "MyTeams" | translate }}</h1>
+   
     </div>
    <div class="mat-elevation-z8 padding-bottom-50 ppp">
           <mat-table [dataSource]="listData" matSort>

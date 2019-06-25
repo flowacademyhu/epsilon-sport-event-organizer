@@ -1,10 +1,5 @@
 <body background="./assets/pictures/baseballgb.jpg">
-  <div *ngIf="state.user != null">
-    <input type="text" name="cupNameToDelete" [(ngModel)]="cupNameToDelete">
-    <a type="button" class="btn btn-primary createButton" (click)="onDeleteCup()">
-      {{ "DeleteCup" | translate }}
-    </a>
-  </div>
+ 
   <div class="row margin-top padding-text-bottom">
       <div class="col-sm-6 rounded background paddig-text-top">
         <h1>{{ "Cups" | translate }}</h1>
@@ -20,7 +15,7 @@
             </button>
           </mat-form-field>
         </div>
-        <div class="mat-elevation-z8 padding-bottom-50">
+        <div class="mat-elevation-z8 padding-bottom-50 ppp">
           <mat-table [dataSource]="listData" matSort>
 
             <ng-container matColumnDef="name">
@@ -53,25 +48,16 @@
               <ng-container matColumnDef="actionsa">
                 <mat-header-cell *matHeaderCellDef>actions</mat-header-cell>
                 <mat-cell *matCellDef="let row; let element">
+                  <a style="cursor: pointer;" (click)="applyCup(element)"><mat-icon>add_outline</mat-icon></a>
                   <div *ngFor="let leader of element.organizers">
                     <div *ngIf="leader.googleName == state.user.googleName">
-                        <a style="cursor: pointer;" (click)="onAdd(element)"><mat-icon>add_outline</mat-icon></a>
                         <a style="cursor: pointer;" (click)="deleteCup(element)"><mat-icon>delete_outline</mat-icon></a>
                     </div>
                   </div>
                 </mat-cell>
               </ng-container>
 
-            <ng-container matColumnDef="actions">
-                <!--<div *ngFor="let team of teamList"> 
-                    <div *ngFor="let leader of team.leaders"> -->
-              <mat-header-cell *matHeaderCellDef></mat-header-cell>
-              <mat-cell *matCellDef="let row">
-                
-                <button mat-icon-button color="warn"><mat-icon>delete_outline</mat-icon></button>
-              
-              </mat-cell>
-            </ng-container>
+           
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
           </mat-table>
@@ -80,4 +66,4 @@
         </div>
         <div id="snackbar"> {{ "SuccesfullyCreatedCup" | translate }}</div>
     </div>
-    
+  </div>
