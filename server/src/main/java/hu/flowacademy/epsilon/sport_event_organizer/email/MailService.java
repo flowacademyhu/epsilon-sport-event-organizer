@@ -27,8 +27,11 @@ public class MailService {
     @Value("${app.url}")
     private String homePageUrl;
 
-    final String username = "projektmunkasports@gmail.com";
-    final String password = "Flow123456";
+    @Value("${app.username}")
+    private String username;
+
+    @Value("${app.password}")
+    private String password;
 
     Properties props = new Properties();
 
@@ -39,7 +42,7 @@ public class MailService {
         props.put("mail.smtp.port", "587");
     }
 
-    Session session = Session.getInstance(props,
+    private Session session = Session.getInstance(props,
             new javax.mail.Authenticator() {
                 protected PasswordAuthentication getPasswordAuthentication() {
                     return new PasswordAuthentication(username, password);
@@ -52,7 +55,7 @@ public class MailService {
 
         try {
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("projektmunkasports@gmail.com"));
+            message.setFrom(new InternetAddress(username));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(user.getEmail()));
             message.setSubject(team.getName() + " Team Invitation");
@@ -68,7 +71,7 @@ public class MailService {
 
         try {
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("projektmunkasports@gmail.com"));
+            message.setFrom(new InternetAddress(username));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(user.getEmail()));
             message.setSubject(team.getName() + " Team delete");
@@ -84,7 +87,7 @@ public class MailService {
 
         try {
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("projektmunkasports@gmail.com"));
+            message.setFrom(new InternetAddress(username));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(user.getEmail()));
             message.setSubject(team.getName() + "Team Promotion");
@@ -96,83 +99,57 @@ public class MailService {
     }
 
     @Async
-    public void sendMailOrganizersToApplieTeam(Team team, Cup cup) {
-        User[] organizersArr = (User[]) cup.getOrganizers().toArray();
-
-
-        for (int i = 0; i < organizersArr.length; i++) {
+    public void sendMailOrganizersToAppliedTeam(Team team, Cup cup) {
+        cup.getOrganizers().forEach(organizer -> {
             try {
                 Message message = new MimeMessage(session);
-                message.setFrom(new InternetAddress("projektmunkasports@gmail.com"));
+                message.setFrom(new InternetAddress(username));
                 message.setRecipients(Message.RecipientType.TO,
-                        InternetAddress.parse(organizersArr[i].getEmail()));
+                        InternetAddress.parse(organizer.getEmail()));
                 message.setSubject(team.getName() + "Team join request");
-                message.setText("Hello " + organizersArr[i].getGoogleName() + ",\n" +
+                message.setText("Hello " + organizer.getGoogleName() + ",\n" +
                         team.getName() + " would like to join your " + cup.getName() + " cup. Check out our page: " + homePageUrl);
                 Transport.send(message);
             } catch (MessagingException e) {
                 throw new RuntimeException(e);
             }
-        }
+        });
     }
 
     @Async
     public void sendMailTeamLeaderBecauseTeamApproved(Team team, Cup cup) {
-        User[] teamLeadersArr = (User[]) team.getLeaders().toArray();
-
-
-        for (int i = 0; i < teamLeadersArr.length; i++) {
+        team.getLeaders().forEach(leader -> {
             try {
                 Message message = new MimeMessage(session);
-                message.setFrom(new InternetAddress("projektmunkasports@gmail.com"));
+                message.setFrom(new InternetAddress(username));
                 message.setRecipients(Message.RecipientType.TO,
-                        InternetAddress.parse(teamLeadersArr[i].getEmail()));
+                        InternetAddress.parse(leader.getEmail()));
                 message.setSubject(team.getName() + "Approved request");
-                message.setText("Hello " + teamLeadersArr[i].getGoogleName() + ",\n" +
+                message.setText("Hello " + leader.getGoogleName() + ",\n" +
                         cup.getName() + " leader approved " + team.getName() + "'s request. Check out our page: " + homePageUrl);
                 Transport.send(message);
             } catch (MessagingException e) {
                 throw new RuntimeException(e);
             }
-        }
+        });
     }
 
     @Async
     public void sendMailTeamLeaderBecauseTeamRefused(Team team, Cup cup) {
-        User[] teamLeadersArr = (User[]) team.getLeaders().toArray();
-
-
-        for (int i = 0; i < teamLeadersArr.length; i++) {
+        team.getLeaders().forEach(leader -> {
             try {
                 Message message = new MimeMessage(session);
-                message.setFrom(new InternetAddress("projektmunkasports@gmail.com"));
+                message.setFrom(new InternetAddress(username));
                 message.setRecipients(Message.RecipientType.TO,
-                        InternetAddress.parse(teamLeadersArr[i].getEmail()));
+                        InternetAddress.parse(leader.getEmail()));
                 message.setSubject(team.getName() + "Refused request");
-                message.setText("Hello " + teamLeadersArr[i].getGoogleName() + ",\n" +
+                message.setText("Hello " + leader.getGoogleName() + ",\n" +
                         cup.getName() + " leader refused " + team.getName() + "'s request. Check out our page: " + homePageUrl);
                 Transport.send(message);
             } catch (MessagingException e) {
                 throw new RuntimeException(e);
             }
-        }
+        });
     }
 
-//    @Async
-//    public void sendMailUsertoAddOrganizer(User user, Cup cup) {
-//
-//        try {
-//            Message message = new MimeMessage(session);
-//            message.setFrom(new InternetAddress("projektmunkasports@gmail.com"));
-//            message.setRecipients(Message.RecipientType.TO,
-//                    InternetAddress.parse(teamLeadersArr[i].getEmail()));
-//            message.setSubject(team.getName() + "Refused request");
-//            message.setText("Hello " + teamLeadersArr[i].getGoogleName() + ",\n" +
-//                    cup.getName() + " leader refused " + team.getName() + "'s request. Check out our page: " + homePageUrl);
-//            Transport.send(message);
-//        } catch (MessagingException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-//
 }

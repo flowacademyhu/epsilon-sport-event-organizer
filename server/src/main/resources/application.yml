@@ -62,3 +62,5 @@ app:
       - myiosapp://oauth2/redirect
       - http://localhost:4200/oauth2/redirect
   url: http://localhost:4200/
+  username: projektmunkasports@gmail.com
+  password: Flow123456

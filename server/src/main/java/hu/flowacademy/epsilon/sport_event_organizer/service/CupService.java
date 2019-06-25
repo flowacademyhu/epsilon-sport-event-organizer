@@ -4,7 +4,6 @@ import hu.flowacademy.epsilon.sport_event_organizer.email.MailService;
 import hu.flowacademy.epsilon.sport_event_organizer.exception.CupNotFoundException;
 import hu.flowacademy.epsilon.sport_event_organizer.exception.UserUnauthorizedException;
 import hu.flowacademy.epsilon.sport_event_organizer.model.Cup;
-import hu.flowacademy.epsilon.sport_event_organizer.model.Match;
 import hu.flowacademy.epsilon.sport_event_organizer.model.Team;
 import hu.flowacademy.epsilon.sport_event_organizer.model.User;
 import hu.flowacademy.epsilon.sport_event_organizer.repository.CupRepository;
@@ -14,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
@@ -119,7 +116,7 @@ public class CupService {
         Team team = teamService.getTeamByName(teamName);
         User currentUser = userService.getCurrentUser();
         if (team.getLeaders().contains(currentUser)) {
-            mailService.sendMailOrganizersToApplieTeam(team, cup);
+            mailService.sendMailOrganizersToAppliedTeam(team, cup);
             cup.addTeam(team);
             team.addCup(cup);
             teamService.update(team);
