@@ -20,4 +20,9 @@ public interface CupRepository extends JpaRepository<Cup, String> {
     @Modifying
     @Query("UPDATE Cup c SET c.isDeleted = :isDeleted WHERE c.name = :name")
     void updateDelete(@Param("name") String name, @Param("isDeleted") boolean isDeleted);
+
+    List<Cup> findByPlace(String place);
+
+    List<Cup> findByCompany(String company);
+
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppStateService } from './shared/service/app-state.service';
-import { AuthService } from './shared/service/auth.service';
 import { ActivatedRoute } from '@angular/router';
+import { UserControllerService } from './api';
 
 @Component({
   selector: 'app-root',
@@ -10,11 +10,11 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AppComponent implements OnInit {
 
-  tokenParam: String;
+  tokenParam: string;
 
   constructor(
     private activateRoute: ActivatedRoute,
-    private authService: AuthService,
+    private userService: UserControllerService,
     private appStateService: AppStateService
   ) {
   }
@@ -23,12 +23,12 @@ export class AppComponent implements OnInit {
   this.activateRoute.queryParams.subscribe(params => {
     this.tokenParam = params['token'];
     if (this.tokenParam != null) {
-    localStorage.setItem('token', params['token']);
-    this.authService.getLoggedInUser().subscribe(
-      user => {
-       this.appStateService.user = user;
-      }
-    );
+      localStorage.setItem('token', params['token']);
+      this.userService.getCurrentUserUsingGET().subscribe(
+        user => {
+        this.appStateService.user = user;
+        }
+      );
     }
   });
   }
