@@ -26,6 +26,7 @@ import { KeysPipe } from './shared/pipe/keys.pipe';
 import { ApiModule, Configuration, ConfigurationParameters } from './api';
 import { CreateCupModalComponent } from './shared/component/create-cup-modal/create-cup-modal.component';
 import { DeleteCupConfirmComponent } from './shared/component/delete-cup-confirm/delete-cup-confirm.component';
+import { ApplyCupModalComponent } from './shared/component/apply-cup-modal/apply-cup-modal.component';
 import { DeleteTeamConfirmComponent } from './shared/component/delete-team-confirm/delete-team-confirm.component';
 import { DeleteMemberConfirmComponent } from './shared/component/delete-member-confirm/delete-member-confirm.component';
 import { DeleteLeaderConfirmComponent } from './shared/component/delete-leader-confirm/delete-leader-confirm.component';
@@ -58,6 +59,7 @@ export function getConfig(): Configuration {
     KeysPipe,
     CreateCupModalComponent,
     DeleteCupConfirmComponent,
+    ApplyCupModalComponent,
     DeleteTeamConfirmComponent,
     DeleteMemberConfirmComponent,
     DeleteLeaderConfirmComponent
@@ -114,6 +116,7 @@ export function getConfig(): Configuration {
     CreateCupModalComponent,
     ShowCupModalComponent,
     DeleteCupConfirmComponent,
+    ApplyCupModalComponent,
     DeleteTeamConfirmComponent,
     DeleteLeaderConfirmComponent,
     DeleteMemberConfirmComponent

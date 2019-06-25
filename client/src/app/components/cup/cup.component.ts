@@ -4,6 +4,7 @@ import { MatDialog, MatDialogConfig, MatTableDataSource, MatSort, MatPaginator }
 import { DeleteCupConfirmComponent } from 'src/app/shared/component/delete-cup-confirm/delete-cup-confirm.component';
 import { CreateCupModalComponent } from 'src/app/shared/component/create-cup-modal/create-cup-modal.component';
 import { TeamStateService } from 'src/app/shared/service/team-state.service';
+import { ApplyCupModalComponent } from 'src/app/shared/component/apply-cup-modal/apply-cup-modal.component';
 import { TeamResourceService, CupResourceService, Team, Cup } from 'src/app/api';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
@@ -53,6 +54,19 @@ export class CupComponent implements OnInit {
       );
 
 
+  }
+
+  applyCup(cup: Cup) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '100%';
+    dialogConfig.data = {cup: cup};
+    this.dialog.open(ApplyCupModalComponent, dialogConfig).afterClosed().subscribe(
+      result => {
+        this.getData();
+      }
+    );
   }
 
   deleteCup(cup: Cup) {

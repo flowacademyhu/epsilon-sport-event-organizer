@@ -55,5 +55,8 @@
   "CupDeleteConfirm": "Biztos akarod törölni az alábbi kupát: ",
   "ApprovedTeams": "Jóváhagyott csapatok",
   "AppliedTeams": "Jelentkezett csapatok",
-  "Organizers": "Szervezők" 
+  "Organizers": "Szervezők",
+  "MyTeams": "Csapataim",
+  "AddOrganizer": "Szervező hozzáadása",
+  "DeleteOrganizer": "Szervező törlése"
 }

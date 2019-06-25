@@ -48,9 +48,9 @@
               <ng-container matColumnDef="actionsa">
                 <mat-header-cell *matHeaderCellDef>actions</mat-header-cell>
                 <mat-cell *matCellDef="let row; let element">
+                  <a style="cursor: pointer;" (click)="applyCup(element)"><mat-icon>add_outline</mat-icon></a>
                   <div *ngFor="let leader of element.organizers">
                     <div *ngIf="leader.googleName == state.user.googleName">
-                        <a style="cursor: pointer;" (click)="onAdd(element)"><mat-icon>add_outline</mat-icon></a>
                         <a style="cursor: pointer;" (click)="deleteCup(element)"><mat-icon>delete_outline</mat-icon></a>
                     </div>
                   </div>
@@ -93,4 +93,5 @@
         </div>
         <div id="snackbar"> {{ "SuccesfullyCreatedCup" | translate }}</div>
     </div>
+  </div>
     

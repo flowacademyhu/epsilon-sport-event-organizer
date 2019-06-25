@@ -13,7 +13,7 @@ export class ApplyCupModalComponent implements OnInit {
   constructor(private teamService: TeamResourceService,
     public dialogRef: MatDialogRef<ApplyCupModalComponent>,
     private cupService: CupResourceService,
-    private state: AppStateService,
+    public state: AppStateService,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   isSearchPressed: boolean = false;
@@ -26,6 +26,10 @@ export class ApplyCupModalComponent implements OnInit {
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  organiserNameToAdd: string = '';
+  organiserNameToDelete: string = '';
+  cupData: any = this.data.cup;
 
 
   ngOnInit() {
@@ -56,6 +60,29 @@ export class ApplyCupModalComponent implements OnInit {
 
       }
     );
+    this.dialogRef.close();
+  }
+
+  addOrganizer() {
+    this.cupService.addOrganizerUsingPOST(this.data.cup.name, this.organiserNameToAdd).subscribe(
+      (data: any) => {
+
+      }
+    );
+    this.dialogRef.close();
+  }
+
+  deleteOrganizer() {
+    this.cupService.deleteOrganizerUsingPOST(this.data.cup.name, this.organiserNameToDelete).subscribe(
+      (data: any) => {
+
+      }
+    );
+    this.dialogRef.close();
+  }
+
+  exit() {
+    this.dialogRef.close(ApplyCupModalComponent);
   }
 
 }

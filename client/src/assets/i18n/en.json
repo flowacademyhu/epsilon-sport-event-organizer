@@ -48,11 +48,14 @@
   "MemberDeleteConfirm": "Would you like to remove: ",
   "EventDate": "Event Date",
   "SuccesfullyCreatedCup": "Succesfully created cup",
-  "Name": "Name",
   "Company": "Company",
   "RegistrationEndDate": "Registration end date",
   "CupDeleteConfirm": "Would you like to delete this cup: ",
   "ApprovedTeams": "Approved teams",
   "AppliedTeams": "Applied teams",
-  "Organizers": "Organizers" 
+  "Organizers": "Organizers", 
+  "MyTeams": "My teams",
+  "ApplyTeams": "Apply teams",
+  "AddOrganizer": "Add Organizer",
+  "DeleteOrganizer": "DeleteOrganizer"
 }
