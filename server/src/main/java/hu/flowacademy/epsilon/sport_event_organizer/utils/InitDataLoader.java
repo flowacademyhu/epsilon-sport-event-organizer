@@ -8,8 +8,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Month;
 
 @Component
 @Transactional
@@ -92,7 +90,7 @@ public class InitDataLoader implements CommandLineRunner {
         user.addTeamLeader(team1);
         user.addTeamLeader(team2);
 
-        user.addCup(cup);
+        user.addCupToOrganizer(cup);
         team1.addValidatedCup(cup);
         team2.addValidatedCup(cup);
         team3.addValidatedCup(cup);
@@ -111,7 +109,7 @@ public class InitDataLoader implements CommandLineRunner {
         cup2.setDescription("n.a");
         cup2.setDeleted(false);
 
-        user.addCup(cup2);
+        user.addCupToOrganizer(cup2);
         team2.addValidatedCup(cup2);
 
         sportRepository.save(sport);
@@ -136,7 +134,6 @@ public class InitDataLoader implements CommandLineRunner {
         userRepository.save(user);
         userRepository.save(user1);
         userRepository.save(user2);
-
 
     }
 }
