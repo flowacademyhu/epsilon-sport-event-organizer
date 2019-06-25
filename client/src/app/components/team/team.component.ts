@@ -136,7 +136,6 @@ export class TeamComponent implements OnInit {
   getByTeamName() {
     this.teamService.getTeamByNameUsingGET(this.teamName).subscribe(
       (data: any) => {
-        console.log(data);
         this.team = data;
         this.teamName = '';
         this.isSearchPressed = true;
