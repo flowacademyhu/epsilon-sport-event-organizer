@@ -40,5 +40,5 @@
   "Name": "Name",
   "Company": "Company",
   "RegistrationEndDate": "Registration end date",
-  "EventDate": "Event date"
+  "CupDeleteConfirm": "Would you like to delete this cup: "
 }

@@ -40,5 +40,6 @@
   "Name": "Név",
   "Company": "Cég",
   "RegistrationEndDate": "Jelentkezési határidő",
-  "EventDate": "Kupa napja"
+  "EventDate": "Kupa napja",
+  "CupDeleteConfirm": "Biztos akarod törölni az alábbi kupát: "
 }

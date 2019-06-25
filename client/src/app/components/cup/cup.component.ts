@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AppStateService } from 'src/app/shared/service/app-state.service';
 import { MatDialog, MatDialogConfig, MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
-import { CupControllerService, TeamControllerService, Team } from 'src/app/api';
+import { CupControllerService, TeamControllerService, Team, Cup } from 'src/app/api';
 import { CreateCupModalComponent } from 'src/app/shared/component/create-cup-modal/create-cup-modal.component';
 import { TeamStateService } from 'src/app/shared/service/team-state.service';
+import { DeleteCupConfirmComponent } from 'src/app/shared/component/delete-cup-confirm/delete-cup-confirm.component';
 
 
 @Component({
@@ -35,20 +36,7 @@ export class CupComponent implements OnInit {
 
   ngOnInit() {
 
-    this.cupService.getAllCupsUsingGET().subscribe(
-      cuplist => {
-         const array = cuplist.map(
-          item => {
-            return {
-              $key: item.name,
-              ...item
-            };
-          });
-        this.listData = new MatTableDataSource(array);
-        this.listData.sort = this.sort;
-        this.listData.paginator = this.paginator;
-      }
-    );
+    this.getData();
 
         this.teamService.getAllTeamsUsingGET().subscribe(
           (teams: any) => {
@@ -60,7 +48,36 @@ export class CupComponent implements OnInit {
 
   }
 
+  deleteCup(cup: Cup) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '40%';
+    dialogConfig.data = {cup: cup};
+    this.dialog.open(DeleteCupConfirmComponent, dialogConfig).afterClosed().subscribe(
+      result => {
+        this.getData();
+      }
+    );
+  }
 
+getData() {
+  this.cupService.getAllCupsUsingGET().subscribe(
+    cuplist => {
+       const array = cuplist.map(
+        item => {
+          return {
+            $key: item.name,
+            ...item
+          };
+        });
+      this.listData = new MatTableDataSource(array);
+      this.listData.sort = this.sort;
+      this.listData.paginator = this.paginator;
+    }
+  );
+
+}
   applyFilter() {
     this.listData.filter = this.searchKey.trim().toLowerCase();
   }
@@ -76,7 +93,12 @@ export class CupComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.width = '40%';
     dialogConfig.height = '80%';
-    this.dialog.open(CreateCupModalComponent, dialogConfig);
+    this.dialog.open(CreateCupModalComponent, dialogConfig).afterClosed().subscribe(
+      (data: any) => {
+        this.getData();
+      }
+    );
+
   }
 
   onDeleteCup() {
