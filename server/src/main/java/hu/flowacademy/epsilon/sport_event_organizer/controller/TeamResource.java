@@ -1,18 +1,16 @@
 package hu.flowacademy.epsilon.sport_event_organizer.controller;
 
 import hu.flowacademy.epsilon.sport_event_organizer.model.Team;
-import hu.flowacademy.epsilon.sport_event_organizer.model.User;
 import hu.flowacademy.epsilon.sport_event_organizer.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping(path = "/team")
-public class TeamController {
+public class TeamResource {
 
     @Autowired
     private TeamService teamService;
@@ -77,4 +75,10 @@ public class TeamController {
     public ResponseEntity<Team> deleteLeader(@PathVariable String teamName, @PathVariable String googleName) {
         return ResponseEntity.ok(teamService.deleteLeader(teamName, googleName));
     }
+
+    @PostMapping("/member/guest/{teamName}/{teamLeader}/{guestName}/{guestEmail}")
+    public ResponseEntity<Team> putGuestMember(@PathVariable String teamName, @PathVariable String guestName, @PathVariable String teamLeader, @PathVariable String guestEmail) {
+        return ResponseEntity.ok(teamService.addGuestMemberToTeam(teamName, teamLeader, guestName, guestEmail));
+    }
+
 }

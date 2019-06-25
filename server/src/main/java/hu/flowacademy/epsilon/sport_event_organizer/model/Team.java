@@ -32,6 +32,19 @@ public class Team {
     @ToString.Include
     private boolean isDeleted;
 
+    @JsonIgnore
+    private int winnerCounter;
+
+    @JsonIgnore
+    private String groupName;
+
+    @JsonIgnore
+    private boolean isQualified;
+
+    @JsonIgnore
+    private int goalDifference;
+
+
     @ManyToMany(mappedBy = "teamMembers")
     private Set<User> users = new HashSet<>();
 
@@ -53,6 +66,7 @@ public class Team {
             joinColumns = @JoinColumn(name = "teams_name"),
             inverseJoinColumns = @JoinColumn(name = "cups_name"))
     private Set<Cup> validatedCups;
+
 
     public void addCup(Cup cup) {
         if (cups == null) {

@@ -1,0 +1,7 @@
+<div mat-dialog-content>
+    <p>{{ "MemberDeleteConfirm" | translate }}{{data.leader.googleName}}?</p>
+</div>
+   <div mat-dialog-actions>
+     <button mat-button (click)="onNoClick()">{{ "No" | translate }}</button>
+     <button mat-button (click)="onYesClick()" cdkFocusInitial>{{ "Yes" | translate }}</button>
+</div>

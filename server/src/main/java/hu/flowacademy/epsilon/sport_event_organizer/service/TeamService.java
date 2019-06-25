@@ -1,17 +1,17 @@
 package hu.flowacademy.epsilon.sport_event_organizer.service;
 
+import hu.flowacademy.epsilon.sport_event_organizer.email.MailService;
 import hu.flowacademy.epsilon.sport_event_organizer.exception.TeamNotFoundException;
+import hu.flowacademy.epsilon.sport_event_organizer.model.AuthProvider;
 import hu.flowacademy.epsilon.sport_event_organizer.model.Team;
 import hu.flowacademy.epsilon.sport_event_organizer.model.User;
 import hu.flowacademy.epsilon.sport_event_organizer.repository.TeamRepository;
-import hu.flowacademy.epsilon.sport_event_organizer.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,6 +24,10 @@ public class TeamService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private MailService mailService;
+
 
     public Team getTeamByName(String teamName) {
         return teamRepository.findByName(teamName).orElseThrow(() -> new TeamNotFoundException(teamName));
@@ -74,9 +78,7 @@ public class TeamService {
         userToAdd.addTeamMember(team);
         userService.save(userToAdd);
         team.addMember(userToAdd);
-//        Set<User> users = team.getMembers();
-//        users.removeIf(User::isDeleted);
-//        return users;
+        mailService.sendMailAddUserToTeamMember(userToAdd, team);
         return team;
     }
 
@@ -87,9 +89,7 @@ public class TeamService {
         userToRemove.deleteTeamMember(team);
         userService.save(userToRemove);
         team.deleteMember(userToRemove);
-//        Set<User> users = team.getMembers();
-//        users.removeIf(User::isDeleted);
-//        return users;
+        mailService.sendMailDeleteUserFromTeam(userToRemove, team);
         return team;
     }
 
@@ -106,13 +106,12 @@ public class TeamService {
         Team team = teamRepository.findByName(teamName).orElseThrow(() -> new TeamNotFoundException(teamName));
         if (team.getUsers().contains(userToAdd)) {
             team.getUsers().remove(userToAdd);
+            userToAdd.deleteTeamMember(team);
         }
         userToAdd.addTeamLeader(team);
         userService.save(userToAdd);
         team.addLeader(userToAdd);
-//        Set<User> users = team.getLeaders();
-//        users.removeIf(User::isDeleted);
-//        return users;
+        mailService.sendMailAddUserToTeamLeader(userToAdd, team);
         return team;
     }
 
@@ -122,10 +121,7 @@ public class TeamService {
         userToAdd.deleteTeamLeader(team);
         userService.save(userToAdd);
         team.deleteLeader(userToAdd);
-//        Set<User> users = team.getLeaders();
-//        users.removeIf(user -> user.isDeleted());
-//        users.removeIf(User::isDeleted);
-//        return users;
+        mailService.sendMailDeleteUserFromTeam(userToAdd, team);
         return team;
     }
 
@@ -133,4 +129,17 @@ public class TeamService {
         teamRepository.updateDelete(teamName, true);
     }
 
+
+    public Team addGuestMemberToTeam(String teamName, String teamLeader, String name, String email) {
+        Team team = teamRepository.findByName(teamName).orElseThrow(() -> new TeamNotFoundException(teamName));
+        User user = new User();
+        user.setGoogleName(name);
+        user.setProvider(AuthProvider.local);
+        user.setEmail(email);
+        user.addTeamMember(team);
+        userService.save(user);
+        mailService.sendMailAddUserToTeamMember(user, team);
+        team.addMember(user);
+        return team;
+    }
 }
