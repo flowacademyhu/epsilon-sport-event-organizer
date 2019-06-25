@@ -32,11 +32,17 @@ public class Team {
     @ToString.Include
     private boolean isDeleted;
 
+    @JsonIgnore
     private int winnerCounter;
 
+    @JsonIgnore
     private String groupName;
 
+    @JsonIgnore
     private boolean isQualified;
+
+    @JsonIgnore
+    private int goalDifference;
 
 
     @ManyToMany(mappedBy = "teamMembers")

@@ -28,9 +28,9 @@ public class MatchService {
 
     public List<Match> generateGroupMatches(String cupName) {
         Cup cup = cupService.getByName(cupName);
-        ArrayList<Team> cupTeams = (ArrayList) cup.getTeams();
+        List<Team> cupTeams = new ArrayList<Team>(cupService.getApprovedTeams(cupName));
         List<Match> matches = new ArrayList();
-        if (cup.getTeams().size() == 8) {
+        if (cupTeams.size() == 8) {
             String groupName = "Group1";
             for (int i = 0; i < 2; i++) {
                 for (int j = 1; j < 4; j++) {
@@ -40,71 +40,74 @@ public class MatchService {
                     match.setGroupName(groupName);
                     matches.add(match);
                 }
-                for (int j = 3; j < 4; j++) {
+                for (int j = 2; j < 4; j++) {
                     Match match = new Match();
-                    match.setTeamA(cupTeams.get(2));
+                    match.setTeamA(cupTeams.get(1));
                     match.setTeamB(cupTeams.get(j));
                     match.setGroupName(groupName);
                     matches.add(match);
                 }
                 Match match = new Match();
-                match.setTeamA(cupTeams.get(3));
-                match.setTeamB(cupTeams.get(4));
+                match.setTeamA(cupTeams.get(2));
+                match.setTeamB(cupTeams.get(3));
                 match.setGroupName(groupName);
                 matches.add(match);
                 for (int j = 0; j < 3; j++) {
                     cupTeams.get(j).setGroupName(groupName);
                 }
-                cupTeams.subList(0, 3);
+                cupTeams.remove(3);
+                cupTeams.remove(2);
+                cupTeams.remove(1);
+                cupTeams.remove(0);
                 groupName = "Group2";
             }
         }
 
         //Pálya kiosztás
         matches.forEach(match -> match.setCup(cup));
-        matches.forEach(match -> match.setCourtName("Court1"));
-        if (cup.getCourtCounter() >= 2) {
-            for (int i = 0; i < matches.size(); i++) {
-                if (i % 2 == 0) {
-                    matches.get(i).setCourtName("Court2");
-                }
-                if (i % 3 == 0 && cup.getCourtCounter() >= 3) {
-                    matches.get(i).setCourtName("Court3");
-                }
-                if (i % 4 == 0 && cup.getCourtCounter() >= 4) {
-                    matches.get(i).setCourtName("Court4");
-                }
+        String courtName = "Court1";
+        for (int i = 0; i < matches.size(); i++) {
+            matches.get(i).setCourtName(courtName);
+            if ((cup.getCourtCounter() == 2 && courtName == "Court2") || (cup.getCourtCounter() == 3 && courtName == "Court3") || (cup.getCourtCounter() == 4 && courtName == "Court4")) {
+                courtName = "Court1";
+            } else if (cup.getCourtCounter() >= 2 && courtName == "Court1") {
+                courtName = "Court2";
+            } else if (cup.getCourtCounter() >= 3 && courtName == "Court2") {
+                courtName = "Court3";
+            } else if (cup.getCourtCounter() >= 4 && courtName == "Court3") {
+                courtName = "Court4";
             }
         }
+
+        matches.forEach(match -> matchRepository.save(match));
+
+
         return matches;
     }
 
     public List<Match> generatequalifierMatches(String cupName) {
         Cup cup = cupService.getByName(cupName);
-        ArrayList<Team> cupTeams = (ArrayList) cup.getTeams();
-        ArrayList<Match> matches = (ArrayList) cup.getMatches();
+        List<Team> cupTeams = new ArrayList<Team>(cupService.getApprovedTeams(cupName));
+        ArrayList<Match> matches = new ArrayList<>(cup.getMatches());
         ArrayList<Team> winners = new ArrayList();
         ArrayList<Team> group1 = new ArrayList();
         ArrayList<Team> group2 = new ArrayList();
 
+        cupTeams.forEach(team -> team.setWinnerCounter(0));
+        cupTeams.forEach(team -> team.setQualified(false));
 //győztesek kiszámítása
         for (Match match : matches) {
             if (match.getTeamAScore() > match.getTeamBScore()) {
-                winners.add(match.getTeamA());
+                match.getTeamA().setWinnerCounter(match.getTeamA().getWinnerCounter() + 1);
             } else {
-                winners.add(match.getTeamB());
+                match.getTeamB().setWinnerCounter(match.getTeamB().getWinnerCounter() + 1);
             }
+            match.getTeamA().setGoalDifference(match.getTeamAScore() - match.getTeamBScore());
+            match.getTeamB().setGoalDifference(match.getTeamBScore() - match.getTeamAScore());
         }
 
 //ki hányszor nyert
         for (Team team : cupTeams) {
-            int teamWinnerCounter = 0;
-            for (Team winner : winners) {
-                if (winner.getName().equals(team)) {
-                    teamWinnerCounter++;
-                }
-            }
-            team.setWinnerCounter(teamWinnerCounter);
             if (team.getGroupName() == "Group1") {
                 group1.add(team);
             } else {
@@ -121,7 +124,6 @@ public class MatchService {
             int twoTimesWin = 0;
             int threeTimesWin = 0;
             for (Team team : group) {
-
                 if (team.getWinnerCounter() == 1) {
                     oneTimeWin++;
                 } else if (team.getWinnerCounter() == 2) {
@@ -130,22 +132,52 @@ public class MatchService {
                     threeTimesWin++;
                 }
             }
-            if (threeTimesWin == 1 && oneTimeWin == 3 || twoTimesWin == 3) {
-                //újrajátszás
-                return null;
-            }
-            for (Team team : group) {
-                if (team.getWinnerCounter() == 3 && team.getWinnerCounter() == 2) {
-                    team.setQualified(true);
-                } else {
-                    team.setQualified(false);
+
+            if (threeTimesWin == 1 && oneTimeWin == 3) {
+                Team qualificationTeam = null;
+                for (Team team : group) {
+                    if (team.getWinnerCounter() == 3) {
+                        team.setQualified(true);
+                    } else {
+
+                        if (qualificationTeam == null) {
+                            qualificationTeam = team;
+                        } else if (team.getGoalDifference() > team.getGoalDifference()) {
+                            qualificationTeam = team;
+                        }
+                    }
                 }
-                teamService.save(team);
+                qualificationTeam.setQualified(true);
+                return null;
+            } else if (twoTimesWin == 3) {
+                Team notQualificationTeam = null;
+                for (Team team : group) {
+                    if (team.getWinnerCounter() == 2) {
+                        if (notQualificationTeam == null) {
+                            notQualificationTeam = team;
+                        } else if (notQualificationTeam.getGoalDifference() > team.getGoalDifference()) {
+                            notQualificationTeam = team;
+                        }
+                    }
+                }
+                for (Team team : group) {
+                    if (team.getWinnerCounter() == 2 && team != notQualificationTeam) {
+                        team.setQualified(true);
+                    }
+                }
+
+            } else {
+                for (Team team : group) {
+                    if (team.getWinnerCounter() == 3 && team.getWinnerCounter() == 2) {
+                        team.setQualified(true);
+                    }
+                    teamService.save(team);
+                }
             }
         }
 
         //meccsek legenerálása
-        cupTeams = (ArrayList) cup.getTeams();
+        cupTeams = new ArrayList<Team>(cupService.getApprovedTeams(cupName));
         Match cNotQualifiedMatch = new Match();
         Match dNotQualifiedMatch = new Match();
         Match eQualifiedMatch = new Match();
@@ -166,7 +198,7 @@ public class MatchService {
                     cNotQualifiedMatch.setTeamB(team);
                 }
             }
-            cupTeams.remove(team);
+//            cupTeams.remove(team);
         }
         for (Team team : cupTeams) {
             if (team.isQualified()) {
@@ -182,7 +214,7 @@ public class MatchService {
                     dNotQualifiedMatch.setTeamB(team);
                 }
             }
-            cupTeams.remove(team);
+//            cupTeams.remove(team);
         }
 
 
@@ -190,26 +222,30 @@ public class MatchService {
         qualifierMatches.add(dNotQualifiedMatch);
         qualifierMatches.add(eQualifiedMatch);
         qualifierMatches.add(fQualifiedMatch);
+        cNotQualifiedMatch.setGroupName("Not Qualified");
+        dNotQualifiedMatch.setGroupName("Not Qualified");
+        eQualifiedMatch.setGroupName("Qualified");
+        fQualifiedMatch.setGroupName("Qualified");
 
 
         qualifierMatches.forEach(match -> match.setCup(cup));
-        qualifierMatches.forEach(match -> match.setGroupName("Qualifier"));
-        //pályák szétosztása
-        qualifierMatches.forEach(match -> match.setCourtName("Court1"));
 
-        if (cup.getCourtCounter() >= 2) {
-            for (int i = 0; i < qualifierMatches.size(); i++) {
-                if (i % 2 == 0) {
-                    qualifierMatches.get(i).setCourtName("Court2");
-                }
-                if (i % 3 == 0 && cup.getCourtCounter() >= 3) {
-                    qualifierMatches.get(i).setCourtName("Court3");
-                }
-                if (i % 4 == 0 && cup.getCourtCounter() >= 4) {
-                    qualifierMatches.get(i).setCourtName("Court4");
-                }
+
+        //pályák szétosztása
+        String courtName = "Court1";
+        for (int i = 0; i < matches.size(); i++) {
+            matches.get(i).setCourtName(courtName);
+            if ((cup.getCourtCounter() == 2 && courtName == "Court2") || (cup.getCourtCounter() == 3 && courtName == "Court3") || (cup.getCourtCounter() == 4 && courtName == "Court4")) {
+                courtName = "Court1";
+            } else if (cup.getCourtCounter() >= 2 && courtName == "Court1") {
+                courtName = "Court2";
+            } else if (cup.getCourtCounter() >= 3 && courtName == "Court2") {
+                courtName = "Court3";
+            } else if (cup.getCourtCounter() >= 4 && courtName == "Court3") {
+                courtName = "Court4";
             }
         }
+        qualifierMatches.forEach(match -> matchRepository.save(match));
 
 
         return qualifierMatches;
@@ -221,4 +257,5 @@ public class MatchService {
         match.setTeamBScore(bScore);
         return matchRepository.save(match);
     }
+
 }
