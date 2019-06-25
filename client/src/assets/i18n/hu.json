@@ -40,5 +40,10 @@
   "Leaders": "Csapatkapitányok",
   "Members": "Csapattagok",
   "EventDate": "Kupa kezdete",
-  "SuccesfullyCreatedCup": "Sikeresen létrehoztad a kupát!"
+  "SuccesfullyCreatedCup": "Sikeresen létrehoztad a kupát!",
+  "Name": "Név",
+  "Company": "Cég",
+  "RegistrationEndDate": "Jelentkezési határidő",
+  "EventDate": "Kupa napja",
+  "CupDeleteConfirm": "Biztos akarod törölni az alábbi kupát: "
 }
