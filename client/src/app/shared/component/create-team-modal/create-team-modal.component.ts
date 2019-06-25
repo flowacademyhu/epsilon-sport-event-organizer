@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
-import { TeamControllerService, Team } from 'src/app/api';
+import { Team, TeamResourceService } from 'src/app/api';
 
 @Component({
   selector: 'app-create-team-modal',
@@ -15,7 +15,7 @@ export class CreateTeamModalComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<CreateTeamModalComponent>,
-    private teamService: TeamControllerService
+    private teamService: TeamResourceService
     ) { }
 
   ngOnInit() {

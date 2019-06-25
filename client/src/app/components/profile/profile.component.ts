@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppStateService } from 'src/app/shared/service/app-state.service';
-import { User, TeamControllerService } from 'src/app/api';
+import { User, TeamResourceService } from 'src/app/api';
 
 @Component({
   selector: 'app-profile',
@@ -10,7 +10,7 @@ import { User, TeamControllerService } from 'src/app/api';
 export class ProfileComponent implements OnInit {
 
   constructor(private state: AppStateService,
-              private teamService: TeamControllerService) { }
+              private teamService: TeamResourceService) { }
 
   userDatas: User;
 

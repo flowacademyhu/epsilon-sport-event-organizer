@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { TeamControllerService } from 'src/app/api';
+import { TeamResourceService } from 'src/app/api';
 
 @Component({
   selector: 'app-delete-team-confirm',
@@ -11,7 +11,7 @@ export class DeleteTeamConfirmComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<DeleteTeamConfirmComponent>,
-    private teamService: TeamControllerService,
+    private teamService: TeamResourceService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
