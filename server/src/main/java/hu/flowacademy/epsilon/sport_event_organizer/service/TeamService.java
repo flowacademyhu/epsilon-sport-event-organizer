@@ -112,6 +112,7 @@ public class TeamService {
         Team team = teamRepository.findByName(teamName).orElseThrow(() -> new TeamNotFoundException(teamName));
         if (team.getUsers().contains(userToAdd)) {
             team.getUsers().remove(userToAdd);
+            userToAdd.deleteTeamMember(team);
         }
         userToAdd.addTeamLeader(team);
         userService.save(userToAdd);
