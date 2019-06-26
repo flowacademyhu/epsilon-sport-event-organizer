@@ -37,10 +37,10 @@ cd server
 ./mvnw clean test
 ```
 ## Authors
-- @Juhi22
-- @micsikz
-- @simondanielzoltan
-- @VicziTomi
+@Juhi22
+@micsikz
+@simondanielzoltan
+@VicziTomi
 
 ## License
 This project is licensed under the GNU License - see the [LICENSE.md](https://github.com/flowacademyhu/epsilon-sport-event-organizer/blob/master/LICENSE) file for details
