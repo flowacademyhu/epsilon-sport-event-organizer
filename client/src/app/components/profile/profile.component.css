@@ -62,6 +62,7 @@ body {
 /* Control the left side */
 .left {
   left: 0;
+  margin-top: 75px;
 }
 
 /* Control the right side */
@@ -114,5 +115,17 @@ h3 {
   margin-bottom: 25px;
   font-family: 'Luckiest Guy', cursive;
   font-weight: bold;
-  margin: 50px;
+}
+
+#profile {
+  width: 65%;
+  height: 65%;
+  transition: width 2s;
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 200%;
+  color: white;
+}
+
+#profile:hover {
+  width: 90%;
 }

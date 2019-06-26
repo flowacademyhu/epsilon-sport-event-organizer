@@ -52,5 +52,13 @@
   "Company": "Cég",
   "RegistrationEndDate": "Jelentkezési határidő",
   "EventDate": "Kupa napja",
-  "CupDeleteConfirm": "Biztos akarod törölni az alábbi kupát: "
+  "CupDeleteConfirm": "Biztos akarod törölni az alábbi kupát: ",
+  "MyTeams": "Csapataim",
+  "NoLeader": "Nem vagy kapitánya egyik csapatnak sem",
+  "TeamMemberships": "Csapat tagságok",
+  "NoMember": "Nem vagy tagja egyik csapatnak sem",
+  "MyCups": "Kupáim",
+  "NoOrganizer": "Nem vagy rendezője egyik kupának sem",
+  "CupMembership": "Kupa tagságaim",
+  "NoCupMember": "Nem vagy résztvevője egyik kupának sem"
 }

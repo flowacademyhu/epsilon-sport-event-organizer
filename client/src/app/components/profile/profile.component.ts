@@ -18,7 +18,8 @@ export class ProfileComponent implements OnInit {
 
   teamsIAmLeaderIn: MatTableDataSource<any>;
   teamsIAmLeaderInSize: number;
-  teamsIAmMemberIn: any[];
+  teamsIAmMemberIn: MatTableDataSource<any>;
+  teamsIAmMemberInSize: number;
   teamsDefinition: string[] = ['name', 'company'];
   listCupData: MatTableDataSource<any>;
   listCupDataSize: number;
@@ -40,7 +41,6 @@ export class ProfileComponent implements OnInit {
         // console.log(this.teamsIAmLeaderIn);
       }
     );
-    */
 
     this.teamService.getAllTeamsByMemberUsingGET().subscribe(
       teams => {
@@ -48,10 +48,13 @@ export class ProfileComponent implements OnInit {
         // console.log(this.teamsIAmMemberIn);
       }
     );
+    */
     this.getTeamsAsLeader();
+    this.getTeamsAsMember();
     this.getCupsOrganizer();
     this.getCupsMembers();
   }
+
   getTeamsAsLeader() {
     this.teamService.getAllTeamsByLeaderUsingGET().subscribe(
       teams => {
@@ -63,11 +66,30 @@ export class ProfileComponent implements OnInit {
             };
           }
         );
-        console.log(teams);
         this.teamsIAmLeaderIn = new MatTableDataSource(array);
         this.teamsIAmLeaderIn.sort = this.sort;
         this.teamsIAmLeaderIn.paginator = this.paginator;
         this.teamsIAmLeaderInSize = this.teamsIAmLeaderIn.data.length;
+      }
+    );
+  }
+
+  getTeamsAsMember() {
+    this.teamService.getAllTeamsByMemberUsingGET().subscribe(
+      teams => {
+        const array = teams.map(
+          item => {
+            return {
+              $key: item.name,
+              ...item
+            };
+          }
+        );
+        console.log(teams);
+        this.teamsIAmMemberIn = new MatTableDataSource(array);
+        this.teamsIAmMemberIn.sort = this.sort;
+        this.teamsIAmMemberIn.paginator = this.paginator;
+        this.teamsIAmMemberInSize = this.teamsIAmMemberIn.data.length;
       }
     );
   }
