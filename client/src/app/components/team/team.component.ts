@@ -106,7 +106,6 @@ export class TeamComponent implements OnInit {
     );
   } */
 
-
   applyFilter() {
     this.listData.filter = this.searchKey.trim().toLowerCase();
   }

@@ -37,7 +37,7 @@ export class TeamStateService {
   }
 
   getTeams() {
-    this.teamService.getAllTeamsUsingGET().subscribe(
+    return this.teamService.getAllTeamsUsingGET().subscribe(
       teams => {
         this.teams = teams;
       }
