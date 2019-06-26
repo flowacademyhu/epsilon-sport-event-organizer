@@ -9,6 +9,7 @@ import { TeamResourceService, CupResourceService, Team, Cup } from 'src/app/api'
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { ApproveCupConfirmComponent } from 'src/app/shared/component/approve-cup-confirm/approve-cup-confirm.component';
 import { DisapproveCupConfirmComponent } from 'src/app/shared/component/disapprove-cup-confirm/disapprove-cup-confirm.component';
+import { CupStateService } from 'src/app/shared/service/cup-state.service';
 
 @Component({
   selector: 'app-cup',
@@ -29,6 +30,7 @@ export class CupComponent implements OnInit {
     public state: AppStateService,
     private dialog: MatDialog,
     private teamStateService: TeamStateService,
+    private cupState: CupStateService,
     private teamService: TeamResourceService
     ) { }
 
@@ -45,15 +47,21 @@ export class CupComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngOnInit() {
-
     this.getData();
-
-        this.teamService.getAllTeamsUsingGET().subscribe(
-          (teams: any) => {
-            this.teamStateService.teams = teams;
-            this.teams = teams;
-          }
-      );
+    this.cupState.cups$.subscribe(
+      cuplist => {
+         const array = cuplist.map(
+          item => {
+            return {
+              $key: item.name,
+              ...item
+            };
+          });
+        this.listData = new MatTableDataSource(array);
+        this.listData.sort = this.sort;
+        this.listData.paginator = this.paginator;
+      }
+);
 
 
   }
@@ -111,21 +119,7 @@ export class CupComponent implements OnInit {
   }
 
 getData() {
-  this.cupService.getAllCupsUsingGET().subscribe(
-    cuplist => {
-       const array = cuplist.map(
-        item => {
-          return {
-            $key: item.name,
-            ...item
-          };
-        });
-      this.listData = new MatTableDataSource(array);
-      this.listData.sort = this.sort;
-      this.listData.paginator = this.paginator;
-    }
-  );
-
+  this.cupState.getCups();
 }
   applyFilter() {
     this.listData.filter = this.searchKey.trim().toLowerCase();
