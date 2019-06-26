@@ -49,5 +49,8 @@ export class CreateCupModalComponent implements OnInit {
       }
     );
   }
+  exit() {
+    this.dialogRef.close(CreateCupModalComponent);
+  }
 
 }

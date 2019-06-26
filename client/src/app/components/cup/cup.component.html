@@ -1,7 +1,7 @@
-<body background="./assets/pictures/baseballgb.jpg">
+<body background="./assets/pictures/ballsBg.jpg">
   
   <div class="row margin-top padding-text-bottom">
-      <div class="col-sm-6 rounded background paddig-text-top">
+      <div class="col-sm-6 rounded background paddig-text-top margin-bottom-200">
         <h1>{{ "Cups" | translate }}</h1>
         <!-- table -->
         <div class="search-div">
@@ -15,7 +15,7 @@
             </button>
           </mat-form-field>
         </div>
-        <div class="mat-elevation-z8 padding-bottom-50 ppp">
+        <div class="mat-elevation-z8 padding-bottom-50 materialTable">
           <mat-table [dataSource]="listData" matSort>
 
             <ng-container matColumnDef="name">

@@ -6,7 +6,7 @@
   </mat-form-field>
   <p>{{ "CourtCounter" | translate }}</p>
   <mat-form-field>
-    <input matInput [(ngModel)]="courtCounter">
+    <input matInput type="number" min="0" [(ngModel)]="courtCounter">
   </mat-form-field>
   <p>{{ "Description" | translate }}</p>
   <mat-form-field>
@@ -36,5 +36,5 @@
   </mat-form-field>
 <div mat-dialog-actions>
   <button mat-button (click)="createCup()">{{ "Submit" | translate }}</button>
-  <!-- <button mat-button (click)="exit()" cdkFocusInitial>{{ "Cancel" | translate }}</button> -->
+  <button mat-button (click)="exit()" cdkFocusInitial>{{ "Cancel" | translate }}</button>
 </div>

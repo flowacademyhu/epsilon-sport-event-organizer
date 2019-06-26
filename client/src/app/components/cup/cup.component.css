@@ -1,8 +1,35 @@
 body { 
-  padding-top: 65px; 
+  padding-top: 100px;
+  background-repeat: no-repeat;
+  background-attachment: fixed
 }
 
-.ppp {
+.background {
+  background-color: #FFEB7F;
+}
+
+.margin-top {
+  margin-top: 30px;
+  margin-left: 30px
+}
+
+.paddig-text-top {
+  padding-top: 10px;
+}
+
+.padding-text-bottom {
+  padding-bottom: 10px;
+}
+
+.padding-bottom-50 {
+  padding-bottom: 50px;
+}
+
+.margin-bottom-200 {
+  margin-bottom: 200px;
+}
+
+.materialTable {
   margin-bottom: 50px
 }
 /* The snackbar - position it at the bottom and in the middle of the screen */
