@@ -46,9 +46,7 @@
   "No": "Nem",
   "TeamDeleteConfirm": "Szeretné törölni ezt a csapatot: ",
   "MemberDeleteConfirm": "Szeretné eltávolítani: ",
-  "EventDate": "Kupa kezdete",
   "SuccesfullyCreatedCup": "Sikeresen létrehoztad a kupát!",
-  "Name": "Név",
   "Company": "Cég",
   "RegistrationEndDate": "Jelentkezési határidő",
   "EventDate": "Kupa napja",
@@ -58,5 +56,7 @@
   "Organizers": "Szervezők",
   "MyTeams": "Csapataim",
   "AddOrganizer": "Szervező hozzáadása",
-  "DeleteOrganizer": "Szervező törlése"
+  "DeleteOrganizer": "Szervező törlése",
+  "ApproveTeam": "Szeretné elfogadni ennek a csapatnak a jelentkezését: ",
+  "DisapproveTeam": "Szeretné visszautasítani ennek a csapatnak a jelentkezését: "
 }

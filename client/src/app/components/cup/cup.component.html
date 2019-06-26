@@ -74,7 +74,20 @@
                             </div>
                         </div>
                           <div>
-                              <p class="font-weight-bold">{{ 'AppliedTeams' | translate }}</p>                                    
+                              <p class="font-weight-bold">{{ 'AppliedTeams' | translate }}</p>
+                              <div *ngFor="let team of element.teams">
+                                {{ team.name }}
+                                <div *ngFor="let organizer of element.organizers">
+                                  <mat-icon *ngIf="organizer.googleName === state.user.googleName"
+                                  (click)="approveCup(team, element)"
+                                  style="cursor: pointer;"
+                                  id="green">done_outline</mat-icon>
+                                  <mat-icon *ngIf="organizer.googleName === state.user.googleName"
+                                  (click)="noApproveCup(team, element)"
+                                  style="cursor: pointer;"
+                                  id="red">clear</mat-icon>
+                                </div>
+                            </div>                                    
                           </div>
                     </div>
                   </mat-cell>

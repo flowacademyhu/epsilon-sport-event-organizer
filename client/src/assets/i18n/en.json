@@ -57,5 +57,7 @@
   "MyTeams": "My teams",
   "ApplyTeams": "Apply teams",
   "AddOrganizer": "Add Organizer",
-  "DeleteOrganizer": "DeleteOrganizer"
+  "DeleteOrganizer": "DeleteOrganizer",
+  "ApproveTeam": "Would you like to approve this team: ",
+  "DisapproveTeam": "Would you like to refuse this team: "
 }

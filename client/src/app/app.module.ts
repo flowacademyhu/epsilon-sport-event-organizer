@@ -30,6 +30,8 @@ import { ApplyCupModalComponent } from './shared/component/apply-cup-modal/apply
 import { DeleteTeamConfirmComponent } from './shared/component/delete-team-confirm/delete-team-confirm.component';
 import { DeleteMemberConfirmComponent } from './shared/component/delete-member-confirm/delete-member-confirm.component';
 import { DeleteLeaderConfirmComponent } from './shared/component/delete-leader-confirm/delete-leader-confirm.component';
+import { ApproveCupConfirmComponent } from './shared/component/approve-cup-confirm/approve-cup-confirm.component';
+import { DisapproveCupConfirmComponent } from './shared/component/disapprove-cup-confirm/disapprove-cup-confirm.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -62,7 +64,9 @@ export function getConfig(): Configuration {
     ApplyCupModalComponent,
     DeleteTeamConfirmComponent,
     DeleteMemberConfirmComponent,
-    DeleteLeaderConfirmComponent
+    DeleteLeaderConfirmComponent,
+    ApproveCupConfirmComponent,
+    DisapproveCupConfirmComponent
   ],
   imports: [
     BrowserModule,
@@ -117,9 +121,11 @@ export function getConfig(): Configuration {
     ShowCupModalComponent,
     DeleteCupConfirmComponent,
     ApplyCupModalComponent,
+    ApproveCupConfirmComponent,
     DeleteTeamConfirmComponent,
     DeleteLeaderConfirmComponent,
-    DeleteMemberConfirmComponent
+    DeleteMemberConfirmComponent,
+    DisapproveCupConfirmComponent
   ]
 })
 export class AppModule { }
