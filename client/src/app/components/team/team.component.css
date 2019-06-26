@@ -45,6 +45,14 @@ body {
   margin-bottom: 200px;
 }
 
+#red {
+  color: red;
+}
+
+#blue {
+  color: blue;
+}
+
 table {
   width: 100%;
 } 
