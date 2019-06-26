@@ -48,6 +48,7 @@ export class TeamComponent implements OnInit {
 
   constructor(
     private teamService: TeamResourceService,
+    private teamState: TeamStateService,
     private dialog: MatDialog,
     public state: AppStateService
     ) { }
@@ -57,6 +58,19 @@ export class TeamComponent implements OnInit {
   }
 
   getData() {
+    const array = this.teamState.getTeams().map(
+      item => {
+        return {
+          $key: item.name,
+          ...item
+        };
+      });
+    this.listData = new MatTableDataSource(array);
+    this.listData.sort = this.sort;
+    this.listData.paginator = this.paginator;
+  }
+
+/*   getData() {
     this.teamService.getAllTeamsUsingGET().subscribe(
       teamlist => {
         this.teamList = teamlist;
@@ -72,7 +86,7 @@ export class TeamComponent implements OnInit {
         this.listData.paginator = this.paginator;
       }
     );
-  }
+  } */
 
 
   applyFilter() {

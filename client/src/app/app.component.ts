@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
     private userService: UserResourceService,
     private appStateService: AppStateService,
     private teamService: TeamResourceService,
-    private teamStateService: TeamStateService
+    private teamStateService: TeamStateService,
   ) {
   }
 
@@ -36,11 +36,10 @@ export class AppComponent implements OnInit {
     }
   });
 
-  this.teamService.getAllTeamsUsingGET().subscribe(
+  /* this.teamService.getAllTeamsUsingGET().subscribe(
     teams => {
       this.teamStateService.teams.push(...teams);
     }
-  );
-
+  ); */
   }
 }
