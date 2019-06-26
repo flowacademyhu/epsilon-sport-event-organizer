@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
   title = 'sport-event-organizer';
   constructor(
     private translate: TranslateService,
-    private state: AppStateService
+    public state: AppStateService
     ) {
     translate.setDefaultLang('en');
   }

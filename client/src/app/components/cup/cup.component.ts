@@ -70,7 +70,8 @@ export class CupComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '100%';
+    dialogConfig.width = '40%';
+    dialogConfig.height = '80%';
     dialogConfig.data = {cup: cup};
     this.dialog.open(ApplyCupModalComponent, dialogConfig).afterClosed().subscribe(
       result => {
@@ -134,8 +135,8 @@ getData() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '40%';
-    dialogConfig.height = '80%';
+    dialogConfig.width = '30%';
+    dialogConfig.height = '70%';
     this.dialog.open(CreateCupModalComponent, dialogConfig).afterClosed().subscribe(
       (data: any) => {
         this.getData();

@@ -14,7 +14,7 @@ export class CreateCupModalComponent implements OnInit {
     private cupService: CupResourceService) { }
 
     companyNameToCreate: string = '';
-    courtCounter: number = 0;
+    courtCounter: number = 1;
     deleted: boolean;
     description: string = '';
     endDateTime: Date;
@@ -48,6 +48,9 @@ export class CreateCupModalComponent implements OnInit {
         this.dialogRef.close(CreateCupModalComponent);
       }
     );
+  }
+  exit() {
+    this.dialogRef.close(CreateCupModalComponent);
   }
 
 }
