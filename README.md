@@ -1,6 +1,9 @@
 # Epsilon: Sport event organizer
 
 ## Description
+This application stands for organizing sport events. You can login with your Google account, than manage create and manage your cups, teams, etc. As a user of the application, you can be entitled for the following:
+- Cups - organizer or participant
+- Teams - leader, member, guest
 
 ## Requirements
 - JRE 11
@@ -33,3 +36,11 @@ ng serve
 cd server
 ./mvnw clean test
 ```
+## Authors
+- Dániel Juhász
+- Zoltán Micsik
+- Dániel Zoltán Simon
+- Tamás Viczián
+
+## License
+This project is licensed under the GNU License - see the [LICENSE.md](LICENSE.md) file for details
