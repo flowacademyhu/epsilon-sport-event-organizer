@@ -43,4 +43,4 @@ cd server
 - Tamás Viczián
 
 ## License
-This project is licensed under the GNU License - see the [LICENSE.md](../LICENSE.md) file for details
+This project is licensed under the GNU License - see the [LICENSE.md](https://github.com/flowacademyhu/epsilon-sport-event-organizer/blob/master/LICENSE) file for details
