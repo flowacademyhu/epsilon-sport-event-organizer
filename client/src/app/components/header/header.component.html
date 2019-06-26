@@ -32,7 +32,7 @@
             <span class="sr-only">(current)</span>
           </a>
         </li>
-        <li class="nav-item active" id="myCustomNavbar">
+        <li class="nav-item active" id="myCustomNavbar" *ngIf="(state.user$ | async) != null">
           <a class="nav-link" routerLink="profile"
             >{{ 'Profile' | translate }}
             <span class="sr-only">(current)</span>

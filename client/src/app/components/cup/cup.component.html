@@ -1,7 +1,7 @@
 <body background="./assets/pictures/ballsBg.jpg">
   
   <div class="row margin-top padding-text-bottom">
-      <div class="col-sm-6 rounded background paddig-text-top margin-bottom-200">
+      <div class="col-sm-10 rounded background paddig-text-top margin-bottom-200">
         <h1>{{ "Cups" | translate }}</h1>
         <!-- table -->
         <div class="search-div">
@@ -16,7 +16,7 @@
           </mat-form-field>
         </div>
         <div class="mat-elevation-z8 padding-bottom-50 materialTable">
-          <mat-table [dataSource]="listData" matSort>
+          <mat-table [dataSource]="listData" matSort multiTemplateDataRows>
 
             <ng-container matColumnDef="name">
               <mat-header-cell *matHeaderCellDef mat-sort-header>{{ "Name" | translate }}</mat-header-cell>
@@ -57,8 +57,49 @@
                 </mat-cell>
               </ng-container>
 
+              <ng-container matColumnDef="expandedDetail">
+                  <mat-cell class="example-element-row" *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+                    <div class="example-element-detail"
+                         [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                         <div class="padding-between-columns">
+                            <p class="font-weight-bold">{{ 'Organizers' | translate }}</p>
+                          <div *ngFor="let organizer of element.organizers">                          
+                                {{ organizer.googleName }}                              
+                          </div>
+                           </div>
+                          <div class="padding-between-columns">
+                            <p class="font-weight-bold">{{ 'ApprovedTeams' | translate }}</p>
+                            <div *ngFor="let team of element.approved">
+                                {{ team.name }}
+                            </div>
+                        </div>
+                          <div>
+                              <p class="font-weight-bold">{{ 'AppliedTeams' | translate }}</p>
+                              <div *ngFor="let team of element.teams">
+                                {{ team.name }}
+                                <div *ngFor="let organizer of element.organizers">
+                                  <mat-icon *ngIf="organizer.googleName === state.user.googleName"
+                                  (click)="approveCup(team, element)"
+                                  style="cursor: pointer;"
+                                  id="green">done_outline</mat-icon>
+                                  <mat-icon *ngIf="organizer.googleName === state.user.googleName"
+                                  (click)="noApproveCup(team, element)"
+                                  style="cursor: pointer;"
+                                  id="red">clear</mat-icon>
+                                </div>
+                            </div>                                    
+                          </div>
+                    </div>
+                  </mat-cell>
+                </ng-container>
+
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            <mat-row *matRowDef="let element; columns: displayedColumns;"
+            class="example-element-row"
+      [class.example-expanded-row]="expandedElement === element"
+      (click)="expandedElement = expandedElement === element ? null : element">
+          </mat-row>
+  <mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></mat-row>
           </mat-table>
           <mat-paginator [pageSizeOptions]="[5,10,15]" [pageSize]="5" showFirstLastButtons></mat-paginator>
   

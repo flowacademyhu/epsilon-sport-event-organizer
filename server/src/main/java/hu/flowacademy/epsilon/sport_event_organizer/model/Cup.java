@@ -56,7 +56,7 @@ public class Cup {
     @ManyToMany(mappedBy = "cups")
     private Set<User> organizers = new HashSet<>();
 
-    @ManyToMany(mappedBy = "cups")
+    @ManyToMany(mappedBy = "validatedCups")
     private Set<Team> approved = new HashSet<>();
 
     @JsonIgnore

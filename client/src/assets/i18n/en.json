@@ -51,8 +51,13 @@
   "Company": "Company",
   "RegistrationEndDate": "Registration end date",
   "CupDeleteConfirm": "Would you like to delete this cup: ",
+  "ApprovedTeams": "Approved teams",
+  "AppliedTeams": "Applied teams",
+  "Organizers": "Organizers", 
   "MyTeams": "My teams",
   "ApplyTeams": "Apply teams",
   "AddOrganizer": "Add Organizer",
-  "DeleteOrganizer": "DeleteOrganizer"
+  "DeleteOrganizer": "DeleteOrganizer",
+  "ApproveTeam": "Would you like to approve this team: ",
+  "DisapproveTeam": "Would you like to refuse this team: "
 }
