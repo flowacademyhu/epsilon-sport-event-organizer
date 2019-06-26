@@ -42,7 +42,6 @@ export class TeamStateService {
         this.teams = teams;
       }
     );
-    return this.teams;
   }
 
 }

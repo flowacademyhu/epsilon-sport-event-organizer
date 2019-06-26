@@ -55,9 +55,23 @@ export class TeamComponent implements OnInit {
 
   ngOnInit() {
     this.getData();
+    this.teamState.teams$.subscribe(
+      teamlist => {
+         const array = teamlist.map(
+          item => {
+            return {
+              $key: item.name,
+              ...item
+            };
+          });
+        this.listData = new MatTableDataSource(array);
+        this.listData.sort = this.sort;
+        this.listData.paginator = this.paginator;
+      }
+   );
   }
 
-  getData() {
+  /* getData() {
     const array = this.teamState.getTeams().map(
       item => {
         return {
@@ -68,6 +82,10 @@ export class TeamComponent implements OnInit {
     this.listData = new MatTableDataSource(array);
     this.listData.sort = this.sort;
     this.listData.paginator = this.paginator;
+  } */
+
+  getData() {
+    this.teamState.getTeams();
   }
 
 /*   getData() {

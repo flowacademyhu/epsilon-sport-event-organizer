@@ -36,6 +36,8 @@ export class AppComponent implements OnInit {
     }
   });
 
+  this.teamStateService.getTeams();
+
   /* this.teamService.getAllTeamsUsingGET().subscribe(
     teams => {
       this.teamStateService.teams.push(...teams);
