@@ -12,6 +12,14 @@
   <mat-form-field>
     <input matInput [(ngModel)]="description">
   </mat-form-field>
+  <p>{{ "SportType" | translate }}</p>
+  <mat-form-field>
+  <mat-select [(ngModel)]="sportType">
+    <mat-option value="{{ 'Football' | translate }}">{{ "Football" | translate }}</mat-option>
+    <mat-option value="{{ 'Basketball' | translate }}">{{ "Basketball" | translate }}</mat-option>
+    <mat-option value="{{ 'Volleyball' | translate }}">{{ "Volleyball" | translate }}</mat-option>
+  </mat-select>
+</mat-form-field>
 </div>
 
   <p>{{ "CupName" | translate }}</p>

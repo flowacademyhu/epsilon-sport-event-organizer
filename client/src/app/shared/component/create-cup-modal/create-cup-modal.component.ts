@@ -25,6 +25,7 @@ export class CreateCupModalComponent implements OnInit {
     eventDate: any;
     cup: Cup;
     datum: any;
+    sportType: string = '';
     
 
   ngOnInit() {
@@ -33,7 +34,9 @@ export class CreateCupModalComponent implements OnInit {
   createCup() {
     this.cup = {company: this.companyNameToCreate, courtCounter: this.courtCounter,
                 description: this.description, name: this.cupNametoCreate,
-                place: this.place, registrationEndDate: this.registrationEndDate, eventDate: this.eventDate};
+                place: this.place, registrationEndDate: this.registrationEndDate, eventDate: this.eventDate,
+                sportType: this.sportType};
+                console.log(this.sportType)
     this.cupService.createCupUsingPOST(this.cup).subscribe(
       (data: any) => {
         // Get the snackbar DIV
