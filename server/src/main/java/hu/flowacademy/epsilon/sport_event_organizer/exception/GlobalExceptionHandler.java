@@ -45,7 +45,7 @@ public class GlobalExceptionHandler {
     }
 
     @ResponseBody
-    @ExceptionHandler(UserUnauthorizedException.class)
+    @ExceptionHandler(ValidationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String validationHandler(ValidationException e) {
         return e.getMessage();

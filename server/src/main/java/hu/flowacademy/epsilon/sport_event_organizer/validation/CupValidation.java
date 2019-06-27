@@ -9,16 +9,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class CupValidation {
 
+    public static final String CUP_IS_ALREADY_EXIST_WITH_THIS_NAME = "validation.cup.already_exist";
+    public static final String EVENT_DATE_IS_MISSING = "validation.cup.event_date_missing";
     @Autowired
     private CupRepository cupRepository;
 
 
     public void validateNameAndDatesBeforeSave(Cup cupToSave) {
         if (cupRepository.findByName(cupToSave.getName()).isPresent()) {
-            throw new ValidationException("Cup is already exist with this name");
+            throw new ValidationException(CUP_IS_ALREADY_EXIST_WITH_THIS_NAME);
         }
         if (cupToSave.getEventDate() == null) {
-            throw new ValidationException("Event date is missing");
+            throw new ValidationException(EVENT_DATE_IS_MISSING);
         }
 
         if (cupToSave.getRegistrationEndDate() == null) {
