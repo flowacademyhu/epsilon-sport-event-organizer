@@ -22,7 +22,7 @@ export class RequestInterceptorService implements HttpInterceptor {
     }
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
-        if (error.status === 400 || error.status === 404 || error.status === 403) {
+        if (error.status === 400 || error.status === 404) {
           this.translate.get(error.error).subscribe((translatedValue) => {
             this._snackBar.open(translatedValue);
           });
