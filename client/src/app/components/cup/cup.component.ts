@@ -47,13 +47,8 @@ export class CupComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngOnInit() {
-<<<<<<< HEAD
-
-    this.cupService.getAllCupsUsingGET().subscribe(
-=======
     this.getData();
     this.cupState.cups$.subscribe(
->>>>>>> develop
       cuplist => {
          const array = cuplist.map(
           item => {
