@@ -66,7 +66,7 @@ public class CupValidation {
         }
     }
 
-    public void validateOrganizerBeforeadd(Cup cup, User user) {
+    public void validateOrganizerBeforeAdd(Cup cup, User user) {
         if (cup.getOrganizers().contains(user)) {
             throw new ValidationException(USER_IS_ALREADY_A_ORGANIZER);
         }
