@@ -45,18 +45,22 @@
                   <mat-cell *matCellDef="let element">{{element.eventDate}}</mat-cell> 
               </ng-container>
 
+
               <ng-container matColumnDef="actionsa">
+                  
                 <mat-header-cell *matHeaderCellDef>actions</mat-header-cell>
+
                 <mat-cell *matCellDef="let row; let element">
+                    <div *ngIf="(state.user$ | async) != null">
                   <a style="cursor: pointer;" (click)="applyCup(element)"><mat-icon>add_outline</mat-icon></a>
                   <div *ngFor="let leader of element.organizers">
-                      <div *ngIf="(state.user$ | async) != null">
                     <div *ngIf="leader.googleName == state.user.googleName">
                         <a style="cursor: pointer;" (click)="deleteCup(element)"><mat-icon>delete_outline</mat-icon></a>
                     </div>
                     </div>
                   </div>
-                </mat-cell>
+                  </mat-cell>
+              
               </ng-container>
 
               <ng-container matColumnDef="expandedDetail">
