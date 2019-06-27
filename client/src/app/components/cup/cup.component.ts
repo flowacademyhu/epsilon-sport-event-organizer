@@ -48,12 +48,12 @@ export class CupComponent implements OnInit {
 
     this.getData();
 
-        this.teamService.getAllTeamsUsingGET().subscribe(
+       /*  this.teamService.getAllTeamsUsingGET().subscribe(
           (teams: any) => {
             this.teamStateService.teams = teams;
             this.teams = teams;
           }
-      );
+      ); */
 
 
   }
