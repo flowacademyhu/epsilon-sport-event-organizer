@@ -30,18 +30,18 @@ public class CupValidateTest {
         cupToBeSaved.setName("Test Cup");
         Mockito.when(cupRepository.findByName(cupToBeSaved.getName())).thenReturn(java.util.Optional.of(cupToBeSaved));
 
-        cupValidation.validateSave(cupToBeSaved);
+        cupValidation.validateNameAndDatesBeforeSave(cupToBeSaved);
     }
 
     @Test(expected = ValidationException.class)
     public void whenMissingEventDate() {
-        cupValidation.validateSave(new Cup());
+        cupValidation.validateNameAndDatesBeforeSave(new Cup());
     }
 
     @Test(expected = ValidationException.class)
     public void whenMissingRegistrationEndDate() {
         Cup cup = new Cup();
         cup.setEventDate(LocalDate.now());
-        cupValidation.validateSave(cup);
+        cupValidation.validateNameAndDatesBeforeSave(cup);
     }
 }

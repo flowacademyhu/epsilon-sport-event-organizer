@@ -47,5 +47,15 @@
   "TeamDeleteConfirm": "Would you like to delete this team: ",
   "MemberDeleteConfirm": "Would you like to remove: ",
   "EventDate": "Event Date",
-  "SuccesfullyCreatedCup": "Succesfully created cup"
+  "SuccesfullyCreatedCup": "Succesfully created cup",
+  "validation": {
+    "cup": {
+      "already_exist": "Cup is already exist with this name",
+      "event_date_missing": "Event date is missing",
+      "reg_date_missing": "Registration date is missing"
+    },
+    "team": {
+      "team_name_already_exist": "Team is already exist with this name"
+    }
+  }
 }

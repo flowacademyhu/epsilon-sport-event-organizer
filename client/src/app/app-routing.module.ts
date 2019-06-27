@@ -12,7 +12,7 @@ const routes: Routes = [
   {path: 'oauth2/redirect', component: MainPageComponent},
   {path: 'profile', component: ProfileComponent, canActivate: [LoggedinGuard]},
   {path: 'team', component: TeamComponent},
-  {path: 'cup', component:CupComponent}
+  {path: 'cup', component: CupComponent}
 ];
 
 @NgModule({
