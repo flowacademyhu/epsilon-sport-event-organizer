@@ -28,8 +28,6 @@ export class CupComponent implements OnInit {
     private cupService: CupResourceService,
     public state: AppStateService,
     private dialog: MatDialog,
-    private teamStateService: TeamStateService,
-    private teamService: TeamResourceService
     ) { }
 
   cupNameToDelete: string = '';

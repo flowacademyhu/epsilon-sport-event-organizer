@@ -5,7 +5,7 @@
         <h1>{{ "Cups" | translate }}</h1>
         <!-- table -->
         <div class="search-div">
-            <div *ngIf="state.user != null">
+            <div *ngIf="(state.user$ | async) != null">
           <button mat-raised-button (click)="onCreateCup()"><mat-icon>add</mat-icon>{{ "CreateCup" | translate }}</button>
           </div>
             <mat-form-field class="search-form-field">

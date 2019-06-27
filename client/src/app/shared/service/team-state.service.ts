@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Team } from 'src/app/api';
+import { Team, TeamResourceService } from 'src/app/api';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TeamStateService {
 
-  constructor() { }
+  constructor(
+    private teamService: TeamResourceService
+  ) { }
 
   private readonly _teams = new BehaviorSubject<Team[]>([]);
 
@@ -21,6 +23,7 @@ export class TeamStateService {
     this._teams.next(val);
   }
 
+  //not used
   addTeam(name: string, company: string, imageUrl: string) {
     this.teams = [
       ...this.teams,
@@ -28,8 +31,17 @@ export class TeamStateService {
     ];
   }
 
+  //not used
   removeTodo(name: string) {
     this.teams = this.teams.filter(team => team.name !== name);
+  }
+
+  getTeams() {
+    return this.teamService.getAllTeamsUsingGET().subscribe(
+      teams => {
+        this.teams = teams;
+      }
+    );
   }
 
 }

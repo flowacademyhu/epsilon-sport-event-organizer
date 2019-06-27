@@ -4,7 +4,6 @@ import hu.flowacademy.epsilon.sport_event_organizer.email.MailService;
 import hu.flowacademy.epsilon.sport_event_organizer.exception.CupNotFoundException;
 import hu.flowacademy.epsilon.sport_event_organizer.exception.UserUnauthorizedException;
 import hu.flowacademy.epsilon.sport_event_organizer.model.Cup;
-import hu.flowacademy.epsilon.sport_event_organizer.model.Match;
 import hu.flowacademy.epsilon.sport_event_organizer.model.Team;
 import hu.flowacademy.epsilon.sport_event_organizer.model.User;
 import hu.flowacademy.epsilon.sport_event_organizer.repository.CupRepository;
@@ -14,12 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
+import static hu.flowacademy.epsilon.sport_event_organizer.exception.ExceptionCreator.createCupNotFoundException;
 
 
 @Service
@@ -51,14 +51,14 @@ public class CupService {
         cup.setEventDate(cupTomorrow);
         cup.setRegistrationEndDate(regTomorrow);
         cupRepository.save(cup);
-        currentUser.addCup(cup);
+        currentUser.addCupToOrganizer(cup);
         userService.save(currentUser);
         cup.addOrganizer(currentUser);
         return cup;
     }
 
     public Cup update(Cup cup) {
-        Cup previousCup = cupRepository.findByName(cup.getName()).orElseThrow(() -> new CupNotFoundException(cup.getName()));
+        Cup previousCup = cupRepository.findByName(cup.getName()).orElseThrow(createCupNotFoundException(cup.getName()));
         previousCup.setName(cup.getName());
         previousCup.setCompany(cup.getCompany());
         previousCup.setImageUrl(cup.getImageUrl());
@@ -66,7 +66,7 @@ public class CupService {
     }
 
     public Cup getByName(String name) {
-        Cup cup = cupRepository.findByName(name).orElseThrow(() -> new CupNotFoundException(name));
+        Cup cup = cupRepository.findByName(name).orElseThrow(createCupNotFoundException(name));
         if (!cup.isDeleted()) {
             return cup;
         }
@@ -77,7 +77,7 @@ public class CupService {
     public List<Cup> getAllCups() {
         List<Cup> cupList = cupRepository.findAll();
         return cupList.stream()
-                .filter(cup -> !cup.isDeleted())
+                .filter(Predicate.not(Cup::isDeleted))
                 .collect(Collectors.toList());
     }
 
@@ -85,7 +85,7 @@ public class CupService {
     public List<Cup> getCupsByPlace(String place) {
         List<Cup> cupList = cupRepository.findByPlace(place);
         return cupList.stream()
-                .filter(cup -> !cup.isDeleted())
+                .filter(Predicate.not(Cup::isDeleted))
                 .collect(Collectors.toList());
     }
 
@@ -93,7 +93,7 @@ public class CupService {
     public List<Cup> getCupsByCompany(String company) {
         List<Cup> cupList = cupRepository.findByCompany(company);
         return cupList.stream()
-                .filter(cup -> !cup.isDeleted())
+                .filter(Predicate.not(Cup::isDeleted))
                 .collect(Collectors.toList());
     }
 
@@ -106,20 +106,29 @@ public class CupService {
 
     public List<Cup> getCupsByParticipation() {
         User user = userService.getCurrentUser();
+<<<<<<< HEAD
         // List<Cup> cups = cupRepository.findCurrentUserInTeam(user.getId());
         return cupRepository.findCurrentUserInTeam(user.getId());
         //return cups.stream()
         //        .filter(cup -> cup.getApproved().stream().map(Team::getName).anyMatch(teamName -> teamName.equalsIgnoreCase(name)))
         //        .filter(cup -> !cup.isDeleted())
         //        .collect(Collectors.toList());
+=======
+        String name = user.getGoogleName();
+        List<Cup> cups = cupRepository.findAll();
+        return cups.stream()
+                .filter(cup -> cup.getApproved().contains(name))
+                .filter(Predicate.not(Cup::isDeleted))
+                .collect(Collectors.toList());
+>>>>>>> develop
     }
 
     public void applyTeam(String cupName, String teamName) {
-        Cup cup = cupRepository.findByName(cupName).orElseThrow(() -> new CupNotFoundException(cupName));
+        Cup cup = cupRepository.findByName(cupName).orElseThrow(createCupNotFoundException(cupName));
         Team team = teamService.getTeamByName(teamName);
         User currentUser = userService.getCurrentUser();
         if (team.getLeaders().contains(currentUser)) {
-            mailService.sendMailOrganizersToApplieTeam(team, cup);
+            mailService.sendMailOrganizersToAppliedTeam(team, cup);
             cup.addTeam(team);
             team.addCup(cup);
             teamService.update(team);
@@ -131,18 +140,18 @@ public class CupService {
 
 
     public Set<Team> getAppliedTeams(String cupName) {
-        Cup cup = cupRepository.findByName(cupName).orElseThrow(() -> new CupNotFoundException(cupName));
+        Cup cup = cupRepository.findByName(cupName).orElseThrow(createCupNotFoundException(cupName));
         return teamRepository.findByCups(cup);
     }
 
 
     public Set<Team> getApprovedTeams(String cupName) {
-        Cup cup = cupRepository.findByName(cupName).orElseThrow(() -> new CupNotFoundException(cupName));
+        Cup cup = cupRepository.findByName(cupName).orElseThrow(createCupNotFoundException(cupName));
         return teamRepository.findByValidatedCups(cup);
     }
 
     public void approveTeam(String cupName, String teamName) {
-        Cup cup = cupRepository.findByName(cupName).orElseThrow(() -> new CupNotFoundException(cupName));
+        Cup cup = cupRepository.findByName(cupName).orElseThrow(createCupNotFoundException(cupName));
         Set<Team> teams = getAppliedTeams(cupName);
         Team teamToApprove = teamService.getTeamByName(teamName);
         User user = userService.getCurrentUser();
@@ -158,7 +167,7 @@ public class CupService {
     }
 
     public void refuseTeam(String cupName, String teamName) {
-        Cup cup = cupRepository.findByName(cupName).orElseThrow(() -> new CupNotFoundException(cupName));
+        Cup cup = cupRepository.findByName(cupName).orElseThrow(createCupNotFoundException(cupName));
         Set<Team> teams = getAppliedTeams(cupName);
         Team teamToRefuse = teamService.getTeamByName(teamName);
         User user = userService.getCurrentUser();
@@ -174,16 +183,16 @@ public class CupService {
     }
 
     public Set<User> getOrganizers(String cupName) {
-        Cup cup = cupRepository.findByName(cupName).orElseThrow(() -> new CupNotFoundException(cupName));
+        Cup cup = cupRepository.findByName(cupName).orElseThrow(createCupNotFoundException(cupName));
         return userService.findByCupOrganizers(cup);
     }
 
     public void addOrganizer(String cupName, String googleName) {
-        Cup cup = cupRepository.findByName(cupName).orElseThrow(() -> new CupNotFoundException(cupName));
+        Cup cup = cupRepository.findByName(cupName).orElseThrow(createCupNotFoundException(cupName));
         User currentUser = userService.getCurrentUser();
         User userToMakeOrganizer = userService.findUserByGoogleName(googleName);
         if (getOrganizers(cupName).contains(currentUser) && !cup.isDeleted() && !userToMakeOrganizer.isDeleted() && !getOrganizers(cupName).contains(userToMakeOrganizer)) {
-            userToMakeOrganizer.addCup(cup); //elnevezés rossz, de valójában a kup szervezőkhöz adjuk hozzá, nem a kupához!
+            userToMakeOrganizer.addCupToOrganizer(cup);
             cup.addOrganizer(userToMakeOrganizer);
             userService.save(userToMakeOrganizer);
             update(cup);
@@ -193,12 +202,12 @@ public class CupService {
     }
 
     public void deleteOrganizer(String cupName, String googleName) {
-        Cup cup = cupRepository.findByName(cupName).orElseThrow(() -> new CupNotFoundException(cupName));
+        Cup cup = cupRepository.findByName(cupName).orElseThrow(createCupNotFoundException(cupName));
         User currentUser = userService.getCurrentUser();
         User userToDelete = userService.findUserByGoogleName(googleName);
         int organizerCount = getOrganizers(cupName).size();
         if (organizerCount > 1 && getOrganizers(cupName).contains(currentUser) && getOrganizers(cupName).contains(userToDelete)) {
-            userToDelete.deleteCup(cup); //itt is szervezőre értjük...
+            userToDelete.deleteCupFromOrganizer(cup);
             cup.deleteOrganizer(userToDelete);
             userService.save(userToDelete);
             update(cup);
