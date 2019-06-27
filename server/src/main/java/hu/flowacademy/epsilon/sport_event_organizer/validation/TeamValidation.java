@@ -7,6 +7,7 @@ import hu.flowacademy.epsilon.sport_event_organizer.repository.TeamRepository;
 import hu.flowacademy.epsilon.sport_event_organizer.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 @Component
 public class TeamValidation {
@@ -48,19 +49,18 @@ public class TeamValidation {
 
 
     public void validateGuestBeforePutMember(String userName, String email) {
-        if (email.equals("") || email == null) {
+        if (StringUtils.isEmpty(email)) {
             throw new ValidationException(USER_EMAIL_IS_MISSING);
         }
         if (userRepository.findByEmail(email).isPresent()) {
             throw new ValidationException(USER_EMAIL_IS_FORBIDDEN);
         }
-        if (userName.equals("") || userName == null) {
+        if (StringUtils.isEmpty(userName)) {
             throw new ValidationException(USER_NAME_IS_MISSING);
         }
         if (userRepository.findByGoogleName(userName).isPresent()) {
             throw new ValidationException(USER_NAME_IS_FORBIDDEN);
         }
-
     }
 
 
