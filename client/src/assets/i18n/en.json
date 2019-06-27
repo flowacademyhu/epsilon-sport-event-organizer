@@ -88,7 +88,8 @@
       "user_is_already_a_member": "Given user is in the team", 
       "user_name_is_missing": "Guest name must be given", 
       "user_email_is_missing": "Guest email must be given",
-      "user_name_is_forbidden": "Guest name is taken"
+      "user_name_is_forbidden": "Guest name is taken",
+      "user_is_already_leader": "Given user is the leader of the team"
     },
     "user": {
       "user_not_exist_with_this_name": "Given user does not exist"
