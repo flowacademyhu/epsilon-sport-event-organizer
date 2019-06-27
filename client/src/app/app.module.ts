@@ -25,9 +25,13 @@ import { CupComponent } from './components/cup/cup.component';
 import { KeysPipe } from './shared/pipe/keys.pipe';
 import { ApiModule, Configuration, ConfigurationParameters } from './api';
 import { CreateCupModalComponent } from './shared/component/create-cup-modal/create-cup-modal.component';
+import { DeleteCupConfirmComponent } from './shared/component/delete-cup-confirm/delete-cup-confirm.component';
+import { ApplyCupModalComponent } from './shared/component/apply-cup-modal/apply-cup-modal.component';
 import { DeleteTeamConfirmComponent } from './shared/component/delete-team-confirm/delete-team-confirm.component';
 import { DeleteMemberConfirmComponent } from './shared/component/delete-member-confirm/delete-member-confirm.component';
 import { DeleteLeaderConfirmComponent } from './shared/component/delete-leader-confirm/delete-leader-confirm.component';
+import { ApproveCupConfirmComponent } from './shared/component/approve-cup-confirm/approve-cup-confirm.component';
+import { DisapproveCupConfirmComponent } from './shared/component/disapprove-cup-confirm/disapprove-cup-confirm.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -56,9 +60,13 @@ export function getConfig(): Configuration {
     CupComponent,
     KeysPipe,
     CreateCupModalComponent,
+    DeleteCupConfirmComponent,
+    ApplyCupModalComponent,
     DeleteTeamConfirmComponent,
     DeleteMemberConfirmComponent,
-    DeleteLeaderConfirmComponent
+    DeleteLeaderConfirmComponent,
+    ApproveCupConfirmComponent,
+    DisapproveCupConfirmComponent
   ],
   imports: [
     BrowserModule,
@@ -111,9 +119,13 @@ export function getConfig(): Configuration {
     AddMemberModalComponent,
     CreateCupModalComponent,
     ShowCupModalComponent,
+    DeleteCupConfirmComponent,
+    ApplyCupModalComponent,
+    ApproveCupConfirmComponent,
     DeleteTeamConfirmComponent,
     DeleteLeaderConfirmComponent,
-    DeleteMemberConfirmComponent
+    DeleteMemberConfirmComponent,
+    DisapproveCupConfirmComponent
   ]
 })
 export class AppModule { }

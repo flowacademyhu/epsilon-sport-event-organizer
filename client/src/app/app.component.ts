@@ -3,6 +3,7 @@ import { AppStateService } from './shared/service/app-state.service';
 import { ActivatedRoute } from '@angular/router';
 import { TeamStateService } from './shared/service/team-state.service';
 import { UserResourceService, TeamResourceService } from './api';
+import { CupStateService } from './shared/service/cup-state.service';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,7 @@ export class AppComponent implements OnInit {
     private appStateService: AppStateService,
     private teamService: TeamResourceService,
     private teamStateService: TeamStateService,
+    private cupStateService: CupStateService
   ) {
   }
 
@@ -37,11 +39,7 @@ export class AppComponent implements OnInit {
   });
 
   this.teamStateService.getTeams();
+  this.cupStateService.getCups();
 
-  /* this.teamService.getAllTeamsUsingGET().subscribe(
-    teams => {
-      this.teamStateService.teams.push(...teams);
-    }
-  ); */
   }
 }
