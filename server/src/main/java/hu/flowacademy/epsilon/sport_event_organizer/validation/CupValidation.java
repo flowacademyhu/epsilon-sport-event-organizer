@@ -54,7 +54,7 @@ public class CupValidation {
     }
 
     public void validateTeamBeforeApply(Cup cup, Team team) {
-        if (cup.getTeams().contains(team)) {
+        if (cup.getTeams().contains(team) || cup.getApproved().contains(team)) {
             throw new ValidationException(TEAM_IS_ALREADY_APPLIED);
         }
     }
