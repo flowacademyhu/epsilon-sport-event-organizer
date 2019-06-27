@@ -8,6 +8,7 @@ import hu.flowacademy.epsilon.sport_event_organizer.model.Team;
 import hu.flowacademy.epsilon.sport_event_organizer.model.User;
 import hu.flowacademy.epsilon.sport_event_organizer.repository.CupRepository;
 import hu.flowacademy.epsilon.sport_event_organizer.repository.TeamRepository;
+import hu.flowacademy.epsilon.sport_event_organizer.validation.CupValidation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,8 +43,12 @@ public class CupService {
     @Autowired
     private MailService mailService;
 
+    @Autowired
+    private CupValidation cupValidation;
+
 
     public Cup save(Cup cup) {
+        cupValidation.validateNameAndDatesBeforeSave(cup);
         User currentUser = userService.getCurrentUser();
         cup.setDeleted(false);
         LocalDate cupTomorrow = cup.getEventDate().plusDays(1);
@@ -54,6 +59,7 @@ public class CupService {
         currentUser.addCupToOrganizer(cup);
         userService.save(currentUser);
         cup.addOrganizer(currentUser);
+        cupValidation.validateCupOrganizerBeforeSave(cup);
         return cup;
     }
 

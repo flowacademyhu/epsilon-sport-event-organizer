@@ -6,6 +6,7 @@ import hu.flowacademy.epsilon.sport_event_organizer.model.AuthProvider;
 import hu.flowacademy.epsilon.sport_event_organizer.model.Team;
 import hu.flowacademy.epsilon.sport_event_organizer.model.User;
 import hu.flowacademy.epsilon.sport_event_organizer.repository.TeamRepository;
+import hu.flowacademy.epsilon.sport_event_organizer.validation.TeamValidation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,8 @@ public class TeamService {
     @Autowired
     private MailService mailService;
 
+    @Autowired
+    private TeamValidation teamValidation;
 
     public Team getTeamByName(String teamName) {
         return teamRepository.findByName(teamName).orElseThrow(() -> new TeamNotFoundException(teamName));
@@ -49,12 +52,14 @@ public class TeamService {
     }
 
     public Team save(Team team) {
+        teamValidation.validateTeamNameBeforeSave(team);
         User currentUser = userService.getCurrentUser();
         team.setDeleted(false);
         teamRepository.save(team);
         currentUser.addTeamLeader(team);
         User user = userService.save(currentUser);
         team.addLeader(user);
+        teamValidation.validateTeamLeaderBeforeSave(team);
         return team;
     }
 
@@ -63,7 +68,6 @@ public class TeamService {
         previousTeam.setName(team.getName());
         previousTeam.setCompany(team.getCompany());
         previousTeam.setImageUrl(team.getImageUrl());
-
         return teamRepository.save(previousTeam);
     }
 
