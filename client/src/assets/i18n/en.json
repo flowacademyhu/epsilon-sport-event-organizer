@@ -65,11 +65,10 @@
       "team_name_missing": "Team name must be given",
       "team_name_already_exist": "Team already exists with this name",
       "team_company_missing": "Company name must be given",
-      "": "Given user is in the team",
-      "": "Given user does not exist",
-      "": "Guest name must be given",
-      "": "Guest email must be given",
-      "": "Guest name is taken"
+      "user_is_already_a_member": "Given user is in the team", 
+      "user_name_is_missing": "Guest name must be given", 
+      "user_email_is_missing": "Guest email must be given",
+      "user_name_is_forbidden": "Guest name is taken"
     },
     "user": {
       "user_not_exist_with_this_name": "Given user does not exist"
