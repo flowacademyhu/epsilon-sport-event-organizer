@@ -67,5 +67,6 @@
   "AddOrganizer": "Add Organizer",
   "DeleteOrganizer": "DeleteOrganizer",
   "ApproveTeam": "Would you like to approve this team: ",
-  "DisapproveTeam": "Would you like to refuse this team: "
+  "DisapproveTeam": "Would you like to refuse this team: ",
+  "ToTeamAdd": "Succesfully added"
 }

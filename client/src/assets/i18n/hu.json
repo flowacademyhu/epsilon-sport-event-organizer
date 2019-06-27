@@ -66,5 +66,6 @@
   "AddOrganizer": "Szervező hozzáadása",
   "DeleteOrganizer": "Szervező törlése",
   "ApproveTeam": "Szeretné elfogadni ennek a csapatnak a jelentkezését: ",
-  "DisapproveTeam": "Szeretné visszautasítani ennek a csapatnak a jelentkezését: "
+  "DisapproveTeam": "Szeretné visszautasítani ennek a csapatnak a jelentkezését: ",
+  "ToTeamAdd": "Sikeresen hozzáadva"
 }
