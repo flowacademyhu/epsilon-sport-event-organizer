@@ -48,15 +48,47 @@ export class TeamComponent implements OnInit {
 
   constructor(
     private teamService: TeamResourceService,
+    private teamState: TeamStateService,
     private dialog: MatDialog,
     public state: AppStateService
     ) { }
 
   ngOnInit() {
     this.getData();
+    this.teamState.teams$.subscribe(
+      teamlist => {
+         const array = teamlist.map(
+          item => {
+            return {
+              $key: item.name,
+              ...item
+            };
+          });
+        this.listData = new MatTableDataSource(array);
+        this.listData.sort = this.sort;
+        this.listData.paginator = this.paginator;
+      }
+   );
   }
 
+  /* getData() {
+    const array = this.teamState.getTeams().map(
+      item => {
+        return {
+          $key: item.name,
+          ...item
+        };
+      });
+    this.listData = new MatTableDataSource(array);
+    this.listData.sort = this.sort;
+    this.listData.paginator = this.paginator;
+  } */
+
   getData() {
+    this.teamState.getTeams();
+  }
+
+/*   getData() {
     this.teamService.getAllTeamsUsingGET().subscribe(
       teamlist => {
         this.teamList = teamlist;
@@ -72,8 +104,7 @@ export class TeamComponent implements OnInit {
         this.listData.paginator = this.paginator;
       }
     );
-  }
-
+  } */
 
   applyFilter() {
     this.listData.filter = this.searchKey.trim().toLowerCase();

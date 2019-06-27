@@ -18,8 +18,6 @@ export class CupComponent implements OnInit {
     private cupService: CupResourceService,
     public state: AppStateService,
     private dialog: MatDialog,
-    private teamStateService: TeamStateService,
-    private teamService: TeamResourceService
     ) { }
 
   cupNameToDelete: string = '';
@@ -51,15 +49,6 @@ export class CupComponent implements OnInit {
         this.listData.paginator = this.paginator;
       }
     );
-
-        this.teamService.getAllTeamsUsingGET().subscribe(
-          (teams: any) => {
-            this.teamStateService.teams = teams;
-            this.teams = teams;
-          }
-      );
-
-
   }
 
   deleteCup(cup: Cup) {

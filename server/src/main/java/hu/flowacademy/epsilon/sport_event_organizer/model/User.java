@@ -114,14 +114,14 @@ public class User {
         teamLeaders.remove(team);
     }
 
-    public void addCup(Cup cup) {
+    public void addCupToOrganizer(Cup cup) {
         if (cups == null) {
             this.cups = new HashSet<>();
         }
         cups.add(cup);
     }
 
-    public void deleteCup(Cup cup) {
+    public void deleteCupFromOrganizer(Cup cup) {
         if (cups == null) {
             this.cups = new HashSet<>();
         }

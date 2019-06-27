@@ -13,11 +13,11 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/match")
 public class MatchResource {
-    @Autowired
-    private MatchService matchService;
-
-    @GetMapping("/groups/{cupName}")
-    public List<Match> getGroupMatches(@PathVariable String cupName) {
-        return matchService.generateGroupMatches(cupName);
-    }
+//    @Autowired
+//    private MatchService matchService;
+//
+//    @GetMapping("/groups/{cupName}")
+//    public List<Match> getGroupMatches(@PathVariable String cupName) {
+//        return matchService.generateGroupMatches(cupName);
+//    }
 }
