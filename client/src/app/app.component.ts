@@ -20,10 +20,7 @@ export class AppComponent implements OnInit {
     private appStateService: AppStateService,
     private teamService: TeamResourceService,
     private teamStateService: TeamStateService,
-<<<<<<< HEAD
-=======
     private cupStateService: CupStateService
->>>>>>> 2cfb29e8d13269c9b2dde30f2fba3e20747493c9
   ) {
   }
 
@@ -41,18 +38,8 @@ export class AppComponent implements OnInit {
     }
   });
 
-<<<<<<< HEAD
   this.teamStateService.getTeams();
-
-  /* this.teamService.getAllTeamsUsingGET().subscribe(
-=======
   this.cupStateService.getCups();
 
-  this.teamService.getAllTeamsUsingGET().subscribe(
->>>>>>> 2cfb29e8d13269c9b2dde30f2fba3e20747493c9
-    teams => {
-      this.teamStateService.teams.push(...teams);
-    }
-  ); */
   }
 }
