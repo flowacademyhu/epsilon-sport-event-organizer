@@ -27,7 +27,7 @@ export class TeamComponent implements OnInit {
 
   teamName: string = '';
   companyName: string = '';
-  team: any = '';
+  team: any = {};
   createdTeam: Team;
   data: any;
   dataLeader: any;
@@ -159,9 +159,10 @@ export class TeamComponent implements OnInit {
       (data: any) => {
         this.memberToAdd = '';
         this.teamNametoAdd = '';
+        this.getData();
+
       }
     );
-    this.getData();
   }
 
   getByTeamName() {
@@ -178,9 +179,10 @@ export class TeamComponent implements OnInit {
     this.teamService.putLeaderUsingPUT(googleName, teamName).subscribe(
       (data: any) => {
         this.team.leaders = data.leaders;
+        this.getData();
       }
     );
-    this.getData();
+
   }
 
   deleteMember(member: User, team: Team) {

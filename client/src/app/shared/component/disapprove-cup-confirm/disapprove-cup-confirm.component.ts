@@ -3,28 +3,28 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { CupResourceService } from 'src/app/api';
 
 @Component({
-  selector: 'app-delete-cup-confirm',
-  templateUrl: './delete-cup-confirm.component.html',
-  styleUrls: ['./delete-cup-confirm.component.css']
+  selector: 'app-disapprove-cup-confirm',
+  templateUrl: './disapprove-cup-confirm.component.html',
+  styleUrls: ['./disapprove-cup-confirm.component.css']
 })
-export class DeleteCupConfirmComponent implements OnInit {
+export class DisapproveCupConfirmComponent implements OnInit {
 
   constructor(
-    public dialogRef: MatDialogRef<DeleteCupConfirmComponent>,
+    public dialogRef: MatDialogRef<DisapproveCupConfirmComponent>,
     private cupService: CupResourceService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
+
+  ngOnInit() {
+  }
 
   onNoClick() {
     this.dialogRef.close();
   }
 
   onYesClick() {
-    this.cupService.deleteCupUsingDELETE(this.data.cup.name).subscribe();
+    this.cupService.refuseTeamUsingPOST(this.data.cup.name, this.data.team.name).subscribe();
     this.dialogRef.close();
-  }
-
-  ngOnInit() {
   }
 
 }
