@@ -136,9 +136,8 @@ public class TeamService {
 
 
     public Team addGuestMemberToTeam(String teamName, String teamLeader, String userName, String email) {
-
+        teamValidation.validateGuestBeforePutMember(userName, email);
         Team team = teamRepository.findByName(teamName).orElseThrow(() -> new TeamNotFoundException());
-        teamValidation.validateGuestBeforePutMember(userName, email, team);
         User user = new User();
         user.setGoogleName(userName);
         user.setProvider(AuthProvider.local);

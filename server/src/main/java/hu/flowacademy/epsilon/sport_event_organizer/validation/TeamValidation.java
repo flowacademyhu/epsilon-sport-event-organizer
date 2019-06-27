@@ -46,10 +46,13 @@ public class TeamValidation {
         if (team.getUsers().contains(userToAddMember)) {
             throw new ValidationException(USER_IS_ALREADY_A_MEMBER);
         }
+        if (team.getLeaders().contains(userToAddMember)) {
+            throw new ValidationException(USER_IS_ALREADY_LEADER);
+        }
     }
 
 
-    public void validateGuestBeforePutMember(String userName, String email, Team team) {
+    public void validateGuestBeforePutMember(String userName, String email) {
         if (StringUtils.isEmpty(email)) {
             throw new ValidationException(USER_EMAIL_IS_MISSING);
         }
@@ -62,11 +65,6 @@ public class TeamValidation {
         if (userRepository.findByGoogleName(userName).isPresent()) {
             throw new ValidationException(USER_NAME_IS_FORBIDDEN);
         }
-        team.getLeaders().forEach(leader -> {
-            if (leader.getGoogleName().equals(userName)) {
-                throw new ValidationException(USER_IS_ALREADY_LEADER);
-            }
-        });
     }
 
 
