@@ -9,17 +9,23 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { Match } from './match';
+import { Team } from './team';
+import { User } from './user';
 
 
 export interface Cup { 
+    approved?: Array<Team>;
     company?: string;
     courtCounter?: number;
     deleted?: boolean;
     description?: string;
-    endDateTime?: Date;
+    eventDate?: string;
     imageUrl?: string;
+    matches?: Array<Match>;
     name?: string;
+    organizers?: Array<User>;
     place?: string;
-    registrationEndTime?: Date;
-    startDateTime?: Date;
+    registrationEndDate?: string;
+    teams?: Array<Team>;
 }

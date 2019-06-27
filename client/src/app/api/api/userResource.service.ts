@@ -25,7 +25,7 @@ import { Configuration }                                     from '../configurat
 
 
 @Injectable()
-export class UserControllerService {
+export class UserResourceService {
 
     protected basePath = 'https://localhost:8080';
     public defaultHeaders = new HttpHeaders();

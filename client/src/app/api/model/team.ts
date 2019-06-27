@@ -9,11 +9,17 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { User } from './user';
 
 
 export interface Team { 
     company?: string;
     deleted?: boolean;
+    groupName?: string;
     imageUrl?: string;
+    leaders?: Array<User>;
     name?: string;
+    qualified?: boolean;
+    users?: Array<User>;
+    winnerCounter?: number;
 }

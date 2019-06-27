@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>{{ "CreatTeam" | translate }}</h1>
+<div mat-dialog-content>
+  <p>{{ "TeamName" | translate }}</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="teamNameToCreate">
+  </mat-form-field>
+  <p>{{ "CompanyName" | translate }}</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="companyNameToCreate">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="create()">{{ "Submit" | translate }}</button>
+  <button mat-button (click)="exit()" cdkFocusInitial>{{ "Cancel" | translate }}</button>
+</div>
