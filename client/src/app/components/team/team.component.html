@@ -4,7 +4,7 @@
       <h1>{{ "Teams" | translate }}</h1>
       <!-- table -->
       <div class="search-div">
-          <div *ngIf="(state.user$ | async) != null">
+          <div *ngIf="(state.user$ | async)">
         <button mat-raised-button (click)="onCreate()"><mat-icon>add</mat-icon>{{ "CreateTeam" | translate }}</button>
         </div>
           <mat-form-field class="search-form-field">
@@ -21,13 +21,13 @@
             <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
           </ng-container>
           <ng-container matColumnDef="company">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Company</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'Company' | translate }}</mat-header-cell>
             <mat-cell *matCellDef="let element">{{element.company}}</mat-cell>
           </ng-container>
           <ng-container matColumnDef="actions">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef="let row; let element">
-              <div *ngIf="(state.user$ | async) != null">
+              <div *ngIf="(state.user$ | async)">
               <div *ngFor="let leader of element.leaders">
                 <div *ngIf="leader.googleName == state.user.googleName">
                     <a style="cursor: pointer;" (click)="onAdd(leader, element)"><mat-icon>group_add</mat-icon></a>
@@ -54,7 +54,7 @@
                     <p class="font-weight-bold">{{ 'Members' | translate }}</p>                 
                 <div *ngFor="let member of element.users">
                   {{ member.googleName }}
-                  <div *ngIf="(state.user$ | async) != null">
+                  <div *ngIf="(state.user$ | async)">
                   <div *ngIf="member.googleName === state.user.googleName">
                     <mat-icon (click)="deleteMember(member, element)" style="cursor: pointer;" id="red">clear</mat-icon>           
                   </div>
@@ -83,5 +83,5 @@
       <!-- table -->
     </div>
   </div>
-  <div id="snackbar"> asd </div>
+  <div id="snackbar">{{ 'ToTeamAdd' | translate }}</div>
   

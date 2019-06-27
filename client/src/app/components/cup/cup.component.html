@@ -5,7 +5,7 @@
         <h1>{{ "Cups" | translate }}</h1>
         <!-- table -->
         <div class="search-div">
-            <div *ngIf="(state.user$ | async) != null">
+            <div *ngIf="(state.user$ | async)">
           <button mat-raised-button (click)="onCreateCup()"><mat-icon>add</mat-icon>{{ "CreateCup" | translate }}</button>
           </div>
             <mat-form-field class="search-form-field">
@@ -51,7 +51,7 @@
                 <mat-header-cell *matHeaderCellDef>actions</mat-header-cell>
 
                 <mat-cell *matCellDef="let row; let element">
-                    <div *ngIf="(state.user$ | async) != null">
+                    <div *ngIf="(state.user$ | async)">
                   <a style="cursor: pointer;" (click)="applyCup(element)"><mat-icon>add_outline</mat-icon></a>
                   <div *ngFor="let leader of element.organizers">
                     <div *ngIf="leader.googleName == state.user.googleName">
