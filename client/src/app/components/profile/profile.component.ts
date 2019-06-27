@@ -33,22 +33,6 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
 
     this.userDatas = this.state.user;
-
-    /*
-    this.teamService.getAllTeamsByLeaderUsingGET().subscribe(
-      teams => {
-        this.teamsIAmLeaderIn = teams;
-        // console.log(this.teamsIAmLeaderIn);
-      }
-    );
-
-    this.teamService.getAllTeamsByMemberUsingGET().subscribe(
-      teams => {
-        this.teamsIAmMemberIn = teams;
-        // console.log(this.teamsIAmMemberIn);
-      }
-    );
-    */
     this.getTeamsAsLeader();
     this.getTeamsAsMember();
     this.getCupsOrganizer();
