@@ -73,10 +73,10 @@
       "already_exist": "Cup exists with this name",
       "event_date_missing": "Event date is missing",
       "reg_date_missing": "Registration date is missing",
-      "": "Registration date must be earlier than event date",
+      "reg_date_is_after_event": "Registration date must be earlier than event date",
       "": "Place must be given",
-      "": "The event date must be a future date",
-      "": "The registration date can not be in the past",
+      "event_date_is_in_the_past": "The event date must be a future date",
+      "reg_date_is_in_the_past": "The registration date can not be in the past",
       "": "Team has already been applied to this cup",
       "": "Team has already been approved",
       "": "Given user is an organizer"
