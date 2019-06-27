@@ -50,12 +50,24 @@
   "SuccesfullyCreatedCup": "Succesfully created cup",
   "validation": {
     "cup": {
-      "already_exist": "Cup is already exist with this name",
+      "already_exist": "Cup exists with this name",
       "event_date_missing": "Event date is missing",
-      "reg_date_missing": "Registration date is missing"
+      "reg_date_missing": "Registration date is missing",
+      "": "Registration date must be earlier than event date",
+      "": "Place must be given",
+      "": "The event date must be a future date",
+      "": "The registration date can not be in the past",
+      "": "Given user is an organizer"
     },
     "team": {
-      "team_name_already_exist": "Team is already exist with this name"
+      "": "Team name must be given",
+      "team_name_already_exist": "Team already exists with this name",
+      "": "Company name must be given",
+      "": "Given user is in the team",
+      "": "Given user does not exist",
+      "": "Guest name must be given",
+      "": "Guest email must be given",
+      "": "Guest name is taken"
     }
   }
 }

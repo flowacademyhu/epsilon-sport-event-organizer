@@ -48,13 +48,5 @@
   "MemberDeleteConfirm": "Szeretné eltávolítani: ",
   "EventDate": "Kupa kezdete",
   "SuccesfullyCreatedCup": "Sikeresen létrehoztad a kupát!",
-  "validation": {
-    "cup": {
-      "already_exist": "Cup is already exist with this name",
-      "event_date_missing": "Event date is missing"
-    },
-    "team": {
-      "already_exist": "Team is already exist with this name"
-    }
-  }
+  
 }
