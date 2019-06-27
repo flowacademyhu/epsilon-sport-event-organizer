@@ -51,6 +51,14 @@
   "Company": "Company",
   "RegistrationEndDate": "Registration end date",
   "CupDeleteConfirm": "Would you like to delete this cup: ",
+  "MyTeams" : "My Teams",
+  "NoLeader": "You are no leader in any teams...",
+  "TeamMemberships": "Team Memberships",
+  "NoMember": "You are no member in any teams...",
+  "MyCups": "My Cups",
+  "NoOrganizer": "No upcoming cups - as organizer",
+  "CupMembership": "Cup Memberships",
+  "NoCupMember": "No upcoming cups - as team member",
   "ApprovedTeams": "Approved teams",
   "AppliedTeams": "Applied teams",
   "Organizers": "Organizers", 
@@ -63,5 +71,6 @@
   "Football": "Football",
   "Basketball": "Basketball",
   "Volleyball": "Volleyball",
-  "SportType": "Sport type"
+  "SportType": "Sport type",
+  "ToTeamAdd": "Succesfully added"
 }

@@ -71,40 +71,9 @@ export class TeamComponent implements OnInit {
    );
   }
 
-  /* getData() {
-    const array = this.teamState.getTeams().map(
-      item => {
-        return {
-          $key: item.name,
-          ...item
-        };
-      });
-    this.listData = new MatTableDataSource(array);
-    this.listData.sort = this.sort;
-    this.listData.paginator = this.paginator;
-  } */
-
   getData() {
     this.teamState.getTeams();
   }
-
-/*   getData() {
-    this.teamService.getAllTeamsUsingGET().subscribe(
-      teamlist => {
-        this.teamList = teamlist;
-         const array = teamlist.map(
-          item => {
-            return {
-              $key: item.name,
-              ...item
-            };
-          });
-        this.listData = new MatTableDataSource(array);
-        this.listData.sort = this.sort;
-        this.listData.paginator = this.paginator;
-      }
-    );
-  } */
 
   applyFilter() {
     this.listData.filter = this.searchKey.trim().toLowerCase();
