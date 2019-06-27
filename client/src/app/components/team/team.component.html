@@ -27,12 +27,14 @@
           <ng-container matColumnDef="actions">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef="let row; let element">
+              <div *ngIf="(state.user$ | async) != null">
               <div *ngFor="let leader of element.leaders">
                 <div *ngIf="leader.googleName == state.user.googleName">
                     <a style="cursor: pointer;" (click)="onAdd(leader, element)"><mat-icon>add_outline</mat-icon></a>
                     <a style="cursor: pointer;" (click)="deleteTeam(element)"><mat-icon>delete_outline</mat-icon></a>
                 </div>
               </div>
+            </div>
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="expandedDetail">
@@ -57,6 +59,7 @@
                     <p class="font-weight-bold">{{ 'Members' | translate }}</p>                 
                 <div *ngFor="let member of element.users">
                   {{ member.googleName }}
+                  <div *ngIf="(state.user$ | async) != null">
                   <div *ngIf="member.googleName === state.user.googleName">
                     <img
                           src="../../../assets/pictures/deleteX.png"
@@ -79,6 +82,7 @@
                           class="memberButtons"
                           (click)="deleteMember(member, element)"
                           style="cursor: pointer;">
+                  </div>
                   </div>
                 </div>
                 </div>
