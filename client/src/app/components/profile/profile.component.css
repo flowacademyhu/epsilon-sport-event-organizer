@@ -25,16 +25,11 @@ body {
 }
 
 /* Control the top side */
-.top {
-  top: 3;
-  background-color: rgb(65, 192, 53);
-  
-}
 
 /* Control the bottom side */
 .bottom {
   bottom: 0;
-  background-color: red;
+  /*background-color: red;*/
 }
 
 /* If you want the content centered horizontally and vertically */
@@ -67,12 +62,13 @@ body {
 /* Control the left side */
 .left {
   left: 0;
+  margin-top: 75px;
 }
 
 /* Control the right side */
 .right {
   right: 0;
-  background-color: red;
+  /*background-color: red;*/
 }
 
 table td{
@@ -91,4 +87,45 @@ a {
 
 .background {
   background-color: #FFEB7F;
+}
+
+#cup {
+  background-color: #FFEB7F;
+  opacity: 0.8;
+  text-align: center;
+  text-shadow: #FFEB7F;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  font-family: 'Luckiest Guy', cursive;
+  font-weight: bold;
+}
+
+h3 {
+  font-size: 200%;
+  font-stretch: extra-expanded;
+  font-weight: 300;
+}
+
+#team {
+  background-color: lightcoral;
+  opacity: 0.8;
+  text-align: center;
+  text-shadow: lightcoral;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  font-family: 'Luckiest Guy', cursive;
+  font-weight: bold;
+}
+
+#profile {
+  width: 65%;
+  height: 65%;
+  transition: width 2s;
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 200%;
+  color: white;
+}
+
+#profile:hover {
+  width: 90%;
 }

@@ -1,54 +1,144 @@
 <div class="split left">
-    <div class="centered">
-      <div class="background rounded">
+    <div class="centered"  id="profile">
+      <div class="rounded">
       <img src= "{{ userDatas.imageUrl }}"/>
-      <h2> {{ userDatas.googleName }} </h2>
-      <p> e-mail: {{ userDatas.email }}</p>
+      <h1>{{ userDatas.googleName }}</h1>
+      <p>{{ userDatas.email }}</p>
     </div>
     </div>
   </div>
   
   <div class="split right">
-      <div class="splite top">
-          <div class="centered">
-              {{ 'Leadership' | translate }}
-              <table width="250">
-                  <tbody>        
-                    <tr>
-                      <td width="125">{{ 'TeamName' | translate }}
-                      </td>
-                      <td width="125">{{ 'CompanyName' | translate }}</td>
-                    </tr>
-                    <tr *ngFor="let item of teamsIAmLeaderIn"> 
-                      <td width="125"><a routerLink="../team">{{ item.name }}
-                      </a></td>
-                      <td> {{ item.company }}</td>
-                      
-                    </tr>
-                  </tbody>
-                </table>
-                {{ 'Member' | translate }}
-              <table width="250">
-                  <tbody>        
-                    <tr>
-                      <td width="125">{{ 'TeamName' | translate }}</td>
-                      <td>{{ 'CompanyName' | translate }}</td>
-                    </tr>
-                    <tr *ngFor="let item of teamsIAmMemberIn"> 
-                      <td ><a routerLink="../team">{{ item.name }}</a></td>
-                      <td> {{ item.company }}</td>
-                      
-                    </tr>
-                  </tbody>
-                </table>
-          </div>
+    <div class="splite top">
+        <div class="mat-elevation-z8">
+          <div *ngIf="teamsIAmLeaderInSize > 0" id="team">
+          <h3>{{ 'MyTeams' | translate }}</h3>
+          <mat-table [dataSource]="teamsIAmLeaderIn" matSort>
+            <ng-container matColumnDef="name">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'Name' | translate }}</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="company">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'Company' | translate }}</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.company}}</mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="teamsDefinition"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: teamsDefinition;"></mat-row>
+          </mat-table>
+          <mat-paginator [pageSizeOptions]="[5,10,15]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+         </div>
+         <div *ngIf="teamsIAmLeaderInSize === 0" id="team">
+          <h3>{{ 'NoLeader' | translate }}</h3>
         </div>
+
+        <div *ngIf="teamsIAmMemberInSize > 0" id="team">
+          <h3>{{ 'TeamMemberships' | translate }}</h3>
+          <mat-table [dataSource]="teamsIAmMemberIn" matSort>
+            <ng-container matColumnDef="name">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'Name' | translate }}</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="company">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'Company' | translate }}</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.company}}</mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="teamsDefinition"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: teamsDefinition;"></mat-row>
+          </mat-table>
+          <mat-paginator [pageSizeOptions]="[5,10,15]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+         </div>
+         <div *ngIf="teamsIAmMemberInSize === 0" id="team">
+          <h3>{{ 'NoMember' | translate }}</h3>
+        </div>
+    </div>
+
+
+
+
+
+
+      <div class="splite bottom">
+        <div class="mat-elevation-z8">
+          <div *ngIf="listCupDataSize > 0" id="cup">
+          <h3>{{ 'MyCups' | translate }}</h3>
+          <mat-table [dataSource]="listCupData" matSort>
+            <ng-container matColumnDef="name">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'Name' | translate }}</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="company">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'Company' | translate }}</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.company}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="place">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'Place' | translate }}</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.place}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="registrationEndDate">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'RegistrationEndDate' | translate }}</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.registrationEndDate}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="eventDate">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'EventDate' | translate }}</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.eventDate}}</mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+          <mat-paginator [pageSizeOptions]="[5,10,15]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+         </div>
+         <div *ngIf="listCupDataSize === 0" id="cup">
+          <h3>{{ 'NoOrganizer' | translate }}</h3>
+        </div>
+
+
+        <div *ngIf="listCupDataMembershipSize > 0" id="cup">
+          <h3>{{ 'CupMembership' | translate }}</h3>
+          <mat-table [dataSource]="listCupDataMembership" matSort>
+            <ng-container matColumnDef="name">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'Name' | translate }}</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="company">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'Company' | translate }}</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.company}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="place">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'Place' | translate }}</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.place}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="registrationEndDate">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'RegistrationEndDate' | translate }}</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.registrationEndDate}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="eventDate">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'EventDate' | translate }}</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.eventDate}}</mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+          <mat-paginator [pageSizeOptions]="[5,10,15]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+        </div>
+        <div *ngIf="listCupDataMembershipSize === 0"  id="cup">
+          <h3>{{ 'NoCupMember' | translate }}</h3>
+        </div>
+
         
-        <div class="splite bottom">
-            <div class="centered">
-                  <h2>CUP</h2>
-                  <p>Jobb alsó</p>
-                </div>
-        </div>
-    
+      </div>
+    </div>
   </div>

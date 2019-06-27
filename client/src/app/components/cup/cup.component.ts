@@ -57,6 +57,7 @@ export class CupComponent implements OnInit {
               ...item
             };
           });
+        console.log(cuplist);
         this.listData = new MatTableDataSource(array);
         this.listData.sort = this.sort;
         this.listData.paginator = this.paginator;
