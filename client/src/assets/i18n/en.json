@@ -47,5 +47,17 @@
   "TeamDeleteConfirm": "Would you like to delete this team: ",
   "MemberDeleteConfirm": "Would you like to remove: ",
   "EventDate": "Event Date",
-  "SuccesfullyCreatedCup": "Succesfully created cup"
+  "SuccesfullyCreatedCup": "Succesfully created cup",
+  "Company": "Company",
+  "RegistrationEndDate": "Registration end date",
+  "CupDeleteConfirm": "Would you like to delete this cup: ",
+  "ApprovedTeams": "Approved teams",
+  "AppliedTeams": "Applied teams",
+  "Organizers": "Organizers", 
+  "MyTeams": "My teams",
+  "ApplyTeams": "Apply teams",
+  "AddOrganizer": "Add Organizer",
+  "DeleteOrganizer": "DeleteOrganizer",
+  "ApproveTeam": "Would you like to approve this team: ",
+  "DisapproveTeam": "Would you like to refuse this team: "
 }
