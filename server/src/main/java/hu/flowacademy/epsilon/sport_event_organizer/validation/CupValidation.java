@@ -22,7 +22,6 @@ public class CupValidation {
     public static final String EVENT_DATE_IS_IN_THE_PAST = "validation.cup.event_date_is_in_the_past";
     public static final String PLACE_IS_MISSING = "validation.cup.place_missing";
     public static final String TEAM_IS_ALREADY_APPLIED = "validation.cup.team_is_already_applied";
-    public static final String TEAM_IS_ALREADY_APPROVED = "validation.cup.team_is_already_approved";
     public static final String USER_IS_ALREADY_A_ORGANIZER = "validation.cup.user_is_already_a_organizer";
 
     @Autowired
@@ -60,11 +59,6 @@ public class CupValidation {
         }
     }
 
-    public void validateTeamBeforeApprove(Cup cup, Team team) {
-        if (cup.getTeams().contains(team)) {
-            throw new ValidationException(TEAM_IS_ALREADY_APPROVED);
-        }
-    }
 
     public void validateOrganizerBeforeAdd(Cup cup, User user) {
         if (cup.getOrganizers().contains(user)) {

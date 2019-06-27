@@ -153,7 +153,6 @@ public class CupService {
         Set<Team> teams = getAppliedTeams(cupName);
         Team teamToApprove = teamService.getTeamByName(teamName);
         User user = userService.getCurrentUser();
-        cupValidation.validateTeamBeforeApprove(cup, teamToApprove);
         if (cup.getOrganizers().contains(user) && teams.contains(teamToApprove)) {
             mailService.sendMailTeamLeaderBecauseTeamApproved(teamToApprove, cup);
             cup.approveTeam(teamToApprove);
