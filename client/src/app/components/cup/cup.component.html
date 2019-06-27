@@ -43,8 +43,13 @@
                   <mat-cell *matCellDef="let element">{{element.eventDate}}</mat-cell> 
               </ng-container>
 
-              <ng-container matColumnDef="actionsa">
-                <mat-header-cell *matHeaderCellDef>actions</mat-header-cell>
+              <ng-container matColumnDef="sportType">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>{{ "SportType" | translate }}</mat-header-cell>
+                  <mat-cell *matCellDef="let element">{{element.sportType}}</mat-cell> 
+              </ng-container>
+
+              <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
                 <mat-cell *matCellDef="let row; let element">
                   <a style="cursor: pointer;" (click)="applyCup(element)"><mat-icon>add_outline</mat-icon></a>
                   <div *ngFor="let leader of element.organizers">

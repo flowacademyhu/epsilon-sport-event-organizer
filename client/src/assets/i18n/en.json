@@ -62,5 +62,6 @@
   "DisapproveTeam": "Would you like to refuse this team: ",
   "Football": "Football",
   "Basketball": "Basketball",
-  "Volleyball": "Volleyball"
+  "Volleyball": "Volleyball",
+  "SportType": "Sport type"
 }
