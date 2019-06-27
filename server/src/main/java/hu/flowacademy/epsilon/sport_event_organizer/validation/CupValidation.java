@@ -42,7 +42,7 @@ public class CupValidation {
         if (cupToSave.getEventDate().isBefore(LocalDate.now())) {
             throw new ValidationException(EVENT_DATE_IS_IN_THE_PAST);
         }
-        if(cupToSave.getCompany())
+//        if(cupToSave.getCompany())
 
 
     }

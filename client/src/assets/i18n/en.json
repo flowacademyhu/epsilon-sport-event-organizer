@@ -48,6 +48,7 @@
   "MemberDeleteConfirm": "Would you like to remove: ",
   "EventDate": "Event Date",
   "SuccesfullyCreatedCup": "Succesfully created cup",
+<<<<<<< HEAD
   "validation": {
     "cup": {
       "already_exist": "Cup exists with this name",
@@ -74,4 +75,27 @@
       "user_not_exist_with_this_name": "Given user does not exist"
     }
   }
+=======
+  "Company": "Company",
+  "RegistrationEndDate": "Registration end date",
+  "CupDeleteConfirm": "Would you like to delete this cup: ",
+  "MyTeams" : "My Teams",
+  "NoLeader": "You are no leader in any teams...",
+  "TeamMemberships": "Team Memberships",
+  "NoMember": "You are no member in any teams...",
+  "MyCups": "My Cups",
+  "NoOrganizer": "No upcoming cups - as organizer",
+  "CupMembership": "Cup Memberships",
+  "NoCupMember": "No upcoming cups - as team member",
+  "ApprovedTeams": "Approved teams",
+  "AppliedTeams": "Applied teams",
+  "Organizers": "Organizers", 
+  "MyTeams": "My teams",
+  "ApplyTeams": "Apply teams",
+  "AddOrganizer": "Add Organizer",
+  "DeleteOrganizer": "DeleteOrganizer",
+  "ApproveTeam": "Would you like to approve this team: ",
+  "DisapproveTeam": "Would you like to refuse this team: ",
+  "ToTeamAdd": "Succesfully added"
+>>>>>>> develop
 }

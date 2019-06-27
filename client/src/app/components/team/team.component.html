@@ -4,7 +4,7 @@
       <h1>{{ "Teams" | translate }}</h1>
       <!-- table -->
       <div class="search-div">
-          <div *ngIf="(state.user$ | async) != null">
+          <div *ngIf="(state.user$ | async)">
         <button mat-raised-button (click)="onCreate()"><mat-icon>add</mat-icon>{{ "CreateTeam" | translate }}</button>
         </div>
           <mat-form-field class="search-form-field">
@@ -21,18 +21,20 @@
             <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
           </ng-container>
           <ng-container matColumnDef="company">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Company</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'Company' | translate }}</mat-header-cell>
             <mat-cell *matCellDef="let element">{{element.company}}</mat-cell>
           </ng-container>
           <ng-container matColumnDef="actions">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef="let row; let element">
+              <div *ngIf="(state.user$ | async)">
               <div *ngFor="let leader of element.leaders">
                 <div *ngIf="leader.googleName == state.user.googleName">
-                    <a style="cursor: pointer;" (click)="onAdd(leader, element)"><mat-icon>add_outline</mat-icon></a>
+                    <a style="cursor: pointer;" (click)="onAdd(leader, element)"><mat-icon>group_add</mat-icon></a>
                     <a style="cursor: pointer;" (click)="deleteTeam(element)"><mat-icon>delete_outline</mat-icon></a>
                 </div>
               </div>
+            </div>
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="expandedDetail">
@@ -44,12 +46,7 @@
                 <div *ngFor="let leader of element.leaders">
                   <div>
                     {{ leader.googleName }}
-                    <img *ngIf="element.leaders.length > 1"
-                      src="../../../assets/pictures/deleteX.png"
-                      alt="delete"
-                      class="leaderButtons"
-                      (click)="deleteLeader(leader, element)"
-                      style="cursor: pointer;">
+                    <mat-icon *ngIf="element.leaders.length > 1" (click)="deleteLeader(leader, element)" style="cursor: pointer;" id="red">clear</mat-icon>                   
                   </div>
                 </div>
               </div>
@@ -57,28 +54,15 @@
                     <p class="font-weight-bold">{{ 'Members' | translate }}</p>                 
                 <div *ngFor="let member of element.users">
                   {{ member.googleName }}
+                  <div *ngIf="(state.user$ | async)">
                   <div *ngIf="member.googleName === state.user.googleName">
-                    <img
-                          src="../../../assets/pictures/deleteX.png"
-                          alt="delete"
-                          class="memberButtons"
-                          (click)="deleteMember(member, element)"
-                          style="cursor: pointer;">
+                    <mat-icon (click)="deleteMember(member, element)" style="cursor: pointer;" id="red">clear</mat-icon>           
                   </div>
                   <div *ngFor="let leader of element.leaders">
-                  <div *ngIf="leader.googleName === state.user.googleName">                  
-                  <img *ngIf="member.provider != 'local'"
-                          alt="promote"
-                          class="memberButtons"
-                          (click)="promoteMember(member.googleName, element.name)"
-                          src="../../../assets/pictures/promoteMember.png"
-                          style="cursor: pointer;">                  
-                      <img
-                          src="../../../assets/pictures/deleteX.png"
-                          alt="delete"
-                          class="memberButtons"
-                          (click)="deleteMember(member, element)"
-                          style="cursor: pointer;">
+                  <div *ngIf="leader.googleName === state.user.googleName">
+                    <mat-icon *ngIf="member.provider != 'local'" (click)="promoteMember(member.googleName, element.name)" style="cursor: pointer;" id="blue">arrow_upward</mat-icon>                 
+                    <mat-icon (click)="deleteMember(member, element)" style="cursor: pointer;" id="red">clear</mat-icon>
+                  </div>
                   </div>
                 </div>
                 </div>
@@ -99,5 +83,5 @@
       <!-- table -->
     </div>
   </div>
-  <div id="snackbar"> asd </div>
+  <div id="snackbar">{{ 'ToTeamAdd' | translate }}</div>
   

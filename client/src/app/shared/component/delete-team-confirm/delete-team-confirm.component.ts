@@ -21,9 +21,6 @@ export class DeleteTeamConfirmComponent implements OnInit {
 
   onYesClick() {
     this.teamService.deleteTeamUsingDELETE(this.data.team.name).subscribe();
-    var x = document.getElementById("snackbar");
-    x.className = "show";
-    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
     this.dialogRef.close();
   }
 

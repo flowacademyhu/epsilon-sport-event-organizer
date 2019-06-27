@@ -1,0 +1,73 @@
+<div class="row">
+<div class="col-sm-12">
+    <h1>{{ "MyTeams" | translate }}</h1>
+   
+    
+   <div class="mat-elevation-z8 padding-bottom-50">
+          <mat-table [dataSource]="listData" matSort>
+
+            <ng-container matColumnDef="name">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>{{ "Name" | translate }}</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="company">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>{{ "Company" | translate }}</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.company}}</mat-cell>
+            </ng-container>
+
+               <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef>actions</mat-header-cell>
+                <mat-cell *matCellDef="let row; let element">
+                  <div *ngFor="let leader of element.leaders">
+                    <div *ngIf="leader.googleName == state.user.googleName">
+                        <a style="cursor: pointer;" (click)="applyTeam(element)"><mat-icon>add_outline</mat-icon></a>
+                    </div>
+                  </div>
+                </mat-cell>
+              </ng-container>
+           
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+          <mat-paginator [pageSizeOptions]="[5,10,15]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+  
+        </div>
+      </div>
+      <div *ngFor="let organizer of cupData.organizers">
+        <div *ngIf="organizer.googleName == state.user.googleName">
+  <div  class="col-sm-12 ">
+    <h1 mat-dialog-title>{{ "AddOrganizer" | translate }}</h1>
+    <div mat-dialog-content class="d-flex align-items-center">
+      <p>{{ "MemberName" | translate }}</p>
+      <mat-form-field class="d-flex justify-content-center">
+        <input matInput [(ngModel)]="organiserNameToAdd">
+      </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button (click)="addOrganizer()">{{ "Add" | translate }}</button>
+      <button mat-button (click)="exit()" cdkFocusInitial>{{ "Cancel" | translate }}</button>
+    </div>
+  </div>
+  <div  *ngIf="cupData.organizers.length > 1"class="col-sm-12 cupOrganizer">
+      <h1 mat-dialog-title>{{ "DeleteOrganizer" | translate }}</h1>
+      <div mat-dialog-content>
+        <p>{{ "MemberName" | translate }}</p>
+        <mat-form-field>
+          <input matInput [(ngModel)]="organiserNameToDelete">
+        </mat-form-field>
+      </div>
+      <div mat-dialog-actions>
+        <button mat-button (click)="deleteOrganizer()">{{ "Delete" | translate }}</button>
+        <button mat-button (click)="exit()" cdkFocusInitial>{{ "Cancel" | translate }}</button>
+      </div>
+
+  </div>
+  <div *ngIf="cupData.organizers.length < 2" class="col-sm-12">
+      <h1 mat-dialog-title>{{ "DeleteOrganizer" | translate }}</h1>
+      <h6 mat-dialog-title class="cupOrganizer">{{ "Nem törölheted magadat amíg nincs másik szervező" | translate }}</h6>
+  </div>
+
+</div>
+  </div>
+</div>
