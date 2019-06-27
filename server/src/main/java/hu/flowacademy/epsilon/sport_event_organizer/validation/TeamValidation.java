@@ -15,10 +15,10 @@ public class TeamValidation {
     public static final String TEAM_NAME_IS_MISSING = "validation.team.team_name_missing";
     public static final String TEAM_COMPANY_NAME_IS_MISSING = "validation.team.team_company_missing";
     public static final String USER_IS_ALREADY_A_MEMBER = "validation.team.user_is_already_a_member";
-    public static final String USER_EMAIL_IS_MISSING = "validate.team.user_email_is_missing";
-    public static final String USER_EMAIL_IS_FORBIDDEN = "validate.team.user_email_is_forbidden";
-    public static final String USER_NAME_IS_MISSING = "validate.team.user_name_is_missing";
-    public static final String USER_NAME_IS_FORBIDDEN = "validate.team.user_name_is_forbidden";
+    public static final String USER_EMAIL_IS_MISSING = "validation.team.user_email_is_missing";
+    public static final String USER_EMAIL_IS_FORBIDDEN = "validation.team.user_email_is_forbidden";
+    public static final String USER_NAME_IS_MISSING = "validation.team.user_name_is_missing";
+    public static final String USER_NAME_IS_FORBIDDEN = "validation.team.user_name_is_forbidden";
 
 
     @Autowired
