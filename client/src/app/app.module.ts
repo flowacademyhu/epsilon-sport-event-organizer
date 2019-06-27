@@ -87,6 +87,7 @@ export function getConfig(): Configuration {
     ApiModule,
     MatDatepickerModule,
     MatNativeDateModule,
+   
     ApiModule.forRoot(getConfig),
     TranslateModule.forRoot({
       loader: {

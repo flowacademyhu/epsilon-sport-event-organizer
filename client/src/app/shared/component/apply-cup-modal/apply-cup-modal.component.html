@@ -41,7 +41,7 @@
     <div mat-dialog-content class="d-flex align-items-center">
       <p>{{ "MemberName" | translate }}</p>
       <mat-form-field class="d-flex justify-content-center">
-        <input matInput [(ngModel)]="organiserNameToAdd">
+        <input matInput [(ngModel)]="organiserNameToAdd" (keydown.enter)="addOrganizer()">
       </mat-form-field>
     </div>
     <div mat-dialog-actions>
@@ -54,7 +54,7 @@
       <div mat-dialog-content>
         <p>{{ "MemberName" | translate }}</p>
         <mat-form-field>
-          <input matInput [(ngModel)]="organiserNameToDelete">
+          <input matInput [(ngModel)]="organiserNameToDelete" (keydown.enter)="deleteOrganizer()">
         </mat-form-field>
       </div>
       <div mat-dialog-actions>

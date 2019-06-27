@@ -2,14 +2,14 @@
 <div mat-dialog-content>
   <p>{{ "TeamName" | translate }}</p>
   <mat-form-field>
-    <input matInput [(ngModel)]="teamNameToCreate">
+    <input matInput [(ngModel)]="teamNameToCreate" (keydown.enter)="create()">
   </mat-form-field>
   <p>{{ "CompanyName" | translate }}</p>
   <mat-form-field>
-    <input matInput [(ngModel)]="companyNameToCreate">
+    <input matInput [(ngModel)]="companyNameToCreate" (keydown.enter)="create()">
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="create()">{{ "Submit" | translate }}</button>
+  <button mat-button [disabled]="!teamNameToCreate || !companyNameToCreate"(click)="create()">{{ "Submit" | translate }}</button>
   <button mat-button (click)="exit()" cdkFocusInitial>{{ "Cancel" | translate }}</button>
 </div>
