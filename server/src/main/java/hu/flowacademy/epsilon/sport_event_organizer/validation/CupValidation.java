@@ -67,10 +67,4 @@ public class CupValidation {
     }
 
 
-    public void validateCupOrganizerBeforeSave(Cup cupToSave) {
-        if (cupToSave.getOrganizers().size() == 0) {
-            throw new ValidationException("Cup has not got any Organizers");
-        }
-    }
-
 }

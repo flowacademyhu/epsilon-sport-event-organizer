@@ -59,7 +59,6 @@ public class CupService {
         currentUser.addCupToOrganizer(cup);
         userService.save(currentUser);
         cup.addOrganizer(currentUser);
-        cupValidation.validateCupOrganizerBeforeSave(cup);
         return cup;
     }
 
