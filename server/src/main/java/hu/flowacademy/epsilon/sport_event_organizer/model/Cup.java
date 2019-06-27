@@ -1,42 +1,54 @@
 package hu.flowacademy.epsilon.sport_event_organizer.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "cups")
+@Data
+@ToString(onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(exclude = {"isDeleted", "teams", "organizers", "approved", "sport"})
 public class Cup {
 
     @Id
     @Column(unique = true)
+    @ToString.Include
     private String name;
 
     @Column
+    @ToString.Include
     private String company;
 
     @Column
     private String imageUrl;
 
     @Column
-    private LocalDateTime startDateTime;
-
-    @Column
-    private LocalDateTime endDateTime;
-
-    @Column
+    @ToString.Include
     private String place;
 
     @Column
     private Integer courtCounter;
 
     @Column(columnDefinition = "TEXT")
+    @ToString.Include
     private String description;
 
     @Column
     private boolean isDeleted;
+
+    @Column
+    private LocalDate eventDate;
+
+    @Column
+    private LocalDate registrationEndDate;
 
     @ManyToMany(mappedBy = "cups")
     private Set<Team> teams = new HashSet<>();
@@ -44,51 +56,32 @@ public class Cup {
     @ManyToMany(mappedBy = "cups")
     private Set<User> organizers = new HashSet<>();
 
+    @ManyToMany(mappedBy = "validatedCups")
+    private Set<Team> approved = new HashSet<>();
+
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "sports_name", foreignKey = @ForeignKey(name = "fk_cups_sports"))
     private Sport sport;
 
-    public Cup() {
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCompany() {
-        return company;
-    }
-
-    public void setCompany(String company) {
-        this.company = company;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public Set<Team> getTeams() {
-        return teams;
-    }
+    @OneToMany(mappedBy = "cup")
+    private Set<Match> matches = new HashSet<>();
 
     public void addTeam(Team team) {
         teams.add(team);
     }
 
-    public void deleteTeam(Team team) {
+    public void approveTeam(Team team) {
+        teams.remove(team);
+        approved.add(team);
+    }
+
+    public void refuseTeam(Team team) {
         teams.remove(team);
     }
 
-    public Set<User> getOrganizers() {
-        return organizers;
+    public void deleteTeam(Team team) {
+        teams.remove(team);
     }
 
     public void addOrganizer(User user) {
@@ -97,13 +90,5 @@ public class Cup {
 
     public void deleteOrganizer(User user) {
         organizers.remove(user);
-    }
-
-    public boolean isDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
     }
 }

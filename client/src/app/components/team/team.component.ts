@@ -1,103 +1,181 @@
-import { Component, OnInit } from '@angular/core';
-import { TeamService } from 'src/app/shared/service/team.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AppStateService } from 'src/app/shared/service/app-state.service';
+import { MatDialog, MatDialogConfig, MatSort, MatTableDataSource, MatPaginator } from '@angular/material';
+import { CreateTeamModalComponent } from 'src/app/shared/component/create-team-modal/create-team-modal.component';
+import { AddMemberModalComponent } from 'src/app/shared/component/add-member-modal/add-member-modal.component';
+import { TeamResourceService, Team, User } from 'src/app/api';
+import { TeamStateService } from 'src/app/shared/service/team-state.service';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { DeleteTeamConfirmComponent } from 'src/app/shared/component/delete-team-confirm/delete-team-confirm.component';
+import { DeleteMemberConfirmComponent } from 'src/app/shared/component/delete-member-confirm/delete-member-confirm.component';
+import { DeleteLeaderConfirmComponent } from 'src/app/shared/component/delete-leader-confirm/delete-leader-confirm.component';
 
 @Component({
   selector: 'app-team',
   templateUrl: './team.component.html',
-  styleUrls: ['./team.component.css']
+  styleUrls: ['./team.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
+
 export class TeamComponent implements OnInit {
 
-  teamName: String = '';
-  companyName: String = '';
-  team: any = '';
+  teamName: string = '';
+  companyName: string = '';
+  team: any = {};
   createdTeam: Team;
-  teamNameToCreate: String = '';
-  companyNameToCreate: String = '';
   data: any;
   dataLeader: any;
-  memberToAdd: String = '';
-  teamNametoAdd: String = '';
+  memberToAdd: string = '';
+  teamNametoAdd: string = '';
   teamtoAddMember: Team;
 
-  isLeader: boolean = false;
   isSearchPressed: boolean = false;
+  teamList: Team[];
+  searchKey: string;
+  listData: MatTableDataSource<any>;
+  displayedColumns: string[] = ['name', 'company', 'actions'];
 
-  constructor(private teamService: TeamService, private state: AppStateService) { }
+  expandedElement: any | null;
+
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  constructor(
+    private teamService: TeamResourceService,
+    private teamState: TeamStateService,
+    private dialog: MatDialog,
+    public state: AppStateService
+    ) { }
 
   ngOnInit() {
-
+    this.getData();
+    this.teamState.teams$.subscribe(
+      teamlist => {
+         const array = teamlist.map(
+          item => {
+            return {
+              $key: item.name,
+              ...item
+            };
+          });
+        this.listData = new MatTableDataSource(array);
+        this.listData.sort = this.sort;
+        this.listData.paginator = this.paginator;
+      }
+   );
   }
 
-  deleteTeam(teamName: String) {
-    this.isLeader = false;
-    this.teamService.deleteTeam(teamName).subscribe(
-      (data: any) => {
+  getData() {
+    this.teamState.getTeams();
+  }
+
+  applyFilter() {
+    this.listData.filter = this.searchKey.trim().toLowerCase();
+  }
+
+  searchClear() {
+    this.searchKey = '';
+    this.applyFilter();
+  }
+
+  onAdd(leader: User, team: Team) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '60%';
+    dialogConfig.data = {leader: leader, team: team};
+    this.dialog.open(AddMemberModalComponent, dialogConfig).afterClosed().subscribe(
+      result => {
+        this.getData();
+      }
+    );
+  }
+
+  onCreate() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '60%';
+    this.dialog.open(CreateTeamModalComponent, dialogConfig).afterClosed().subscribe(
+      result => {
+        this.getData();
+      }
+    );
+  }
+
+  deleteTeam(team: Team) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '40%';
+    dialogConfig.data = {team: team};
+    this.dialog.open(DeleteTeamConfirmComponent, dialogConfig).afterClosed().subscribe(
+      result => {
+        this.getData();
       }
     );
   }
 
   putMemberInTeam() {
     this.teamtoAddMember = {name: this.teamNametoAdd, company: '', imageUrl: ''};
-    this.teamService.putMemberInTeam(this.memberToAdd, this.teamNametoAdd, this.teamtoAddMember).subscribe(
+    this.teamService.putMemberUsingPUT(this.memberToAdd, this.teamNametoAdd).subscribe(
       (data: any) => {
         this.memberToAdd = '';
         this.teamNametoAdd = '';
-      }
-    );
-  }
+        this.getData();
 
-  create() {
-    this.createdTeam = {name: this.teamNameToCreate, company: this.companyNameToCreate, imageUrl: ''};
-
-    this.isLeader = false;
-
-    this.teamService.create(this.createdTeam).subscribe(
-      (data: any) => {
-        this.data = data;
-        this.dataLeader = data.leader;
-        this.teamNameToCreate = '';
-        this.companyNameToCreate = '';
       }
     );
   }
 
   getByTeamName() {
-    this.teamService.getByTeamName(this.teamName).subscribe(
+    this.teamService.getTeamByNameUsingGET(this.teamName).subscribe(
       (data: any) => {
         this.team = data;
         this.teamName = '';
         this.isSearchPressed = true;
-        this.isLeader = false;
-        for (let i = 0; i < data.leaders.length; i++) {
-            if (data.leaders[i].googleName == this.state.user.googleName) {
-              this.isLeader = true;
-            }
-        }
       }
     );
   }
 
-  promoteMember(name: String, teamName: String, team: Team) {
-    this.teamService.putLeaderInTeam(name, teamName, team).subscribe(
+  promoteMember(googleName: string, teamName: string) {
+    this.teamService.putLeaderUsingPUT(googleName, teamName).subscribe(
       (data: any) => {
+        this.team.leaders = data.leaders;
+        this.getData();
+      }
+    );
+
+  }
+
+  deleteMember(member: User, team: Team) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '40%';
+    dialogConfig.data = {member: member, team: team};
+    this.dialog.open(DeleteMemberConfirmComponent, dialogConfig).afterClosed().subscribe(
+      result => {
+        this.getData();
       }
     );
   }
 
-  deleteMember(name: string, teamName: String) {
-    this.teamService.deleteMemberFromTeam(name, teamName).subscribe(
-      (data: any) => {
-        this.team.members = data.members;
-      }
-    );
-  }
-
-  deleteLeader(name: string, teamName: string) {
-    this.isLeader = false;
-    this.teamService.deleteLeaderFromTeam(name, teamName).subscribe(
-      (data: any) => {
+  deleteLeader(leader: User, team: Team) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '40%';
+    dialogConfig.data = {leader: leader, team: team};
+    this.dialog.open(DeleteLeaderConfirmComponent, dialogConfig).afterClosed().subscribe(
+      result => {
+        this.getData();
       }
     );
   }

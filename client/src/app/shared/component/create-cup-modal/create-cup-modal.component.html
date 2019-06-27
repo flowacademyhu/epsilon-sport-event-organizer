@@ -1,0 +1,40 @@
+<h1 mat-dialog-title>{{ "CreateCup" | translate }}</h1>
+<div mat-dialog-content>
+  <p>{{ "CompanyName" | translate }}</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="companyNameToCreate">
+  </mat-form-field>
+  <p>{{ "CourtCounter" | translate }}</p>
+  <mat-form-field>
+    <input matInput type="number" min="1" [(ngModel)]="courtCounter">
+  </mat-form-field>
+  <p>{{ "Description" | translate }}</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="description">
+  </mat-form-field>
+</div>
+
+  <p>{{ "CupName" | translate }}</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="cupNametoCreate">
+  </mat-form-field>
+  <p>{{ "Place" | translate }}</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="place">
+  </mat-form-field>
+  <p>{{ "RegistrationEnd" | translate }}</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="registrationEndDate" [matDatepicker]="myDatepickere">
+    <mat-datepicker-toggle matSuffix [for]="myDatepickere"></mat-datepicker-toggle>
+    <mat-datepicker #myDatepickere></mat-datepicker>
+  </mat-form-field>
+  <p>{{ "EventDate" | translate }}</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="eventDate" [matDatepicker]="myDatepicker">
+    <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+    <mat-datepicker #myDatepicker></mat-datepicker>
+  </mat-form-field>
+<div mat-dialog-actions>
+  <button mat-button (click)="createCup()">{{ "Submit" | translate }}</button>
+  <button mat-button (click)="exit()" cdkFocusInitial>{{ "Cancel" | translate }}</button>
+</div>

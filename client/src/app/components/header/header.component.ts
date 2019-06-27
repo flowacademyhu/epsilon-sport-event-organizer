@@ -12,12 +12,11 @@ export class HeaderComponent implements OnInit {
   title = 'sport-event-organizer';
   constructor(
     private translate: TranslateService,
-    private appState: AppStateService
+    public state: AppStateService
     ) {
     translate.setDefaultLang('en');
   }
 
-  state: any = this.appState;
   toggleNavbar = true;
 
   switchLanguage(language: string) {
@@ -25,8 +24,9 @@ export class HeaderComponent implements OnInit {
   }
 
   logOut() {
-    this.appState.user = null;
+    this.state.user = null;
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
   }
 
   ngOnInit() {
