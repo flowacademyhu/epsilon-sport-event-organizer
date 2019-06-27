@@ -1,5 +1,4 @@
 <body background="./assets/pictures/ballsBg.jpg">
-  
   <div class="row margin-top padding-text-bottom">
       <div class="col-sm-10 rounded background paddig-text-top margin-bottom-200">
         <h1>{{ "Cups" | translate }}</h1>
@@ -15,7 +14,7 @@
             </button>
           </mat-form-field>
         </div>
-        <div class="mat-elevation-z8 padding-bottom-50 materialTable">
+        <div class="mat-elevation-z8 padding-bottom-50">
           <mat-table [dataSource]="listData" matSort multiTemplateDataRows>
 
             <ng-container matColumnDef="name">
@@ -112,7 +111,6 @@
           <mat-paginator [pageSizeOptions]="[5,10,15]" [pageSize]="5" showFirstLastButtons></mat-paginator>
   
         </div>
-        <div id="snackbar"> {{ "SuccesfullyCreatedCup" | translate }}</div>
     </div>
   </div>
     
