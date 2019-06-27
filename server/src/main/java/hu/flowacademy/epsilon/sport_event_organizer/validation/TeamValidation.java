@@ -21,7 +21,7 @@ public class TeamValidation {
         if (teamRepository.findByName(teamToSave.getName()).isPresent()) {
             throw new ValidationException(TEAM_IS_ALREADY_EXIST_WITH_THIS_NAME);
         }
-        if (teamToSave.getName().equals("") && teamToSave.getName() == null) {
+        if (teamToSave.getName().equals("") || teamToSave.getName() == null) {
             throw new ValidationException(TEAM_NAME_IS_MISSING);
         }
 
