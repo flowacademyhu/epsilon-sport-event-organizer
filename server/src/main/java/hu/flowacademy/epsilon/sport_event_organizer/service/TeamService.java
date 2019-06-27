@@ -79,6 +79,7 @@ public class TeamService {
     public Team putMember(String teamName, String googleName) {
         User userToAdd = userService.findUserByGoogleName(googleName);
         Team team = teamRepository.findByName(teamName).orElseThrow(() -> new TeamNotFoundException());
+        teamValidation.validateUserBeforePutMember(userToAdd, team);
         userToAdd.addTeamMember(team);
         userService.save(userToAdd);
         team.addMember(userToAdd);
@@ -134,10 +135,11 @@ public class TeamService {
     }
 
 
-    public Team addGuestMemberToTeam(String teamName, String teamLeader, String name, String email) {
+    public Team addGuestMemberToTeam(String teamName, String teamLeader, String userName, String email) {
+        teamValidation.validateGuestBeforePutMember(userName, email);
         Team team = teamRepository.findByName(teamName).orElseThrow(() -> new TeamNotFoundException());
         User user = new User();
-        user.setGoogleName(name);
+        user.setGoogleName(userName);
         user.setProvider(AuthProvider.local);
         user.setEmail(email);
         user.addTeamMember(team);
