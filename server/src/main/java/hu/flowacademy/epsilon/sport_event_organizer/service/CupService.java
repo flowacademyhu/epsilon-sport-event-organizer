@@ -106,12 +106,21 @@ public class CupService {
 
     public List<Cup> getCupsByParticipation() {
         User user = userService.getCurrentUser();
+<<<<<<< HEAD
+        // List<Cup> cups = cupRepository.findCurrentUserInTeam(user.getId());
+        return cupRepository.findCurrentUserInTeam(user.getId());
+        //return cups.stream()
+        //        .filter(cup -> cup.getApproved().stream().map(Team::getName).anyMatch(teamName -> teamName.equalsIgnoreCase(name)))
+        //        .filter(cup -> !cup.isDeleted())
+        //        .collect(Collectors.toList());
+=======
         String name = user.getGoogleName();
         List<Cup> cups = cupRepository.findAll();
         return cups.stream()
                 .filter(cup -> cup.getApproved().contains(name))
                 .filter(Predicate.not(Cup::isDeleted))
                 .collect(Collectors.toList());
+>>>>>>> develop
     }
 
     public void applyTeam(String cupName, String teamName) {
