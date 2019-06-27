@@ -8,6 +8,7 @@ import hu.flowacademy.epsilon.sport_event_organizer.model.Team;
 import hu.flowacademy.epsilon.sport_event_organizer.model.User;
 import hu.flowacademy.epsilon.sport_event_organizer.repository.CupRepository;
 import hu.flowacademy.epsilon.sport_event_organizer.repository.TeamRepository;
+import hu.flowacademy.epsilon.sport_event_organizer.validation.CupValidation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,8 +43,12 @@ public class CupService {
     @Autowired
     private MailService mailService;
 
+    @Autowired
+    private CupValidation cupValidation;
+
 
     public Cup save(Cup cup) {
+        cupValidation.validateNameAndDatesBeforeSave(cup);
         User currentUser = userService.getCurrentUser();
         cup.setDeleted(false);
         LocalDate cupTomorrow = cup.getEventDate().plusDays(1);
@@ -118,6 +123,7 @@ public class CupService {
         Cup cup = cupRepository.findByName(cupName).orElseThrow(createCupNotFoundException(cupName));
         Team team = teamService.getTeamByName(teamName);
         User currentUser = userService.getCurrentUser();
+        cupValidation.validateTeamBeforeApply(cup, team);
         if (team.getLeaders().contains(currentUser)) {
             mailService.sendMailOrganizersToAppliedTeam(team, cup);
             cup.addTeam(team);
@@ -182,6 +188,7 @@ public class CupService {
         Cup cup = cupRepository.findByName(cupName).orElseThrow(createCupNotFoundException(cupName));
         User currentUser = userService.getCurrentUser();
         User userToMakeOrganizer = userService.findUserByGoogleName(googleName);
+        cupValidation.validateOrganizerBeforeAdd(cup, userToMakeOrganizer);
         if (getOrganizers(cupName).contains(currentUser) && !cup.isDeleted() && !userToMakeOrganizer.isDeleted() && !getOrganizers(cupName).contains(userToMakeOrganizer)) {
             userToMakeOrganizer.addCupToOrganizer(cup);
             cup.addOrganizer(userToMakeOrganizer);

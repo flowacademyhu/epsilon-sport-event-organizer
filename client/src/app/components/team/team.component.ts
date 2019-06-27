@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AppStateService } from 'src/app/shared/service/app-state.service';
-import { MatDialog, MatDialogConfig, MatSort, MatTableDataSource, MatPaginator } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatSort, MatTableDataSource, MatPaginator, MatSnackBar } from '@angular/material';
 import { CreateTeamModalComponent } from 'src/app/shared/component/create-team-modal/create-team-modal.component';
 import { AddMemberModalComponent } from 'src/app/shared/component/add-member-modal/add-member-modal.component';
 import { TeamResourceService, Team, User } from 'src/app/api';

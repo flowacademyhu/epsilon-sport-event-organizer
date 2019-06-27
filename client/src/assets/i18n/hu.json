@@ -46,10 +46,10 @@
   "No": "Nem",
   "TeamDeleteConfirm": "Szeretné törölni ezt a csapatot: ",
   "MemberDeleteConfirm": "Szeretné eltávolítani: ",
+  "EventDate": "Kupa kezdete",
   "SuccesfullyCreatedCup": "Sikeresen létrehoztad a kupát!",
   "Company": "Cég",
   "RegistrationEndDate": "Jelentkezési határidő",
-  "EventDate": "Kupa napja",
   "CupDeleteConfirm": "Biztos akarod törölni az alábbi kupát: ",
   "MyTeams": "Csapataim",
   "NoLeader": "Nem vagy kapitánya egyik csapatnak sem",
@@ -62,10 +62,36 @@
   "ApprovedTeams": "Jóváhagyott csapatok",
   "AppliedTeams": "Jelentkezett csapatok",
   "Organizers": "Szervezők",
-  "MyTeams": "Csapataim",
   "AddOrganizer": "Szervező hozzáadása",
   "DeleteOrganizer": "Szervező törlése",
   "ApproveTeam": "Szeretné elfogadni ennek a csapatnak a jelentkezését: ",
   "DisapproveTeam": "Szeretné visszautasítani ennek a csapatnak a jelentkezését: ",
-  "ToTeamAdd": "Sikeresen hozzáadva"
+  "ToTeamAdd": "Sikeresen hozzáadva",
+  "validation": {
+    "cup": {
+      "already_exist": "A kupa már létezik",
+      "event_date_missing": "Esemény dátum hiányzik",
+      "reg_date_missing": "Regisztráció dátuma hiányzik",
+      "reg_date_is_after_event": "Regisztráció dátumának korábban kell lennie mint az esemény dátuma",
+      "place_missing": "Adjon meg helyszínt",
+      "event_date_is_in_the_past": "Az esemény dátuma nem lehet a múltban",
+      "reg_date_is_in_the_past": "Az regisztráció dátuma nem lehet a múltban",
+      "team_is_already_applied": "A csapat már jelentkezett a kupára",
+      "team_is_already_approved": "A csapat jelentkezése már jóvá lett hagyva",
+      "user_is_already_a_organizer": "Az adott felhasználó jelenleg szervező"
+    },
+    "team": {
+      "team_name_missing": "Adjon meg csapatnevet",
+      "team_name_already_exist": "Ez a csapat már létezik",
+      "team_company_missing": "Adjon meg cégnevet",
+      "user_is_already_a_member": "Az adott felhasználó már a csapat tagja", 
+      "user_name_is_missing": "Adja meg a vendég nevét", 
+      "user_email_is_missing": "Adja meg a vendég email címét",
+      "user_name_is_forbidden": "A név foglalt",
+      "user_is_already_leader": "Az adott felhasználó a csapatkapitány"
+    },
+    "user": {
+      "user_not_exist_with_this_name": "Az adott felhasználó nem létezik"
+    }
+  }
 }

@@ -17,7 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateTeamModalComponent } from './shared/component/create-team-modal/create-team-modal.component';
-import { MatFormFieldModule, MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatIconModule, MatButtonModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatIconModule, MatButtonModule, MatDatepickerModule, MatNativeDateModule, MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule } from '@angular/material';
 import { AddMemberModalComponent } from './shared/component/add-member-modal/add-member-modal.component';
 import { ShowTeamModalComponent } from './shared/component/show-team-modal/show-team-modal.component';
 import { ShowCupModalComponent } from './shared/component/show-cup-modal/show-cup-modal.component';
@@ -86,6 +86,7 @@ export function getConfig(): Configuration {
     ApiModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatSnackBarModule,
     ApiModule.forRoot(getConfig),
     TranslateModule.forRoot({
       loader: {
@@ -96,6 +97,7 @@ export function getConfig(): Configuration {
 })
   ],
   providers: [
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}},
     {
       provide: HTTP_INTERCEPTORS,
       useClass: RequestInterceptorService,

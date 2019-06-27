@@ -40,6 +40,14 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ExceptionHandler(UserUnauthorizedException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
-    public String userunauthorizedHandler(UserUnauthorizedException e) { return e.getMessage(); }
+    public String userunauthorizedHandler(UserUnauthorizedException e) {
+        return e.getMessage();
+    }
 
+    @ResponseBody
+    @ExceptionHandler(ValidationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String validationHandler(ValidationException e) {
+        return e.getMessage();
+    }
 }
