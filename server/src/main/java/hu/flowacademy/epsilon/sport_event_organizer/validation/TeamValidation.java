@@ -20,6 +20,7 @@ public class TeamValidation {
     public static final String USER_EMAIL_IS_FORBIDDEN = "validation.team.user_email_is_forbidden";
     public static final String USER_NAME_IS_MISSING = "validation.team.user_name_is_missing";
     public static final String USER_NAME_IS_FORBIDDEN = "validation.team.user_name_is_forbidden";
+    public static final String USER_IS_ALREADY_LEADER = "validation.team.user_is_already_leader";
 
 
     @Autowired
@@ -48,7 +49,7 @@ public class TeamValidation {
     }
 
 
-    public void validateGuestBeforePutMember(String userName, String email) {
+    public void validateGuestBeforePutMember(String userName, String email, Team team) {
         if (StringUtils.isEmpty(email)) {
             throw new ValidationException(USER_EMAIL_IS_MISSING);
         }
@@ -61,6 +62,11 @@ public class TeamValidation {
         if (userRepository.findByGoogleName(userName).isPresent()) {
             throw new ValidationException(USER_NAME_IS_FORBIDDEN);
         }
+        team.getLeaders().forEach(leader -> {
+            if (leader.getGoogleName().equals(userName)) {
+                throw new ValidationException(USER_IS_ALREADY_LEADER);
+            }
+        });
     }
 
 
