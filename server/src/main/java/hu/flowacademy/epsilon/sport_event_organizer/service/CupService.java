@@ -124,6 +124,7 @@ public class CupService {
         Cup cup = cupRepository.findByName(cupName).orElseThrow(createCupNotFoundException(cupName));
         Team team = teamService.getTeamByName(teamName);
         User currentUser = userService.getCurrentUser();
+        cupValidation.validateTeamBeforeApply(cup, team);
         if (team.getLeaders().contains(currentUser)) {
             mailService.sendMailOrganizersToAppliedTeam(team, cup);
             cup.addTeam(team);
@@ -152,6 +153,7 @@ public class CupService {
         Set<Team> teams = getAppliedTeams(cupName);
         Team teamToApprove = teamService.getTeamByName(teamName);
         User user = userService.getCurrentUser();
+        cupValidation.validateTeamBeforeApprove(cup, teamToApprove);
         if (cup.getOrganizers().contains(user) && teams.contains(teamToApprove)) {
             mailService.sendMailTeamLeaderBecauseTeamApproved(teamToApprove, cup);
             cup.approveTeam(teamToApprove);
