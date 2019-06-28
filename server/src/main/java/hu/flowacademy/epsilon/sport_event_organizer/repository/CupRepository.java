@@ -32,7 +32,7 @@ public interface CupRepository extends JpaRepository<Cup, String> {
 
     Set<Cup> findByApproved(Team team);
 
-    @Query(value = "select cups.name as name, cups.company as company, cups.court_counter as court_counter, cups.description as description, cups.event_date as event_date, cups.image_url as image_url, cups.is_deleted as is_deleted, cups.place as place, cups.registration_end_date as registration_end_date, cups.sports_name as sports_name from " +
+    @Query(value = "select cups.name as name, cups.company as company, cups.court_counter as court_counter, cups.description as description, cups.event_date as event_date, cups.image_url as image_url, cups.is_deleted as is_deleted, cups.place as place, cups.registration_end_date as registration_end_date, cups.sport_type as sport_type, cups.sports_name as sports_name from " +
             "(((cups inner join cups_approved on cups.name=cups_approved.cups_name) " +
             "inner join teams on teams.name=cups_approved.teams_name) " +
             "inner join teams_leaders on teams.name=teams_leaders.team_name) " +
