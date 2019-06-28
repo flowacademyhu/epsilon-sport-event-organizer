@@ -17,7 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateTeamModalComponent } from './shared/component/create-team-modal/create-team-modal.component';
-import { MatFormFieldModule, MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatIconModule, MatButtonModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatIconModule, MatButtonModule, MatDatepickerModule, MatNativeDateModule, MatSelectModule } from '@angular/material';
 import { AddMemberModalComponent } from './shared/component/add-member-modal/add-member-modal.component';
 import { ShowTeamModalComponent } from './shared/component/show-team-modal/show-team-modal.component';
 import { ShowCupModalComponent } from './shared/component/show-cup-modal/show-cup-modal.component';
@@ -82,10 +82,12 @@ export function getConfig(): Configuration {
     MatSortModule,
     MatIconModule,
     MatButtonModule,
+    MatSelectModule,
     BrowserAnimationsModule,
     ApiModule,
     MatDatepickerModule,
     MatNativeDateModule,
+   
     ApiModule.forRoot(getConfig),
     TranslateModule.forRoot({
       loader: {
@@ -111,7 +113,8 @@ export function getConfig(): Configuration {
     MatPaginatorModule,
     MatSortModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatSelectModule
   ],
   entryComponents: [
     CreateTeamModalComponent,

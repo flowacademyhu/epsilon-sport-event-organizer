@@ -5,7 +5,6 @@ import { HttpClient } from '@angular/common/http';
 
 import { AuthControllerService } from './api/authController.service';
 import { CupResourceService } from './api/cupResource.service';
-import { MatchResourceService } from './api/matchResource.service';
 import { TeamResourceService } from './api/teamResource.service';
 import { UserResourceService } from './api/userResource.service';
 
@@ -16,7 +15,6 @@ import { UserResourceService } from './api/userResource.service';
   providers: [
     AuthControllerService,
     CupResourceService,
-    MatchResourceService,
     TeamResourceService,
     UserResourceService ]
 })

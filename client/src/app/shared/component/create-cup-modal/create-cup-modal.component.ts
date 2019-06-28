@@ -21,11 +21,12 @@ export class CreateCupModalComponent implements OnInit {
     imageUrl: string;
     cupNametoCreate: string = '';
     place: string = '';
-    registrationEndDate: string;  
+    registrationEndDate: string;
     eventDate: any;
     cup: Cup;
     datum: any;
-    
+    sportType: string = '';
+
 
   ngOnInit() {
   }
@@ -33,7 +34,8 @@ export class CreateCupModalComponent implements OnInit {
   createCup() {
     this.cup = {company: this.companyNameToCreate, courtCounter: this.courtCounter,
                 description: this.description, name: this.cupNametoCreate,
-                place: this.place, registrationEndDate: this.registrationEndDate, eventDate: this.eventDate};
+                place: this.place, registrationEndDate: this.registrationEndDate, eventDate: this.eventDate,
+                sportType: this.sportType};
     this.cupService.createCupUsingPOST(this.cup).subscribe(
       (data: any) => {
         // Get the snackbar DIV

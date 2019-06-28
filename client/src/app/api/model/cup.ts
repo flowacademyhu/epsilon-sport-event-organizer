@@ -27,5 +27,6 @@ export interface Cup {
     organizers?: Array<User>;
     place?: string;
     registrationEndDate?: string;
+    sportType?: string;
     teams?: Array<Team>;
 }

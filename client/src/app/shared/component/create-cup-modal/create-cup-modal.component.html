@@ -2,25 +2,33 @@
 <div mat-dialog-content>
   <p>{{ "CompanyName" | translate }}</p>
   <mat-form-field>
-    <input matInput [(ngModel)]="companyNameToCreate">
+    <input matInput [(ngModel)]="companyNameToCreate" (keydown.enter)="createCup()">
   </mat-form-field>
   <p>{{ "CourtCounter" | translate }}</p>
   <mat-form-field>
-    <input matInput type="number" min="1" [(ngModel)]="courtCounter">
+    <input matInput type="number" min="1" [(ngModel)]="courtCounter" (keydown.enter)="createCup()">
   </mat-form-field>
   <p>{{ "Description" | translate }}</p>
   <mat-form-field>
-    <input matInput [(ngModel)]="description">
+    <input matInput [(ngModel)]="description" (keydown.enter)="createCup()">
   </mat-form-field>
+  <p>{{ "SportType" | translate }}</p>
+  <mat-form-field>
+  <mat-select   [(value)]="sportType">
+    <mat-option value="{{ 'Football' | translate }}">{{ "Football" | translate }}</mat-option>
+    <mat-option value="{{ 'Basketball' | translate }}">{{ "Basketball" | translate }}</mat-option>
+    <mat-option value="{{ 'Volleyball' | translate }}">{{ "Volleyball" | translate }}</mat-option>
+  </mat-select>
+</mat-form-field>
 </div>
 
   <p>{{ "CupName" | translate }}</p>
   <mat-form-field>
-    <input matInput [(ngModel)]="cupNametoCreate">
+    <input matInput [(ngModel)]="cupNametoCreate" (keydown.enter)="createCup()">
   </mat-form-field>
   <p>{{ "Place" | translate }}</p>
   <mat-form-field>
-    <input matInput [(ngModel)]="place">
+    <input matInput [(ngModel)]="place" (keydown.enter)="createCup()">
   </mat-form-field>
   <p>{{ "RegistrationEnd" | translate }}</p>
   <mat-form-field>
@@ -35,6 +43,12 @@
     <mat-datepicker #myDatepicker></mat-datepicker>
   </mat-form-field>
 <div mat-dialog-actions>
-  <button mat-button (click)="createCup()">{{ "Submit" | translate }}</button>
-  <button mat-button (click)="exit()" cdkFocusInitial>{{ "Cancel" | translate }}</button>
+  <button mat-button [disabled]="!companyNameToCreate ||
+                                 !eventDate ||
+                                 !description ||
+                                 !cupNametoCreate ||
+                                 !sportType || 
+                                 !place ||
+                                 !registrationEndDate" (click)="createCup()">{{ "Submit" | translate }}</button>
+  <button mat-button (click)="exit()" >{{ "Cancel" | translate }}</button>
 </div>

@@ -48,7 +48,7 @@
   "MemberDeleteConfirm": "Szeretné eltávolítani: ",
   "SuccesfullyCreatedCup": "Sikeresen létrehoztad a kupát!",
   "Company": "Cég",
-  "RegistrationEndDate": "Jelentkezési határidő",
+  "RegistrationEnd": "Jelentkezési határidő",
   "EventDate": "Kupa napja",
   "CupDeleteConfirm": "Biztos akarod törölni az alábbi kupát: ",
   "MyTeams": "Csapataim",
@@ -67,5 +67,9 @@
   "DeleteOrganizer": "Szervező törlése",
   "ApproveTeam": "Szeretné elfogadni ennek a csapatnak a jelentkezését: ",
   "DisapproveTeam": "Szeretné visszautasítani ennek a csapatnak a jelentkezését: ",
+  "Football": "Labdarúgás",
+  "Basketball": "Kosárlabda",
+  "Volleyball": "Röplabda",
+  "SportType": "Sportág",
   "ToTeamAdd": "Sikeresen hozzáadva"
 }

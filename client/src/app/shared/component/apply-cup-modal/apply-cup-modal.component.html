@@ -36,30 +36,30 @@
       </div>
       <div *ngFor="let organizer of cupData.organizers">
         <div *ngIf="organizer.googleName == state.user.googleName">
-  <div  class="col-sm-12 ">
+  <div  class="col-sm-12 addOrganizer">
     <h1 mat-dialog-title>{{ "AddOrganizer" | translate }}</h1>
-    <div mat-dialog-content class="d-flex align-items-center">
+    <div mat-dialog-content >
       <p>{{ "MemberName" | translate }}</p>
-      <mat-form-field class="d-flex justify-content-center">
-        <input matInput [(ngModel)]="organiserNameToAdd">
+      <mat-form-field >
+        <input matInput [(ngModel)]="organiserNameToAdd" (keydown.enter)="addOrganizer()">
       </mat-form-field>
     </div>
     <div mat-dialog-actions>
-      <button mat-button (click)="addOrganizer()">{{ "Add" | translate }}</button>
-      <button mat-button (click)="exit()" cdkFocusInitial>{{ "Cancel" | translate }}</button>
+      <button mat-button (click)="addOrganizer()" [disabled]="!organiserNameToAdd">{{ "Add" | translate }}</button>
+      <button mat-button (click)="exit()" >{{ "Cancel" | translate }}</button>
     </div>
   </div>
-  <div  *ngIf="cupData.organizers.length > 1"class="col-sm-12 cupOrganizer">
+  <div  *ngIf="cupData.organizers.length > 1"class="col-sm-12 addOrganizer">
       <h1 mat-dialog-title>{{ "DeleteOrganizer" | translate }}</h1>
       <div mat-dialog-content>
         <p>{{ "MemberName" | translate }}</p>
         <mat-form-field>
-          <input matInput [(ngModel)]="organiserNameToDelete">
+          <input matInput [(ngModel)]="organiserNameToDelete" (keydown.enter)="deleteOrganizer()">
         </mat-form-field>
       </div>
       <div mat-dialog-actions>
-        <button mat-button (click)="deleteOrganizer()">{{ "Delete" | translate }}</button>
-        <button mat-button (click)="exit()" cdkFocusInitial>{{ "Cancel" | translate }}</button>
+        <button mat-button (click)="deleteOrganizer()" [disabled]="!organiserNameToDelete">{{ "Delete" | translate }}</button>
+        <button mat-button (click)="exit()" >{{ "Cancel" | translate }}</button>
       </div>
 
   </div>

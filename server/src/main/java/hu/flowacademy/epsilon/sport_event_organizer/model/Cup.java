@@ -50,6 +50,9 @@ public class Cup {
     @Column
     private LocalDate registrationEndDate;
 
+    @Column
+    private String sportType;
+
     @ManyToMany(mappedBy = "cups")
     private Set<Team> teams = new HashSet<>();
 
