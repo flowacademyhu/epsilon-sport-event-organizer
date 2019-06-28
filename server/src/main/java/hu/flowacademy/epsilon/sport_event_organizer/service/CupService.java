@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -107,9 +108,10 @@ public class CupService {
     public List<Cup> getCupsByParticipation() {
         User user = userService.getCurrentUser();
         String name = user.getGoogleName();
-        List<Cup> cups = cupRepository.findAll();
+        UUID uuid = user.getId();
+        List<Cup> cups = cupRepository.findCurrentUserInTeam(uuid);
         return cups.stream()
-                .filter(cup -> cup.getApproved().contains(name))
+                //.filter(cup -> cup.getApproved().contains(name))
                 .filter(Predicate.not(Cup::isDeleted))
                 .collect(Collectors.toList());
     }
