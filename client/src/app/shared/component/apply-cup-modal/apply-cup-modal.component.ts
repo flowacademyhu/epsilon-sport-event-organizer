@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
-import { TeamResourceService, Team, CupResourceService } from 'src/app/api';
-import { MatTableDataSource, MatSort, MatPaginator, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { TeamResourceService, Team, CupResourceService, Cup, User } from 'src/app/api';
+import { MatTableDataSource, MatSort, MatPaginator, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig, MatDialog } from '@angular/material';
 import { AppStateService } from '../../service/app-state.service';
+import { DeleteOrganizerConfirmComponent } from '../delete-organizer-confirm/delete-organizer-confirm.component';
+import { TeamStateService } from '../../service/team-state.service';
 
 @Component({
   selector: 'app-apply-cup-modal',
@@ -14,6 +16,8 @@ export class ApplyCupModalComponent implements OnInit {
     public dialogRef: MatDialogRef<ApplyCupModalComponent>,
     private cupService: CupResourceService,
     public state: AppStateService,
+    private dialog: MatDialog,
+    private teamState: TeamStateService,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   isSearchPressed: boolean = false;
@@ -72,13 +76,17 @@ export class ApplyCupModalComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  deleteOrganizer() {
-    this.cupService.deleteOrganizerUsingPOST(this.data.cup.name, this.organiserNameToDelete).subscribe(
-      (data: any) => {
-
+  deleteOrganizer(member: any, cup: any) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '40%';
+    dialogConfig.data = {member: this.organiserNameToDelete, cup: this.cupData};
+    this.dialog.open(DeleteOrganizerConfirmComponent, dialogConfig).afterClosed().subscribe(
+      result => {
+        this.getData();
       }
     );
-    this.dialogRef.close();
   }
 
   exit() {

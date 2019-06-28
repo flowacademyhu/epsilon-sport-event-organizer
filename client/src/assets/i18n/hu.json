@@ -98,5 +98,6 @@
     "user": {
       "user_not_exist_with_this_name": "Az adott felhasználó nem létezik"
     }
-  }
+  },
+  "OrganizerDeleteConfirm": "Szeretnéd törölni ezt a szervezőt: "
 }
