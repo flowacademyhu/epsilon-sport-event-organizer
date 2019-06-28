@@ -4,6 +4,7 @@
   "Teams": "Teams",
   "Cups": "Cups",
   "Login": "Login",
+  "ProfileText": "Manage you teams and you own cups!",
   "LoginOut": "Logout",
   "Contact": "Contact",
   "ContactEmail": "Email: ",
@@ -72,6 +73,7 @@
   "Volleyball": "Volleyball",
   "SportType": "Sport type",
   "ToTeamAdd": "Succesfully added",
+  "NoMoreOrganizers": "There is only one organizer, you can not delete",
   "validation": {
     "cup": {
       "already_exist": "Cup exists with this name",

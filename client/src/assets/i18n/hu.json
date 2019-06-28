@@ -4,6 +4,7 @@
   "Teams": "Csapatok",
   "Cups": "Kupák",
   "Login": "Belépés",
+  "ProfilText": "Kezeld a csapataid és a kupáid beállításait!",
   "LoginOut": "Kilépés",
   "Contact": "Kapcsolat",
   "ContactEmail": "Email: ",
@@ -72,6 +73,7 @@
   "Volleyball": "Röplabda",
   "SportType": "Sportág",
   "ToTeamAdd": "Sikeresen hozzáadva",
+  "NoMoreOrganizers": "Csak egy szervező van, nem tudsz törölni",
   "validation": {
     "cup": {
       "already_exist": "A kupa már létezik",
