@@ -32,6 +32,7 @@ import { DeleteMemberConfirmComponent } from './shared/component/delete-member-c
 import { DeleteLeaderConfirmComponent } from './shared/component/delete-leader-confirm/delete-leader-confirm.component';
 import { ApproveCupConfirmComponent } from './shared/component/approve-cup-confirm/approve-cup-confirm.component';
 import { DisapproveCupConfirmComponent } from './shared/component/disapprove-cup-confirm/disapprove-cup-confirm.component';
+import { DeleteOrganizerConfirmComponent } from './shared/component/delete-organizer-confirm/delete-organizer-confirm.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -66,7 +67,8 @@ export function getConfig(): Configuration {
     DeleteMemberConfirmComponent,
     DeleteLeaderConfirmComponent,
     ApproveCupConfirmComponent,
-    DisapproveCupConfirmComponent
+    DisapproveCupConfirmComponent,
+    DeleteOrganizerConfirmComponent
   ],
   imports: [
     BrowserModule,
@@ -128,7 +130,8 @@ export function getConfig(): Configuration {
     DeleteTeamConfirmComponent,
     DeleteLeaderConfirmComponent,
     DeleteMemberConfirmComponent,
-    DisapproveCupConfirmComponent
+    DisapproveCupConfirmComponent,
+    DeleteOrganizerConfirmComponent
   ]
 })
 export class AppModule { }

@@ -71,5 +71,6 @@
   "Basketball": "Kosárlabda",
   "Volleyball": "Röplabda",
   "SportType": "Sportág",
-  "ToTeamAdd": "Sikeresen hozzáadva"
+  "ToTeamAdd": "Sikeresen hozzáadva",
+  "OrganizerDeleteConfirm": "Szeretnéd törölni ezt a szervezőt: "
 }

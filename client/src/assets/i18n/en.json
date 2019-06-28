@@ -72,5 +72,6 @@
   "Basketball": "Basketball",
   "Volleyball": "Volleyball",
   "SportType": "Sport type",
-  "ToTeamAdd": "Succesfully added"
+  "ToTeamAdd": "Succesfully added",
+  "OrganizerDeleteConfirm": "Would you like to delete this organizer: "
 }
