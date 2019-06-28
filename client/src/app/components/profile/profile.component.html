@@ -13,7 +13,7 @@
         <div class="mat-elevation-z8">
           <div *ngIf="teamsIAmLeaderInSize > 0" id="team">
           <h3>{{ 'MyTeams' | translate }}</h3>
-          <mat-table [dataSource]="teamsIAmLeaderIn" matSort>
+          <mat-table [dataSource]="teamsIAmLeaderIn" matSort multiTemplateDataRows>
             <ng-container matColumnDef="name">
               <mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'Name' | translate }}</mat-header-cell>
               <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
@@ -24,8 +24,46 @@
               <mat-cell *matCellDef="let element">{{element.company}}</mat-cell>
             </ng-container>
 
-            <mat-header-row *matHeaderRowDef="teamsDefinition"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: teamsDefinition;"></mat-row>
+            <ng-container matColumnDef="actions">
+              <mat-header-cell *matHeaderCellDef></mat-header-cell>
+              <mat-cell *matCellDef="let row; let element">
+                      <a style="cursor: pointer;" (click)="onAdd(state.user, element)"><mat-icon>group_add</mat-icon></a>
+                      <a style="cursor: pointer;" (click)="deleteTeam(element)"><mat-icon>delete_outline</mat-icon></a>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="expandedDetail">
+              <mat-cell class="example-element-row" *matCellDef="let element" [attr.colspan]="myTeamsDefinition.length">
+                <div class="example-element-detail"
+                     [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                <div class="padding-between-columns">
+                  <p class="font-weight-bold">{{ 'Leaders' | translate }}</p>
+                <div *ngFor="let leader of element.leaders">
+                  <div>
+                    {{ leader.googleName }}
+                    <mat-icon *ngIf="element.leaders.length > 1" (click)="deleteLeader(leader, element)" style="cursor: pointer;" id="red">clear</mat-icon>                   
+                  </div>
+                </div>
+              </div>
+                <div *ngIf="element.users.length > 0">
+                    <p class="font-weight-bold">{{ 'Members' | translate }}</p>                 
+                <div *ngFor="let member of element.users">
+                  {{ member.googleName }}
+                   <mat-icon (click)="promoteMember(member.googleName, element.name)" style="cursor: pointer;" id="blue">arrow_upward</mat-icon>                 
+                    <mat-icon (click)="deleteMember(member, element)" style="cursor: pointer;" id="red">clear</mat-icon>                  
+                  </div>
+                </div>
+                </div>
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="myTeamsDefinition"></mat-header-row>
+            <mat-row *matRowDef="let element; columns: myTeamsDefinition;"
+            class="example-element-row"
+      [class.example-expanded-row]="expandedElement === element"
+      (click)="expandedElement = expandedElement === element ? null : element">
+          </mat-row>
+  <mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></mat-row>
           </mat-table>
           <mat-paginator [pageSizeOptions]="[5,10,15]" [pageSize]="5" showFirstLastButtons></mat-paginator>
          </div>
@@ -35,7 +73,7 @@
 
         <div *ngIf="teamsIAmMemberInSize > 0" id="team">
           <h3>{{ 'TeamMemberships' | translate }}</h3>
-          <mat-table [dataSource]="teamsIAmMemberIn" matSort>
+          <mat-table [dataSource]="teamsIAmMemberIn" matSort multiTemplateDataRows>
             <ng-container matColumnDef="name">
               <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'Name' | translate }}</mat-header-cell>
               <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
@@ -46,8 +84,38 @@
               <mat-cell *matCellDef="let element">{{element.company}}</mat-cell>
             </ng-container>
 
+            <ng-container matColumnDef="expandedDetail">
+              <mat-cell class="example-element-row" *matCellDef="let element" [attr.colspan]="teamsDefinition.length">
+                <div class="example-element-detail"
+                     [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                <div class="padding-between-columns">
+                  <p class="font-weight-bold">{{ 'Leaders' | translate }}</p>
+                <div *ngFor="let leader of element.leaders">
+                  <div>
+                    {{ leader.googleName }}
+                  </div>
+                </div>
+              </div>
+                <div *ngIf="element.users.length > 0">
+                    <p class="font-weight-bold">{{ 'Members' | translate }}</p>                 
+                <div *ngFor="let member of element.users">
+                  {{ member.googleName }} <!-- here -->   
+                  <div *ngIf="member.googleName === (state.user.googleName)">
+                    <mat-icon (click)="deleteMember(member, element)" style="cursor: pointer;" id="red">clear</mat-icon>                  
+                  </div>                              
+                  </div>
+                </div>
+                </div>
+              </mat-cell>
+            </ng-container>
+
             <mat-header-row *matHeaderRowDef="teamsDefinition"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: teamsDefinition;"></mat-row>
+            <mat-row *matRowDef="let element; columns: teamsDefinition;"
+            class="example-element-row"
+      [class.example-expanded-row]="expandedElement === element"
+      (click)="expandedElement = expandedElement === element ? null : element">
+          </mat-row>
+  <mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></mat-row>
           </mat-table>
           <mat-paginator [pageSizeOptions]="[5,10,15]" [pageSize]="5" showFirstLastButtons></mat-paginator>
          </div>
@@ -56,16 +124,11 @@
         </div>
     </div>
 
-
-
-
-
-
       <div class="splite bottom">
         <div class="mat-elevation-z8">
           <div *ngIf="listCupDataSize > 0" id="cup">
           <h3>{{ 'MyCups' | translate }}</h3>
-          <mat-table [dataSource]="listCupData" matSort>
+          <mat-table [dataSource]="listCupData" matSort multiTemplateDataRows>
             <ng-container matColumnDef="name">
               <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'Name' | translate }}</mat-header-cell>
               <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
@@ -91,8 +154,55 @@
               <mat-cell *matCellDef="let element">{{element.eventDate}}</mat-cell>
             </ng-container>
 
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            <ng-container matColumnDef="actions">                 
+              <mat-header-cell *matHeaderCellDef>actions</mat-header-cell>
+              <mat-cell *matCellDef="let row; let element">
+                <a style="cursor: pointer;" (click)="applyCup(element)"><mat-icon>add_outline</mat-icon></a>
+                <a style="cursor: pointer;" (click)="deleteCup(element)"><mat-icon>delete_outline</mat-icon></a>
+              </mat-cell>           
+            </ng-container>
+
+            <ng-container matColumnDef="expandedDetail">
+              <mat-cell class="example-element-row" *matCellDef="let element" [attr.colspan]="myDisplayedColumns.length">
+                <div class="example-element-detail"
+                     [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                     <div class="padding-between-cup-columns">
+                        <p class="font-weight-bold">{{ 'Organizers' | translate }}</p>
+                      <div *ngFor="let organizer of element.organizers">                          
+                            {{ organizer.googleName }}                              
+                      </div>
+                       </div>
+                      <div class="padding-between-cup-columns">
+                        <p class="font-weight-bold">{{ 'ApprovedTeams' | translate }}</p>
+                        <div *ngFor="let team of element.approved">
+                            {{ team.name }}
+                        </div>
+                    </div>
+                      <div>
+                          <p class="font-weight-bold">{{ 'AppliedTeams' | translate }}</p>
+                          <div *ngFor="let team of element.teams">
+                            {{ team.name }}
+                              <mat-icon
+                              (click)="approveCup(team, element)"
+                              style="cursor: pointer;"
+                              id="green">done_outline</mat-icon>
+                              <mat-icon
+                              (click)="noApproveCup(team, element)"
+                              style="cursor: pointer;"
+                              id="red">clear</mat-icon>
+                        </div>                                    
+                      </div>
+                </div>
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="myDisplayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let element; columns: myDisplayedColumns;"
+            class="example-element-row"
+      [class.example-expanded-row]="expandedElement === element"
+      (click)="expandedElement = expandedElement === element ? null : element">
+          </mat-row>
+  <mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></mat-row>
           </mat-table>
           <mat-paginator [pageSizeOptions]="[5,10,15]" [pageSize]="5" showFirstLastButtons></mat-paginator>
          </div>
@@ -100,10 +210,9 @@
           <h3>{{ 'NoOrganizer' | translate }}</h3>
         </div>
 
-
         <div *ngIf="listCupDataMembershipSize > 0" id="cup">
           <h3>{{ 'CupMembership' | translate }}</h3>
-          <mat-table [dataSource]="listCupDataMembership" matSort>
+          <mat-table [dataSource]="listCupDataMembership" matSort multiTemplateDataRows>
             <ng-container matColumnDef="name">
               <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'Name' | translate }}</mat-header-cell>
               <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
@@ -129,8 +238,39 @@
               <mat-cell *matCellDef="let element">{{element.eventDate}}</mat-cell>
             </ng-container>
 
+            <ng-container matColumnDef="expandedDetail">
+              <mat-cell class="example-element-row" *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+                <div class="example-element-detail"
+                     [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                     <div class="padding-between-columns">
+                        <p class="font-weight-bold">{{ 'Organizers' | translate }}</p>
+                      <div *ngFor="let organizer of element.organizers">                          
+                            {{ organizer.googleName }}                              
+                      </div>
+                       </div>
+                      <div class="padding-between-columns">
+                        <p class="font-weight-bold">{{ 'ApprovedTeams' | translate }}</p>
+                        <div *ngFor="let team of element.approved">
+                            {{ team.name }}
+                        </div>
+                    </div>
+                      <div>
+                          <p class="font-weight-bold">{{ 'AppliedTeams' | translate }}</p>
+                          <div *ngFor="let team of element.teams">
+                            {{ team.name }}
+                        </div>                                    
+                      </div>
+                </div>
+              </mat-cell>
+            </ng-container>
+
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            <mat-row *matRowDef="let element; columns: displayedColumns;"
+            class="example-element-row"
+      [class.example-expanded-row]="expandedElement === element"
+      (click)="expandedElement = expandedElement === element ? null : element">
+          </mat-row>
+  <mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></mat-row>
           </mat-table>
           <mat-paginator [pageSizeOptions]="[5,10,15]" [pageSize]="5" showFirstLastButtons></mat-paginator>
         </div>
