@@ -38,7 +38,7 @@
   "EndDateTime": "EndDateTime",
   "CupName": "Cup Name",
   "Place": "Place",
-  "RegistrationEndTime": "RegistrationEndTime",
+  "RegistrationEnd": "Registration end",
   "startDateTime": "startDateTime",
   "Name": "Name",
   "Leaders": "Leaders",
