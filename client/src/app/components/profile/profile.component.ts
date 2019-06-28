@@ -142,6 +142,7 @@ export class ProfileComponent implements OnInit {
     this.dialog.open(DeleteMemberConfirmComponent, dialogConfig).afterClosed().subscribe(
       result => {
         this.getTeamsAsLeader();
+        this.getTeamsAsMember();
       }
     );
   }

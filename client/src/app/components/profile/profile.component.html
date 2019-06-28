@@ -71,8 +71,6 @@
           <h3>{{ 'NoLeader' | translate }}</h3>
         </div>
 
-<!-- KÉÉÉSSSZZZ METÓDUS KELL MÉG -->
-
         <div *ngIf="teamsIAmMemberInSize > 0" id="team">
           <h3>{{ 'TeamMemberships' | translate }}</h3>
           <mat-table [dataSource]="teamsIAmMemberIn" matSort multiTemplateDataRows>
@@ -101,7 +99,10 @@
                 <div *ngIf="element.users.length > 0">
                     <p class="font-weight-bold">{{ 'Members' | translate }}</p>                 
                 <div *ngFor="let member of element.users">
-                  {{ member.googleName }}                                  
+                  {{ member.googleName }} <!-- here -->   
+                  <div *ngIf="member.googleName === (state.user.googleName)">
+                    <mat-icon (click)="deleteMember(member, element)" style="cursor: pointer;" id="red">clear</mat-icon>                  
+                  </div>                              
                   </div>
                 </div>
                 </div>
@@ -122,11 +123,6 @@
           <h3>{{ 'NoMember' | translate }}</h3>
         </div>
     </div>
-
-
-
-<!-- KÉÉÉSSSSZZ -->
-
 
       <div class="splite bottom">
         <div class="mat-elevation-z8">
@@ -213,7 +209,6 @@
          <div *ngIf="listCupDataSize === 0" id="cup">
           <h3>{{ 'NoOrganizer' | translate }}</h3>
         </div>
-<!-- KÉÉÉSSZZZZ -->
 
         <div *ngIf="listCupDataMembershipSize > 0" id="cup">
           <h3>{{ 'CupMembership' | translate }}</h3>
