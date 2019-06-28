@@ -129,3 +129,75 @@ h3 {
 #profile:hover {
   width: 90%;
 }
+
+#red {
+  color: red;
+}
+
+#green {
+  color: green;
+}
+
+#blue {
+  color: blue;
+}
+
+table {
+  width: 100%;
+} 
+
+mat-row.example-detail-row {
+  height: fit-content;
+}
+
+mat-row.example-element-row:not(.example-expanded-row):hover {
+  background: #777;
+}
+
+mat-row.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.example-element-diagram {
+  min-width: 80px;
+  border: 2px solid black;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  height: 104px;
+}
+
+.example-element-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.example-element-description {
+  padding: 16px;
+}
+
+.example-element-description-attribution {
+  opacity: 0.5;
+}
+
+.disabled {
+  visibility: hidden;
+}
+
+.padding-between-columns {
+  padding-right: 200px;
+}
+
+.padding-between-cup-columns {
+  padding-right: 100px;
+}
