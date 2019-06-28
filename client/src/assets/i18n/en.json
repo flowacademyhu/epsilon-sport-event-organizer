@@ -98,5 +98,6 @@
     "user": {
       "user_not_exist_with_this_name": "Given user does not exist"
     }
-  }
+  },
+  "OrganizerDeleteConfirm": "Would you like to delete this organizer: "
 }
