@@ -6,6 +6,7 @@ import hu.flowacademy.epsilon.sport_event_organizer.model.AuthProvider;
 import hu.flowacademy.epsilon.sport_event_organizer.model.Team;
 import hu.flowacademy.epsilon.sport_event_organizer.model.User;
 import hu.flowacademy.epsilon.sport_event_organizer.repository.TeamRepository;
+import hu.flowacademy.epsilon.sport_event_organizer.validation.TeamValidation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,9 +29,11 @@ public class TeamService {
     @Autowired
     private MailService mailService;
 
+    @Autowired
+    private TeamValidation teamValidation;
 
     public Team getTeamByName(String teamName) {
-        return teamRepository.findByName(teamName).orElseThrow(() -> new TeamNotFoundException(teamName));
+        return teamRepository.findByName(teamName).orElseThrow(() -> new TeamNotFoundException());
     }
 
     public List<Team> getAllNonDeletedTeams() {
@@ -49,21 +52,22 @@ public class TeamService {
     }
 
     public Team save(Team team) {
+        teamValidation.validateTeamNameBeforeSave(team);
         User currentUser = userService.getCurrentUser();
         team.setDeleted(false);
         teamRepository.save(team);
         currentUser.addTeamLeader(team);
         User user = userService.save(currentUser);
         team.addLeader(user);
+        teamValidation.validateTeamLeaderBeforeSave(team);
         return team;
     }
 
     public Team update(Team team) {
-        Team previousTeam = teamRepository.findByName(team.getName()).orElseThrow(() -> new TeamNotFoundException(team.getName()));
+        Team previousTeam = teamRepository.findByName(team.getName()).orElseThrow(() -> new TeamNotFoundException());
         previousTeam.setName(team.getName());
         previousTeam.setCompany(team.getCompany());
         previousTeam.setImageUrl(team.getImageUrl());
-
         return teamRepository.save(previousTeam);
     }
 
@@ -74,7 +78,8 @@ public class TeamService {
 
     public Team putMember(String teamName, String googleName) {
         User userToAdd = userService.findUserByGoogleName(googleName);
-        Team team = teamRepository.findByName(teamName).orElseThrow(() -> new TeamNotFoundException(teamName));
+        Team team = teamRepository.findByName(teamName).orElseThrow(() -> new TeamNotFoundException());
+        teamValidation.validateUserBeforePutMember(userToAdd, team);
         userToAdd.addTeamMember(team);
         userService.save(userToAdd);
         team.addMember(userToAdd);
@@ -85,7 +90,7 @@ public class TeamService {
 
     public Team deleteMember(String teamName, String googleName) {
         User userToRemove = userService.findUserByGoogleName(googleName);
-        Team team = teamRepository.findByName(teamName).orElseThrow(() -> new TeamNotFoundException(teamName));
+        Team team = teamRepository.findByName(teamName).orElseThrow(() -> new TeamNotFoundException());
         userToRemove.deleteTeamMember(team);
         userService.save(userToRemove);
         team.deleteMember(userToRemove);
@@ -103,7 +108,7 @@ public class TeamService {
 
     public Team putLeader(String teamName, String googleName) {
         User userToAdd = userService.findUserByGoogleName(googleName);
-        Team team = teamRepository.findByName(teamName).orElseThrow(() -> new TeamNotFoundException(teamName));
+        Team team = teamRepository.findByName(teamName).orElseThrow(() -> new TeamNotFoundException());
         if (team.getUsers().contains(userToAdd)) {
             team.getUsers().remove(userToAdd);
             userToAdd.deleteTeamMember(team);
@@ -117,7 +122,7 @@ public class TeamService {
 
     public Team deleteLeader(String teamName, String googleName) {
         User userToAdd = userService.findUserByGoogleName(googleName);
-        Team team = teamRepository.findByName(teamName).orElseThrow(() -> new TeamNotFoundException(teamName));
+        Team team = teamRepository.findByName(teamName).orElseThrow(() -> new TeamNotFoundException());
         userToAdd.deleteTeamLeader(team);
         userService.save(userToAdd);
         team.deleteLeader(userToAdd);
@@ -130,10 +135,11 @@ public class TeamService {
     }
 
 
-    public Team addGuestMemberToTeam(String teamName, String teamLeader, String name, String email) {
-        Team team = teamRepository.findByName(teamName).orElseThrow(() -> new TeamNotFoundException(teamName));
+    public Team addGuestMemberToTeam(String teamName, String teamLeader, String userName, String email) {
+        teamValidation.validateGuestBeforePutMember(userName, email);
+        Team team = teamRepository.findByName(teamName).orElseThrow(() -> new TeamNotFoundException());
         User user = new User();
-        user.setGoogleName(name);
+        user.setGoogleName(userName);
         user.setProvider(AuthProvider.local);
         user.setEmail(email);
         user.addTeamMember(team);

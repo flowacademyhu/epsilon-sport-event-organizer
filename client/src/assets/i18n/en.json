@@ -61,8 +61,7 @@
   "NoCupMember": "No upcoming cups - as team member",
   "ApprovedTeams": "Approved teams",
   "AppliedTeams": "Applied teams",
-  "Organizers": "Organizers", 
-  "MyTeams": "My teams",
+  "Organizers": "Organizers",
   "ApplyTeams": "Apply teams",
   "AddOrganizer": "Add Organizer",
   "DeleteOrganizer": "DeleteOrganizer",
@@ -72,5 +71,32 @@
   "Basketball": "Basketball",
   "Volleyball": "Volleyball",
   "SportType": "Sport type",
-  "ToTeamAdd": "Succesfully added"
+  "ToTeamAdd": "Succesfully added",
+  "validation": {
+    "cup": {
+      "already_exist": "Cup exists with this name",
+      "event_date_missing": "Event date is missing",
+      "reg_date_missing": "Registration date is missing",
+      "reg_date_is_after_event": "Registration date must be earlier than event date",
+      "place_missing": "Place must be given",
+      "event_date_is_in_the_past": "The event date must be a future date",
+      "reg_date_is_in_the_past": "The registration date can not be in the past",
+      "team_is_already_applied": "Team has already been applied to this cup",
+      "team_is_already_approved": "Team has already been approved",
+      "user_is_already_a_organizer": "Given user is an organizer"
+    },
+    "team": {
+      "team_name_missing": "Team name must be given",
+      "team_name_already_exist": "Team already exists with this name",
+      "team_company_missing": "Company name must be given",
+      "user_is_already_a_member": "Given user is in the team", 
+      "user_name_is_missing": "Guest name must be given", 
+      "user_email_is_missing": "Guest email must be given",
+      "user_name_is_forbidden": "Guest name is taken",
+      "user_is_already_leader": "Given user is the leader of the team"
+    },
+    "user": {
+      "user_not_exist_with_this_name": "Given user does not exist"
+    }
+  }
 }
