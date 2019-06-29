@@ -33,6 +33,7 @@ import { DeleteLeaderConfirmComponent } from './shared/component/delete-leader-c
 import { ApproveCupConfirmComponent } from './shared/component/approve-cup-confirm/approve-cup-confirm.component';
 import { DisapproveCupConfirmComponent } from './shared/component/disapprove-cup-confirm/disapprove-cup-confirm.component';
 import { DeleteOrganizerConfirmComponent } from './shared/component/delete-organizer-confirm/delete-organizer-confirm.component';
+import { environment } from 'src/environments/environment';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -42,7 +43,7 @@ export function getConfig(): Configuration {
   return new Configuration(<ConfigurationParameters>{
     apiKeys: {},
     withCredentials: true,
-    basePath: 'http://localhost:8080'}
+    basePath: environment.apiUrl}
     );
 }
 
